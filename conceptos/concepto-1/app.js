@@ -39,11 +39,20 @@
   function icono(id, extra) { return '<svg class="ico ' + (extra || '') + '" aria-hidden="true"><use href="#' + id + '"/></svg>'; }
   var CHECK = '<span class="chip-marca" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4.2 8.4l2.5 2.4 5.1-5.3"/></svg></span>';
   function porConfirmar(texto) { return '<span class="por-confirmar">' + esc(texto || 'dato a confirmar') + '</span>'; }
+  function nw(t) { return '<span class="nw">' + t + '</span>'; }
+  /* Presentaciones con punto de miles, como en el empaque: «1.000 g» */
+  function miles(c) { return String(c).replace(/^(\d)(\d{3})(?=\s)/, '$1.$2'); }
 
   var MARCAS = {}; C.marcas.forEach(function (m) { MARCAS[m.id] = m; });
   var CATS = {}; C.categorias.forEach(function (c) { CATS[c.id] = c; });
   var REGS = {}; C.calidad.registros.forEach(function (r) { REGS[r.numero] = r; });
   var PRODS = C.productos;
+  /* Una mezcla láctea nunca se rotula como «leche»: el nombre de trabajo del catálogo se muestra con su tipo delante.
+     El nombre comercial lo confirma el cliente. */
+  var NOMBRES_MEZCLA = { 'cafe-con-leche-panela': 'Mezcla láctea con café y panela' };
+  PRODS.forEach(function (p) {
+    if (NOMBRES_MEZCLA[p.slug]) { p.nombre_catalogo = p.nombre; p.nombre = NOMBRES_MEZCLA[p.slug]; p.nombre_por_confirmar = true; }
+  });
   var TIPO_CORTO = { 'leche-entera': 'Entera', 'leche-descremada': 'Descremada', 'leche-azucarada': 'Azucarada', 'mezcla-lactea': 'Mezcla láctea', 'alimento-lacteo': 'Alimento lácteo' };
   var USO_CORTO = { hogar: 'Hogar', tienda: 'Tienda', panaderia: 'Panadería', industria: 'Industria', institucional: 'Institucional' };
   var DIM = {
@@ -60,12 +69,16 @@
   function referencia(p, pr) { return nombreBase(p) + ' ' + conUnidad(pr.contenido); }
   function esMezcla(p) { return p.categoria === 'mezcla-lactea'; }
 
-  /* Presentación por defecto: la que coincide con la foto del producto, si no la primera confirmada */
+  /* Presentación por defecto: la más completa (confirmada, con EAN y rinde); si no, la confirmada con foto; si no, la primera confirmada.
+     La foto de otra presentación se muestra como referencia, rotulada. */
   function presPorDefecto(p) {
-    if (!p.presentaciones.length) return null;
-    for (var i = 0; i < p.presentaciones.length; i++) if (p.presentaciones[i].imagen && p.presentaciones[i].imagen === p.imagen) return p.presentaciones[i];
-    for (var j = 0; j < p.presentaciones.length; j++) if (p.presentaciones[j].estado === 'confirmado') return p.presentaciones[j];
-    return p.presentaciones[0];
+    var ps = p.presentaciones;
+    if (!ps.length) return null;
+    var conf = ps.filter(function (x) { return x.estado === 'confirmado'; });
+    var completas = conf.filter(function (x) { return x.ean && x.rinde; });
+    if (completas.length) return completas.sort(function (a, b) { return b.gramos - a.gramos; })[0];
+    for (var i = 0; i < conf.length; i++) if (conf[i].imagen && conf[i].imagen === p.imagen) return conf[i];
+    return conf[0] || ps[0];
   }
   /* Imagen que se muestra para una presentación: la propia o la del producto como referencia */
   function imagenDe(p, pr) {
@@ -77,10 +90,9 @@
     var tipo = dueña && esBulto(dueña) ? 'bulto' : 'bolsa';
     var alt = nombreBase(p) + ', ' + tipo + (dueña ? ' de ' + conUnidad(dueña.contenido) : '');
     if (archivo === 'cantaro-azucarada-900g-380g.webp') alt = 'The Cántaro Azucarada, bolsas de 900 g y 380 g';
-    return {
-      src: 'img/r-' + archivo, w: d[0], h: d[1], alt: alt,
-      referencia: !!(pr && !pr.imagen && dueña && dueña !== pr), de: dueña ? dueña.contenido : null
-    };
+    var ref = !!(pr && !pr.imagen && dueña && dueña !== pr);
+    if (ref) alt += ', foto de referencia de la presentación de ' + conUnidad(pr.contenido);
+    return { src: 'img/r-' + archivo, w: d[0], h: d[1], alt: alt, referencia: ref, de: dueña ? dueña.contenido : null };
   }
 
   function rindeDe(p, pr) {
@@ -116,7 +128,7 @@
     return p.presentaciones.map(function (pr) {
       var k = presKey(pr.contenido);
       var ast = pr.estado === 'por_confirmar' ? '<span class="ast" aria-hidden="true">*</span><span class="sr"> (dato a confirmar)</span>' : '';
-      return '<label class="chip"><input type="radio" name="' + nombre + '" value="' + k + '"' + (sel && presKey(sel.contenido) === k ? ' checked' : '') + '><span class="chip-cara">' + CHECK + esc(conUnidad(pr.contenido)) + ast + '</span></label>';
+      return '<label class="chip"><input type="radio" name="' + nombre + '" value="' + k + '"' + (sel && presKey(sel.contenido) === k ? ' checked' : '') + '><span class="chip-cara">' + CHECK + esc(conUnidad(miles(pr.contenido))) + ast + '</span></label>';
     }).join('');
   }
   function tieneAsterisco(p) { return p.presentaciones.some(function (x) { return x.estado === 'por_confirmar'; }); }
@@ -194,21 +206,42 @@
     }).filter(Boolean);
   }
 
-  var deshacerPendiente = null, avisoTimer = null;
-  function aviso(texto, deshacer) {
-    var el = $('#aviso');
-    $('#aviso-texto').textContent = texto;
-    deshacerPendiente = deshacer || null;
-    $('#aviso-deshacer').hidden = !deshacer;
-    el.hidden = false; el.classList.remove('entra'); void el.offsetWidth; el.classList.add('entra');
-    anunciar(texto + (deshacer ? ' Puede deshacer desde el aviso.' : ''));
+  var deshacerPendiente = null, avisoTimer = null, avisoPausa = false, avisoActivo = null;
+  var AVISO_MS = 10000;
+  function cerrarAviso() {
     window.clearTimeout(avisoTimer);
-    avisoTimer = window.setTimeout(function () { el.hidden = true; }, 6500);
+    ['#aviso', '#panel-aviso'].forEach(function (s) { var el = $(s); if (el) el.hidden = true; });
+    avisoActivo = null; deshacerPendiente = null;
   }
-  $('#aviso-deshacer').addEventListener('click', function () {
-    if (deshacerPendiente) { deshacerPendiente(); deshacerPendiente = null; }
-    $('#aviso').hidden = true;
-    anunciar('Cambio deshecho.');
+  function programarCierre() {
+    window.clearTimeout(avisoTimer);
+    avisoTimer = window.setTimeout(function () { if (!avisoPausa) cerrarAviso(); else programarCierre(); }, AVISO_MS);
+  }
+  function aviso(texto, deshacer) {
+    cerrarAviso();
+    var enPanel = !$('#panel-cotizacion').hidden;
+    var el = $(enPanel ? '#panel-aviso' : '#aviso');
+    $(enPanel ? '#panel-aviso-texto' : '#aviso-texto').textContent = texto;
+    deshacerPendiente = deshacer || null;
+    $('[data-deshacer]', el).hidden = !deshacer;
+    el.hidden = false; el.classList.remove('entra'); void el.offsetWidth; el.classList.add('entra');
+    avisoActivo = el; avisoPausa = false;
+    anunciar(texto + (deshacer ? ' Puede deshacer desde el aviso.' : ''));
+    programarCierre();
+  }
+  ['#aviso', '#panel-aviso'].forEach(function (sel) {
+    var el = $(sel);
+    el.addEventListener('mouseenter', function () { avisoPausa = true; });
+    el.addEventListener('mouseleave', function () { avisoPausa = false; });
+    el.addEventListener('focusin', function () { avisoPausa = true; });
+    el.addEventListener('focusout', function () { avisoPausa = false; });
+    $('[data-deshacer]', el).addEventListener('click', function () {
+      var fn = deshacerPendiente;
+      cerrarAviso();
+      if (fn) fn();
+      anunciar('Cambio deshecho.');
+      if (sel === '#panel-aviso') { var t = $('#panel-titulo'); t.setAttribute('tabindex', '-1'); t.focus(); }
+    });
   });
 
   function fijarQ(items) { Q.items = items; guardarQ(); refrescarCotizacion(); }
@@ -294,8 +327,7 @@
     return '<ul class="lineas">' + Q.items.map(function (i) {
       var L = lineaInfo(i), im = imagenDe(L.p, L.pr);
       var id = prefijo + '-' + i.s + '-' + i.p;
-      return '<li class="linea" data-linea="' + i.s + '|' + i.p + '">' +
-        (im ? '<img src="' + im.src + '" width="' + im.w + '" height="' + im.h + '" alt="">' : '<span class="linea-img-vacia"><svg width="28" height="38" viewBox="0 0 48 64" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><use href="#p-' + (esBulto(L.pr) ? 'bulto' : 'bolsa') + '"/></svg></span>') +
+      return '<li class="linea" data-linea="' + i.s + '|' + i.p + '">' + miniEscena(L.p, L.pr) +
         '<p class="linea-nombre"><a href="#producto-' + i.s + '~' + i.p + '">' + esc(L.ref) + '</a></p>' +
         '<div class="linea-control">' +
           '<span class="paso"><button type="button" data-paso="-1" aria-label="Quitar una ' + L.v.unidad + ' de ' + esc(L.ref) + '"' + (i.n <= 1 ? ' disabled' : '') + '>' + icono('i-menos') + '</button>' +
@@ -307,6 +339,12 @@
           '<button class="linea-quitar" type="button" data-quitar-linea>Quitar<span class="sr"> ' + esc(L.ref) + '</span></button>' +
         '</div></li>';
     }).join('') + '</ul>';
+  }
+  /* Miniatura del empaque sobre su franja con arco y sombra de contacto (cotización y comparador) */
+  function miniEscena(p, pr) {
+    var im = imagenDe(p, pr);
+    return '<span class="linea-escena" aria-hidden="true">' + (im ? '<img src="' + im.src + '" width="' + im.w + '" height="' + im.h + '" alt="">'
+      : '<span class="linea-img-vacia"><svg width="28" height="38" viewBox="0 0 48 64" fill="none" stroke="currentColor" stroke-width="2"><use href="#p-' + (pr && esBulto(pr) ? 'bulto' : 'bolsa') + '"/></svg></span>') + '</span>';
   }
   function totalesHTML() {
     var t = totalesQ();
@@ -363,6 +401,7 @@
   }
   delegarLineas($('#panel-cuerpo'));
   function abrirPanel(origen) {
+    cerrarAviso();
     panelOrigen = origen || document.activeElement;
     pintarPanel();
     panel.hidden = false; velo.hidden = false;
@@ -373,6 +412,7 @@
   }
   function cerrarPanel(devolver) {
     if (panel.hidden) return;
+    if (avisoActivo && avisoActivo.id === 'panel-aviso') cerrarAviso();
     panel.hidden = true; velo.hidden = true;
     document.documentElement.style.overflow = '';
     if (devolver !== false && panelOrigen && panelOrigen.focus) panelOrigen.focus();
@@ -531,6 +571,7 @@
   /* Menú móvil */
   var menu = $('#menu-movil'), btnMenu = $('#btn-menu');
   function abrirMenu() {
+    cerrarAviso();
     menu.hidden = false; menu.classList.remove('abierto'); void menu.offsetWidth; menu.classList.add('abierto');
     btnMenu.setAttribute('aria-expanded', 'true');
     document.documentElement.style.overflow = 'hidden';
@@ -586,9 +627,16 @@
     var partes = h.split('~'), base = partes[0], params = partes.slice(1);
     if (base.indexOf('producto-') === 0 && base !== 'productos') return { vista: 'producto', slug: base.slice(9), params: params, hash: h };
     if (base.indexOf('articulo-') === 0) return { vista: 'articulo', slug: base.slice(9), params: params, hash: h };
-    var conocidas = ['inicio', 'productos', 'nosotros', 'calidad', 'por-que-elegirnos', 'distribucion', 'donde-comprar', 'cotizar', 'marca-propia', 'recursos', 'contacto', 'privacidad', 'terminos'];
+    var conocidas = ['inicio', 'productos', 'comparar', 'nosotros', 'calidad', 'por-que-elegirnos', 'distribucion', 'donde-comprar', 'cotizar', 'marca-propia', 'recursos', 'contacto', 'privacidad', 'terminos'];
     if (conocidas.indexOf(base) !== -1) return { vista: base, params: params, hash: h };
-    if (document.getElementById(base)) return { vista: 'ancla', id: base, hash: h };
+    /* Un hash igual a un id solo es un ancla si ese elemento está en la vista visible (o fuera de main) */
+    var el = document.getElementById(base);
+    if (el) {
+      var ini = $('#vista-inicio'), vis = $('#vista');
+      if (ini.contains(el)) return !ini.hidden && rutaActual ? { vista: 'ancla', id: base, hash: h } : { vista: 'inicio', params: [], hash: h, ancla: base };
+      if (vis.contains(el)) return !vis.hidden ? { vista: 'ancla', id: base, hash: h } : { vista: 'no-existe', params: [], hash: h };
+      if (!$('main').contains(el)) return rutaActual ? { vista: 'ancla', id: base, hash: h } : { vista: 'inicio', params: [], hash: h, ancla: base };
+    }
     return { vista: 'no-existe', params: [], hash: h };
   }
 
@@ -620,7 +668,9 @@
       if (res.montar) res.montar(vista, r);
     }
     marcarNavegacion(r.vista);
-    if (!primera || location.hash) window.scrollTo(0, 0);
+    var destino = r.ancla && document.getElementById(r.ancla);
+    if (destino) destino.scrollIntoView({ block: 'start' });
+    else if (!primera || location.hash) window.scrollTo(0, 0);
   }
 
   function slugCompartido(anterior, nueva) {
@@ -628,9 +678,9 @@
     if (anterior && anterior.vista === 'producto' && nueva.vista === 'productos') return anterior.slug;
     return null;
   }
+  /* Solo el packshot es elemento compartido; el nombre de la ficha entra con su propio recorte */
   function nombrar(slug, activo) {
-    $$('[data-vt-pack="' + slug + '"]').slice(0, 1).forEach(function (el) { el.style.viewTransitionName = activo ? 'pack' : ''; });
-    $$('[data-vt-nombre="' + slug + '"]').slice(0, 1).forEach(function (el) { el.style.viewTransitionName = activo ? 'nombre' : ''; });
+    $$('[data-vt-pack="' + slug + '"]').filter(function (el) { return el.offsetParent !== null; }).slice(0, 1).forEach(function (el) { el.style.viewTransitionName = activo ? 'pack' : ''; });
   }
 
   function navegar() {
@@ -639,9 +689,9 @@
     if (rutaActual && rutaActual.vista === 'productos' && r.vista === 'productos') { aplicarRutaCatalogo(r); rutaActual = r; return; }
     if (rutaActual && rutaActual.vista === 'producto' && r.vista === 'producto' && rutaActual.slug === r.slug && fichaViva) { fichaViva.elegirDesdeRuta(r); rutaActual = r; return; }
     var anterior = rutaActual;
-    cerrarPanel(false); cerrarMenu(false); cerrarHojaFiltros(false);
+    cerrarPanel(false); cerrarMenu(false); cerrarHojaFiltros(false); cerrarAviso();
     var puede = anterior && document.startViewTransition && !reducido();
-    if (!puede) { rutaActual = r; render(r, !anterior); enfocarH1(); return; }
+    if (!puede) { rutaActual = r; render(r, !anterior); if (!r.ancla) enfocarH1(); return; }
     var slug = slugCompartido(anterior, r);
     compartiendo = slug;
     if (slug) nombrar(slug, true);
@@ -651,7 +701,8 @@
       render(r);
       if (slug) nombrar(slug, true);
     });
-    t.updateCallbackDone.then(enfocarH1, enfocarH1);
+    var foco = function () { if (!r.ancla) enfocarH1(); };
+    t.updateCallbackDone.then(foco, foco);
     var limpiar = function () { compartiendo = null; if (slug) nombrar(slug, false); };
     t.finished.then(limpiar, limpiar);
   }
@@ -1044,6 +1095,7 @@
   function abrirHojaFiltros(origen) {
     var v = catalogoVivo && catalogoVivo.vista; if (!v) return;
     var hoja = $('.hoja-filtros', v);
+    cerrarAviso();
     hojaOrigen = origen;
     $('[data-filtros-hoja]', v).appendChild(catalogoVivo.form);
     hoja.hidden = false; hoja.classList.remove('abierto'); void hoja.offsetWidth; hoja.classList.add('abierto');
@@ -1484,9 +1536,9 @@
   /* La secuencia corre sobre un arco de paralelo: y = 4·x·(1 − x) */
   function recorridoHTML(items, tipo) {
     var n = items.length;
-    return '<div class="recorrido-marco recorrido-' + tipo + '"><svg class="recorrido-arco" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 0Q50 20 100 0"/></svg>' +
+    return '<div class="recorrido-marco recorrido-' + tipo + '" style="--n:' + n + '"><svg class="recorrido-arco" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 0Q50 20 100 0"/></svg>' +
       '<ol class="recorrido" style="--n:' + n + '">' + items.map(function (it, i) {
-        var x = i / n, y = 4 * x * (1 - x);
+        var x = n > 1 ? i / (n - 1) : 0, y = 4 * x * (1 - x);
         var marca = tipo === 'anios'
           ? '<span class="recorrido-punto" aria-hidden="true"></span><p class="recorrido-anio">' + esc(it.marca) + '</p>'
           : '<span class="recorrido-num" aria-hidden="true">' + (i + 1) + '</span>';
@@ -1501,7 +1553,7 @@
     return '<div class="escena marca-escena' + (clase ? ' ' + clase : '') + '"><span class="franja' + (becerrita ? ' filete-becerrita' : '') + '" aria-hidden="true"></span><span class="brillo" aria-hidden="true"></span><div class="grupo">' + items.join('') + '</div></div>';
   }
   function marcoToma(codigo, texto, pictograma, clase, ratio) {
-    return '<figure class="marco' + (clase ? ' ' + clase : '') + '"><div class="marco-area"' + (ratio ? ' style="--marco-ratio:' + ratio + '"' : '') + '><svg viewBox="' + (pictograma === 'p-retratos' ? '0 0 72 40' : '0 0 48 64') + '" aria-hidden="true"><use href="#' + pictograma + '"/></svg></div><figcaption><span class="codigo-toma">' + codigo + '</span><span>' + texto + '</span></figcaption></figure>';
+    return '<figure class="marco' + (clase ? ' ' + clase : '') + '"><div class="marco-area' + (/marco-ancho/.test(clase || '') ? ' arco-sup arco-inf' : '') + '"' + (ratio ? ' style="--marco-ratio:' + ratio + '"' : '') + '><svg viewBox="' + (pictograma === 'p-retratos' ? '0 0 72 40' : '0 0 48 64') + '" aria-hidden="true"><use href="#' + pictograma + '"/></svg></div><figcaption><span class="codigo-toma">' + codigo + '</span><span>' + texto + '</span></figcaption></figure>';
   }
   function numeroSolicitud() { return String(Math.floor(Date.now() / 60000) % 10000).padStart(4, '0'); }
 
@@ -1659,20 +1711,30 @@
         '<div class="gente-lado"><figure><div class="ventana"><img src="img/equipo-evento-a.webp" width="606" height="404" alt="Las mujeres del equipo de Mundilácteos con camisetas de La Becerrita, en la celebración de fin de año" loading="lazy"></div>' +
           '<figcaption class="foto-pie">Parte del equipo en la celebración de fin de año. Foto provisional: los retratos R01 a R06, con nombre y cargo, están por producir.</figcaption></figure></div></div>' +
       '</div></section>' +
-      '<section class="bloque" aria-labelledby="h2-familia"><div class="contenedor dos-col cinco-siete centrado">' +
-        marcoToma('R06', 'Retrato de la familia fundadora en la planta, por producir, con autorización de uso de imagen.', 'p-retratos', '', '4 / 3') +
+      '<section class="bloque" aria-labelledby="h2-familia"><div class="contenedor dos-col siete-cinco centrado">' +
         '<div class="cuerpo-texto">' + titulo2('h2-familia', 'Una empresa de familia.') +
           '<p>Mundilácteos es una empresa familiar. En este espacio sus fundadores contarán, con su nombre y una cita firmada, por qué empezaron a hacer leche en polvo en Turbaco. ' + porConfirmar('texto por entregar') + '</p>' +
           '<p class="nota">No publicamos testimonios ni citas sin la autorización de quien las firma.</p></div>' +
+        '<div class="familia-marco">' + marcoToma('R06', 'Retrato de la familia fundadora en la planta, por producir, con autorización de uso de imagen.', 'p-retratos', '', '4 / 5') + '</div>' +
       '</div></section>' +
+      '<section class="bloque" aria-labelledby="h2-valores"><div class="contenedor">' + titulo2('h2-valores', 'Lo que nos guía.', 'bloque-titulo') +
+        '<p class="bloque-intro">Tres compromisos, cada uno con la forma de comprobarlo. ' + porConfirmar('redacción por validar con la empresa') + '</p>' +
+        '<ul class="valores">' +
+          '<li><h3>Decir de dónde viene.</h3><p>Lo que vendemos se fabrica o se empaca en nuestra planta de Europark, en Turbaco. La dirección está en esta página y en cada empaque.</p><a class="enlace" href="' + MAPS + '" target="_blank" rel="noopener">Cómo llegar<span class="sr">, abre Google Maps</span></a></li>' +
+          '<li><h3>Dar la cara.</h3><p>Cada pedido tiene una persona que le responde por WhatsApp o por teléfono, con su nombre y su cargo.</p><a class="enlace" href="#contacto">Asesores por zona</a></li>' +
+          '<li><h3>Mostrar el registro.</h3><p>Cada producto lleva su registro sanitario vigente, con el número a la vista para que usted lo verifique en el INVIMA.</p><a class="enlace" href="#calidad">Ver los registros</a></li>' +
+        '</ul></div></section>' +
       '<section class="bloque" aria-labelledby="h2-planta-n"><div class="contenedor dos-col siete-cinco">' +
         '<div class="direccion-bloque">' + titulo2('h2-planta-n', 'Visítenos en Europark.') +
           '<address><strong>Parque Industrial Europark</strong>' + esc(DIRECCION_TXT) + '</address>' +
-          '<dl class="ficha-datos-lista"><dt>Coordenadas</dt><dd>' + porConfirmar('dato a confirmar con GPS') + '</dd><dt>Atención</dt><dd>' + esc(e.horario.valor) + ' ' + porConfirmar() + '</dd></dl>' +
+          '<p>Si compra en volumen, venga a conocer la planta: coordine la visita con el área comercial y le indicamos la fecha y quién le recibe.</p>' +
           '<div class="acciones"><a class="btn btn-primario" href="#contacto~visita">Solicitar visita a la planta</a>' +
             '<a class="btn btn-secundario" href="' + MAPS + '" target="_blank" rel="noopener">' + icono('i-lugar') + 'Cómo llegar<span class="sr">, abre Google Maps</span></a>' +
             btnCopiar(DIRECCION_TXT, 'Copiar dirección', 'Dirección copiada') + '</div></div>' +
-        marcoToma('P06', 'Fachada de la planta con la señal del parque industrial, por fotografiar.', 'p-bulto', '', '3 / 2') +
+        '<div class="planta-ficha"><h3>La planta en datos</h3><dl class="ficha-datos-lista">' +
+          '<dt>Parque</dt><dd>Industrial Europark, Bodega 28</dd><dt>Lote</dt><dd>2A–2B</dd><dt>Vía</dt><dd>Km 1 vía a Turbaco</dd>' +
+          '<dt>Municipio</dt><dd>Turbaco, Bolívar</dd><dt>Coordenadas</dt><dd>' + porConfirmar('dato a confirmar con GPS') + '</dd>' +
+          '<dt>Atención</dt><dd>' + esc(e.horario.valor) + ' ' + porConfirmar() + '</dd><dt>Teléfono</dt><dd><a href="' + TEL_HREF + '">' + TEL + '</a></dd></dl></div>' +
       '</div></section>' +
       '<section class="panel-bruma arco-sup seccion marcas-bloque" aria-labelledby="h2-marcas-n"><div class="contenedor">' + titulo2('h2-marcas-n', 'Nuestras marcas.', 'bloque-titulo') +
         '<div class="marcas-nosotros">' +
@@ -1711,10 +1773,10 @@
         return '<path class="capa ' + c[1] + '" d="M20 ' + y + 'Q160 ' + (y + 40) + ' 300 ' + y + 'L300 ' + (y + 20) + 'Q160 ' + (y + 60) + ' 20 ' + (y + 20) + 'Z"/><path class="guia" d="M306 ' + (y + 10) + 'H330"/><text x="338" y="' + (y + 15) + '">' + c[2] + '</text>';
       }).join('') +
       '<path class="interior" d="M20 100Q160 140 300 100L300 250Q160 290 20 250Z"/>' +
-      [[70, 150], [96, 176], [124, 158], [150, 190], [182, 166], [212, 184], [240, 160], [262, 198], [88, 210], [132, 226], [176, 214], [220, 232], [118, 190], [200, 206], [60, 186], [252, 222]].map(function (p) { return '<circle class="polvo" cx="' + p[0] + '" cy="' + p[1] + '" r="4"/>'; }).join('') +
-      '<text class="fuerte" x="160" y="258" text-anchor="middle">Leche en polvo</text><text x="160" y="278" text-anchor="middle">en atmósfera controlada de CO<tspan dy="4" font-size="11">2</tspan></text></svg>';
+      [[62, 146], [90, 164], [118, 150], [146, 172], [174, 152], [204, 168], [232, 150], [262, 162], [76, 188], [106, 196], [134, 184], [162, 200], [192, 190], [222, 198], [250, 186], [280, 176]].map(function (p) { return '<circle class="polvo" cx="' + p[0] + '" cy="' + p[1] + '" r="4"/>'; }).join('') +
+      '<text class="fuerte" x="160" y="226" text-anchor="middle">Leche en polvo</text><text x="160" y="246" text-anchor="middle">en atmósfera controlada de CO<tspan dy="4" font-size="11">2</tspan></text></svg>';
     var fichas = PRODS.map(function (p) {
-      return '<li><span class="f-nombre">' + esc(p.nombre) + '</span><span class="f-reg">' + p.registro + '</span><a href="#producto-' + p.slug + '">Ficha técnica en HTML<span class="sr"> de ' + esc(p.nombre) + '</span></a>' +
+      return '<li><span class="f-nombre">' + esc(p.nombre) + '</span><span class="f-reg">' + p.registro + '</span><a href="#producto-' + p.slug + '">Ver en HTML<span class="sr"> la ficha técnica de ' + esc(p.nombre) + '</span></a>' +
         '<button class="btn-descargar solo-js" type="button" data-descargar-ficha="' + p.slug + '">' + icono('i-abajo') + 'Descargar (HTML, ' + pesoFicha(p) + ')<span class="sr"> ficha técnica de ' + esc(p.nombre) + '</span></button></li>';
     }).join('');
     var msgPQR = 'Hola, Mundilácteos. Quiero reportar un problema con un producto. Lote: ____. Vencimiento: ____. Ciudad: ____.';
@@ -1759,7 +1821,7 @@
           '<dl class="ficha-datos-lista" style="margin-top:1.25rem"><dt>Material</dt><dd>' + esc(C.calidad.empaque.bulto) + '</dd><dt>Pesos</dt><dd>12,5 y 25' + NB + 'kg</dd></dl></div></div>' +
       '</div></section>' +
       '<section class="bloque" aria-labelledby="h2-docs"><div class="contenedor"><div class="encabezado-seccion">' + titulo2('h2-docs', 'Fichas técnicas.') + '<a class="enlace" href="#recursos">Ver recursos</a></div>' +
-        '<p class="bloque-intro">Cada ficha existe como página: la descarga es una copia de esa misma tabla. El PDF de 240' + NB + 'KB se publica con el sitio.</p><ul class="fichas-lista">' + fichas + '</ul></div></section>' +
+        '<p class="bloque-intro">Cada ficha existe como página: la descarga es una copia de esa misma tabla. El PDF se publica con el sitio, rotulado con su peso.</p><ul class="fichas-lista">' + fichas + '</ul></div></section>' +
       '<section class="banda azul arco-sup arco-inf abre oscuro cierre cierre-interior" aria-labelledby="h2-pqr"><div class="contenedor cierre-rejilla"><div>' + titulo2('h2-pqr', '¿Encontró un problema con un producto?') +
         '<p style="margin-top:1rem;color:var(--c-bruma)">Tenga a mano el lote y escríbanos. Le responde el área de calidad.</p>' +
         '<div class="acciones"><a class="btn btn-primario" href="#contacto~pqr">Escribir por un producto</a><a class="btn btn-secundario" href="' + TEL_HREF + '">' + icono('i-tel') + 'Llamar al ' + TEL + '</a></div>' +
@@ -1890,7 +1952,7 @@
     sel = sel || 'barranquilla';
     var ancho = anillosSVG({ clase: 'anillos-ancho', w: 640, h: 600, O: [56, 300], r1: 190, a1: 72, r2: 390, a2: 46, anclaFin: false,
       etiquetas: '<text class="anillo-etq" x="96" y="532">Costa Caribe: ' + T_COSTA + '*</text><text class="anillo-etq" x="330" y="596">Resto del país: ' + T_RESTO + '*</text>' });
-    var compacto = anillosSVG({ clase: 'anillos-compacto', w: 360, h: 330, O: [28, 165], r1: 120, a1: 70, r2: 250, a2: 40, anclaFin: true });
+    var compacto = anillosSVG({ clase: 'anillos-compacto', w: 360, h: 330, O: [28, 165], r1: 120, a1: 70, r2: 250, a2: 40, anclaFin: false });
     var chips = COB.map(function (c) {
       return '<label class="chip"><input type="radio" name="cob-ciudad" value="' + c.id + '"' + (c.id === sel ? ' checked' : '') + '><span class="chip-cara">' + CHECK + c.n + '</span></label>';
     }).join('') + '<label class="chip"><input type="radio" name="cob-ciudad" value="otra"><span class="chip-cara">' + CHECK + 'Otra ciudad</span></label>';
@@ -1912,10 +1974,10 @@
       '<section class="bloque" aria-labelledby="h2-ciudades"><div class="contenedor">' + titulo2('h2-ciudades', 'Ciudades, tiempos y asesores.', 'bloque-titulo') +
         '<div class="tabla-marco tabla-ciudades" tabindex="0" role="region" aria-labelledby="cap-ciudades"><table class="tabla tabla-fija"><caption id="cap-ciudades">Tiempos de entrega y pedido mínimo por ciudad (datos a confirmar)</caption>' +
         '<thead><tr><th scope="col">Ciudad</th><th scope="col">Anillo</th><th scope="col">Entrega</th><th scope="col">Pedido mínimo</th><th scope="col">Le atiende</th><th scope="col">Acción</th></tr></thead><tbody>' + filas + '</tbody></table></div>' +
-        '<p class="nota" style="margin-top:0.75rem">* Tiempo de ejemplo desde la confirmación del pedido y asesor por zona: datos a confirmar con el área comercial. ' + esc(C.cobertura.pedido_minimo.valor) + '</p></div></section>' +
+        '<p class="nota" style="margin-top:0.75rem">* Tiempo de ejemplo desde la confirmación del pedido y asesor por zona: datos a confirmar con el área comercial, igual que el pedido mínimo.</p></div></section>' +
       '<section class="panel-bruma arco-sup seccion" aria-labelledby="h2-despacho"><div class="contenedor dos-col centrado">' +
         '<div class="con-tilt">' + escenaGrupo([itemPack('bultos-trio.webp', 'Tres bultos: The Cántaro Entera de 25 kg, La Becerrita Mezcla Láctea de 25 kg y The Cántaro Mezcla Láctea de 12,5 kg', 'ancho')], 'despacho-escena') + '</div>' +
-        '<div>' + titulo2('h2-despacho', 'Cómo despachamos.') + '<p style="margin-top:1rem">' + esc(C.cobertura.texto) + '</p>' +
+        '<div>' + titulo2('h2-despacho', 'Cómo despachamos.') + '<p style="margin-top:1rem">Despachamos a toda Colombia desde el Parque Industrial Europark, en el km 1 de la vía a Turbaco (Bolívar), en el área metropolitana de Cartagena.</p>' +
           '<dl class="ficha-datos-lista" style="margin-top:1.25rem"><dt>Origen</dt><dd>Parque Industrial Europark, Turbaco (Bolívar)</dd><dt>Formatos</dt><dd>Pacas de 12 a 30 bolsas y bultos de 12,5 y 25' + NB + 'kg</dd>' +
           '<dt>Tiempos</dt><dd>Costa Caribe: ' + T_COSTA + '. Resto del país: ' + T_RESTO + '. ' + porConfirmar() + '</dd><dt>Pedido mínimo</dt><dd>' + porConfirmar() + '</dd><dt>Días de despacho</dt><dd>' + porConfirmar() + '</dd></dl>' +
           '<div class="acciones" style="margin-top:1.5rem"><a class="btn btn-primario" href="#cotizar">Cotizar por volumen</a></div></div>' +
@@ -2023,7 +2085,7 @@
     var html = '<section class="banda azul arco-inf cabeza-banda oscuro"><div class="contenedor">' + migas([['Inicio', '#inicio'], ['Cobertura', '#distribucion'], ['Dónde comprar', '']]) +
         '<div class="cabeza-productos"><div><h1>Dónde comprar</h1><p class="entradilla">The Cántaro está en supermercados de la Costa y del país. Busque su ciudad.</p></div>' +
         '<form class="buscar-ciudad" id="form-donde" role="search" novalidate><label for="dc-ciudad">Su ciudad</label><div class="buscar-fila">' +
-          '<input class="control" id="dc-ciudad" name="ciudad" type="text" list="dc-lista" autocomplete="address-level2" placeholder="Por ejemplo: Barranquilla"' + (inicial ? ' value="' + esc(inicial) + '"' : '') + '>' +
+          '<input class="control" id="dc-ciudad" name="ciudad" type="text" list="dc-lista" autocomplete="address-level2" placeholder="Nombre de su ciudad"' + (inicial ? ' value="' + esc(inicial) + '"' : '') + '>' +
           '<datalist id="dc-lista">' + CIUDADES.map(function (c) { return '<option value="' + c + '">'; }).join('') + '</datalist>' +
           '<button class="btn btn-primario" type="submit">' + icono('i-buscar') + 'Buscar</button></div>' +
           '<div class="acciones"><button class="btn btn-secundario solo-js" type="button" id="dc-ubicacion">' + icono('i-lugar') + 'Usar mi ubicación</button></div>' +
@@ -2040,14 +2102,15 @@
       '<section class="panel-bruma arco-sup seccion" aria-labelledby="h2-cadenas"><div class="contenedor">' + titulo2('h2-cadenas', 'Cadenas donde se consigue.', 'bloque-titulo') +
         '<ul class="canales-lista">' + C.canales.map(function (c) {
           var pend = /por confirmar|Aliado/i.test(c.estado);
-          return '<li><strong>' + esc(c.nombre) + '</strong><span>' + esc(c.tipo) + ', ' + esc(c.region.toLowerCase()) + '</span><span>' + esc(c.estado) + (pend ? ' ' + porConfirmar() : '') + (c.url ? '. ' + enlaceExterno(c.url, 'Ir al sitio', ' de ' + c.nombre + ', abre otra pestaña') : '') + '</span></li>';
+          return '<li><strong>' + esc(c.nombre) + '</strong><span>' + esc(c.tipo) + '. ' + esc(c.region) + '</span><span>' + esc(c.estado) + (pend ? ' ' + porConfirmar() : '') + (c.url ? '. ' + enlaceExterno(c.url, 'Ir al sitio', ' de ' + c.nombre + ', abre otra pestaña') : '') + '</span></li>';
         }).join('') + '</ul>' +
         '<div style="margin-top:var(--esp-6)">' + marcoToma('C03', 'Góndola con The Cántaro en un supermercado de Cartagena, con permiso de la cadena, por fotografiar.', 'p-bolsa', 'marco-ancho') + '</div>' +
       '</div></section>' +
-      '<section class="bloque" aria-labelledby="h2-tienda"><div class="contenedor dos-col"><div>' + titulo2('h2-tienda', '¿Tiene una tienda?') +
+      '<section class="bloque" aria-labelledby="h2-tienda"><div class="contenedor dos-col siete-cinco"><div>' + titulo2('h2-tienda', '¿Tiene una tienda?') +
         '<p style="margin-top:1rem">Aún no tenemos un punto de venta en todas las ciudades. Si tiene una tienda o una distribuidora, puede vender The Cántaro y La Becerrita.</p>' +
         '<div class="acciones" style="margin-top:1.25rem"><a class="btn btn-primario" href="#distribucion~distribuidor">Ser distribuidor</a><a class="enlace" href="#productos~negocio-tienda">Ver pacas para tienda</a></div></div>' +
-        '<p class="nota">El mapa de puntos de venta se cargará solo si usted lo pide, para que la página no pese de más.</p></div></section>';
+        '<aside class="recuadro" aria-labelledby="h3-volumen"><h3 id="h3-volumen">¿Compra para su negocio?</h3><p>Por paca o por bulto, directo de la planta, con precio por volumen.</p><div class="acciones" style="margin-top:1rem"><a class="btn btn-secundario" href="#cotizar">Solicitar cotización</a></div>' +
+          '<p class="nota" style="margin-top:1rem">Sin mapa incrustado: «Cómo llegar» abre Google Maps solo cuando usted lo pide.</p></aside></div></section>';
     return { titulo: 'Dónde comprar', html: html, montar: montarDonde };
   };
   function montarDonde(vista) {
@@ -2274,7 +2337,7 @@
         '<div><p class="cifra-guia">' + gl + NB + 'g<span>de leche en polvo por litro de agua, según la ficha técnica ' + porConfirmar() + '</span></p>' +
           '<h2 id="h2-destacado"><a href="#articulo-preparar-un-litro" style="color:inherit;text-decoration-thickness:2px">Rendimiento y reconstitución: cómo preparar un litro</a></h2>' +
           '<p>Cuánto rinde cada bolsa, cada paca y cada bulto, con las cifras del empaque y de la ficha técnica lado a lado.</p><div class="acciones" style="margin-top:1.25rem"><a class="btn btn-primario" href="#articulo-preparar-un-litro">Leer la guía</a></div></div>' +
-        '<div class="con-tilt">' + escenaGrupo([itemPack('cantaro-entera-800g.webp', 'The Cántaro Entera, bolsa de 800 g', 'bolsa'), itemPack('cantaro-entera-bulto-25kg.webp', 'The Cántaro Entera, bulto de 25 kg')], 'escena-media') + '</div>' +
+        '<div class="con-tilt">' + escenaGrupo([itemPack('cantaro-entera-500g.webp', 'The Cántaro Entera, bolsa de 500 g', 'bolsa'), itemPack('cantaro-entera-bulto-25kg.webp', 'The Cántaro Entera, bulto de 25 kg')], 'escena-media') + '</div>' +
       '</div></section>' +
       '<section class="bloque" aria-labelledby="h2-guias-r"><div class="contenedor">' + titulo2('h2-guias-r', 'Guías y recetas.', 'bloque-titulo') +
         '<fieldset class="temas solo-js"><legend>Tema</legend><div class="chips">' + temas.map(function (t, i) { return '<label class="chip"><input type="radio" name="tema-recursos" value="' + t[0] + '"' + (i === 0 ? ' checked' : '') + '><span class="chip-cara">' + CHECK + t[1] + '</span></label>'; }).join('') + '</div></fieldset>' +
@@ -2386,7 +2449,8 @@
       '<div class="buscador" role="search" data-buscador><label class="sr" for="buscar-404">Buscar productos</label>' + icono('i-buscar') +
         '<input class="control" id="buscar-404" type="search" placeholder="Marca, peso o código" autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="sug-404">' +
         '<ul class="sugerencias" id="sug-404" role="listbox" aria-label="Sugerencias" hidden></ul></div>' +
-      '<div class="acciones"><a class="btn btn-primario" href="#productos">Ver productos</a>' + btnWA(msg, 'WhatsApp ' + TEL, 'btn-secundario') + '<a class="enlace" href="#inicio">Ir al inicio</a></div>';
+      '<div class="acciones"><a class="btn btn-primario" href="#productos">Ver productos</a>' + btnWA(msg, 'WhatsApp', 'btn-secundario') + '<a class="enlace" href="#inicio">Ir al inicio</a></div>' +
+      '<p class="telefono-visible nota">WhatsApp y teléfono: ' + TEL + '.</p>';
     var html = cabezaGlobo({ rastro: [['Inicio', '#inicio'], ['Página no encontrada', '']], k: 6.48, clase: 'cg-dos-lineas no-existe-bajo', bruma: true,
       h1: '<span class="frag">Esta página</span><br> <span class="frag">no existe.</span>', bajo: bajo });
     return { titulo: 'Página no encontrada', html: html, montar: function (vista) {
