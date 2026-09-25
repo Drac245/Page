@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" role="img" aria-label="Sello M de Mundilácteos">
+  <!-- Sello M: bolsa cuyo termosellado dentado forma una M. Retícula 24 u, trazo 2 u, remates y uniones rectos.
+       Dientes en (4,2) y (20,2); valle en (12,11); base con radios de 2 u; línea de llenado de x=7 a x=17 en y=16. -->
+  <path d="M4 2 12 11 20 2V20A2 2 0 0 1 18 22H6A2 2 0 0 1 4 20Z" fill="none" stroke="#3A2618" stroke-width="2" stroke-linejoin="miter" stroke-miterlimit="10"/>
+  <path d="M7 16H17" fill="none" stroke="#3A2618" stroke-width="2" stroke-linecap="butt"/>
+</svg>
