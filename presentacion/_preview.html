@@ -16,17 +16,29 @@ img{max-width:100%}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans:wdth,wght@125,300;125,800&family=Source+Serif+4:opsz,wght@20,400&family=Archivo:wdth,wght@66,820;100,400;125,900&text=%20%2C-.012345789ABCDLRSTabcdeghiklmnoprstuvy%C3%A1%C3%AD&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Encode+Sans:wdth,wght@125,300;125,800&family=Source+Serif+4:opsz,wght@20,400&family=Archivo:wdth,wght@66,820;100,400;125,900&text=%20%2C-.0123456789ABCDLPRSTabcdeghiklmnoprstuvy%C3%A1%C3%AD&display=swap">
 <link rel="stylesheet" href="estilos.css">
 
 <a class="saltar" href="#contenido">Saltar al contenido</a>
 
+<svg class="sprite" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <defs><clipPath id="gl-circulo"><circle cx="12" cy="12" r="12"/></clipPath></defs>
+  <!-- El globo de franjas del logo, en colores de MARCA.md -->
+  <symbol id="globo" viewBox="0 0 24 24">
+    <g clip-path="url(#gl-circulo)">
+      <path fill="#4AA603" d="M0 0H24V8Q12 11 0 8Z"/>
+      <path fill="#4AA603" d="M0 10Q12 13 24 10V15Q12 18 0 15Z"/>
+      <path fill="#FFFFFF" d="M0 17Q12 20 24 17V24H0Z"/>
+    </g>
+    <path d="M4.21 7.5A9 9 0 0 1 7.5 4.21" fill="none" stroke="#1090E0" stroke-width="1.2" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
 <header class="barra" id="barra">
   <div class="barra-in">
-    <a class="marca" href="#inicio"><span class="marca-nombre">Mundilácteos</span> <span class="marca-sub">propuesta de rediseño</span></a>
+    <a class="marca" href="#inicio"><svg class="marca-globo" aria-hidden="true"><use href="#globo"/></svg><span class="marca-nombre">Mundilácteos</span> <span class="marca-sub">propuesta de rediseño</span></a>
     <nav class="menu-nav" aria-label="Secciones de la propuesta">
       <ul class="menu" id="menu">
-        <li class="menu-inicio"><a href="#inicio">Inicio</a></li>
         <li><a href="#auditoria">Auditoría</a></li>
         <li><a href="#catalogo">Catálogo</a></li>
         <li><a href="#competidores">Competidores</a></li>
@@ -52,7 +64,7 @@ img{max-width:100%}
       <h1 id="t-portada">Todo lo que Mundilácteos hace, a&nbsp;la&nbsp;vista.</h1>
     </div>
     <div class="portada-texto">
-      <p class="entrada">Revisamos el sitio actual y siete sitios de la competencia, separamos las tendencias que duran de las modas y diseñamos dos conceptos navegables. Los dos se publican como sitio estático en su hosting actual, sin WordPress.</p>
+      <p class="entrada">Revisamos el sitio actual y siete sitios de la competencia, separamos las tendencias que duran de las modas y diseñamos dos conceptos navegables. Cualquiera de los dos se publica como sitio estático en su hosting actual, sin WordPress.</p>
       <div class="acciones">
         <a class="boton boton-primario" href="#concepto-1">Ver los dos conceptos</a>
         <a class="boton boton-secundario" href="#auditoria">Empezar por la auditoría</a>
@@ -75,38 +87,40 @@ img{max-width:100%}
   </div>
 
   <div class="contenedor">
-    <h2 class="sr">Cuatro cambios medibles</h2>
+    <h2 class="cambios-titulo">Cuatro cambios medibles</h2>
     <dl class="cambios">
       <div class="cambio">
-        <dt>Productos a la vista en el sitio</dt>
-        <dd class="cambio-valores"><span class="antes-hoy" aria-hidden="true">Hoy</span><s class="antes"><span class="sr">Hoy: </span>3</s><span class="tramo" aria-hidden="true"></span><strong class="despues"><span class="sr">Con el rediseño: </span>20</strong></dd>
-        <dd class="cambio-nota">presentaciones en 9 líneas; 8 las confirma Mundilácteos</dd>
+        <dt>Productos en el sitio</dt>
+        <dd class="cambio-valores"><span class="cv-etq cv-etq-antes">Hoy</span> <s class="antes">3</s><span class="flecha" aria-hidden="true"></span> <span class="cv-etq cv-etq-despues">Con el rediseño</span> <strong class="despues">9</strong></dd>
+        <dd class="cambio-nota">20 presentaciones: 12 confirmadas y 8 por confirmar con Mundilácteos</dd>
       </div>
       <div class="cambio">
-        <dt>Registros INVIMA publicados con número</dt>
-        <dd class="cambio-valores"><span class="antes-hoy" aria-hidden="true">Hoy</span><s class="antes"><span class="sr">Hoy: </span>0</s><span class="tramo" aria-hidden="true"></span><strong class="despues"><span class="sr">Con el rediseño: </span>5</strong></dd>
-        <dd class="cambio-nota">vigentes, cada uno con su vencimiento y enlace para verificarlo</dd>
+        <dt>Registros INVIMA publicados en texto, con número</dt>
+        <dd class="cambio-valores"><span class="cv-etq cv-etq-antes">Hoy</span> <s class="antes">0</s><span class="flecha" aria-hidden="true"></span> <span class="cv-etq cv-etq-despues">Con el rediseño</span> <strong class="despues">5</strong></dd>
+        <dd class="cambio-nota">vigentes, con vencimiento y enlace para verificarlos; hoy solo se lee uno dentro de la foto de un saco</dd>
       </div>
       <div class="cambio">
         <dt>Carga de la portada en celular (LCP)</dt>
-        <dd class="cambio-valores"><span class="antes-hoy" aria-hidden="true">Hoy</span><s class="antes"><span class="sr">Hoy: </span>6,26&nbsp;s</s><span class="tramo" aria-hidden="true"></span><strong class="despues"><span class="sr">Meta: </span>≤&nbsp;2,5<small>&nbsp;s</small></strong></dd>
+        <dd class="cambio-valores"><span class="cv-etq cv-etq-antes">Hoy</span> <s class="antes">6,26&nbsp;s</s><span class="flecha" aria-hidden="true"></span> <span class="cv-etq cv-etq-despues">Meta</span> <strong class="despues">≤&nbsp;2,5<small>&nbsp;s</small></strong></dd>
         <dd class="cambio-nota">meta de ambos conceptos; se mide en producción</dd>
       </div>
       <div class="cambio">
         <dt>Formularios con autorización de datos</dt>
-        <dd class="cambio-valores"><span class="antes-hoy" aria-hidden="true">Hoy</span><s class="antes"><span class="sr">Hoy: </span>0&nbsp;%</s><span class="tramo" aria-hidden="true"></span><strong class="despues"><span class="sr">Con el rediseño: </span>100<small>&nbsp;%</small></strong></dd>
+        <dd class="cambio-valores"><span class="cv-etq cv-etq-antes">Hoy</span> <s class="antes">0&nbsp;%</s><span class="flecha" aria-hidden="true"></span> <span class="cv-etq cv-etq-despues">Con el rediseño</span> <strong class="despues">100<small>&nbsp;%</small></strong></dd>
         <dd class="cambio-nota">Ley 1581 de 2012; hoy ninguno de los 5 la pide</dd>
       </div>
     </dl>
   </div>
 </section>
 
+<div class="corte corte-baja" aria-hidden="true"><svg viewBox="0 0 1440 96" preserveAspectRatio="none" focusable="false"><path fill="#0B1F4F" d="M0 0H1440V30Q720 90 0 30Z"/><path fill="#4AA603" d="M0 50Q720 110 1440 50V60Q720 120 0 60Z"/></svg></div>
+
 <!-- ===================================================== 2. AUDITORÍA -->
 <section id="auditoria" class="seccion claro" aria-labelledby="t-auditoria">
   <div class="contenedor">
     <header class="sec-cab">
       <h2 id="t-auditoria">El sitio actual, medido</h2>
-      <p class="entrada">Auditoría de mundilacteos.com del 25 de septiembre de 2026: código, rendimiento, SEO, accesibilidad, diseño, contenido, catálogo y hosting. Son 97 hallazgos, cada uno con su evidencia en el anexo del repositorio.</p>
+      <p class="entrada">Auditoría de mundilacteos.com del 25 de septiembre de 2026: código, rendimiento, SEO, accesibilidad, diseño, contenido, catálogo y hosting. Son 97 hallazgos, cada uno con su evidencia en el anexo de la auditoría.</p>
     </header>
 
     <div class="resumen">
@@ -143,9 +157,9 @@ img{max-width:100%}
         <h4>Velocidad y peso</h4>
         <dl class="kpis">
           <div class="kpi"><dt>LCP móvil de la portada</dt><dd class="kpi-valor"><span data-cuenta="6.26" data-decimales="2">6,26</span><small>&nbsp;s</small></dd><dd class="kpi-nota">Mediana de 3 corridas de Lighthouse; objetivo ≤ 2,5 s.</dd></div>
-          <div class="kpi"><dt>Performance de Lighthouse en móvil</dt><dd class="kpi-valor"><span data-cuenta="58">58</span>–<span data-cuenta="68">68</span></dd><dd class="kpi-nota">Portada: 58, 62 y 66 en 3 corridas; páginas internas de 62 a 68.</dd></div>
-          <div class="kpi"><dt>Respuesta del servidor (TTFB)</dt><dd class="kpi-valor"><span data-cuenta="1.09" data-decimales="2">1,09</span>–<span data-cuenta="1.98" data-decimales="2">1,98</span><small>&nbsp;s</small></dd><dd class="kpi-nota">El HTML no se guarda en caché (DYNAMIC).</dd></div>
-          <div class="kpi kpi-favor"><dt>Peso de la portada en móvil</dt><dd class="kpi-valor"><span data-cuenta="0.85" data-decimales="2">0,85</span><small>&nbsp;MB</small></dd><dd class="kpi-nota"><span class="favor">A favor:</span> el más liviano del benchmark; los competidores pesan de 3,1 a 12,8 MB.</dd></div>
+          <div class="kpi"><dt>Puntaje de rendimiento de Lighthouse en móvil</dt><dd class="kpi-valor"><span data-cuenta="58">58</span>–<span data-cuenta="68">68</span></dd><dd class="kpi-nota">Portada: 58, 62 y 66 en 3 corridas; páginas internas de 62 a 68.</dd></div>
+          <div class="kpi"><dt>Respuesta del servidor (TTFB)</dt><dd class="kpi-valor"><span data-cuenta="1.09" data-decimales="2">1,09</span>–<span data-cuenta="1.98" data-decimales="2">1,98</span><small>&nbsp;s</small></dd><dd class="kpi-nota">El servidor arma cada página en cada visita: el HTML no se guarda en caché.</dd></div>
+          <div class="kpi kpi-favor"><dt>Peso de la portada en móvil</dt><dd class="kpi-valor"><span data-cuenta="0.85" data-decimales="2">0,85</span><small>&nbsp;MB</small></dd><dd class="kpi-nota"><span class="favor">A favor:</span> el más liviano de la comparación; los competidores pesan de 3,1 a 12,8 MB.</dd></div>
         </dl>
       </div>
 
@@ -172,7 +186,7 @@ img{max-width:100%}
           <div class="kpi"><dt>Productos publicados</dt><dd class="kpi-valor"><span data-cuenta="3">3</span><small>&nbsp;de 14</small></dd><dd class="kpi-nota">14 identificados (7 confirmados); 8 EAN de The Cántaro en tiendas.</dd></div>
           <div class="kpi"><dt>Tarjetas con denominación contradictoria</dt><dd class="kpi-valor"><span data-cuenta="3">3</span><small>&nbsp;de 6</small></dd><dd class="kpi-nota">El empaque dice «mezcla en polvo» y el sitio, «leche en polvo».</dd></div>
           <div class="kpi"><dt>Enlaces para llamar o escribir</dt><dd class="kpi-valor">0<small>&nbsp;tel: / 0&nbsp;mailto:</small></dd><dd class="kpi-nota">El teléfono está en texto plano; 0 enlaces a puntos de venta.</dd></div>
-          <div class="kpi"><dt>Analítica</dt><dd class="kpi-valor">0<small>&nbsp;etiquetas</small></dd><dd class="kpi-nota">Sin línea base de visitas ni de solicitudes en 16 cargas.</dd></div>
+          <div class="kpi"><dt>Analítica</dt><dd class="kpi-valor">0<small>&nbsp;etiquetas</small></dd><dd class="kpi-nota">0 etiquetas de analítica en 16 cargas revisadas: no hay línea base de visitas ni de solicitudes.</dd></div>
         </dl>
       </div>
     </div>
@@ -184,8 +198,8 @@ img{max-width:100%}
         <div class="area-texto">
           <h4 id="t-area-a">Código, rendimiento y SEO</h4>
           <ul class="hallazgos">
-            <li><span class="sev sev-alta">Alta</span> LCP móvil de 6,26 s y Performance de 58 a 68: el hero es un fondo CSS y el HTML no se cachea (TTFB de 1,09 a 1,98 s).</li>
-            <li><span class="sev sev-media">Media</span> 18 recursos bloquean el render; la portada carga 25 archivos JS y 320,6 KiB de fuentes.</li>
+            <li><span class="sev sev-alta">Alta</span> LCP móvil de 6,26 s y puntaje de rendimiento de 58 a 68: la foto de portada es un fondo CSS y el HTML no se guarda en caché (TTFB de 1,09 a 1,98 s).</li>
+            <li><span class="sev sev-media">Media</span> 18 recursos frenan la primera carga de la página; la portada carga 25 archivos JS y 320,6 KiB de fuentes.</li>
             <li><span class="sev sev-alta">Alta</span> 0 de 8 páginas con meta description, <code>lang="en"</code>, 3 h1 en la portada y 4 URL de ejemplo de WordPress indexables.</li>
             <li><span class="sev sev-media">Media</span> Sin analítica: 0 etiquetas en 16 cargas.</li>
           </ul>
@@ -193,15 +207,15 @@ img{max-width:100%}
         <div class="galeria" data-galeria>
           <div class="galeria-pista" role="region" aria-label="Capturas de código, rendimiento y SEO" tabindex="0">
             <figure class="captura cap-movil">
-              <button type="button" class="zoom" data-grupo="area-a"><img src="img/actual/inicio-movil-primer-pantallazo.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Primer pantallazo móvil del sitio actual: foto de vacas con el titular «Productores de leche en polvo y derivados con más de 11 años de experiencia» y el botón Contáctanos."></button>
-              <figcaption>La foto del hero es un fondo CSS: el navegador la descubre tarde.</figcaption>
+              <button type="button" class="zoom" data-grupo="area-a"><span class="sr">Ampliar captura: </span><img src="img/actual/inicio-movil-primer-pantallazo.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Primer pantallazo móvil del sitio actual: foto de vacas con el titular «Productores de leche en polvo y derivados con más de 11 años de experiencia» y el botón Contáctanos."></button>
+              <figcaption>La foto de portada es un fondo CSS: el navegador la descubre tarde.</figcaption>
             </figure>
             <figure class="captura">
-              <button type="button" class="zoom" data-grupo="area-a"><img src="img/actual/sample-page-desktop-primer-pantallazo.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Página «Sample Page» de WordPress publicada en mundilacteos.com, con el texto de ejemplo en inglés."></button>
-              <figcaption>Página de ejemplo de WordPress, una de las 4 URL basura del sitemap.</figcaption>
+              <button type="button" class="zoom" data-grupo="area-a"><span class="sr">Ampliar captura: </span><img src="img/actual/sample-page-desktop-primer-pantallazo.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Página «Sample Page» de WordPress publicada en mundilacteos.com, con el texto de ejemplo en inglés."></button>
+              <figcaption>Página de ejemplo de WordPress, una de las 4 URL sobrantes del mapa del sitio.</figcaption>
             </figure>
             <figure class="captura">
-              <button type="button" class="zoom" data-grupo="area-a"><img src="img/actual/productos-desktop-formularios-y-banner-repetidos.webp" width="1280" height="711" loading="lazy" decoding="async" alt="Página de productos del sitio actual con el mismo formulario de cotización y el mismo banner repetidos."></button>
+              <button type="button" class="zoom" data-grupo="area-a"><span class="sr">Ampliar captura: </span><img src="img/actual/productos-desktop-formularios-y-banner-repetidos.webp" width="1280" height="711" loading="lazy" decoding="async" alt="Página de productos del sitio actual con el mismo formulario de cotización y el mismo banner repetidos."></button>
               <figcaption>Bloques repetidos en /productos/: más peso y más ruido.</figcaption>
             </figure>
           </div>
@@ -221,27 +235,27 @@ img{max-width:100%}
         <div class="galeria" data-galeria>
           <div class="galeria-pista" role="region" aria-label="Capturas de diseño y experiencia de uso" tabindex="0">
             <figure class="captura cap-ancha">
-              <button type="button" class="zoom" data-grupo="area-b"><img src="img/actual/contacto-desktop-formulario.webp" width="1160" height="450" loading="lazy" decoding="async" alt="Formulario de contacto actual con campos Nombre, Email, Teléfono y Mensaje y un botón Enviar verde claro, sin casilla de autorización de datos."></button>
+              <button type="button" class="zoom" data-grupo="area-b"><span class="sr">Ampliar captura: </span><img src="img/actual/contacto-desktop-formulario.webp" width="1160" height="450" loading="lazy" decoding="async" alt="Formulario de contacto actual con campos Nombre, Email, Teléfono y Mensaje y un botón Enviar verde claro, sin casilla de autorización de datos."></button>
               <figcaption>Ningún formulario pide autorización de datos. Enviar tiene contraste 1,99:1.</figcaption>
             </figure>
             <figure class="captura cap-ancha">
-              <button type="button" class="zoom" data-grupo="area-b"><img src="img/actual/inicio-desktop-cotizar.webp" width="1160" height="230" loading="lazy" decoding="async" alt="Franja de cotización de la portada actual: campos Nombre y Email y un botón Cotizar amarillo con texto blanco."></button>
+              <button type="button" class="zoom" data-grupo="area-b"><span class="sr">Ampliar captura: </span><img src="img/actual/inicio-desktop-cotizar.webp" width="1160" height="230" loading="lazy" decoding="async" alt="Franja de cotización de la portada actual: campos Nombre y Email y un botón Cotizar amarillo con texto blanco."></button>
               <figcaption>Cotización de 2 campos; el botón Cotizar tiene contraste 2,09:1.</figcaption>
             </figure>
             <figure class="captura cap-movil">
-              <button type="button" class="zoom" data-grupo="area-b"><img src="img/actual/inicio-movil-menu-tras-enter-cerrado.webp" width="520" height="560" loading="lazy" decoding="async" alt="Cabecera móvil del sitio actual con el botón de menú enfocado y el menú todavía cerrado después de pulsar Enter."></button>
+              <button type="button" class="zoom" data-grupo="area-b"><span class="sr">Ampliar captura: </span><img src="img/actual/inicio-movil-menu-tras-enter-cerrado.webp" width="520" height="560" loading="lazy" decoding="async" alt="Cabecera móvil del sitio actual con el botón de menú enfocado y el menú todavía cerrado después de pulsar Enter."></button>
               <figcaption>El menú móvil no abre con Enter ni con Espacio.</figcaption>
             </figure>
             <figure class="captura cap-movil">
-              <button type="button" class="zoom" data-grupo="area-b"><img src="img/actual/inicio-movil-aliados-carrusel.webp" width="520" height="440" loading="lazy" decoding="async" alt="Carrusel «Nuestros aliados comerciales» con los logos de Rapimercar y Mr. Bono, sin enlaces."></button>
+              <button type="button" class="zoom" data-grupo="area-b"><span class="sr">Ampliar captura: </span><img src="img/actual/inicio-movil-aliados-carrusel.webp" width="520" height="440" loading="lazy" decoding="async" alt="Carrusel «Nuestros aliados comerciales» con los logos de Rapimercar y Mr. Bono, sin enlaces."></button>
               <figcaption>Aliados sin enlace: no se puede saber dónde comprar.</figcaption>
             </figure>
             <figure class="captura cap-ancha">
-              <button type="button" class="zoom" data-grupo="area-b"><img src="img/actual/logos-versiones-comparadas.webp" width="1280" height="252" loading="lazy" decoding="async" alt="Cuatro versiones del logo circular de Mundilácteos con diferencias de color, proporción y fondo."></button>
+              <button type="button" class="zoom" data-grupo="area-b"><span class="sr">Ampliar captura: </span><img src="img/actual/logos-versiones-comparadas.webp" width="1280" height="252" loading="lazy" decoding="async" alt="Cuatro versiones del logo circular de Mundilácteos con diferencias de color, proporción y fondo."></button>
               <figcaption>Versiones distintas del logo; en total hay 3 identidades (globo, vaca e Inverlácteos).</figcaption>
             </figure>
             <figure class="captura cap-ancha">
-              <button type="button" class="zoom" data-grupo="area-b"><img src="img/actual/inicio-desktop-header-logo-recortado.webp" width="1280" height="116" loading="lazy" decoding="async" alt="Cabecera de escritorio del sitio actual con el logo diminuto a la izquierda del menú."></button>
+              <button type="button" class="zoom" data-grupo="area-b"><span class="sr">Ampliar captura: </span><img src="img/actual/inicio-desktop-header-logo-recortado.webp" width="1280" height="116" loading="lazy" decoding="async" alt="Cabecera de escritorio del sitio actual con el logo diminuto a la izquierda del menú."></button>
               <figcaption>Logo de 70 × 57 px con 57 % de margen transparente y sin enlace al inicio.</figcaption>
             </figure>
           </div>
@@ -261,23 +275,23 @@ img{max-width:100%}
         <div class="galeria" data-galeria>
           <div class="galeria-pista" role="region" aria-label="Capturas de contenido y catálogo" tabindex="0">
             <figure class="captura cap-ancha">
-              <button type="button" class="zoom" data-grupo="area-c"><img src="img/actual/productos-etiquetas-mezcla-en-polvo.webp" width="1280" height="526" loading="lazy" decoding="async" alt="Tres empaques del sitio actual, dos bultos y una bolsa, cuyas etiquetas dicen «mezcla en polvo a base de leche y endulzante»."></button>
+              <button type="button" class="zoom" data-grupo="area-c"><span class="sr">Ampliar captura: </span><img src="img/actual/productos-etiquetas-mezcla-en-polvo.webp" width="1280" height="526" loading="lazy" decoding="async" alt="Tres empaques del sitio actual, dos bultos y una bolsa, cuyas etiquetas dicen «mezcla en polvo a base de leche y endulzante»."></button>
               <figcaption>La etiqueta dice mezcla; la tarjeta del sitio dice leche.</figcaption>
             </figure>
             <figure class="captura">
-              <button type="button" class="zoom" data-grupo="area-c"><img src="img/actual/productos-desktop-primer-pantallazo.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Página Productos del sitio actual: banner con vacas y «Nuestros Productos», y debajo la sección Bultos con tres sacos."></button>
+              <button type="button" class="zoom" data-grupo="area-c"><span class="sr">Ampliar captura: </span><img src="img/actual/productos-desktop-primer-pantallazo.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Página Productos del sitio actual: banner con vacas y «Nuestros Productos», y debajo la sección Bultos con tres sacos."></button>
               <figcaption>3 productos publicados; en fuentes públicas se identificaron 14.</figcaption>
             </figure>
             <figure class="captura cap-movil">
-              <button type="button" class="zoom" data-grupo="area-c"><img src="img/actual/inicio-movil-hero-11-vs-12-anos.webp" width="520" height="1387" loading="lazy" decoding="async" alt="Hero móvil del sitio actual que dice «más de 11 años de experiencia»."></button>
-              <figcaption>«Más de 11 años» en el hero…</figcaption>
+              <button type="button" class="zoom" data-grupo="area-c"><span class="sr">Ampliar captura: </span><img src="img/actual/inicio-movil-hero-11-vs-12-anos.webp" width="520" height="1387" loading="lazy" decoding="async" alt="Encabezado principal del sitio actual en celular, que dice «más de 11 años de experiencia»."></button>
+              <figcaption>«Más de 11 años» en la portada…</figcaption>
             </figure>
             <figure class="captura cap-movil">
-              <button type="button" class="zoom" data-grupo="area-c"><img src="img/actual/inicio-movil-whatsapp-superpuesto.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Bloque de cifras de la portada móvil: «12 años», «+869.000 clientes satisfechos», «Iso 9001:2015» y «Multicanal», con el botón de WhatsApp superpuesto."></button>
+              <button type="button" class="zoom" data-grupo="area-c"><span class="sr">Ampliar captura: </span><img src="img/actual/inicio-movil-whatsapp-superpuesto.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Bloque de cifras de la portada móvil: «12 años», «+869.000 clientes satisfechos», «Iso 9001:2015» y «Multicanal», con el botón de WhatsApp superpuesto."></button>
               <figcaption>…y «12 años» en la misma página. ISO sin ente, número ni vigencia.</figcaption>
             </figure>
             <figure class="captura">
-              <button type="button" class="zoom" data-grupo="area-c"><img src="img/actual/productos-desktop-presentaciones-embalaje.webp" width="1040" height="600" loading="lazy" decoding="async" alt="Sección Embalaje de /productos/ con la lista de presentaciones de bolsa y las unidades por paca."></button>
+              <button type="button" class="zoom" data-grupo="area-c"><span class="sr">Ampliar captura: </span><img src="img/actual/productos-desktop-presentaciones-embalaje.webp" width="1040" height="600" loading="lazy" decoding="async" alt="Sección Embalaje de /productos/ con la lista de presentaciones de bolsa y las unidades por paca."></button>
               <figcaption>Presentaciones de bolsa: 4, 9 o 10, según la sección.</figcaption>
             </figure>
           </div>
@@ -296,7 +310,7 @@ img{max-width:100%}
         <div class="galeria" data-galeria>
           <div class="galeria-pista" role="region" aria-label="Capturas de hosting y mantenimiento" tabindex="0">
             <figure class="captura">
-              <button type="button" class="zoom" data-grupo="area-d"><img src="img/actual/productos-bulto-datos-contacto-empaque.webp" width="880" height="480" loading="lazy" decoding="async" alt="Ampliación de un bulto de 12,5 kg con los datos impresos: comercial@mundilacteossas.com, www.mundilacteossas.com, teléfonos fijos de Cartagena y el registro sanitario."></button>
+              <button type="button" class="zoom" data-grupo="area-d"><span class="sr">Ampliar captura: </span><img src="img/actual/productos-bulto-datos-contacto-empaque.webp" width="880" height="480" loading="lazy" decoding="async" alt="Ampliación de un bulto de 12,5 kg con los datos impresos: comercial@mundilacteossas.com, www.mundilacteossas.com, teléfonos fijos de Cartagena y el registro sanitario."></button>
               <figcaption>El dominio impreso en el saco no existe: cualquiera podría registrarlo.</figcaption>
             </figure>
           </div>
@@ -310,9 +324,9 @@ img{max-width:100%}
         <table class="tabla">
           <thead><tr><th scope="col">Qué falta</th><th scope="col">Por qué</th><th scope="col">Cómo se cubre</th></tr></thead>
           <tbody>
-            <tr><th scope="row">Datos de campo (CrUX e INP real)</th><td>PageSpeed Insights respondió 429, sin cuota; el INP solo se aproximó en laboratorio.</td><td>API key propia o Search Console; web-vitals junto con la analítica.</td></tr>
+            <tr><th scope="row">Datos de campo (CrUX e INP real)</th><td>PageSpeed Insights respondió 429, sin cuota; el INP solo se aproximó en laboratorio.</td><td>Una clave propia de la API de Google (API key) o Search Console, y la medición de Core Web Vitals junto con la analítica.</td></tr>
             <tr><th scope="row">Plan y panel de Hostinger</th><td>Sin acceso a hPanel ni al CDN.</td><td>Acceso a hPanel para confirmar plan, PHP, plugins y respaldos.</td></tr>
-            <tr><th scope="row">Envío real de formularios</th><td>Por regla no se envió ninguno.</td><td>Envío de prueba autorizado y revisión del buzón de destino.</td></tr>
+            <tr><th scope="row">Envío real de formularios</th><td>La auditoría fue pasiva: no se envió ningún formulario.</td><td>Envío de prueba autorizado y revisión del buzón de destino.</td></tr>
             <tr><th scope="row">Lector de pantalla y Safari real</th><td>Se emuló con Chromium; el teclado en móvil sí se probó.</td><td>Prueba manual con VoiceOver y TalkBack en inicio, productos y contacto.</td></tr>
             <tr><th scope="row">Search Console y posiciones</th><td>Sin acceso; las búsquedas daban resultados de EE. UU.</td><td>Acceso a Search Console o consultas desde una IP colombiana.</td></tr>
             <tr><th scope="row">Colanta</th><td>Su sitio responde 403 (desafío de Cloudflare); no se intentó rodear el bloqueo.</td><td>Revisión manual desde un navegador normal, o confirmación de Mundilácteos.</td></tr>
@@ -373,11 +387,12 @@ img{max-width:100%}
     <div class="registros">
       <div class="registros-texto">
         <h3>Cinco registros INVIMA vigentes a nombre de Mundilácteos</h3>
-        <p>Consulta del 25 de septiembre de 2026 en datos.gov.co (dataset ui32-p9f2). El sitio actual dice «Registro Invima» sin ningún número.</p>
+        <p>Consulta del 25 de septiembre de 2026 en datos.gov.co (conjunto de datos ui32-p9f2). El sitio actual dice «Registro Invima» sin ningún número en texto; solo se lee uno dentro de la foto de un saco.</p>
         <ul class="registros-extra">
           <li><b>Concepto sanitario FAVORABLE</b> del establecimiento 24741, línea «Leches en polvo y crema de leches en polvo». Se puede publicar con enlace.</li>
           <li><b>ISO 9001:2015:</b> el sitio la declara sin ente, número, alcance ni vigencia. No verificada.</li>
-          <li><b>Shadday Soluciones S.A.S.</b> tiene 5 registros más con Mundilácteos como fabricante (UHT, quesos, mantequilla, suero y yogurt). Incluirlos es decisión del grupo.</li>
+          <li><b>Shadday Soluciones S.A.S.</b> tiene 5 registros más con Mundilácteos como fabricante (UHT, quesos, mantequilla, suero y yogur). Incluirlos es decisión del grupo.</li>
+          <li><b>Maquila y marca propia:</b> el RSA-006359-2018 ampara 13 presentaciones, de 27 g a 25 kg, y 17 marcas autorizadas, la mayoría de cadenas. Los gramajes de 27, 104, 200, 750 y 1.000 g hoy son solo de marca propia: no hacen parte de las 20 presentaciones de la casa.</li>
         </ul>
       </div>
       <div class="tabla-marco" role="region" aria-label="Registros INVIMA vigentes" tabindex="0">
@@ -407,12 +422,12 @@ img{max-width:100%}
     <div class="benchmark">
       <div class="benchmark-texto">
         <h3>Velocidad en celular, portada</h3>
-        <p>Lighthouse 12.8.2, perfil móvil, 1 corrida por sitio. Nadie supera Performance 62 ni baja de 5,2 s de LCP: un sitio estático puede ser el único del segmento con LCP ≤ 2,5 s.</p>
+        <p>Lighthouse 12.8.2, perfil móvil, 1 corrida por sitio. Nadie supera un puntaje de rendimiento de 62 ni baja de 5,2 s de LCP: un sitio estático puede ser el único del segmento con LCP ≤ 2,5 s.</p>
         <p class="nota-fuente">Proleche (precarga que espera una interacción) y Alpina (LCP de 52 s) son atípicos. Mundilácteos aparece con 6,1 s porque aquí cuenta una sola corrida; la mediana de 3 es 6,26 s.</p>
       </div>
-      <div class="tabla-marco" role="region" aria-label="Benchmark de Lighthouse en móvil" tabindex="0">
+      <div class="tabla-marco" role="region" aria-label="Comparación de Lighthouse en móvil" tabindex="0">
         <table class="tabla tabla-bench">
-          <thead><tr><th scope="col">Sitio</th><th scope="col" class="num">Performance</th><th scope="col" class="num">LCP</th><th scope="col">Peso de la portada</th><th scope="col" class="num">Accesibilidad</th></tr></thead>
+          <thead><tr><th scope="col">Sitio</th><th scope="col" class="num">Rendimiento</th><th scope="col" class="num">LCP</th><th scope="col">Peso de la portada</th><th scope="col" class="num">Accesibilidad</th></tr></thead>
           <tbody>
             <tr><th scope="row">Cosmolac</th><td class="num">62</td><td class="num">5,2 s</td><td><span class="bar" style="--v:41.4%"></span><span class="bar-num">5,3 MB</span></td><td class="num">82</td></tr>
             <tr class="fila-propia"><th scope="row">Mundilácteos</th><td class="num">58</td><td class="num">6,1 s</td><td><span class="bar" style="--v:6.6%"></span><span class="bar-num">0,85 MB</span></td><td class="num">93</td></tr>
@@ -436,33 +451,33 @@ img{max-width:100%}
             <h4 id="t-cosmolac">Cosmolac S.A.S.</h4>
             <p class="ficha-seg">B2C y B2B. Planta pulverizadora propia en Cajicá. <a href="https://cosmolac.com.co/" target="_blank" rel="noopener">cosmolac.com.co<span class="sr"> (se abre en una pestaña nueva)</span></a></p>
           </div>
-          <dl class="ficha-datos"><div><dt>Performance</dt><dd>62</dd></div><div><dt>LCP</dt><dd>5,2 s</dd></div><div><dt>Peso</dt><dd>5,3 MB</dd></div></dl>
+          <dl class="ficha-datos"><div><dt>Rendimiento</dt><dd>62</dd></div><div><dt>LCP</dt><dd>5,2 s</dd></div><div><dt>Peso</dt><dd>5,3 MB</dd></div></dl>
         </header>
         <div class="galeria" data-galeria>
           <div class="galeria-pista" role="region" aria-label="Capturas de Cosmolac" tabindex="0">
-            <figure class="captura"><button type="button" class="zoom" data-grupo="cosmolac"><img src="img/comp/cosmolac-home-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Portada de cosmolac.com.co en escritorio: «Productos Alimenticios, 100 % Calidad», texto sobre la planta pulverizadora y la mascota vaca."></button><figcaption>Portada: el origen industrial en una frase.</figcaption></figure>
-            <figure class="captura"><button type="button" class="zoom" data-grupo="cosmolac"><img src="img/comp/cosmolac-catalogo-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Catálogo «Nuestros productos» de Cosmolac con un banner de leche en polvo."></button><figcaption>Catálogo con banner de empaques.</figcaption></figure>
-            <figure class="captura"><button type="button" class="zoom" data-grupo="cosmolac"><img src="img/comp/cosmolac-ficha-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Ficha de leche entera en polvo de Cosmolac: banner y texto, sin tabla nutricional."></button><figcaption>Ficha sin tabla nutricional, gramajes en texto ni INVIMA.</figcaption></figure>
-            <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="cosmolac"><img src="img/comp/cosmolac-home-movil-fold.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Portada móvil de Cosmolac, sin menú de navegación."></button><figcaption>En móvil no hay menú.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="cosmolac"><span class="sr">Ampliar captura: </span><img src="img/comp/cosmolac-home-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Portada de cosmolac.com.co en escritorio: «Productos Alimenticios, 100 % Calidad», texto sobre la planta pulverizadora y la mascota vaca."></button><figcaption>Portada: el origen industrial en una frase.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="cosmolac"><span class="sr">Ampliar captura: </span><img src="img/comp/cosmolac-catalogo-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Catálogo «Nuestros productos» de Cosmolac con un banner de leche en polvo."></button><figcaption>Catálogo con banner de empaques.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="cosmolac"><span class="sr">Ampliar captura: </span><img src="img/comp/cosmolac-ficha-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Ficha de leche entera en polvo de Cosmolac: banner y texto, sin tabla nutricional."></button><figcaption>Ficha sin tabla nutricional, gramajes en texto ni INVIMA.</figcaption></figure>
+            <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="cosmolac"><span class="sr">Ampliar captura: </span><img src="img/comp/cosmolac-home-movil-fold.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Portada móvil de Cosmolac, sin menú de navegación."></button><figcaption>En móvil no hay menú.</figcaption></figure>
           </div>
         </div>
         <div class="ficha-cols">
           <div><h5>Lo que hace bien</h5><ul>
-            <li>Hero que explica el origen industrial en una frase (planta en Cajicá, leche cruda colombiana) y 5 viñetas de proceso.</li>
+            <li>Encabezado principal que explica el origen industrial en una frase (planta en Cajicá, leche cruda colombiana) y 5 viñetas de proceso.</li>
             <li>Muro de 8 clientes reconocibles: Alquería, Makro, Ara, PAE, Éxito, Carulla, Surtimayorista y OXXO.</li>
             <li>WhatsApp flotante con mensaje precargado y teléfono visible desde el primer pantallazo.</li>
             <li>Páginas de compromiso ganadero y gestión ambiental; contacto por área con correo directo.</li>
           </ul></div>
           <div><h5>Debilidades</h5><ul>
             <li>Sin navegación en móvil: no hay menú a 390 px.</li>
-            <li>Restos de la plantilla de imprenta: 7 meta descriptions de «imprenta» y tarjetas móviles hacia un dominio de staging (503).</li>
+            <li>Restos de la plantilla de imprenta: 7 descripciones para buscadores que hablan de «imprenta» y tarjetas móviles que llevan a un dominio de pruebas (503).</li>
             <li>Fichas sin tabla nutricional, gramajes ni INVIMA; 4 de 5 sin H1; ninguna certificación.</li>
-            <li>Portada de 6,36 MB con un PNG de 4,25 MB; 3 teléfonos, 2 NIT y planta en Cajicá y Zipaquirá.</li>
+            <li>Portada en escritorio de 6,36 MB con un PNG de 4,25 MB (otra medición; la tabla usa Lighthouse móvil); 3 teléfonos, 2 NIT y planta en Cajicá y Zipaquirá.</li>
           </ul></div>
           <div><h5>Patrones destacados</h5><ul>
-            <li>Hero de «prueba de origen»: planta, municipio, materia prima y controles en una frase.</li>
+            <li>Encabezado de «prueba de origen»: planta, municipio, materia prima y controles en una frase.</li>
             <li>Ficha ordenada por preguntas del comprador: ¿Por qué elegirla?, ¿Cómo usarla?, Dónde encontrarla.</li>
-            <li>Mascota propia usada como sistema en hero, contacto y banners.</li>
+            <li>Mascota propia usada como sistema en la portada, el contacto y los banners.</li>
           </ul></div>
         </div>
       </section>
@@ -473,31 +488,31 @@ img{max-width:100%}
             <h4 id="t-coolechera">Coolechera</h4>
             <p class="ficha-seg">B2C y B2B (institucional e industrial). Cooperativa regional del Caribe, en Barranquilla. <a href="https://coolechera.com/" target="_blank" rel="noopener">coolechera.com<span class="sr"> (se abre en una pestaña nueva)</span></a></p>
           </div>
-          <dl class="ficha-datos"><div><dt>Performance</dt><dd>42</dd></div><div><dt>LCP</dt><dd>18,9 s</dd></div><div><dt>Peso</dt><dd>5,7 MB</dd></div></dl>
+          <dl class="ficha-datos"><div><dt>Rendimiento</dt><dd>42</dd></div><div><dt>LCP</dt><dd>18,9 s</dd></div><div><dt>Peso</dt><dd>5,7 MB</dd></div></dl>
         </header>
         <div class="galeria" data-galeria>
           <div class="galeria-pista" role="region" aria-label="Capturas de Coolechera" tabindex="0">
-            <figure class="captura"><button type="button" class="zoom" data-grupo="coolechera"><img src="img/comp/coolechera-home-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Portada de coolechera.com: «Productos de verda' verda'» y «Desde 1933», con la foto de un ganadero caribeño."></button><figcaption>Relato de origen con fotografía regional real.</figcaption></figure>
-            <figure class="captura"><button type="button" class="zoom" data-grupo="coolechera"><img src="img/comp/coolechera-catalogo-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Tienda de Coolechera con el buscador «Busca producto» y packshots con franja lateral de color."></button><figcaption>Packshots homogéneos con franja de color y gramaje.</figcaption></figure>
-            <figure class="captura"><button type="button" class="zoom" data-grupo="coolechera"><img src="img/comp/coolechera-b2b-whatsapp-ciudades-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Página del canal institucional de Coolechera con el botón de WhatsApp que despliega ciudades."></button><figcaption>WhatsApp que pregunta la ciudad antes de abrir el chat.</figcaption></figure>
-            <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="coolechera"><img src="img/comp/coolechera-home-movil-fold.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Portada móvil de Coolechera con un carrusel de premios."></button><figcaption>Portada móvil.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="coolechera"><span class="sr">Ampliar captura: </span><img src="img/comp/coolechera-home-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Portada de coolechera.com: «Productos de verda' verda'» y «Desde 1933», con la foto de un ganadero caribeño."></button><figcaption>Relato de origen con fotografía regional real.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="coolechera"><span class="sr">Ampliar captura: </span><img src="img/comp/coolechera-catalogo-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Tienda de Coolechera con el buscador «Busca producto» y fotos de producto con franja lateral de color."></button><figcaption>Fotos de producto homogéneas, con franja de color y gramaje.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="coolechera"><span class="sr">Ampliar captura: </span><img src="img/comp/coolechera-b2b-whatsapp-ciudades-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Página del canal institucional de Coolechera con el botón de WhatsApp que despliega ciudades."></button><figcaption>WhatsApp que pregunta la ciudad antes de abrir el chat.</figcaption></figure>
+            <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="coolechera"><span class="sr">Ampliar captura: </span><img src="img/comp/coolechera-home-movil-fold.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Portada móvil de Coolechera con un carrusel de premios."></button><figcaption>Portada móvil.</figcaption></figure>
           </div>
         </div>
         <div class="ficha-cols">
           <div><h5>Lo que hace bien</h5><ul>
             <li>Relato de origen fuerte y verificable: «Desde 1933», más de 1.000 familias ganaderas y fotos reales de ganaderos caribeños.</li>
-            <li>Packshots homogéneos en 80 productos, con franja de color por tipo y gramaje.</li>
+            <li>Fotos de producto homogéneas en 80 productos, con franja de color por tipo y gramaje.</li>
             <li>Prueba de escala: mapa de plantas, acopios y distritos, y contacto por canal de venta.</li>
             <li>Página institucional con cifras B2B (más de 180 restaurantes y hoteles, PAE) y WhatsApp por ciudad.</li>
           </ul></div>
           <div><h5>Debilidades</h5><ul>
             <li>Fuentes de marca rotas y unos 80 enlaces internos hacia rutas que responden 404.</li>
-            <li>Carruseles invisibles (opacity 0): 6.458 px en blanco en la página B2B.</li>
+            <li>Carruseles que no se ven (quedan transparentes): 6.458 px en blanco en la página B2B.</li>
             <li>Tienda sin comercio (79 de 80 productos a precio 0) y fichas sin tabla nutricional.</li>
-            <li>Sin meta description en 24 URL; certificaciones sin número ni vigencia.</li>
+            <li>Sin descripción para buscadores en 24 URL; certificaciones sin número ni vigencia.</li>
           </ul></div>
           <div><h5>Patrones destacados</h5><ul>
-            <li>Franja lateral de color en cada packshot con tipo de producto y gramaje.</li>
+            <li>Franja lateral de color en cada foto de producto, con tipo y gramaje.</li>
             <li>Artículo «¿Qué significan los sellos de nuestras bolsas?» con el empaque anotado.</li>
             <li>Línea de tiempo con hitos industriales, aunque en imágenes.</li>
           </ul></div>
@@ -510,32 +525,32 @@ img{max-width:100%}
             <h4 id="t-proleche">Proleche (Grupo Lactalis)</h4>
             <p class="ficha-seg">B2C y B2B. Marca nacional del Grupo Lactalis. <a href="https://prolechecolombia.com.co/" target="_blank" rel="noopener">prolechecolombia.com.co<span class="sr"> (se abre en una pestaña nueva)</span></a></p>
           </div>
-          <dl class="ficha-datos"><div><dt>Performance</dt><dd>53</dd></div><div><dt>LCP</dt><dd>15,7 s</dd></div><div><dt>Peso</dt><dd>3,1 MB</dd></div></dl>
+          <dl class="ficha-datos"><div><dt>Rendimiento</dt><dd>53</dd></div><div><dt>LCP</dt><dd>15,7 s</dd></div><div><dt>Peso</dt><dd>3,1 MB</dd></div></dl>
         </header>
         <div class="galeria" data-galeria>
           <div class="galeria-pista" role="region" aria-label="Capturas de Proleche" tabindex="0">
-            <figure class="captura"><button type="button" class="zoom" data-grupo="proleche"><img src="img/comp/proleche-home-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Portada de prolechecolombia.com.co con ilustración rural en verde y empaques de la marca."></button><figcaption>Identidad coherente: verde, vaca e ilustración tipo grabado.</figcaption></figure>
-            <figure class="captura"><button type="button" class="zoom" data-grupo="proleche"><img src="img/comp/proleche-catalogo-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Catálogo de Proleche con pestañas por categoría y el empaque sobre un pedestal."></button><figcaption>Catálogo por pestañas; no hay URL por producto.</figcaption></figure>
-            <figure class="captura"><button type="button" class="zoom" data-grupo="proleche"><img src="img/comp/proleche-distribuidores-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Landing «Sé tu propio jefe» de Proleche para reclutar autoventistas."></button><figcaption>Landing de distribuidores con calculadora de ganancias.</figcaption></figure>
-            <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="proleche"><img src="img/comp/proleche-home-movil-fold.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Portada móvil de Proleche."></button><figcaption>Portada móvil.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="proleche"><span class="sr">Ampliar captura: </span><img src="img/comp/proleche-home-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Portada de prolechecolombia.com.co con ilustración rural en verde y empaques de la marca."></button><figcaption>Identidad coherente: verde, vaca e ilustración tipo grabado.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="proleche"><span class="sr">Ampliar captura: </span><img src="img/comp/proleche-catalogo-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Catálogo de Proleche con pestañas por categoría y el empaque sobre un pedestal."></button><figcaption>Catálogo por pestañas; no hay URL por producto.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="proleche"><span class="sr">Ampliar captura: </span><img src="img/comp/proleche-distribuidores-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Página de captación «Sé tu propio jefe» de Proleche para reclutar autoventistas."></button><figcaption>Página de captación de distribuidores con calculadora de ganancias.</figcaption></figure>
+            <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="proleche"><span class="sr">Ampliar captura: </span><img src="img/comp/proleche-home-movil-fold.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Portada móvil de Proleche."></button><figcaption>Portada móvil.</figcaption></figure>
           </div>
         </div>
         <div class="ficha-cols">
           <div><h5>Lo que hace bien</h5><ul>
-            <li>Landing de autoventistas completa: promesa, video, testimonios, requisitos, calculadora, FAQ y formulario.</li>
+            <li>Página de captación de autoventistas completa: promesa, video, testimonios, requisitos, calculadora, preguntas frecuentes y formulario.</li>
             <li>Identidad coherente: verde #009038, mascota vaca y «Desde 1932» en el logo.</li>
             <li>Fotos reales de su cadena y un selector «Tema» que separa recolector, productor, comercializador y PQRS.</li>
           </ul></div>
           <div><h5>Debilidades</h5><ul>
             <li>En escritorio, la precarga tapa el contenido hasta la primera interacción (seguía a los 18,8 s).</li>
             <li>Sin certificaciones ni INVIMA; sin fichas por producto ni foto del bulto de 25 kg.</li>
-            <li>Páginas clave huérfanas y popups B2B con botones ocultos.</li>
+            <li>Páginas clave sin enlaces que lleven a ellas y ventanas emergentes B2B con botones ocultos.</li>
             <li>Contraste insuficiente: verde sobre blanco 4,16:1 y enlaces del pie 1,71:1.</li>
           </ul></div>
           <div><h5>Patrones destacados</h5><ul>
-            <li>Calculadora de ganancias para distribuidores (clientes por día y ticket promedio).</li>
-            <li>Landing de canal: promesa, cómo funciona, testimonios, requisitos, FAQ y formulario.</li>
-            <li>Pestañas de categoría con miniatura y pedestal de color bajo cada packshot.</li>
+            <li>Calculadora de ganancias para distribuidores (clientes por día y compra promedio).</li>
+            <li>Página de captación por canal: promesa, cómo funciona, testimonios, requisitos, preguntas frecuentes y formulario.</li>
+            <li>Pestañas de categoría con miniatura y pedestal de color bajo cada foto de producto.</li>
           </ul></div>
         </div>
       </section>
@@ -546,14 +561,14 @@ img{max-width:100%}
             <h4 id="t-indunilo">Indunilo S.A.S.</h4>
             <p class="ficha-seg">B2B (maquila e institucional) y marcas propias. Empresa familiar de Santander. <a href="https://www.indunilo.com/" target="_blank" rel="noopener">indunilo.com<span class="sr"> (se abre en una pestaña nueva)</span></a></p>
           </div>
-          <dl class="ficha-datos"><div><dt>Performance</dt><dd>30</dd></div><div><dt>LCP</dt><dd>25,0 s</dd></div><div><dt>Peso</dt><dd>4,4 MB</dd></div></dl>
+          <dl class="ficha-datos"><div><dt>Rendimiento</dt><dd>30</dd></div><div><dt>LCP</dt><dd>25,0 s</dd></div><div><dt>Peso</dt><dd>4,4 MB</dd></div></dl>
         </header>
         <div class="galeria" data-galeria>
           <div class="galeria-pista" role="region" aria-label="Capturas de Indunilo" tabindex="0">
-            <figure class="captura"><button type="button" class="zoom" data-grupo="indunilo"><img src="img/comp/indunilo-home-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Portada de indunilo.com con el anuncio «Indunilo ahora es un Negocio Verde certificado» y un operario en planta."></button><figcaption>Portada con discurso B2B.</figcaption></figure>
-            <figure class="captura"><button type="button" class="zoom" data-grupo="indunilo"><img src="img/comp/indunilo-catalogo-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Leche en polvo entera de Indunilo con las pestañas Marcas propias y Maquilas y empaques de sus marcas."></button><figcaption>Pestañas «Marcas propias / Maquilas».</figcaption></figure>
-            <figure class="captura"><button type="button" class="zoom" data-grupo="indunilo"><img src="img/comp/indunilo-maquilas-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Pestaña Maquilas de Indunilo con empaques de marcas de terceros como Olímpica, Latti y Lelé."></button><figcaption>Vitrina de capacidad para terceros.</figcaption></figure>
-            <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="indunilo"><img src="img/comp/indunilo-home-movil-fold.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Portada móvil de Indunilo."></button><figcaption>Portada móvil.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="indunilo"><span class="sr">Ampliar captura: </span><img src="img/comp/indunilo-home-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Portada de indunilo.com con el anuncio «Indunilo ahora es un Negocio Verde certificado» y un operario en planta."></button><figcaption>Portada con discurso B2B.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="indunilo"><span class="sr">Ampliar captura: </span><img src="img/comp/indunilo-catalogo-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Leche en polvo entera de Indunilo con las pestañas Marcas propias y Maquilas y empaques de sus marcas."></button><figcaption>Pestañas «Marcas propias / Maquilas».</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="indunilo"><span class="sr">Ampliar captura: </span><img src="img/comp/indunilo-maquilas-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Pestaña Maquilas de Indunilo con empaques de marcas de terceros como Olímpica, Latti y Lelé."></button><figcaption>Vitrina de capacidad para terceros.</figcaption></figure>
+            <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="indunilo"><span class="sr">Ampliar captura: </span><img src="img/comp/indunilo-home-movil-fold.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Portada móvil de Indunilo."></button><figcaption>Portada móvil.</figcaption></figure>
           </div>
         </div>
         <div class="ficha-cols">
@@ -566,7 +581,7 @@ img{max-width:100%}
             <li>El WhatsApp apunta a un número de Italia y los enlaces tel: están mal formados.</li>
             <li>Fichas técnicas en Google Drive con 404 y «Descargar Portafolio» vacío.</li>
             <li>Cotizador genérico: producto en texto libre, sin volumen, presentación, NIT ni autorización de datos.</li>
-            <li>Lighthouse móvil 30 y LCP de 25,0 s.</li>
+            <li>Puntaje de rendimiento de Lighthouse móvil de 30 y LCP de 25,0 s.</li>
           </ul></div>
           <div><h5>Patrones destacados</h5><ul>
             <li>Pestañas «Marcas propias / Maquilas» como vitrina de capacidad.</li>
@@ -582,21 +597,21 @@ img{max-width:100%}
             <h4 id="t-klim">Nestlé Colombia: KLIM y El Rodeo</h4>
             <p class="ficha-seg">B2C, líder de góndola. <a href="https://www.nestlefamilynes.co/marcas/klim" target="_blank" rel="noopener">nestlefamilynes.co<span class="sr"> (se abre en una pestaña nueva)</span></a></p>
           </div>
-          <dl class="ficha-datos"><div><dt>Performance</dt><dd>31</dd></div><div><dt>LCP</dt><dd>6,0 s</dd></div><div><dt>Peso</dt><dd>3,5 MB</dd></div></dl>
+          <dl class="ficha-datos"><div><dt>Rendimiento</dt><dd>31</dd></div><div><dt>LCP</dt><dd>6,0 s</dd></div><div><dt>Peso</dt><dd>3,5 MB</dd></div></dl>
         </header>
         <div class="galeria" data-galeria>
           <div class="galeria-pista" role="region" aria-label="Capturas de Nestlé KLIM" tabindex="0">
-            <figure class="captura"><button type="button" class="zoom" data-grupo="klim"><img src="img/comp/nestle-klim-home-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Página de marca KLIM con la campaña «Un acto de amor» en amarillo."></button><figcaption>Sistema visual coherente, sin H1.</figcaption></figure>
-            <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="klim"><img src="img/comp/nestle-klim-ficha-tabla-nutricional-desktop.webp" width="520" height="618" loading="lazy" decoding="async" alt="Tabla nutricional de KLIM en HTML con nutrientes por 100 mL y por porción."></button><figcaption>Tabla nutricional en HTML real.</figcaption></figure>
-            <figure class="captura"><button type="button" class="zoom" data-grupo="klim"><img src="img/comp/nestle-klim-catalogo-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Buscador de productos de Nestlé Family Nes con la foto de un bebé."></button><figcaption>KLIM Clásica queda en la página 2 de un catálogo infantil.</figcaption></figure>
-            <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="klim"><img src="img/comp/nestle-klim-home-movil-fold.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Página de marca KLIM en móvil, con un aviso que ocupa buena parte de la pantalla."></button><figcaption>Portada móvil con aviso extenso.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="klim"><span class="sr">Ampliar captura: </span><img src="img/comp/nestle-klim-home-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Página de marca KLIM con la campaña «Un acto de amor» en amarillo."></button><figcaption>Sistema visual coherente, sin H1.</figcaption></figure>
+            <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="klim"><span class="sr">Ampliar captura: </span><img src="img/comp/nestle-klim-ficha-tabla-nutricional-desktop.webp" width="520" height="618" loading="lazy" decoding="async" alt="Tabla nutricional de KLIM en HTML con nutrientes por 100 mL y por porción."></button><figcaption>Tabla nutricional en HTML real.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="klim"><span class="sr">Ampliar captura: </span><img src="img/comp/nestle-klim-catalogo-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Buscador de productos de Nestlé Family Nes con la foto de un bebé."></button><figcaption>KLIM Clásica queda en la página 2 de un catálogo infantil.</figcaption></figure>
+            <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="klim"><span class="sr">Ampliar captura: </span><img src="img/comp/nestle-klim-home-movil-fold.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Página de marca KLIM en móvil, con un aviso que ocupa buena parte de la pantalla."></button><figcaption>Portada móvil con aviso extenso.</figcaption></figure>
           </div>
         </div>
         <div class="ficha-cols">
           <div><h5>Lo que hace bien</h5><ul>
             <li>Ficha con tabla nutricional en HTML (24 nutrientes) y preparación con medidas caseras.</li>
-            <li>Preguntas frecuentes por producto con FAQPage y JSON-LD Product.</li>
-            <li>Accesibilidad Lighthouse 97, la más alta del benchmark.</li>
+            <li>Preguntas frecuentes por producto, marcadas con datos estructurados para buscadores (FAQPage y Product).</li>
+            <li>Accesibilidad 97 en Lighthouse, la más alta de la comparación.</li>
           </ul></div>
           <div><h5>Debilidades</h5><ul>
             <li>No hay «Dónde comprar», precio ni enlace a cadenas en ninguna página.</li>
@@ -604,7 +619,7 @@ img{max-width:100%}
             <li>Marca fragmentada en 4 dominios; El Rodeo con tabla nutricional en imagen y contraste 2,27:1.</li>
           </ul></div>
           <div><h5>Patrones destacados</h5><ul>
-            <li>Barra fija de anclas: Beneficios, Tabla, Preparación, FAQ.</li>
+            <li>Barra fija de anclas: Beneficios, Tabla, Preparación, FAQ (preguntas frecuentes).</li>
             <li>Rendimiento en unidades de consumo («Rinde 15 vasos / 3 litros»).</li>
             <li>Visor del empaque de El Rodeo con puntos que explican la etiqueta.</li>
           </ul></div>
@@ -617,14 +632,14 @@ img{max-width:100%}
             <h4 id="t-alqueria">Alquería (con Freskaleche)</h4>
             <p class="ficha-seg">B2C. La leche en polvo del grupo se vende como Freskaleche (380 y 900 g). <a href="https://www.alqueria.com.co/" target="_blank" rel="noopener">alqueria.com.co<span class="sr"> (se abre en una pestaña nueva)</span></a></p>
           </div>
-          <dl class="ficha-datos"><div><dt>Performance</dt><dd>35</dd></div><div><dt>LCP</dt><dd>19,5 s</dd></div><div><dt>Peso</dt><dd>3,7 MB</dd></div></dl>
+          <dl class="ficha-datos"><div><dt>Rendimiento</dt><dd>35</dd></div><div><dt>LCP</dt><dd>19,5 s</dd></div><div><dt>Peso</dt><dd>3,7 MB</dd></div></dl>
         </header>
         <div class="galeria" data-galeria>
           <div class="galeria-pista" role="region" aria-label="Capturas de Alquería" tabindex="0">
-            <figure class="captura"><button type="button" class="zoom" data-grupo="alqueria"><img src="img/comp/alqueria-home-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Portada de alqueria.com.co: «Nutrición y calidad para cada momento del día» con una foto familiar."></button><figcaption>Sistema visual coherente, rojo sobre crema.</figcaption></figure>
-            <figure class="captura"><button type="button" class="zoom" data-grupo="alqueria"><img src="img/comp/alqueria-ficha-donde-comprar-desktop.webp" width="1280" height="1043" loading="lazy" decoding="async" alt="Bloque «Compra este producto» con enlaces a Éxito, Carulla, Rappi y Olímpica."></button><figcaption>«Compra este producto» lleva a la ficha exacta en cada cadena.</figcaption></figure>
-            <figure class="captura"><button type="button" class="zoom" data-grupo="alqueria"><img src="img/comp/alqueria-catalogo-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Catálogo de leches de Alquería con tarjetas por producto."></button><figcaption>Catálogo: la leche en polvo no aparece.</figcaption></figure>
-            <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="alqueria"><img src="img/comp/alqueria-ficha-movil-fold.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Ficha móvil de Leche Entera Súper Cremosa de Alquería."></button><figcaption>Ficha en móvil.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="alqueria"><span class="sr">Ampliar captura: </span><img src="img/comp/alqueria-home-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Portada de alqueria.com.co: «Nutrición y calidad para cada momento del día» con una foto familiar."></button><figcaption>Sistema visual coherente, rojo sobre crema.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="alqueria"><span class="sr">Ampliar captura: </span><img src="img/comp/alqueria-ficha-donde-comprar-desktop.webp" width="1280" height="1043" loading="lazy" decoding="async" alt="Bloque «Compra este producto» con enlaces a Éxito, Carulla, Rappi y Olímpica."></button><figcaption>«Compra este producto» lleva a la ficha exacta en cada cadena.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="alqueria"><span class="sr">Ampliar captura: </span><img src="img/comp/alqueria-catalogo-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Catálogo de leches de Alquería con tarjetas por producto."></button><figcaption>Catálogo: la leche en polvo no aparece.</figcaption></figure>
+            <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="alqueria"><span class="sr">Ampliar captura: </span><img src="img/comp/alqueria-ficha-movil-fold.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Ficha móvil de Leche Entera Súper Cremosa de Alquería."></button><figcaption>Ficha en móvil.</figcaption></figure>
           </div>
         </div>
         <div class="ficha-cols">
@@ -652,24 +667,24 @@ img{max-width:100%}
             <h4 id="t-alpina">Alpina</h4>
             <p class="ficha-seg">B2C. Referente de catálogo; en polvo solo tiene la línea infantil Nutrimax. <a href="https://alpina.com/" target="_blank" rel="noopener">alpina.com<span class="sr"> (se abre en una pestaña nueva)</span></a></p>
           </div>
-          <dl class="ficha-datos"><div><dt>Performance</dt><dd>26</dd></div><div><dt>LCP</dt><dd>52,0 s</dd></div><div><dt>Peso</dt><dd>12,8 MB</dd></div></dl>
+          <dl class="ficha-datos"><div><dt>Rendimiento</dt><dd>26</dd></div><div><dt>LCP</dt><dd>52,0 s</dd></div><div><dt>Peso</dt><dd>12,8 MB</dd></div></dl>
         </header>
         <div class="galeria" data-galeria>
           <div class="galeria-pista" role="region" aria-label="Capturas de Alpina" tabindex="0">
-            <figure class="captura"><button type="button" class="zoom" data-grupo="alpina"><img src="img/comp/alpina-home-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Portada de alpina.com con la campaña «El secreto del caballero» y su personaje gota."></button><figcaption>El sitio más pesado del grupo: 12,8 MB en la portada móvil.</figcaption></figure>
-            <figure class="captura"><button type="button" class="zoom" data-grupo="alpina"><img src="img/comp/alpina-catalogo-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Catálogo de leches de Alpina con filtros por categoría, precio y presentación."></button><figcaption>Filtros con conteo por presentación.</figcaption></figure>
-            <figure class="captura"><button type="button" class="zoom" data-grupo="alpina"><img src="img/comp/alpina-ficha-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Ficha de Alimento en polvo Nutrimax Etapa 3 800 g con SKU y EAN junto al nombre."></button><figcaption>SKU y EAN visibles en la ficha.</figcaption></figure>
-            <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="alpina"><img src="img/comp/alpina-home-movil-fold.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Portada móvil de Alpina."></button><figcaption>Portada móvil.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="alpina"><span class="sr">Ampliar captura: </span><img src="img/comp/alpina-home-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Portada de alpina.com con la campaña «El secreto del caballero» y su personaje gota."></button><figcaption>El sitio más pesado del grupo: 12,8 MB en la portada móvil (Lighthouse).</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="alpina"><span class="sr">Ampliar captura: </span><img src="img/comp/alpina-catalogo-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Catálogo de leches de Alpina con filtros por categoría, precio y presentación."></button><figcaption>Filtros con conteo por presentación.</figcaption></figure>
+            <figure class="captura"><button type="button" class="zoom" data-grupo="alpina"><span class="sr">Ampliar captura: </span><img src="img/comp/alpina-ficha-desktop-fold.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Ficha de Alimento en polvo Nutrimax Etapa 3 800 g con SKU y EAN junto al nombre."></button><figcaption>SKU y EAN visibles en la ficha.</figcaption></figure>
+            <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="alpina"><span class="sr">Ampliar captura: </span><img src="img/comp/alpina-home-movil-fold.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Portada móvil de Alpina."></button><figcaption>Portada móvil.</figcaption></figure>
           </div>
         </div>
         <div class="ficha-cols">
           <div><h5>Lo que hace bien</h5><ul>
             <li>Catálogo de 322 productos con megamenú, buscador predictivo y filtros con conteo.</li>
-            <li>Plantilla de packshot con banda de color de variante; SKU y EAN en la ficha.</li>
+            <li>Plantilla de foto de producto con banda de color por variante; SKU y EAN en la ficha.</li>
             <li>Contacto con triaje por perfil (distribuidor, proveedor, empleo) e historia por eras.</li>
           </ul></div>
           <div><h5>Debilidades</h5><ul>
-            <li>11,08 MB y 437 solicitudes en escritorio.</li>
+            <li>Portada en escritorio de 11,08 MB y 437 solicitudes (otra medición; la tabla usa Lighthouse móvil).</li>
             <li>Portada sin H1, JSON-LD inválido y 84 de 162 imágenes sin alt útil.</li>
             <li>Página B2B fuera del menú y sin formulario; política de calidad en un PDF de imagen.</li>
             <li>Botón naranja con contraste 2,54:1.</li>
@@ -677,7 +692,7 @@ img{max-width:100%}
           <div><h5>Patrones destacados</h5><ul>
             <li>Filtros por atributo real de compra con conteo (Presentación: Bolsa 11 / Caja 11).</li>
             <li>Triaje por perfil antes del formulario de contacto.</li>
-            <li>Banners con enlace a la ficha del producto en el retailer.</li>
+            <li>Banners con enlace a la ficha del producto en la cadena.</li>
           </ul></div>
         </div>
       </section>
@@ -690,10 +705,10 @@ img{max-width:100%}
           <li>Tabla nutricional en HTML real, con porción y porciones por envase (KLIM, Alquería).</li>
           <li>«Dónde comprar» con enlace a la ficha exacta en cada cadena (Alquería; Alpina en banners).</li>
           <li>Rendimiento en unidades de consumo: vasos, litros y porciones, y preparación con cucharadas y gramos.</li>
-          <li>Preguntas frecuentes por producto que responden objeciones de compra, con FAQPage.</li>
+          <li>Preguntas frecuentes por producto que responden dudas de compra, con datos estructurados.</li>
           <li>Triaje por perfil antes del formulario: distribuidor, proveedor, empleo o PQRS.</li>
-          <li>Landing de captación de distribuidores con requisitos, calculadora, testimonios y FAQ (Proleche).</li>
-          <li>Packshots homogéneos con código de color por variante y gramaje.</li>
+          <li>Página de captación de distribuidores con requisitos, calculadora, testimonios y preguntas frecuentes (Proleche).</li>
+          <li>Fotos de producto homogéneas, con código de color por variante y gramaje.</li>
           <li>Filtros por atributos reales de compra con conteo, y SKU y EAN visibles (Alpina).</li>
           <li>Prueba de calidad con fotos reales de planta y cifras en contexto.</li>
           <li>Relato de origen con hitos fechados y fotos reales de ganaderos o de archivo.</li>
@@ -719,12 +734,14 @@ img{max-width:100%}
   </div>
 </section>
 
+<div class="corte corte-sube" aria-hidden="true"><svg viewBox="0 0 1440 96" preserveAspectRatio="none" focusable="false"><path fill="#4AA603" d="M0 12Q720 72 1440 12V22Q720 82 0 22Z"/><path fill="#0B1F4F" d="M0 40Q720 100 1440 40V96H0Z"/></svg></div>
+
 <!-- ===================================================== 5. TENDENCIAS -->
 <section id="tendencias" class="seccion oscuro" aria-labelledby="t-tendencias">
   <div class="contenedor">
     <header class="sec-cab">
       <h2 id="t-tendencias">Lo que dura y lo que pasa de moda</h2>
-      <p class="entrada">Investigamos 39 tendencias y un segundo verificador revisó cada una. En este sector, lo moderno que dura es un sitio rápido, accesible y claro: solo el 48 % de los sitios móviles aprueba los Core Web Vitals y el 95,9 % de las portadas tiene fallas de accesibilidad.</p>
+      <p class="entrada">Investigamos 39 tendencias y un segundo verificador revisó cada una. En este sector, lo moderno que dura es un sitio rápido, accesible y claro: solo el 48 % de los sitios móviles aprueba las Core Web Vitals (las métricas de velocidad de Google) y el 95,9 % de las portadas tiene fallas de accesibilidad.</p>
     </header>
 
     <figure class="reparto-tend">
@@ -737,76 +754,88 @@ img{max-width:100%}
     </figure>
 
     <div class="tend-cols">
-      <div class="tend-col">
+      <div class="tend-col tend-col-ancha">
         <h3>Consolidadas, se aplican</h3>
+        <details class="plegable" open>
+        <summary>Ver las 22 en 8 áreas</summary>
         <dl class="tend-grupos">
-          <dt>Arquitectura y catálogo</dt><dd>Menú por tareas, no por audiencia; fichas completas; filtros con lo aplicado visible; tabla comparativa fija; buscador predictivo liviano.</dd>
-          <dt>Conversión B2B y contacto</dt><dd>WhatsApp con mensaje según el contexto; formularios cortos; precios con PUM o escenarios; «Dónde comprar».</dd>
-          <dt>Confianza</dt><dd>Fotografía propia; certificaciones verificables; prueba social auténtica.</dd>
-          <dt>Contenido</dt><dd>Fichas técnicas en HTML con el PDF como descarga; contenido útil sobre el uso.</dd>
-          <dt>Visual y movimiento</dt><dd>Iconografía SVG informativa; micro-interacciones con propósito.</dd>
-          <dt>Rendimiento</dt><dd>Core Web Vitals con INP como meta; imágenes AVIF y WebP priorizadas.</dd>
-          <dt>Accesibilidad</dt><dd>WCAG 2.2 AA desde el diseño.</dd>
-          <dt>Plataforma</dt><dd>Sitio estático generado; CSS moderno de componentes; datos estructurados JSON-LD.</dd>
+          <div><dt>Arquitectura y catálogo</dt><dd>Menú por tareas, no por tipo de cliente; fichas completas; filtros que muestran lo aplicado; tabla comparativa con la primera columna fija; buscador predictivo liviano.</dd></div>
+          <div><dt>Conversión B2B y contacto</dt><dd>WhatsApp con mensaje según el contexto; formularios cortos; precio por unidad de medida (PUM) o escenarios de rendimiento; «Dónde comprar».</dd></div>
+          <div><dt>Confianza</dt><dd>Fotografía propia; certificaciones verificables; testimonios reales.</dd></div>
+          <div><dt>Contenido</dt><dd>Fichas técnicas en HTML con el PDF como descarga; contenido útil sobre el uso.</dd></div>
+          <div><dt>Visual y movimiento</dt><dd>Iconos en SVG que informan; micro-interacciones con propósito.</dd></div>
+          <div><dt>Rendimiento</dt><dd>Core Web Vitals con INP (respuesta al toque) como meta; imágenes AVIF y WebP priorizadas.</dd></div>
+          <div><dt>Accesibilidad</dt><dd>WCAG 2.2 AA desde el diseño.</dd></div>
+          <div><dt>Plataforma</dt><dd>Sitio estático generado; CSS moderno por componentes; datos estructurados para buscadores (JSON-LD).</dd></div>
         </dl>
+        </details>
       </div>
       <div class="tend-col">
         <h3>Emergentes sólidas, con mejora progresiva</h3>
+        <details class="plegable" open>
+        <summary>Ver las 9</summary>
         <ul class="tend-lista">
           <li>Lista de cotización sin registro</li>
           <li>Pedido rápido para compradores recurrentes</li>
-          <li>Trazabilidad por lote con QR (GS1 Digital Link)</li>
+          <li>Trazabilidad por lote con código QR (GS1 Digital Link)</li>
           <li>Barra inferior en móvil de 3 o 4 destinos</li>
           <li>Tipografía variable con jerarquía expresiva</li>
-          <li>Color en OKLCH con contraste verificado</li>
-          <li>View Transitions entre páginas</li>
-          <li>Diseño web sostenible</li>
-          <li>Tokens de diseño</li>
+          <li>Color en OKLCH (un espacio de color que permite calcular el contraste) con contraste verificado</li>
+          <li>Transiciones animadas entre páginas (View Transitions)</li>
+          <li>Diseño web sostenible: menos peso y menos energía</li>
+          <li>Variables de diseño compartidas (tokens) para color, tipografía y espacios</li>
         </ul>
+        </details>
       </div>
       <div class="tend-col">
         <h3>Pasajeras, se evitan</h3>
+        <details class="plegable" open>
+        <summary>Ver las 8</summary>
         <ul class="tend-lista tend-evitar">
-          <li>Bento como estilo de todo el sitio</li>
-          <li>Apariciones al hacer scroll como decoración</li>
-          <li>Scroll-jacking y parallax intenso</li>
-          <li>Glassmorphism o «Liquid Glass»</li>
-          <li>Neubrutalismo como estilo base</li>
+          <li>Rejillas de cajas («bento») como estilo de todo el sitio</li>
+          <li>Apariciones al hacer scroll como decoración que oculta contenido o se repite en todo</li>
+          <li>Desplazamiento forzado (scroll-jacking) y efectos de profundidad intensos (parallax)</li>
+          <li>Efecto de vidrio esmerilado (glassmorphism o «Liquid Glass»)</li>
+          <li>Neubrutalismo (bordes gruesos y sombras duras) como estilo base</li>
           <li>Estética genérica de sitios hechos con IA</li>
           <li>Cursores personalizados</li>
           <li>Urgencia falsa y avisos de «compra reciente»</li>
         </ul>
-        <p class="tend-nota">Además se evitan los widgets pesados de terceros y los botones flotantes que tapan contenido.</p>
+        <p class="tend-nota">Además se evitan los complementos pesados de terceros y los botones flotantes que tapan contenido. Esta página usa apariciones sutiles solo en cifras y pantallas, con el contenido siempre visible y apagadas con «reducir movimiento», por el pedido de más movimiento y profundidad.</p>
+        </details>
       </div>
     </div>
 
     <div class="checklist-bloque">
       <div class="checklist-cab">
         <h3>Checklist de vanguardia duradera</h3>
-        <p>Los dos conceptos deben cumplir los 20 puntos. Por pedido suyo, la guía de experiencia amplía el punto 7: más movimiento y profundidad, siempre apagados con «reducir movimiento» y sin ocultar contenido.</p>
+        <p>Los dos conceptos se evalúan con estos 20 puntos: hoy el Concepto 1 cumple 11 y el Concepto 2, 10; los demás están parciales en el prototipo o dependen de producción y de datos de Mundilácteos. Por pedido suyo, la guía de experiencia amplía el punto 7: más movimiento y profundidad, siempre apagados con «reducir movimiento» y sin ocultar contenido.</p>
       </div>
-      <ol class="checklist">
-        <li><b>Core Web Vitals en móvil</b> LCP ≤ 2,5 s, INP &lt; 200 ms y CLS ≤ 0,1.</li>
-        <li><b>Presupuesto de peso</b> JS ≤ 50 KB, portada móvil ≤ 1 MB y ≤ 30 peticiones.</li>
-        <li><b>Imágenes modernas</b> AVIF, WebP y JPEG con tamaños declarados.</li>
-        <li><b>Contraste AA</b> En texto, controles y foco, también sobre fotos.</li>
-        <li><b>0 errores de accesibilidad</b> En pruebas automáticas, con <code>lang="es-CO"</code>.</li>
-        <li><b>Teclado y foco visible</b> El foco nunca queda tapado; objetivos de 44 px en móvil.</li>
-        <li><b>Movimiento con salvaguardas</b> Nada se anima con «reducir movimiento».</li>
-        <li><b>Menú por tareas</b> 6 entradas como máximo, sin hamburguesa en escritorio.</li>
-        <li><b>Ayuda consistente</b> WhatsApp, teléfono y Cotizar siempre en el mismo lugar.</li>
-        <li><b>Filtros</b> Con selección múltiple, conteo y estado en la URL.</li>
-        <li><b>Ficha completa</b> Presentaciones como botones, nutrición, EAN e INVIMA.</li>
-        <li><b>«Qué presentación me conviene»</b> Sin desplazar la página a 360 px.</li>
-        <li><b>Cotización corta</b> 5 campos obligatorios como máximo.</li>
-        <li><b>Precio con PUM</b> Sin precios, al menos un escenario de rendimiento.</li>
-        <li><b>Dónde comprar</b> Por ciudad, con «Usar mi ubicación».</li>
-        <li><b>Fichas técnicas en HTML</b> El PDF queda como copia rotulada.</li>
-        <li><b>Datos estructurados</b> JSON-LD sin errores.</li>
-        <li><b>Cero stock y cero urgencia falsa</b> Solo fotos y testimonios reales.</li>
-        <li><b>Identidad propia</b> Paleta de los empaques en tokens; nada de Inter ni Roboto.</li>
-        <li><b>Sitio estático</b> Legible sin JavaScript y servido por Hostinger.</li>
-      </ol>
+      <details class="plegable" open>
+        <summary>Ver los 20 puntos</summary>
+        <ol class="checklist">
+          <li><b>Core Web Vitals en móvil</b> LCP ≤ 2,5 s, INP &lt; 200 ms y CLS ≤ 0,1.</li>
+          <li><b>Presupuesto de peso</b> JS ≤ 50 KB, portada móvil ≤ 1 MB y ≤ 30 peticiones.</li>
+          <li><b>Imágenes modernas</b> AVIF, WebP y JPEG con tamaños declarados.</li>
+          <li><b>Contraste AA</b> En texto, controles y foco, también sobre fotos.</li>
+          <li><b>0 errores de accesibilidad</b> En pruebas automáticas, con <code>lang="es-CO"</code>.</li>
+          <li><b>Teclado y foco visible</b> El foco nunca queda tapado; objetivos de 44 px en móvil.</li>
+          <li><b>Movimiento con salvaguardas</b> Nada se anima con «reducir movimiento».</li>
+          <li><b>Menú por tareas</b> 6 entradas como máximo, sin menú escondido en escritorio.</li>
+          <li><b>Ayuda consistente</b> WhatsApp, teléfono y Cotizar siempre en el mismo lugar.</li>
+          <li><b>Filtros</b> Con selección múltiple, conteo y estado en la dirección.</li>
+          <li><b>Ficha completa</b> Presentaciones como botones, nutrición, EAN e INVIMA.</li>
+          <li><b>«Qué presentación me conviene»</b> Sin desplazar la página a 360 px.</li>
+          <li><b>Cotización corta</b> 5 campos obligatorios como máximo.</li>
+          <li><b>Precio con PUM</b> Sin precios, al menos un escenario de rendimiento.</li>
+          <li><b>Dónde comprar</b> Por ciudad, con «Usar mi ubicación».</li>
+          <li><b>Fichas técnicas en HTML</b> El PDF queda como copia rotulada.</li>
+          <li><b>Datos estructurados</b> JSON-LD sin errores.</li>
+          <li><b>Cero fotos de banco y cero urgencia falsa</b> Solo fotos y testimonios reales.</li>
+          <li><b>Identidad propia</b> Paleta de los empaques en variables de diseño; nada de Inter ni Roboto.</li>
+          <li><b>Sitio estático</b> Legible sin JavaScript y servido por Hostinger.</li>
+        </ol>
+      </details>
     </div>
   </div>
 </section>
@@ -815,23 +844,26 @@ img{max-width:100%}
 <section id="concepto-1" class="concepto c1" aria-labelledby="t-c1">
   <div class="c-banda">
     <div class="contenedor c-banda-grid">
+      <div class="c-banda-cab">
+        <p class="c-num"><svg class="c-num-globo" aria-hidden="true"><use href="#globo"/></svg>Concepto 1</p>
+        <h2 id="t-c1" class="c-nombre">Paralelo 10</h2>
+      </div>
       <div class="c-banda-texto">
-        <p class="c-num">Concepto 1</p>
-        <h2 id="t-c1">Paralelo 10</h2>
         <p class="c-idea">De Turbaco, con nombre y registro.</p>
-        <p class="c-enfoque">Mundilácteos se presenta desde un origen que se puede comprobar: una planta con dirección, personas con nombre y cargo, y cinco registros sanitarios vigentes con su número a la vista. El nombre viene de la ubicación de la planta, cerca del paralelo 10 de latitud norte, y del globo de franjas del logo.</p>
-        <a class="boton boton-primario boton-grande" href="https://claude.ai/artifact/CONCEPTO1-PENDIENTE" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Abrir prototipo navegable<span class="sr"> del Concepto 1 (se abre en una pestaña nueva)</span></a>
+        <p class="c-enfoque">Mundilácteos se presenta desde un origen que se puede comprobar: una planta con dirección, personas con nombre y cargo, y cinco registros sanitarios vigentes con su número a la vista y un botón para verificarlos. El nombre viene de la ubicación de la planta, cerca del paralelo 10 de latitud norte, y del globo de franjas del logo.</p>
+        <a class="boton boton-primario boton-grande" href="https://claude.ai/artifact/XF3krJWmpdwKERm255EeWu" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Abrir prototipo navegable<span class="sr"> del Concepto 1 (se abre en una pestaña nueva)</span></a>
       </div>
       <div class="c-pantallas">
-        <button type="button" class="zoom pantalla-desk" data-grupo="c1"><img src="img/conceptos/c1-inicio-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 1, portada en escritorio: el titular «Leche en polvo de Turbaco para toda Colombia.» cruza el globo de franjas azules, con sacos arriba y bolsas de The Cántaro y La Becerrita a la derecha." data-pie="Concepto 1, portada en escritorio."></button>
-        <button type="button" class="zoom pantalla-movil" data-grupo="c1"><img src="img/conceptos/c1-inicio-movil.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Concepto 1, portada en celular: cabecera con WhatsApp, Cotizar y Menú, y el titular sobre el globo." data-pie="Concepto 1, portada en celular."></button>
+        <button type="button" class="zoom pantalla-desk" data-grupo="c1"><span class="sr">Ampliar captura: </span><img src="img/conceptos/c1-inicio-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 1, portada en escritorio: el titular «Leche en polvo de Turbaco para toda Colombia.» cruza el globo de franjas azules, con sacos arriba y bolsas de The Cántaro y La Becerrita a la derecha." data-pie="Concepto 1, portada en escritorio."></button>
+        <button type="button" class="zoom pantalla-movil" data-grupo="c1"><span class="sr">Ampliar captura: </span><img src="img/conceptos/c1-inicio-movil.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Concepto 1, portada en celular: cabecera con WhatsApp, Cotizar y Menú, y el titular sobre el globo." data-pie="Concepto 1, portada en celular."></button>
       </div>
     </div>
+    <div class="c-firma c1-firma" aria-hidden="true"><svg viewBox="0 0 1440 120" preserveAspectRatio="none" focusable="false"><path fill="#0A2F8F" d="M0 0H1440V36Q720 96 0 36Z"/><path fill="#0A2F8F" d="M0 62Q720 122 1440 62V76Q720 136 0 76Z"/><path fill="#EEF4FB" d="M0 96Q720 156 1440 96V104Q720 164 0 104Z"/></svg></div>
   </div>
 
   <div class="contenedor c-cuerpo">
     <div class="mood">
-      <h3 class="mood-titulo">Moodboard</h3>
+      <h3 class="mood-titulo">Tablero de estilo</h3>
       <div class="mood-grid">
         <div class="mood-color">
           <h4>Color: manda el azul</h4>
@@ -845,6 +877,7 @@ img{max-width:100%}
             <li><span class="mu" style="background:#0B1F4F"></span><span class="mu-t"><b>Azul noche</b> 12 %<small>Texto, banda de registros y pie</small></span></li>
             <li><span class="mu" style="background:#2D7A12"></span><span class="mu-t"><b>Verde hoja</b> 2 %<small>Cotizar, agregar y verificado</small></span></li>
             <li><span class="mu" style="background:#1090E0"></span><span class="mu-t"><b>Azul cielo</b> 1 %<small>Destellos y rutas; nunca texto</small></span></li>
+            <li><span class="mu" style="background:#4AA603"></span><span class="mu-t"><b>Verde Mundilácteos</b> 1 %<small>Cuerpo del globo y verificado sobre Azul noche</small></span></li>
           </ul>
         </div>
         <div class="mood-tipo">
@@ -852,7 +885,7 @@ img{max-width:100%}
           <p class="esp esp-c1-titulo">Leche en polvo de Turbaco para toda Colombia.</p>
           <p class="esp-meta">Encode Sans, ancho 125, peso 800. Titulares, interfaz y cifras; el ancho 125 solo va en los H1 y en las cifras de registro.</p>
           <p class="esp esp-c1-cifra">RSA-0037312-2025</p>
-          <p class="esp-meta">Cifra de registro a 72 px en peso 300: el segundo gesto tipográfico de la portada.</p>
+          <p class="esp-meta">Cifra de registro a 66 px en peso 300: el segundo gesto tipográfico de la portada.</p>
           <p class="esp esp-c1-texto">The Cántaro y La Becerrita, en bolsa de 380 a 900 g y en bulto de hasta 25 kg. Despachamos a tiendas, panaderías, supermercados e industria.</p>
           <p class="esp-meta">Source Serif 4 para la lectura: el tono de documento serio.</p>
         </div>
@@ -862,7 +895,7 @@ img{max-width:100%}
             <li>La planta en Europark, las personas con nombre y cargo, y el producto.</li>
             <li>Luz natural de 5.000 a 5.500 K, horizonte nivelado y nunca texto sobre foto.</li>
             <li>Tomas del globo encuadradas a 5:1: H01 fachada, H02 el equipo en una fila, H03 pacas y bultos.</li>
-            <li>Fuera: stock, personas generadas con IA, vacas, salpicaduras y postales de Cartagena.</li>
+            <li>Fuera: fotos de banco, personas generadas con IA, vacas, salpicaduras y postales de Cartagena.</li>
           </ul>
           <h4>Formas y movimiento</h4>
           <ul class="mood-lista">
@@ -881,16 +914,17 @@ img{max-width:100%}
         <h4>Secciones principales</h4>
         <dl class="secciones-c">
           <dt>Portada</dt><dd>Globo de paralelos, vitrina de marcas con «Compre según su negocio», registros a la vista, Cómo leer una bolsa, planta y gente, Anillos desde Turbaco, tres formas de comprar, guías y cierre con una asesora.</dd>
-          <dt>Catálogo</dt><dd>Vitrinas por producto con presentaciones como chips, filtros con conteo (marca, tipo, formato, peso y uso), buscador con palabras del mostrador («saco» es bulto) y comparador de hasta 4 presentaciones.</dd>
+          <dt>Catálogo</dt><dd>9 productos y 20 presentaciones en vitrinas, con las presentaciones como chips, filtros con conteo (marca, tipo, formato, presentación y uso), buscador con palabras del mostrador («saco» es bulto) y comparador de hasta 4 presentaciones.</dd>
           <dt>Ficha</dt><dd>Presentaciones como botones, registro con «Verificar», paca, rinde y EAN, cantidad con equivalencia («1 paca = 12 bolsas, 10,8 kg») y WhatsApp con el mensaje a la vista.</dd>
-          <dt>Cotizar</dt><dd>Una sola página: la lista a la izquierda y 5 campos a la derecha. Sin cuenta y sin pagos.</dd>
+          <dt>Cotizar</dt><dd>Una sola página: la lista a la izquierda y, a la derecha, 5 datos obligatorios (nombre, WhatsApp, ciudad, tipo de negocio y autorización de datos); la facturación es opcional. Sin cuenta y sin pagos.</dd>
         </dl>
       </div>
       <figure class="tira">
         <div class="tira-marco" role="region" aria-label="Portada completa del Concepto 1, desplazable" tabindex="0">
           <img src="img/conceptos/c1-inicio-completa.webp" width="480" height="2889" loading="lazy" decoding="async" alt="Portada completa del Concepto 1 en escritorio, de arriba abajo: globo, vitrina de marcas, banda de registros, Cómo leer una bolsa, planta y gente, anillos de cobertura, formas de comprar, guías, cierre y pie.">
         </div>
-        <figcaption>Portada completa. Desplácese dentro del marco.</figcaption>
+        <button type="button" class="boton boton-secundario tira-abrir" hidden>Ver portada completa<span class="sr"> del Concepto 1</span></button>
+        <figcaption>Portada completa del Concepto 1.<span class="tira-ayuda"> Desplácese dentro del marco.</span></figcaption>
       </figure>
     </div>
 
@@ -898,12 +932,12 @@ img{max-width:100%}
       <h3>Capturas del prototipo</h3>
       <div class="galeria" data-galeria>
         <div class="galeria-pista" role="region" aria-label="Capturas del Concepto 1" tabindex="0">
-          <figure class="captura"><button type="button" class="zoom" data-grupo="c1-cap"><img src="img/conceptos/c1-productos-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 1, Productos en escritorio: banda azul con «9 productos y 20 presentaciones», buscador, chips «Compre según su negocio», filtros con conteo y vitrinas."></button><figcaption>Productos, escritorio.</figcaption></figure>
-          <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="c1-cap"><img src="img/conceptos/c1-productos-movil.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Concepto 1, Productos en celular, con buscador, chips, botón Filtrar y la primera vitrina."></button><figcaption>Productos, celular.</figcaption></figure>
-          <figure class="captura"><button type="button" class="zoom" data-grupo="c1-cap"><img src="img/conceptos/c1-ficha-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 1, ficha de The Cántaro Entera en escritorio: presentaciones como chips, registro con Verificar, paca, rinde y EAN, cantidad y botones Agregar a mi cotización y Preguntar por WhatsApp."></button><figcaption>Ficha, escritorio.</figcaption></figure>
-          <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="c1-cap"><img src="img/conceptos/c1-ficha-movil.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Concepto 1, ficha de The Cántaro Entera en celular."></button><figcaption>Ficha, celular.</figcaption></figure>
-          <figure class="captura"><button type="button" class="zoom" data-grupo="c1-cap"><img src="img/conceptos/c1-cotizar-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 1, Solicitar cotización en escritorio: la lista a la izquierda y los datos del cliente a la derecha."></button><figcaption>Cotizar, escritorio.</figcaption></figure>
-          <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="c1-cap"><img src="img/conceptos/c1-cotizar-movil.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Concepto 1, Solicitar cotización en celular, con la lista y accesos rápidos a productos."></button><figcaption>Cotizar, celular.</figcaption></figure>
+          <figure class="captura"><button type="button" class="zoom" data-grupo="c1-cap"><span class="sr">Ampliar captura: </span><img src="img/conceptos/c1-productos-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 1, Productos en escritorio: banda azul con «9 productos y 20 presentaciones», buscador, chips «Compre según su negocio», filtros con conteo y vitrinas."></button><figcaption>Productos, escritorio.</figcaption></figure>
+          <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="c1-cap"><span class="sr">Ampliar captura: </span><img src="img/conceptos/c1-productos-movil.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Concepto 1, Productos en celular, con buscador, chips, botón Filtrar y la primera vitrina."></button><figcaption>Productos, celular.</figcaption></figure>
+          <figure class="captura"><button type="button" class="zoom" data-grupo="c1-cap"><span class="sr">Ampliar captura: </span><img src="img/conceptos/c1-ficha-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 1, ficha de The Cántaro Entera en escritorio: presentaciones como chips, registro con Verificar, paca, rinde y EAN, cantidad y botones Agregar a mi cotización y Preguntar por WhatsApp."></button><figcaption>Ficha, escritorio.</figcaption></figure>
+          <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="c1-cap"><span class="sr">Ampliar captura: </span><img src="img/conceptos/c1-ficha-movil.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Concepto 1, ficha de The Cántaro Entera en celular."></button><figcaption>Ficha, celular.</figcaption></figure>
+          <figure class="captura"><button type="button" class="zoom" data-grupo="c1-cap"><span class="sr">Ampliar captura: </span><img src="img/conceptos/c1-cotizar-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 1, Solicitar cotización en escritorio: la lista a la izquierda y los datos del cliente a la derecha."></button><figcaption>Cotizar, escritorio.</figcaption></figure>
+          <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="c1-cap"><span class="sr">Ampliar captura: </span><img src="img/conceptos/c1-cotizar-movil.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Concepto 1, Solicitar cotización en celular, con la lista y accesos rápidos a productos."></button><figcaption>Cotizar, celular.</figcaption></figure>
         </div>
       </div>
     </div>
@@ -916,13 +950,14 @@ img{max-width:100%}
           <li><b>Registros a la vista:</b> los 5 números INVIMA en una banda propia, con vigencia y consulta.</li>
           <li><b>Personas con nombre:</b> quién empaca, quién controla la calidad y quién atiende cada zona.</li>
           <li><b>Anillos desde Turbaco:</b> la cobertura ordenada por tiempo de entrega, no por distancia.</li>
-          <li><b>El logo evoluciona sin romperse:</b> el globo se conserva, sin degradado y con tilde.</li>
+          <li><b>El logo evoluciona sin romperse:</b> el globo se conserva, sin degradado y con la tilde unificada en todas las versiones.</li>
         </ul>
       </div>
       <div class="c-requiere">
-        <h3>Qué necesita para brillar</h3>
-        <p>Una jornada de fotos en planta, media de retratos y una de visitas a clientes. Mientras tanto, el hero se publica en su variante de respaldo con empaques, que ya funciona con los recursos actuales.</p>
-        <a class="boton boton-primario boton-grande" href="https://claude.ai/artifact/CONCEPTO1-PENDIENTE" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Abrir prototipo navegable<span class="sr"> del Concepto 1 (se abre en una pestaña nueva)</span></a>
+        <h3>Estado del prototipo</h3>
+        <p>11 páginas principales, 9 fichas de producto, 6 artículos, comparador de presentaciones, página 404 y 2 páginas legales. En la verificación final de 24 capturas: 0 desbordes horizontales, 0 errores de consola y 0 violaciones de axe.</p>
+        <p>Lo que falta depende de Mundilácteos: EAN, tablas nutricionales, reverso legible del empaque y pacas por estiba, y las 23 tomas de fotos (una jornada en planta, media de retratos y una de visitas a clientes). Mientras llegan, el encabezado principal se publica en su variante de lanzamiento con los empaques y sacos reales. El LCP se mide en producción.</p>
+        <a class="boton boton-primario boton-grande" href="https://claude.ai/artifact/XF3krJWmpdwKERm255EeWu" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Abrir prototipo navegable<span class="sr"> del Concepto 1 (se abre en una pestaña nueva)</span></a>
       </div>
     </div>
   </div>
@@ -932,23 +967,36 @@ img{max-width:100%}
 <section id="concepto-2" class="concepto c2" aria-labelledby="t-c2">
   <div class="c-banda">
     <div class="contenedor c-banda-grid">
-      <div class="c-banda-texto">
+      <div class="c-banda-cab">
         <p class="c-num">Concepto 2</p>
-        <h2 id="t-c2">Peso neto</h2>
+        <h2 id="t-c2" class="c-nombre">Peso neto</h2>
+      </div>
+      <div class="c-banda-texto">
         <p class="c-idea">Lo que dice la etiqueta es lo que hay adentro.</p>
         <p class="c-enfoque">Mundilácteos se presenta con su producto medido: gramos, bolsas por paca, litros que rinde y registros INVIMA que usted puede consultar. Blanco y verde como la marca, con los empaques reales como protagonistas y una herramienta de cotización que convierte pacas y bultos en kilos al instante.</p>
+        <div class="c2-regla" aria-hidden="true"><span>27 g</span><i></i><span>25 kg</span></div>
         <a class="boton boton-noche boton-grande" href="https://claude.ai/artifact/BHcz4tfZatisdjrVbzYmoS" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Abrir prototipo navegable<span class="sr"> del Concepto 2 (se abre en una pestaña nueva)</span></a>
       </div>
       <div class="c-pantallas">
-        <button type="button" class="zoom pantalla-desk" data-grupo="c2"><img src="img/conceptos/c2-inicio-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 2, portada en escritorio: titular condensado «Leche en polvo empacada en Cartagena, de 27 gramos a 25 kilos.» y las 12 presentaciones de pie sobre una línea base verde, del sobre de 27 g al bulto de 25 kg." data-pie="Concepto 2, portada en escritorio."></button>
-        <button type="button" class="zoom pantalla-movil" data-grupo="c2"><img src="img/conceptos/c2-inicio-movil.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Concepto 2, portada en celular con el titular, el botón Cotizar por volumen y la barra inferior con Buscar, WhatsApp y Cotizar." data-pie="Concepto 2, portada en celular."></button>
+        <button type="button" class="zoom pantalla-desk" data-grupo="c2"><span class="sr">Ampliar captura: </span><img src="img/conceptos/c2-inicio-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 2, portada en escritorio: titular condensado «Leche en polvo empacada en Cartagena, de 27 gramos a 25 kilos.» y los 12 gramajes de pie sobre una línea base verde, del sobre de 27 g al bulto de 25 kg." data-pie="Concepto 2, portada en escritorio."></button>
+        <button type="button" class="zoom pantalla-movil" data-grupo="c2"><span class="sr">Ampliar captura: </span><img src="img/conceptos/c2-inicio-movil.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Concepto 2, portada en celular con el titular, el botón Cotizar por volumen y la barra inferior con Buscar, WhatsApp y Cotizar." data-pie="Concepto 2, portada en celular."></button>
       </div>
     </div>
+    <div class="c-firma c2-firma" aria-hidden="true"></div>
   </div>
 
   <div class="contenedor c-cuerpo">
+    <aside class="c-lectura" aria-labelledby="t-c2-lectura">
+      <h3 id="t-c2-lectura">Tres cifras de este concepto, explicadas</h3>
+      <dl>
+        <div><dt>«12 presentaciones, de 27 g a 25 kg»</dt><dd>Son los 12 gramajes posibles: los del registro sanitario y los de la lista de embalaje del sitio actual. 5 de ellos (27, 104, 200, 750 y 1.000 g) hoy son solo para marca propia. El catálogo de la casa tiene 20 presentaciones en 9 líneas.</dd></div>
+        <div><dt>«20 referencias de 7 productos»</dt><dd>Son las mismas 20 presentaciones. Los 2 productos registrados en 2025 (la mezcla con café y panela y el alimento lácteo) aparecen aparte, con presentaciones por confirmar: en total son 9 productos.</dd></div>
+        <div><dt>«Empacada en Cartagena»</dt><dd>El concepto nombra el origen por el área metropolitana; la planta está en Turbaco. Cómo nombrarlo es una decisión pendiente de Mundilácteos. Proponemos una sola forma en todo el sitio, por ejemplo «en Turbaco, junto a Cartagena».</dd></div>
+      </dl>
+    </aside>
+
     <div class="mood">
-      <h3 class="mood-titulo">Moodboard</h3>
+      <h3 class="mood-titulo">Tablero de estilo</h3>
       <div class="mood-grid">
         <div class="mood-color">
           <h4>Color: mandan el blanco y el verde</h4>
@@ -956,11 +1004,12 @@ img{max-width:100%}
             <span style="flex-grow:65;background:#FFFFFF"></span><span style="flex-grow:10;background:#EFF5EA"></span><span style="flex-grow:8;background:#4AA603"></span><span style="flex-grow:8;background:#0B1F4F"></span><span style="flex-grow:7;background:#E3F1D3"></span><span style="flex-grow:1;background:#2D7A12"></span><span style="flex-grow:1;background:#0B6FB8"></span>
           </div>
           <ul class="muestras">
-            <li><span class="mu" style="background:#FFFFFF"></span><span class="mu-t"><b>Blanco</b> 65 %<small>Superficie y fondo de packshots</small></span></li>
+            <li><span class="mu" style="background:#FFFFFF"></span><span class="mu-t"><b>Blanco</b> 65 %<small>Superficie y fondo de las fotos de producto</small></span></li>
             <li><span class="mu" style="background:#EFF5EA"></span><span class="mu-t"><b>Verde tenue</b> 10 %<small>Paneles y encabezados</small></span></li>
             <li><span class="mu" style="background:#4AA603"></span><span class="mu-t"><b>Verde Mundilácteos</b> 8 %<small>Bandas dentadas y línea base</small></span></li>
             <li><span class="mu" style="background:#0B1F4F"></span><span class="mu-t"><b>Azul noche</b> 8 %<small>Texto y cifras, como la tinta del empaque</small></span></li>
             <li><span class="mu" style="background:#E3F1D3"></span><span class="mu-t"><b>Verde tinte</b> 7 %<small>Zonas de volumen y bultos</small></span></li>
+            <li><span class="mu" style="background:#2D7A12"></span><span class="mu-t"><b>Verde hoja</b> 1 %<small>Botón primario: Cotizar</small></span></li>
             <li><span class="mu" style="background:#0B6FB8"></span><span class="mu-t"><b>Cielo profundo</b> 1 %<small>Presentación elegida</small></span></li>
           </ul>
         </div>
@@ -969,7 +1018,7 @@ img{max-width:100%}
           <p class="esp esp-c2-titulo">Leche en polvo empacada en Cartagena, de 27 gramos a 25 kilos.</p>
           <p class="esp-meta">Archivo condensada al 66 %, peso 820, en eco de la rotulación de los sacos.</p>
           <p class="esp esp-c2-cifra">7,4 L</p>
-          <p class="esp-meta">Expandida y negra para las cifras gigantes: los litros que rinde un kilo.</p>
+          <p class="esp-meta">Expandida y negra para las cifras gigantes: los litros que rinde un kilo (con la dosis de 135 g por litro de la ficha técnica, por unificar con la de los empaques).</p>
           <p class="esp esp-c2-texto">Surtimos tiendas, panaderías, supermercados e industria en toda Colombia, con The Cántaro, La Becerrita o la marca de su cadena.</p>
           <p class="esp-meta">Archivo en ancho normal para la lectura; los datos van con cifras tabulares.</p>
         </div>
@@ -996,8 +1045,8 @@ img{max-width:100%}
         <p><b>En celular:</b> cabecera de 56 px con «Menú» y una barra inferior fija con Buscar, WhatsApp y Cotizar. En la ficha, la barra cambia a cantidad y Agregar.</p>
         <h4>Secciones principales</h4>
         <dl class="secciones-c">
-          <dt>Portada</dt><dd>Fila a escala con las 12 presentaciones, ¿Qué necesita?, Cuánto rinde (7,4 L por kilo y calculadora de bultos), Hecha para el calor, Por qué elegirnos, marcas, Así empacamos, distribución y recursos.</dd>
-          <dt>Catálogo</dt><dd>Una planilla, no una cuadrícula: «20 referencias de 7 productos», filtros múltiples con conteo y una fila por presentación con cantidad y el cálculo en vivo («= 30 bolsas, 11,4 kg»).</dd>
+          <dt>Portada</dt><dd>Fila a escala con los 12 gramajes, ¿Qué necesita?, Cuánto rinde (7,4 L por kilo y calculadora de bultos), Hecha para el calor, Por qué elegirnos, marcas, Así empacamos, distribución y recursos.</dd>
+          <dt>Catálogo</dt><dd>Una planilla, no una cuadrícula: «20 referencias de 7 productos» (los 2 de 2025 van aparte), filtros múltiples con conteo y una fila por presentación con cantidad y el cálculo en vivo («= 30 bolsas, 11,4 kg»).</dd>
           <dt>Ficha</dt><dd>El empaque con la cifra gigante de la presentación, el H1 con la denominación exacta del registro, la fila a escala como selector y la ficha técnica en HTML.</dd>
           <dt>Cotizar</dt><dd>Tres pasos (Productos, Entrega, Contacto), 5 datos obligatorios, total en kilos y enlace para compartir la cotización.</dd>
         </dl>
@@ -1006,7 +1055,8 @@ img{max-width:100%}
         <div class="tira-marco" role="region" aria-label="Portada completa del Concepto 2, desplazable" tabindex="0">
           <img src="img/conceptos/c2-inicio-completa.webp" width="480" height="2593" loading="lazy" decoding="async" alt="Portada completa del Concepto 2 en escritorio, de arriba abajo: fila a escala, ¿Qué necesita?, banda verde de Cuánto rinde, Hecha para el calor, razones, marcas, Así empacamos y distribución.">
         </div>
-        <figcaption>Portada completa. Desplácese dentro del marco.</figcaption>
+        <button type="button" class="boton boton-secundario tira-abrir" hidden>Ver portada completa<span class="sr"> del Concepto 2</span></button>
+        <figcaption>Portada completa del Concepto 2.<span class="tira-ayuda"> Desplácese dentro del marco.</span></figcaption>
       </figure>
     </div>
 
@@ -1014,12 +1064,12 @@ img{max-width:100%}
       <h3>Capturas del prototipo</h3>
       <div class="galeria" data-galeria>
         <div class="galeria-pista" role="region" aria-label="Capturas del Concepto 2" tabindex="0">
-          <figure class="captura"><button type="button" class="zoom" data-grupo="c2-cap"><img src="img/conceptos/c2-productos-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 2, Productos en escritorio: encabezado verde tenue con la regla «27 g ── 25 kg», filtros y planilla por presentación."></button><figcaption>Productos, escritorio.</figcaption></figure>
-          <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="c2-cap"><img src="img/conceptos/c2-productos-movil.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Concepto 2, Productos en celular, con «20 referencias de 7 productos», botón Filtrar y barra inferior."></button><figcaption>Productos, celular.</figcaption></figure>
-          <figure class="captura"><button type="button" class="zoom" data-grupo="c2-cap"><img src="img/conceptos/c2-ficha-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 2, ficha en escritorio: «500 g» gigante en verde detrás de la bolsa, H1 «Leche en polvo entera adicionada con hierro», registro con Consultar y la fila a escala como selector."></button><figcaption>Ficha, escritorio.</figcaption></figure>
-          <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="c2-cap"><img src="img/conceptos/c2-ficha-movil.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Concepto 2, ficha en celular con la barra inferior de cantidad y Agregar."></button><figcaption>Ficha, celular.</figcaption></figure>
-          <figure class="captura"><button type="button" class="zoom" data-grupo="c2-cap"><img src="img/conceptos/c2-cotizar-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 2, Solicitar cotización en escritorio: paso 1 de 3, Productos, con el resumen «Su cotización» a la derecha."></button><figcaption>Cotizar, escritorio.</figcaption></figure>
-          <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="c2-cap"><img src="img/conceptos/c2-cotizar-movil.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Concepto 2, Solicitar cotización en celular: paso 1 de 3 con campo libre y Continuar con entrega."></button><figcaption>Cotizar, celular.</figcaption></figure>
+          <figure class="captura"><button type="button" class="zoom" data-grupo="c2-cap"><span class="sr">Ampliar captura: </span><img src="img/conceptos/c2-productos-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 2, Productos en escritorio: encabezado verde tenue con la regla «27 g ── 25 kg», filtros y planilla por presentación."></button><figcaption>Productos, escritorio.</figcaption></figure>
+          <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="c2-cap"><span class="sr">Ampliar captura: </span><img src="img/conceptos/c2-productos-movil.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Concepto 2, Productos en celular, con «20 referencias de 7 productos», botón Filtrar y barra inferior."></button><figcaption>Productos, celular.</figcaption></figure>
+          <figure class="captura"><button type="button" class="zoom" data-grupo="c2-cap"><span class="sr">Ampliar captura: </span><img src="img/conceptos/c2-ficha-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 2, ficha en escritorio: «500 g» gigante en verde detrás de la bolsa, H1 «Leche en polvo entera adicionada con hierro», registro con Consultar y la fila a escala como selector."></button><figcaption>Ficha, escritorio.</figcaption></figure>
+          <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="c2-cap"><span class="sr">Ampliar captura: </span><img src="img/conceptos/c2-ficha-movil.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Concepto 2, ficha en celular con la barra inferior de cantidad y Agregar."></button><figcaption>Ficha, celular.</figcaption></figure>
+          <figure class="captura"><button type="button" class="zoom" data-grupo="c2-cap"><span class="sr">Ampliar captura: </span><img src="img/conceptos/c2-cotizar-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 2, Solicitar cotización en escritorio: paso 1 de 3, Productos, con el resumen «Su cotización» a la derecha."></button><figcaption>Cotizar, escritorio.</figcaption></figure>
+          <figure class="captura cap-movil"><button type="button" class="zoom" data-grupo="c2-cap"><span class="sr">Ampliar captura: </span><img src="img/conceptos/c2-cotizar-movil.webp" width="520" height="1125" loading="lazy" decoding="async" alt="Concepto 2, Solicitar cotización en celular: paso 1 de 3 con campo libre y Continuar con entrega."></button><figcaption>Cotizar, celular.</figcaption></figure>
         </div>
       </div>
     </div>
@@ -1028,16 +1078,17 @@ img{max-width:100%}
       <div>
         <h3>Diferenciadores</h3>
         <ul class="lista-difer">
-          <li><b>La fila a escala:</b> las 12 presentaciones de pie, a su altura real; la tipografía pesa lo que pesa el empaque.</li>
+          <li><b>La fila a escala:</b> los 12 gramajes de pie, a su altura; la tipografía pesa lo que pesa el empaque. Las medidas reales las confirma Mundilácteos.</li>
           <li><b>Cotizar en kilos:</b> cantidad en cada fila del catálogo, totales en bolsas, pacas, bultos y kilos, y enlace compartible.</li>
-          <li><b>Cuánto rinde:</b> 7,4 L por kilo y una calculadora que propone la combinación de bultos con menos sobrante.</li>
+          <li><b>Cuánto rinde:</b> 7,4 L por kilo (con la dosis de la ficha técnica) y una calculadora que propone la combinación de bultos con menos sobrante.</li>
           <li><b>Planilla de hechos y pruebas:</b> cada razón para elegir a Mundilácteos lleva su enlace de verificación.</li>
           <li><b>Sello M:</b> propuesta de logo nuevo, una bolsa cuyo termosellado forma una M, legible a 30 px.</li>
         </ul>
       </div>
       <div class="c-requiere">
         <h3>Estado del prototipo</h3>
-        <p>13 vistas, 7 artículos y 2 páginas legales. En la verificación final de 24 capturas: 0 desbordes horizontales, 0 errores de consola y 0 fallas de axe. Lo que falta depende de datos de Mundilácteos (EAN, tablas nutricionales, pacas por estiba) y de la medición en producción.</p>
+        <p>13 vistas, 7 artículos y 2 páginas legales. En la verificación final de 24 capturas: 0 desbordes horizontales, 0 errores de consola y 0 violaciones de axe.</p>
+        <p>Lo que falta depende de Mundilácteos: EAN, tablas nutricionales, pacas por estiba, el alto y ancho reales de cada presentación y las 23 tomas de fotos (una jornada en planta y una de visitas a clientes). Mientras llegan, funciona con los empaques actuales. El LCP se mide en producción.</p>
         <a class="boton boton-primario boton-grande" href="https://claude.ai/artifact/BHcz4tfZatisdjrVbzYmoS" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Abrir prototipo navegable<span class="sr"> del Concepto 2 (se abre en una pestaña nueva)</span></a>
       </div>
     </div>
@@ -1045,11 +1096,11 @@ img{max-width:100%}
 </section>
 
 <!-- ===================================================== 8. COMPARATIVA -->
-<section id="comparativa" class="seccion claro" aria-labelledby="t-comparativa">
+<section id="comparativa" class="seccion bruma" aria-labelledby="t-comparativa">
   <div class="contenedor">
     <header class="sec-cab">
       <h2 id="t-comparativa">Dos caminos frente al sitio de hoy</h2>
-      <p class="entrada">Los dos conceptos usan la misma paleta de marca, cumplen el mismo checklist y parten del mismo catálogo. Cambian la idea, el gesto principal y la forma de cotizar.</p>
+      <p class="entrada">Los dos conceptos usan la misma paleta de marca, parten del mismo catálogo y se evalúan con el mismo checklist de 20 puntos: hoy el Concepto 1 cumple 11 y el Concepto 2, 10; el resto depende de producción o de datos de Mundilácteos. Cambian la idea, el gesto principal y la forma de cotizar.</p>
     </header>
 
     <div class="antes-despues">
@@ -1065,42 +1116,42 @@ img{max-width:100%}
           <label><input type="radio" name="ad-vista" id="ad-movil" value="movil"> Celular</label>
         </fieldset>
       </div>
-      <figure class="comparador" id="comparador" data-vista="desktop" style="--pos:50%">
+      <figure class="comparador" id="comparador" data-vista="desktop" style="--pos:35%">
         <div class="comp-marco" id="comp-marco">
-          <img class="comp-despues" id="comp-despues" src="img/conceptos/c1-inicio-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 1, portada en escritorio.">
-          <div class="comp-capa"><img class="comp-antes" id="comp-antes" src="img/actual/inicio-desktop-primer-pantallazo.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Sitio actual, portada en escritorio: foto de vacas, titular «Atrae y fideliza más clientes» y formulario de contacto."></div>
+          <div class="comp-lado comp-lado-despues"><img class="comp-despues" id="comp-despues" src="img/conceptos/c1-inicio-desktop.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Concepto 1, portada en escritorio: titular sobre el globo de franjas azules con sacos y bolsas."><span class="comp-etq comp-etq-despues" id="comp-etq">Concepto 1</span></div>
+          <div class="comp-capa"><img class="comp-antes" id="comp-antes" src="img/actual/inicio-desktop-primer-pantallazo.webp" width="1280" height="800" loading="lazy" decoding="async" alt="Sitio actual, portada en escritorio: foto de vacas, titular «Atrae y fideliza más clientes» y formulario de contacto."><span class="comp-etq comp-etq-antes">Sitio actual</span></div>
           <div class="comp-guia" aria-hidden="true"><span class="comp-perilla"></span></div>
-          <span class="comp-etq comp-etq-antes" aria-hidden="true">Sitio actual</span>
-          <span class="comp-etq comp-etq-despues" id="comp-etq" aria-hidden="true">Concepto 1</span>
         </div>
         <div class="comp-rango-fila" id="comp-rango-fila" hidden>
-          <label for="comp-rango">Corte entre el sitio actual y el concepto</label>
-          <input type="range" id="comp-rango" min="0" max="100" step="1" value="50">
+          <label for="comp-rango">Mover el corte<span class="sr"> entre el sitio actual y el concepto</span></label>
+          <input type="range" id="comp-rango" min="0" max="100" step="1" value="35">
         </div>
-        <figcaption>Primer pantallazo de la portada. Arrastre el corte o use las flechas del teclado sobre el control.</figcaption>
+        <figcaption>Primer pantallazo de la portada.<span class="solo-js"> Arrastre el corte o use las flechas del teclado sobre el control.</span></figcaption>
       </figure>
     </div>
 
     <div class="tabla-marco tabla-comp-marco" role="region" aria-label="Comparativa del sitio actual y los dos conceptos" tabindex="0">
-      <table class="tabla tabla-comp">
-        <thead>
-          <tr><th scope="col">Aspecto</th><th scope="col">Sitio actual</th><th scope="col">Concepto 1, Paralelo 10</th><th scope="col">Concepto 2, Peso neto</th></tr>
+      <table class="tabla tabla-comp" role="table">
+        <thead role="rowgroup">
+          <tr role="row"><th scope="col" role="columnheader">Aspecto</th><th scope="col" role="columnheader">Sitio actual</th><th scope="col" role="columnheader">Concepto 1, Paralelo 10</th><th scope="col" role="columnheader">Concepto 2, Peso neto</th></tr>
         </thead>
-        <tbody>
-          <tr><th scope="row">Idea</th><td>Sin propuesta clara: «Atrae y fideliza más clientes» en escritorio y «más de 11 años» en móvil</td><td>El origen comprobable: «De Turbaco, con nombre y registro»</td><td>La medida: «Lo que dice la etiqueta es lo que hay adentro»</td></tr>
-          <tr><th scope="row">Gesto principal</th><td>Foto de vacas de fondo</td><td>El globo de paralelos, con el titular en la franja del medio</td><td>La fila a escala de 12 presentaciones, de 27 g a 25 kg</td></tr>
-          <tr><th scope="row">Color</th><td>20 colores y 5 colores de botón</td><td>Manda el azul; el verde marca acción y confirmación</td><td>Mandan blanco y verde; cifras en Azul noche</td></tr>
-          <tr><th scope="row">Tipografía</th><td>14 tamaños de letra sin escala</td><td>Encode Sans expandida y Source Serif 4</td><td>Archivo, una familia con ancho y peso variables</td></tr>
-          <tr><th scope="row">Logo</th><td>70 × 57 px con 57 % de margen; 3 identidades</td><td>Evoluciona el globo, sin degradado y con tilde</td><td>Sello M dentado; retira el globo</td></tr>
-          <tr><th scope="row">Catálogo</th><td>3 productos en 6 tarjetas; mezclas rotuladas como leche</td><td>Vitrinas por producto, filtros con conteo y comparador de hasta 4</td><td>Planilla con una fila por presentación, cantidad y kilos</td></tr>
-          <tr><th scope="row">Ficha de producto</th><td>No existe página por producto</td><td>Chips de presentación, «Verificar» registro, equivalencia en bolsas y kilos</td><td>Cifra gigante de la presentación, fila a escala como selector, ficha técnica en HTML</td></tr>
-          <tr><th scope="row">Cotizar</th><td>2 campos: nombre y correo</td><td>Una página: lista y 5 campos</td><td>3 pasos, 5 datos obligatorios y total en kilos</td></tr>
-          <tr><th scope="row">Dónde comprar</th><td>0 enlaces a puntos de venta</td><td>Enlace a la ficha exacta en Megatiendas, Carulla y Éxito</td><td>Búsqueda por ciudad y enlaces directos por cadena</td></tr>
-          <tr><th scope="row">Contacto en celular</th><td>Teléfono en texto plano; botón flotante que tapa contenido</td><td>WhatsApp y Cotizar en la cabecera; sin barra inferior</td><td>Barra inferior fija con Buscar, WhatsApp y Cotizar</td></tr>
-          <tr><th scope="row">Registros INVIMA</th><td>«Registro Invima» sin número</td><td>Banda propia con los 5 números a 72 px, «Copiar número» y consulta</td><td>Tabla en Calidad y registro en cada ficha, con «Consultar»</td></tr>
-          <tr><th scope="row">Datos personales</th><td>0 de 5 formularios con autorización</td><td>Consentimiento de la Ley 1581 en los formularios</td><td>Los 3 formularios con casilla y política de datos</td></tr>
-          <tr><th scope="row">Peso y velocidad</th><td>LCP móvil 6,26 s; 25 JS y 320,6 KiB de fuentes</td><td>Meta: portada ≤ 500 KB, JS ≤ 35 KB, fuentes de 85,3 KB</td><td>2 JS propios, una fuente de 88 KB y 0,97 MB en todo el prototipo</td></tr>
-          <tr><th scope="row">Qué pide de Mundilácteos</th><td>—</td><td>Sesión de fotos (planta, personas, producto) para el hero con foto</td><td>Alto y ancho reales de las 12 presentaciones para la fila a escala</td></tr>
+        <tbody role="rowgroup">
+          <tr role="row"><th scope="row" role="rowheader">Idea</th><td role="cell" data-etq="Hoy">Sin propuesta clara: «Atrae y fideliza más clientes» en escritorio y «más de 11 años» en móvil</td><td role="cell" data-etq="Concepto 1">El origen comprobable: «De Turbaco, con nombre y registro»</td><td role="cell" data-etq="Concepto 2">La medida: «Lo que dice la etiqueta es lo que hay adentro»</td></tr>
+          <tr role="row"><th scope="row" role="rowheader">Gesto principal</th><td role="cell" data-etq="Hoy">Foto de vacas de fondo</td><td role="cell" data-etq="Concepto 1">El globo de paralelos, con el titular en la franja del medio</td><td role="cell" data-etq="Concepto 2">La fila a escala de 12 gramajes, de 27 g a 25 kg (5 hoy solo de marca propia)</td></tr>
+          <tr role="row"><th scope="row" role="rowheader">Origen</th><td role="cell" data-etq="Hoy">Cartagena en unas páginas y Turbaco en otras</td><td role="cell" data-etq="Concepto 1">Siempre «Turbaco, Bolívar»</td><td role="cell" data-etq="Concepto 2">«Empacada en Cartagena», por el área metropolitana; la forma de nombrarlo la decide Mundilácteos</td></tr>
+          <tr role="row"><th scope="row" role="rowheader">Color</th><td role="cell" data-etq="Hoy">20 colores y 5 colores de botón</td><td role="cell" data-etq="Concepto 1">Manda el azul; el verde marca acción y confirmación</td><td role="cell" data-etq="Concepto 2">Mandan blanco y verde; cifras en Azul noche</td></tr>
+          <tr role="row"><th scope="row" role="rowheader">Tipografía</th><td role="cell" data-etq="Hoy">14 tamaños de letra sin escala</td><td role="cell" data-etq="Concepto 1">Encode Sans expandida y Source Serif 4</td><td role="cell" data-etq="Concepto 2">Archivo, una familia con ancho y peso variables</td></tr>
+          <tr role="row"><th scope="row" role="rowheader">Logo</th><td role="cell" data-etq="Hoy">70 × 57 px con 57 % de margen; 3 identidades</td><td role="cell" data-etq="Concepto 1">Evoluciona el globo: sin degradado y con la tilde unificada</td><td role="cell" data-etq="Concepto 2">Sello M dentado; retira el globo</td></tr>
+          <tr role="row"><th scope="row" role="rowheader">Catálogo</th><td role="cell" data-etq="Hoy">3 productos en 6 tarjetas; mezclas rotuladas como leche</td><td role="cell" data-etq="Concepto 1">9 productos y 20 presentaciones en vitrinas, filtros con conteo y comparador de hasta 4</td><td role="cell" data-etq="Concepto 2">Planilla de 20 referencias de 7 productos, con cantidad y kilos por fila; los 2 productos de 2025 van aparte</td></tr>
+          <tr role="row"><th scope="row" role="rowheader">Ficha de producto</th><td role="cell" data-etq="Hoy">No existe página por producto</td><td role="cell" data-etq="Concepto 1">Chips de presentación, «Verificar» registro, equivalencia en bolsas y kilos</td><td role="cell" data-etq="Concepto 2">Cifra gigante de la presentación, fila a escala como selector, ficha técnica en HTML</td></tr>
+          <tr role="row"><th scope="row" role="rowheader">Cotizar</th><td role="cell" data-etq="Hoy">2 campos: nombre y correo</td><td role="cell" data-etq="Concepto 1">Una página: la lista y 5 datos obligatorios; facturación opcional</td><td role="cell" data-etq="Concepto 2">3 pasos, 5 datos obligatorios y total en kilos</td></tr>
+          <tr role="row"><th scope="row" role="rowheader">Dónde comprar</th><td role="cell" data-etq="Hoy">0 enlaces a puntos de venta</td><td role="cell" data-etq="Concepto 1">Búsqueda por ciudad y enlace a la ficha exacta en Megatiendas, Carulla y Éxito</td><td role="cell" data-etq="Concepto 2">Búsqueda por ciudad y enlaces directos por cadena</td></tr>
+          <tr role="row"><th scope="row" role="rowheader">Contacto en celular</th><td role="cell" data-etq="Hoy">Teléfono en texto plano; botón flotante que tapa contenido</td><td role="cell" data-etq="Concepto 1">WhatsApp y Cotizar en la cabecera; sin barra inferior</td><td role="cell" data-etq="Concepto 2">Barra inferior fija con Buscar, WhatsApp y Cotizar</td></tr>
+          <tr role="row"><th scope="row" role="rowheader">Registros INVIMA</th><td role="cell" data-etq="Hoy">«Registro Invima» sin número en texto</td><td role="cell" data-etq="Concepto 1">Banda propia con los 5 números a 66 px, «Copiar número» y consulta</td><td role="cell" data-etq="Concepto 2">Tabla en Calidad y registro en cada ficha, con «Consultar»</td></tr>
+          <tr role="row"><th scope="row" role="rowheader">Datos personales</th><td role="cell" data-etq="Hoy">0 de 5 formularios con autorización; sin política</td><td role="cell" data-etq="Concepto 1">4 formularios con la casilla sin marcar y página de política de datos</td><td role="cell" data-etq="Concepto 2">3 formularios con la casilla y página de política de datos</td></tr>
+          <tr role="row"><th scope="row" role="rowheader">Peso y velocidad</th><td role="cell" data-etq="Hoy">LCP móvil de 6,26 s; 25 JS y 320,6 KiB de fuentes</td><td role="cell" data-etq="Concepto 1">Portada de 15 peticiones y unos 400 KB; 3 JS propios; CLS 0,0017; LCP en producción</td><td role="cell" data-etq="Concepto 2">2 JS propios (60 KB comprimidos), una fuente de 88 KB y 0,97 MB en todo el prototipo; LCP en producción</td></tr>
+          <tr role="row"><th scope="row" role="rowheader">Checklist de 20 puntos</th><td role="cell" data-etq="Hoy">—</td><td role="cell" data-etq="Concepto 1">11 cumplen, 8 parciales en el prototipo y 1 en producción</td><td role="cell" data-etq="Concepto 2">10 cumplen, 9 parciales en el prototipo y 1 en producción</td></tr>
+          <tr role="row"><th scope="row" role="rowheader">Qué pide de Mundilácteos</th><td role="cell" data-etq="Hoy">—</td><td role="cell" data-etq="Concepto 1">23 tomas de fotos (planta, retratos y clientes) para pasar el globo a foto; mientras tanto se lanza con empaques y sacos reales</td><td role="cell" data-etq="Concepto 2">23 tomas de fotos en dos jornadas (planta y clientes) y el alto y ancho reales de las 12 presentaciones para la fila a escala</td></tr>
         </tbody>
       </table>
     </div>
@@ -1108,16 +1159,16 @@ img{max-width:100%}
     <div class="elegir">
       <h3>Cómo elegir</h3>
       <div class="elegir-grid">
-        <p><b>Paralelo 10</b> conviene si lo que más pesa en su venta es la confianza: el origen en Turbaco, las personas y los registros. Es el camino más institucional y el que más se apoya en fotografía propia.</p>
-        <p><b>Peso neto</b> conviene si lo que más pesa es el volumen: tenderos, panaderías e industria que piensan en pacas, bultos y kilos. Es el camino más directo al pedido y ya funciona con los empaques actuales.</p>
-        <p>Recomendamos elegir uno como base. Piezas del otro pueden pasar si no suman un segundo gesto protagonista: así se construyó el Concepto 1, con nueve injertos de una propuesta hermana.</p>
+        <p><b>Paralelo 10</b> conviene si lo que más pesa en su venta es la confianza: el origen en Turbaco, las personas y los registros. Es el camino más institucional y el que más gana con la sesión de fotos.</p>
+        <p><b>Peso neto</b> conviene si lo que más pesa es el volumen: tenderos, panaderías e industria que piensan en pacas, bultos y kilos. Es el camino más directo al pedido.</p>
+        <p>Los dos pueden lanzarse con los empaques actuales y pasar a foto propia a medida que lleguen las tomas. Antes de publicar, Mundilácteos decide cómo nombrar el origen. Recomendamos elegir uno como base: piezas de un concepto pueden pasar al otro (por ejemplo, el cotizador en kilos o el comparador), siempre que no compitan con su gesto principal.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ===================================================== 9. HOSTING -->
-<section id="hosting" class="seccion bruma" aria-labelledby="t-hosting">
+<section id="hosting" class="seccion claro" aria-labelledby="t-hosting">
   <div class="contenedor">
     <header class="sec-cab">
       <h2 id="t-hosting">Publicar sin WordPress, en el mismo Hostinger</h2>
@@ -1157,10 +1208,10 @@ img{max-width:100%}
         <thead><tr><th scope="col">Opción</th><th scope="col">Qué implica</th><th scope="col">Plan</th><th scope="col">Veredicto</th></tr></thead>
         <tbody>
           <tr class="fila-reco"><th scope="row">Git de hPanel a public_html</th><td>Una rama de despliegue con los archivos ya generados; Hostinger no ejecuta la compilación.</td><td>Planes web y cloud</td><td><span class="veredicto v-reco">Recomendada</span></td></tr>
-          <tr><th scope="row">FTP o administrador de archivos</th><td>Subida manual de los archivos a public_html.</td><td>Todos</td><td><span class="veredicto">Alternativa</span></td></tr>
+          <tr><th scope="row">FTP o administrador de archivos</th><td>Subida manual de los archivos a public_html.</td><td>Plan actual (por confirmar)</td><td><span class="veredicto">Alternativa</span></td></tr>
           <tr><th scope="row">SSH y rsync</th><td>Despliegue por terminal; desactivado por defecto.</td><td>Desde Premium Web (no en Single)</td><td><span class="veredicto">Opcional</span></td></tr>
           <tr><th scope="row">Node.js</th><td>Obliga a recrear el sitio.</td><td>Business Web o Cloud</td><td><span class="veredicto">No hace falta</span></td></tr>
-          <tr><th scope="row">PHP 8.3 para formularios</th><td>Un script que recibe la cotización y el contacto, con campo trampa, límite de envíos y validación en el servidor; sin base de datos.</td><td>Todos (8.2 a 8.5 seleccionables)</td><td><span class="veredicto">Solo para formularios</span></td></tr>
+          <tr><th scope="row">PHP 8.3 para formularios</th><td>Un script que recibe la cotización y el contacto, con campo trampa, límite de envíos y validación en el servidor; sin base de datos.</td><td>Plan actual (por confirmar); su hPanel permite elegir de 8.2 a 8.5</td><td><span class="veredicto">Solo para formularios</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -1186,6 +1237,8 @@ img{max-width:100%}
   </div>
 </section>
 
+<div class="corte corte-sube" aria-hidden="true"><svg viewBox="0 0 1440 96" preserveAspectRatio="none" focusable="false"><path fill="#4AA603" d="M0 12Q720 72 1440 12V22Q720 82 0 22Z"/><path fill="#0B1F4F" d="M0 40Q720 100 1440 40V96H0Z"/></svg></div>
+
 <!-- ===================================================== 10. PRÓXIMOS PASOS -->
 <section id="proximos-pasos" class="seccion oscuro" aria-labelledby="t-pasos">
   <div class="contenedor">
@@ -1206,6 +1259,8 @@ img{max-width:100%}
 
     <div class="entregables">
       <h3>Datos que debe entregar Mundilácteos</h3>
+      <details class="plegable" open>
+      <summary>Ver la lista completa</summary>
       <div class="entregables-grid">
         <div><h4>Catálogo</h4><ul class="lista-check">
           <li>Lista maestra de SKU vigentes: marca, denominación legal, contenido neto, EAN-13, GTIN-14 de la paca y estado.</li>
@@ -1223,6 +1278,7 @@ img{max-width:100%}
           <li>Año de fundación (EMIS dice 2011; LinkedIn, 2010) y la cifra de clientes que se publicará.</li>
           <li>Un teléfono, un WhatsApp comercial, un correo @mundilacteos.com y el horario.</li>
           <li>Dirección con municipio y bodega correctos (28, 16 o 2A–2B) y URL oficiales de redes.</li>
+          <li>Cómo nombrar el origen en todo el sitio: hoy se lee Cartagena en unas páginas y Turbaco en otras. Proponemos «en Turbaco, junto a Cartagena».</li>
         </ul></div>
         <div><h4>Material y accesos</h4><ul class="lista-check">
           <li>Logo oficial en SVG o manual de marca.</li>
@@ -1235,12 +1291,12 @@ img{max-width:100%}
           <li>Ciudades de despacho, tiempos de entrega y pedido mínimo.</li>
         </ul></div>
       </div>
+      </details>
     </div>
 
     <div class="enlaces-finales">
-      <a class="boton boton-primario boton-grande" href="https://claude.ai/artifact/CONCEPTO1-PENDIENTE" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Prototipo del Concepto 1<span class="sr"> (se abre en una pestaña nueva)</span></a>
+      <a class="boton boton-primario boton-grande" href="https://claude.ai/artifact/XF3krJWmpdwKERm255EeWu" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Prototipo del Concepto 1<span class="sr"> (se abre en una pestaña nueva)</span></a>
       <a class="boton boton-primario boton-grande" href="https://claude.ai/artifact/BHcz4tfZatisdjrVbzYmoS" target="_blank" rel="noopener"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>Prototipo del Concepto 2<span class="sr"> (se abre en una pestaña nueva)</span></a>
-      <a class="boton boton-secundario" href="https://github.com/Drac245/Page/tree/claude/mundilacteos-redesign-n9v8wx" target="_blank" rel="noopener">Repositorio con la auditoría completa<span class="sr"> (se abre en una pestaña nueva)</span></a>
     </div>
   </div>
 </section>
@@ -1250,7 +1306,7 @@ img{max-width:100%}
 <footer class="pie oscuro">
   <div class="contenedor pie-in">
     <p class="pie-marca">Mundilácteos</p>
-    <p>Documento de trabajo del 25 de septiembre de 2026. Todas las cifras salen de la auditoría del sitio, el análisis de competidores y la investigación del catálogo en fuentes públicas; lo que no se pudo verificar está marcado como tal.</p>
+    <p>Documento de trabajo del 25 de septiembre de 2026. Las cifras salen de la auditoría del sitio, el análisis de competidores, la investigación del catálogo en fuentes públicas, la investigación de tendencias (con sus fuentes) y las mediciones de los prototipos; lo que no se pudo verificar está marcado como tal.</p>
     <p>Los empaques que se ven son de 2022 y se reemplazarán por material oficial de Mundilácteos.</p>
   </div>
 </footer>
@@ -1261,11 +1317,13 @@ img{max-width:100%}
     <div class="visor-botones">
       <button type="button" class="visor-btn" id="visor-ant">Anterior</button>
       <button type="button" class="visor-btn" id="visor-sig">Siguiente</button>
+      <button type="button" class="visor-btn visor-zoom" id="visor-zoom" aria-pressed="false" hidden>Ampliar</button>
       <button type="button" class="visor-btn visor-cerrar" id="visor-cerrar">Cerrar</button>
     </div>
   </div>
   <figure class="visor-fig">
-    <div class="visor-img-marco"><img id="visor-img" src="data:," alt=""></div>
+    <p class="visor-ayuda" id="visor-ayuda" hidden>Deslice para recorrer la captura; pellizque para acercar.</p>
+    <div class="visor-img-marco" id="visor-marco"><img id="visor-img" src="data:," alt=""></div>
     <figcaption id="visor-pie"></figcaption>
   </figure>
 </dialog>

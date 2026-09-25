@@ -54,6 +54,23 @@
     var s = document.getElementById(id);
     if (s) { porId[id] = a; secciones.push(s); }
   });
+  // La portada no tiene enlace en el menú: al estar en ella no se marca ninguna sección
+  var portada = document.getElementById('inicio');
+  if (portada) secciones.unshift(portada);
+  var bordesMenu = function () {
+    if (!menuNav) return;
+    var max = menuNav.scrollWidth - menuNav.clientWidth;
+    menuNav.classList.toggle('mas-izq', max > 2 && menuNav.scrollLeft > 2);
+    menuNav.classList.toggle('mas-der', max > 2 && menuNav.scrollLeft < max - 2);
+  };
+  if (menuNav) {
+    var colaMenu = false;
+    menuNav.addEventListener('scroll', function () {
+      if (!colaMenu) { colaMenu = true; window.requestAnimationFrame(function () { colaMenu = false; bordesMenu(); }); }
+    }, { passive: true });
+    window.addEventListener('resize', bordesMenu);
+    bordesMenu();
+  }
   var activa = null;
   var marcar = function (id) {
     if (id === activa) return;
@@ -63,6 +80,7 @@
       else a.removeAttribute('aria-current');
     });
     var a = porId[id];
+    if (!a && menuNav) { try { menuNav.scrollTo({ left: 0, behavior: suave }); } catch (e) { menuNav.scrollLeft = 0; } }
     if (a && menuNav && menuNav.scrollWidth > menuNav.clientWidth + 2 && a.offsetParent) {
       var r = a.getBoundingClientRect();
       var n = menuNav.getBoundingClientRect();
@@ -135,7 +153,9 @@
       ctrl.hidden = max <= 0;
       bAnt.disabled = pista.scrollLeft <= 2;
       bSig.disabled = pista.scrollLeft >= max;
+      pista.classList.toggle('mas-der', max > 0 && pista.scrollLeft < max);
     };
+    pista.__estado = estado;
     ctrl.addEventListener('click', function (ev) {
       var b = ev.target.closest('.galeria-btn');
       if (!b) return;
@@ -151,30 +171,57 @@
     estado();
   });
 
-  /* 5. Visor de capturas: teclado (Escape, flechas), foco atrapado y regreso del foco */
+  /* 5. Visor de capturas: teclado (Escape, flechas), foco atrapado y regreso del foco.
+     En el celular ocupa la pantalla, amplía la captura (se recorre con el dedo) y admite deslizar para pasar. */
   var visor = document.getElementById('visor');
+  var angosto = window.matchMedia ? window.matchMedia('(max-width: 699px)') : { matches: false };
   if (visor && typeof visor.showModal === 'function') {
     var vImg = document.getElementById('visor-img');
+    var vMarco = document.getElementById('visor-marco');
     var vPie = document.getElementById('visor-pie');
     var vCuenta = document.getElementById('visor-cuenta');
+    var vAyuda = document.getElementById('visor-ayuda');
     var vAnt = document.getElementById('visor-ant');
     var vSig = document.getElementById('visor-sig');
+    var vZoom = document.getElementById('visor-zoom');
     var vCerrar = document.getElementById('visor-cerrar');
     var grupo = [];
     var idx = 0;
     var origen = null;
+    var ampliado = false;
 
+    var imagenDe = function (btn) {
+      return btn.querySelector('img') || (btn.closest('figure') ? btn.closest('figure').querySelector('img') : null);
+    };
     var datos = function (btn) {
-      var img = btn.querySelector('img');
+      var img = imagenDe(btn);
       var fig = btn.closest('figure');
       var cap = fig ? fig.querySelector('figcaption') : null;
+      var pie = btn.getAttribute('data-pie') || img.getAttribute('data-pie') || (cap ? cap.textContent.trim() : '');
       return {
         src: img.currentSrc || img.src,
         alt: img.getAttribute('alt') || '',
-        pie: btn.getAttribute('data-pie') || img.getAttribute('data-pie') || (cap ? cap.textContent.trim() : ''),
-        w: img.getAttribute('width'),
-        h: img.getAttribute('height')
+        pie: btn.classList.contains('tira-abrir') && cap ? cap.firstChild.textContent.trim() : pie,
+        w: parseInt(img.getAttribute('width'), 10) || 0,
+        h: parseInt(img.getAttribute('height'), 10) || 0
       };
+    };
+    var aplicarZoom = function () {
+      var d = datos(grupo[idx]);
+      var largo = d.w && d.h / d.w > 2.4;
+      var puede = angosto.matches && !largo && d.w > 0;
+      visor.classList.toggle('visor-largo', !!largo);
+      visor.classList.toggle('visor-ampliado', puede && ampliado);
+      vZoom.hidden = !puede;
+      vZoom.setAttribute('aria-pressed', puede && ampliado ? 'true' : 'false');
+      vAyuda.hidden = !(angosto.matches && ((puede && ampliado) || largo));
+      if (puede && ampliado) {
+        // Ancho ampliado: el natural de la captura, hasta 2 veces el ancho del visor
+        var marcoAncho = vMarco.clientWidth || window.innerWidth;
+        vImg.style.setProperty('--ancho-ampliado', Math.round(Math.max(marcoAncho, Math.min(d.w, marcoAncho * 2))) + 'px');
+      }
+      vMarco.scrollTop = 0;
+      vMarco.scrollLeft = 0;
     };
     var mostrar = function (i) {
       idx = (i + grupo.length) % grupo.length;
@@ -186,36 +233,56 @@
       vPie.textContent = d.pie;
       vCuenta.textContent = grupo.length > 1 ? 'Captura ' + (idx + 1) + ' de ' + grupo.length : 'Captura';
       vAnt.hidden = vSig.hidden = grupo.length < 2;
+      aplicarZoom();
     };
     document.addEventListener('click', function (ev) {
-      var btn = ev.target.closest('.zoom');
-      if (!btn) return;
+      var btn = ev.target.closest('.zoom, .tira-abrir');
+      if (!btn || !imagenDe(btn)) return;
       var g = btn.getAttribute('data-grupo');
       grupo = g ? lista('.zoom[data-grupo="' + g + '"]') : [btn];
       origen = btn;
-      mostrar(Math.max(0, grupo.indexOf(btn)));
+      ampliado = angosto.matches;
       visor.showModal();
+      mostrar(Math.max(0, grupo.indexOf(btn)));
       vCerrar.focus();
     });
     vAnt.addEventListener('click', function () { mostrar(idx - 1); });
     vSig.addEventListener('click', function () { mostrar(idx + 1); });
+    vZoom.addEventListener('click', function () { ampliado = !ampliado; aplicarZoom(); });
     vCerrar.addEventListener('click', function () { visor.close(); });
     visor.addEventListener('click', function (ev) { if (ev.target === visor) visor.close(); });
     visor.addEventListener('keydown', function (ev) {
       if (ev.key === 'ArrowLeft' && grupo.length > 1) { ev.preventDefault(); mostrar(idx - 1); }
       else if (ev.key === 'ArrowRight' && grupo.length > 1) { ev.preventDefault(); mostrar(idx + 1); }
       else if (ev.key === 'Tab') {
-        var focos = [vAnt, vSig, vCerrar].filter(function (b) { return !b.hidden; });
+        var focos = [vAnt, vSig, vZoom, vCerrar].filter(function (b) { return !b.hidden && b.offsetParent !== null; });
         var primero = focos[0];
         var ultimo = focos[focos.length - 1];
         if (ev.shiftKey && (document.activeElement === primero || !visor.contains(document.activeElement))) { ev.preventDefault(); ultimo.focus(); }
-        else if (!ev.shiftKey && document.activeElement === ultimo) { ev.preventDefault(); primero.focus(); }
+        else if (!ev.shiftKey && (document.activeElement === ultimo || !visor.contains(document.activeElement))) { ev.preventDefault(); primero.focus(); }
       }
     });
+    // Deslizar a los lados para pasar de captura (solo con la captura ajustada a la pantalla)
+    var toque = null;
+    vMarco.addEventListener('touchstart', function (e) {
+      toque = e.touches.length === 1 ? { x: e.touches[0].clientX, y: e.touches[0].clientY } : null;
+    }, { passive: true });
+    vMarco.addEventListener('touchend', function (e) {
+      if (!toque || grupo.length < 2 || visor.classList.contains('visor-ampliado')) { toque = null; return; }
+      var t = e.changedTouches[0];
+      var dx = t.clientX - toque.x;
+      var dy = t.clientY - toque.y;
+      toque = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) mostrar(idx + (dx < 0 ? 1 : -1));
+    }, { passive: true });
     visor.addEventListener('close', function () {
+      visor.classList.remove('visor-ampliado', 'visor-largo');
       if (origen && document.body.contains(origen)) origen.focus();
     });
   }
+
+  /* 5b. Portada completa en el celular: vista previa recortada y botón que abre el visor */
+  lista('.tira-abrir').forEach(function (b) { b.hidden = false; });
 
   /* 6. Pestañas de competidores (sin JavaScript se ven las siete fichas seguidas) */
   var contPest = document.querySelector('[data-pestanas]');
@@ -253,8 +320,25 @@
         fichas[i].classList.remove('recien');
         void fichas[i].offsetWidth;
         fichas[i].classList.add('recien');
-        window.dispatchEvent(new Event('resize'));
+        lista('.galeria-pista', fichas[i]).forEach(function (p) { if (p.__estado) p.__estado(); });
       };
+      // Misma altura para todas las fichas: el contenido de abajo no salta al cambiar de competidor
+      var igualar = function () {
+        var max = 0;
+        fichas.forEach(function (f) { f.style.minHeight = ''; });
+        if (window.innerWidth >= 700) {
+          fichas.forEach(function (f) {
+            var oculto = f.hidden;
+            f.hidden = false;
+            lista('.galeria-pista', f).forEach(function (p) { if (p.__estado) p.__estado(); });
+            max = Math.max(max, f.offsetHeight);
+            f.hidden = oculto;
+          });
+          fichas.forEach(function (f) { f.style.minHeight = max + 'px'; });
+        }
+      };
+      var colaIg = null;
+      window.addEventListener('resize', function () { window.clearTimeout(colaIg); colaIg = window.setTimeout(igualar, 150); });
       tablist.addEventListener('click', function (e) {
         var t = e.target.closest('.pestana');
         if (t) elegir(tabs.indexOf(t), false);
@@ -270,6 +354,8 @@
         if (n !== null) { e.preventDefault(); elegir(n, true); }
       });
       elegir(0, false);
+      igualar();
+      window.addEventListener('load', igualar);
     }
   }
 
@@ -357,11 +443,22 @@
     };
     marco.addEventListener('pointerup', soltar);
     marco.addEventListener('pointercancel', function () { arrastre = null; });
-    fijar(50);
+    // Abre en 35 %: se ve más concepto que sitio actual.
+    fijar(35);
     // En pantallas angostas se compara directamente la vista de celular.
     if (window.matchMedia && window.matchMedia('(max-width: 599px)').matches) {
       var enCelular = document.getElementById('ad-movil');
       if (enCelular) { enCelular.checked = true; sel.v = 'movil'; pintar(); }
     }
+  }
+  /* 8. Listas largas plegables en el celular (abiertas sin JavaScript y en pantallas anchas) */
+  var plegables = lista('details.plegable');
+  if (plegables.length && window.matchMedia) {
+    var mqPleg = window.matchMedia('(max-width: 699px)');
+    var ajustarPleg = function () { plegables.forEach(function (d) { d.open = !mqPleg.matches; }); };
+    ajustarPleg();
+    var alCambiar = function () { ajustarPleg(); };
+    if (mqPleg.addEventListener) mqPleg.addEventListener('change', alCambiar);
+    else if (mqPleg.addListener) mqPleg.addListener(alCambiar);
   }
 })();
