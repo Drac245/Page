@@ -1,0 +1,43 @@
+<title>Mundilácteos Rediseño</title>
+<meta name="description" content="Auditoría del sitio actual, análisis de competidores y dos conceptos de rediseño para mundilacteos.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap">
+<style>
+:root{
+  --bg:#f6f7f5; --surface:#ffffff; --ink:#15201c; --muted:#5b6862; --line:#dde2de;
+  --accent:#1f5f8b; --pending:#b7791f;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){color-scheme:dark;--bg:#101614;--surface:#18201d;--ink:#e8eeea;--muted:#9aa7a1;--line:#2a3430;--accent:#7fb6dc;--pending:#e0a84a}
+}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#101614;--surface:#18201d;--ink:#e8eeea;--muted:#9aa7a1;--line:#2a3430;--accent:#7fb6dc;--pending:#e0a84a}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);padding-inline:16px;padding-block:48px}
+.wrap{max-width:760px;margin:0 auto;display:grid;gap:32px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font:600 clamp(32px,6vw,52px)/1.05 var(--display);margin:8px 0 0;text-wrap:balance}
+p.lead{color:var(--muted);max-width:60ch;margin:12px 0 0}
+ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+li{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line)}
+li b{font-weight:600}
+li span.d{display:block;color:var(--muted);font-size:14px}
+.st{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--pending);white-space:nowrap}
+footer{font-size:13px;color:var(--muted)}
+</style>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Propuesta de rediseño · septiembre 2026</div>
+    <h1>Mundilácteos, sitio web nuevo</h1>
+    <p class="lead">Este enlace reúne la auditoría de mundilacteos.com, el análisis de competidores del segmento de leche en polvo y derivados en Colombia, y dos conceptos de sitio diseñados desde cero. Se actualiza en este mismo enlace a medida que avanza el trabajo.</p>
+  </header>
+  <ol>
+    <li><div><b>Auditoría del sitio actual</b><span class="d">Código, rendimiento, SEO, accesibilidad, diseño y contenido, con capturas desktop y móvil.</span></div><span class="st">En curso</span></li>
+    <li><div><b>Competidores</b><span class="d">Navegación, catálogo, certificaciones, storytelling y experiencia móvil de las marcas líderes.</span></div><span class="st">En curso</span></li>
+    <li><div><b>Concepto 1</b><span class="d">Inspirado en las mejores prácticas del sector, con identidad propia.</span></div><span class="st">Pendiente</span></li>
+    <li><div><b>Concepto 2</b><span class="d">Independiente de los competidores, enfocado en diferenciación.</span></div><span class="st">Pendiente</span></li>
+    <li><div><b>Hosting y despliegue</b><span class="d">Cómo publicar el nuevo sitio en el hosting actual sin depender de WordPress.</span></div><span class="st">Pendiente</span></li>
+  </ol>
+  <footer>Documento de trabajo. Imágenes de producto y logos definitivos se reemplazarán por material oficial de la empresa.</footer>
+</div>
