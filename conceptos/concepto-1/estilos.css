@@ -319,6 +319,13 @@ a:hover { text-decoration-thickness: 2px; }
 @media (max-width: 599px) { .acciones-apiladas .btn { width: 100%; min-block-size: 52px; } }
 
 .acciones { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
+/* Enlaces sueltos (fuera de una oración): objetivo táctil de 44 px */
+.acciones > a:not(.btn), .concepto-sanitario p > a:only-child, .canales-lista a, .ficha-datos-lista dd > a:only-child,
+.mencionado .m-nombre a, .interior-enlaces a { display: inline-flex; align-items: center; min-block-size: 44px; }
+/* Enlaces al final de una línea de dato y títulos de tarjeta: área táctil de 44 px sin mover el texto */
+.verificado a, .ficha-datos-lista dd > a:not(:only-child), .vitrina h3 a, .nuevo-fila h4 a { position: relative; }
+.verificado a { white-space: nowrap; }
+.verificado a::after, .ficha-datos-lista dd > a:not(:only-child)::after, .vitrina h3 a::after, .nuevo-fila h4 a::after { content: ""; position: absolute; inset: -12px -4px; }
 
 /* Enlace con destello: el arco corto del logo crece de izquierda a derecha */
 .enlace {
@@ -424,7 +431,7 @@ textarea.control { min-block-size: 120px; resize: vertical; }
 .tabla tbody tr:nth-child(odd) > * { background: var(--c-bruma); }
 .tabla tbody th { font-weight: 600; }
 .tabla .der { text-align: right; font-variant-numeric: tabular-nums; }
-.tabla td a, .tabla th a { display: inline-flex; align-items: center; min-block-size: 44px; }
+.tabla td a, .tabla th a { display: inline-flex; align-items: center; min-block-size: 44px; margin-block: -0.625rem; } /* objetivo de 44 px sin bajar la línea base de la fila */
 .tabla td.difiere { background: var(--c-bruma) !important; box-shadow: inset 3px 0 0 var(--c-azul-cielo); }
 .tabla-fija th:first-child, .tabla-fija td:first-child { position: sticky; left: 0; z-index: 1; background: var(--c-blanco); }
 .tabla-fija tbody tr:nth-child(odd) > :first-child { background: var(--c-bruma); }
@@ -444,7 +451,7 @@ textarea.control { min-block-size: 120px; resize: vertical; }
 
 /* Toma por producir: una ventana de franja (dos arcos) en la proporción real de la toma, con su código
    como cifra gráfica y un croquis de 2 px de la escena. Nunca más grande que una foto real vecina. */
-.toma { display: grid; gap: 0.625rem; max-width: 22rem; color: var(--c-azul-marca); }
+.toma { display: grid; gap: 0.625rem; align-content: start; max-width: 22rem; color: var(--c-azul-marca); }
 .toma-area { position: relative; aspect-ratio: var(--toma-ratio, 3 / 2); }
 .toma-ventana { position: absolute; inset: 0; width: 100%; height: 100%; }
 .toma-ventana path { fill: var(--c-bruma); stroke: none; }
@@ -467,8 +474,9 @@ textarea.control { min-block-size: 120px; resize: vertical; }
 .banda .toma figcaption, .oscuro .toma figcaption { color: var(--c-bruma); }
 /* Retrato vertical: el código arriba, la figura abajo */
 /* Toma ancha (3:1 o más): el código a la izquierda y el croquis a la derecha */
-.toma-ancha .toma-codigo { top: 50%; transform: translateY(-50%); left: 6%; }
-.toma-ancha .toma-croquis { left: auto; right: 6%; width: 44%; height: 64%; bottom: 18%; }
+.toma-ancha .toma-area { container-type: inline-size; }
+.toma-ancha .toma-codigo { top: 50%; transform: translateY(-50%); left: 6%; font-size: clamp(1.25rem, 10cqi, 3rem); }
+.toma-ancha .toma-croquis { left: auto; right: 5%; width: 40%; height: 64%; bottom: 18%; }
 .toma-vertical .toma-croquis { left: 18%; right: 18%; width: 64%; height: 62%; bottom: 4%; }
 /* En móvil, algunas tomas se leen como una línea de texto */
 @media (max-width: 599px) {
@@ -601,7 +609,7 @@ textarea.control { min-block-size: 120px; resize: vertical; }
 .escena .pictograma-pie {
   position: absolute; z-index: var(--z-texto); left: 0; right: 0; bottom: 4%;
   display: flex; justify-content: center; gap: 0.4rem; align-items: baseline;
-  font-family: var(--fuente-sans); font-size: var(--fs-13); line-height: 1.3; color: var(--c-pizarra); text-align: center;
+  font-family: var(--fuente-sans); font-size: var(--fs-14); line-height: 1.3; color: var(--c-pizarra); text-align: center;
 }
 
 /* 6. Cabecera, menú, panel y pie ---------------------------------------------- */
@@ -1082,7 +1090,7 @@ html:not(.js) .btn-menu.solo-js { display: none; }
 .anillos-diagrama .anillo-fondo { fill: var(--c-bruma); }
 .anillos-diagrama .anillo-etq { font-family: var(--fuente-sans); font-size: 13px; font-weight: 600; fill: var(--c-azul-marca); }
 @media (max-width: 1023px) { .anillos .anillos-diagrama .anillo-etq { display: none; } }
-.anillos-diagrama .ciudad circle { fill: var(--c-blanco); stroke: var(--c-azul-marca); stroke-width: 2.5; transform-box: fill-box; transform-origin: center; transition: transform var(--dur-media) var(--curva-entrada), fill var(--dur-media); }
+.anillos-diagrama .ciudad circle { fill: var(--c-blanco); stroke: var(--c-azul-marca); stroke-width: 2.5; transform-box: fill-box; transform-origin: center; transition: transform var(--dur-media) var(--curva-entrada); }
 .anillos-diagrama .ciudad text { font-family: var(--fuente-sans); font-size: 15px; font-weight: 500; fill: var(--c-azul-noche); }
 .anillos-diagrama .origen circle { fill: var(--c-azul-marca); }
 .anillos-diagrama .origen text { font-family: var(--fuente-sans); font-size: 14px; font-weight: 700; fill: var(--c-azul-marca); }
@@ -1329,13 +1337,23 @@ html:has(.resultados-barra) { scroll-padding-top: calc(var(--cabecera-alto) + va
   font-family: var(--fuente-sans); font-size: var(--fs-14); line-height: 1.3; text-align: center; color: var(--c-pizarra);
 }
 .escena .pie-ref[hidden] { display: none; }
+.escena:has(.pie-ref:not([hidden])) .pack { bottom: 22%; height: 72%; }
+.escena:has(.pie-ref:not([hidden])) .sombra { bottom: calc(22% - 9px); }
+@media (max-width: 699px) {
+  .vitrina .escena:has(.pie-ref:not([hidden])) .pack { bottom: 30%; height: 64%; }
+  .vitrina .escena:has(.pie-ref:not([hidden])) .sombra { bottom: calc(30% - 9px); }
+  .vitrina .escena .pie-ref { font-size: var(--fs-14); line-height: 1.2; bottom: 2%; padding-inline: 4px; }
+  /* Vitrina compacta: el pie «E01 Foto por producir» va en dos líneas, bajo el pictograma */
+  .vitrina .escena .pictograma { bottom: 34%; height: 50%; }
+  .vitrina .escena .pictograma-pie { flex-direction: column; align-items: center; gap: 0.2rem; bottom: 3%; line-height: 1.2; padding-inline: 4px; }
+}
 /* Cantidad en la vitrina, sincronizada con la cotización */
 .vitrina-cantidad { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; font-family: var(--fuente-sans); flex: 1 1 100%; }
 .vitrina-cantidad[hidden] { display: none; }
 .vitrina-cantidad .paso { border-color: var(--color-confirmacion); }
 .vitrina-cantidad .paso button { width: 44px; height: 44px; }
 .vitrina-cantidad .paso input { width: 3rem; height: 44px; }
-.vitrina-cantidad .vc-estado { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--color-confirmacion); font-weight: 600; }
+.vitrina-cantidad .vc-estado { flex-basis: 100%; display: inline-flex; align-items: center; gap: 0.35rem; color: var(--color-confirmacion); font-weight: 600; }
 .vitrina-cantidad .vc-estado .ico { width: 1.15rem; height: 1.15rem; }
 .vitrina-cantidad .vc-kg { font-variant-numeric: tabular-nums; }
 .vitrina-cantidad .vc-quitar { min-block-size: 44px; padding: 0 0.25rem; border: 0; background: none; color: var(--color-enlace); text-decoration: underline; text-underline-offset: 3px; font-weight: 500; }
@@ -1443,7 +1461,7 @@ html:has(.resultados-barra) { scroll-padding-top: calc(var(--cabecera-alto) + va
 .nutricion-pendiente p { font-size: var(--fs-16); line-height: 1.5; }
 .nutricion-pendiente ul { list-style: none; margin: 0.75rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.25rem 0.5rem; }
 .nutricion-pendiente li { padding: 0.125rem 0.625rem; border: 1.5px solid var(--c-pizarra); border-radius: var(--radio-chip); font-size: var(--fs-14); background: var(--c-blanco); }
-.ficha-dos { display: grid; gap: 0 var(--esp-6); }
+.ficha-dos { display: grid; gap: var(--esp-4) var(--esp-6); }
 @media (min-width: 1024px) { .ficha-dos { grid-template-columns: 7fr 5fr; } }
 .tabla-tecnica th { width: 34%; min-width: 9rem; }
 .tabla-tecnica td, .tabla-tecnica th { font-size: var(--fs-16); }
@@ -1633,6 +1651,8 @@ html:has(.resultados-barra) { scroll-padding-top: calc(var(--cabecera-alto) + va
 .proceso-fotos { display: grid; gap: var(--esp-5) var(--canal); margin-top: var(--esp-6); align-items: end; }
 @media (min-width: 900px) { .proceso-fotos { grid-template-columns: 2fr 1fr; } }
 .proceso-fotos .despacho-escena { height: clamp(180px, 40vw, 280px); }
+.proceso-fotos .despacho-escena .item.ancho { width: auto; height: 86%; }
+.proceso-fotos .despacho-escena .item.ancho img { width: auto; height: 100%; max-width: 100%; object-fit: contain; }
 @media (min-width: 900px) { .certs:not(.certs-una) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .cert { display: grid; gap: 1rem; align-content: start; padding: 1.5rem 1.5rem 1.75rem; }
 .cert h3 { font-size: var(--fs-24); color: var(--c-azul-marca); }
@@ -1724,8 +1744,8 @@ html:has(.resultados-barra) { scroll-padding-top: calc(var(--cabecera-alto) + va
 .gente-rejilla { display: grid; gap: var(--esp-5) var(--canal); margin-top: var(--esp-6); }
 @media (min-width: 1024px) { .gente-rejilla { grid-template-columns: 7fr 5fr; align-items: start; } }
 .gente-lado { display: grid; gap: var(--esp-5); align-content: start; }
-.gente-lado .ventana { overflow: hidden; aspect-ratio: 3 / 2; }
-.gente-lado .ventana img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+.gente-lado .ventana { overflow: hidden; aspect-ratio: 2 / 1; }
+.gente-lado .ventana img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 82%; }
 .ventana-planta { aspect-ratio: 3 / 1 !important; }
 .ventana-planta img { object-position: 50% 88%; }
 .marcas-nosotros { display: grid; gap: var(--esp-6) var(--canal); }
@@ -1808,6 +1828,10 @@ html:has(.resultados-barra) { scroll-padding-top: calc(var(--cabecera-alto) + va
 .cmp-cabeza a { color: var(--c-azul-noche); }
 .cmp-quitar { min-block-size: 44px; padding: 0 0.25rem; border: 0; background: none; color: var(--color-enlace); text-decoration: underline; text-underline-offset: 3px; font-family: var(--fuente-sans); font-weight: 500; font-size: var(--fs-14); }
 .tabla-comparar td { font-variant-numeric: tabular-nums; }
+.tabla-comparar tbody tr > * { background: var(--c-blanco) !important; border-bottom: 2px solid var(--c-bruma); }
+.tabla-comparar tbody tr > td.difiere { background: var(--c-bruma) !important; }
+.tabla-comparar tbody td[aria-hidden="true"], .tabla-comparar tbody tr.cmp-acciones > * { border-bottom: 0; }
+.tabla-comparar .cmp-acciones td { padding-top: 1.25rem; }
 .tabla-comparar.solo-diferencias tr.igual { display: none; }
 .cmp-agregar { display: grid; place-items: center; gap: 0.5rem; min-height: 140px; padding: 1rem; border: 2px solid var(--c-bruma); border-radius: var(--radio-control); font-family: var(--fuente-sans); font-weight: 600; text-align: center; }
 .comparar-vacia { padding: 2rem 1.5rem; background: var(--c-bruma); display: grid; gap: 1rem; justify-items: start; }
@@ -2066,6 +2090,9 @@ q { quotes: "«" "»" "“" "”"; }
 .asesores-rejilla .toma { width: 100%; max-width: 16rem; }
 @media (min-width: 1024px) { .asesores-rejilla .toma { justify-self: end; } }
 .familia-marco .toma { max-width: 17rem; }
+.ficha-dos .toma { max-width: 15rem; }
+@media (min-width: 1024px) { .ficha-dos .toma { justify-self: end; } }
+.nombre-pendiente { margin-top: 0.5rem; }
 
 /* 12. Movimiento ------------------------------------------------------------------ */
 
