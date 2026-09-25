@@ -1,0 +1,1616 @@
+{
+  "meta": {
+    "titulo": "Portafolio real y datos corporativos de Mundilácteos",
+    "fecha_consulta": "2026-09-25",
+    "alcance": "Investigación pasiva de fuentes públicas; sin formularios, cuentas ni compras.",
+    "niveles_de_confianza": {
+      "confirmado": "visto en fuente primaria (registro INVIMA, API de tienda, foto del empaque)",
+      "probable": "indicio fuerte en una fuente, sin confirmación independiente",
+      "no verificado": "declarado o registrado, sin evidencia de existencia comercial"
+    },
+    "carpeta_fuentes": "auditoria/datos/catalogo-fuentes/",
+    "carpeta_capturas": "auditoria/capturas/catalogo/"
+  },
+  "resumen": {
+    "productos_en_sitio": "3 productos distintos en 6 tarjetas (The Cántaro entera, The Cántaro 'azucarada', La Becerrita entera; en bolsa y bulto)",
+    "productos_identificados": 14,
+    "productos_confirmados_en_mercado_o_fotos": 7,
+    "ean_the_cantaro_en_tiendas": 8,
+    "registros_invima_vigentes_titular": 5,
+    "registros_invima_como_fabricante_para_tercero": 5,
+    "marcas_autorizadas_rsa_006359_2018": 17,
+    "tiendas_en_linea_con_the_cantaro": "Éxito, Carulla y Megatiendas (fichas publicadas); Rappi (ficha agotada en Bogotá)",
+    "conclusion": "El portafolio verificable supera ampliamente lo que muestra el sitio, pero 'decenas de SKU' solo se sostiene sumando gramajes autorizados, maquila y marcas de terceros. Con evidencia de mercado hay 8 EAN de The Cántaro. No se inventaron SKU: lo no hallado queda como 'no verificado'."
+  },
+  "productos": [
+    {
+      "id": "P01",
+      "marca": "The Cántaro",
+      "nombre": "Leche en polvo entera adicionada con hierro (empaque 'Nueva imagen')",
+      "tipo": "leche entera",
+      "subtipo": "fortificada con hierro",
+      "formato": "bolsa (consumo)",
+      "presentaciones": [
+        {
+          "contenido": "380 g",
+          "ean": "7707285613583",
+          "rinde": "3 litros; 15,2 porciones por empaque (texto del empaque)",
+          "unidades_por_paca": 30,
+          "canales": [
+            {
+              "canal": "Megatiendas (tienda Prado)",
+              "url": "https://www.megatiendas.co/leche-en-polvo-the-cantaro-entera-x-380-g-7707285610278/p",
+              "precio_cop": 11190,
+              "estado": "disponible",
+              "fecha": "2026-09-25"
+            },
+            {
+              "canal": "Carulla",
+              "url": "https://www.carulla.com/leche-the-cantaro-en-polvo-entera-380-gr-3218539/p",
+              "precio_cop": 10100,
+              "estado": "disponible en canal por defecto de la API",
+              "fecha": "2026-09-25"
+            },
+            {
+              "canal": "Éxito",
+              "url": "https://www.exito.com/leche-the-cantaro-en-polvo-entera-380-gr-3218539/p",
+              "precio_cop": null,
+              "estado": "publicado, no disponible",
+              "fecha": "2026-09-25"
+            }
+          ]
+        },
+        {
+          "contenido": "900 g",
+          "ean": "7707285613439",
+          "rinde": "7 litros; 36 porciones por empaque (texto del empaque)",
+          "unidades_por_paca": 12,
+          "canales": [
+            {
+              "canal": "Megatiendas (tienda Prado)",
+              "url": "https://www.megatiendas.co/leche-en-polvo-entera-the-cantaro-x-900-g-7707285610247/p",
+              "precio_cop": 26550,
+              "estado": "disponible",
+              "fecha": "2026-09-25"
+            },
+            {
+              "canal": "Carulla",
+              "url": "https://www.carulla.com/leche-the-cantaro-en-polvo-entera-900-gr-3218540/p",
+              "precio_cop": null,
+              "estado": "publicado, no disponible",
+              "fecha": "2026-09-25"
+            },
+            {
+              "canal": "Éxito",
+              "url": "https://www.exito.com/leche-the-cantaro-en-polvo-entera-900-gr-3218540/p",
+              "precio_cop": null,
+              "estado": "publicado, no disponible",
+              "fecha": "2026-09-25"
+            }
+          ]
+        }
+      ],
+      "registro_sanitario": "RSA-006359-2018 (variedad 'leche en polvo entera adicionada con hierro'); el número no se lee en las fotos frontales del empaque",
+      "en_sitio_web": "No. El sitio usa la foto del empaque anterior (500 g) y no menciona el hierro.",
+      "fuentes": [
+        "https://www.exito.com/api/catalog_system/pub/products/search?ft=cantaro",
+        "https://www.carulla.com/api/catalog_system/pub/products/search?ft=cantaro",
+        "https://www.megatiendas.co/api/catalog_system/pub/products/search?ft=cantaro",
+        "https://www.instagram.com/p/DUqU990DQHK/ (publicación de @mundilacteos del 2026-02-12: 'The Cántaro Leche en Polvo Entera, adicionada con hierro')",
+        "https://www.datos.gov.co/resource/ui32-p9f2.json?$q=MUNDILACTEOS"
+      ],
+      "captura": "auditoria/capturas/catalogo/catalogo-empaques-the-cantaro-retail-desktop.jpg",
+      "confianza": "confirmado",
+      "notas": "Empaque con sello 'Nueva imagen, mismo sabor' y marca de fabricante 'mundilacteos'. Fecha de alta en Éxito: 2025-12-23."
+    },
+    {
+      "id": "P02",
+      "marca": "The Cántaro",
+      "nombre": "Leche en polvo entera adicionada con hierro (empaque anterior, sello 'Milk Mait')",
+      "tipo": "leche entera",
+      "subtipo": "fortificada con hierro",
+      "formato": "bolsa (consumo)",
+      "presentaciones": [
+        {
+          "contenido": "380 g",
+          "ean": "7707285610230",
+          "unidades_por_paca": 30,
+          "canales": [
+            {
+              "canal": "Éxito / Carulla",
+              "url": "https://www.exito.com/leche-the-cantaro-leche-en-polvo-entera-380-gr-3188825/p",
+              "precio_cop": null,
+              "estado": "publicado, no disponible",
+              "fecha": "2026-09-25"
+            }
+          ]
+        },
+        {
+          "contenido": "500 g",
+          "ean": null,
+          "unidades_por_paca": 24,
+          "canales": [
+            {
+              "canal": "mundilacteos.com (foto)",
+              "url": "https://mundilacteos.com/wp-content/uploads/2022/10/The-cantaro3.png",
+              "precio_cop": null,
+              "estado": "solo imagen en el sitio",
+              "fecha": "2022-10-21 (subida)"
+            }
+          ]
+        },
+        {
+          "contenido": "900 g",
+          "ean": "7707285610247",
+          "unidades_por_paca": 12,
+          "canales": [
+            {
+              "canal": "Éxito / Carulla",
+              "url": "https://www.exito.com/leche-the-cantaro-leche-en-polvo-entera-900-gr-3188824/p",
+              "precio_cop": null,
+              "estado": "publicado, no disponible",
+              "fecha": "2026-09-25"
+            },
+            {
+              "canal": "Olímpica",
+              "url": "https://www.olimpica.com/leche-polv-the-cantaro-ent-adicion-900g/p",
+              "precio_cop": null,
+              "estado": "URL indexada por buscadores; hoy responde 'PAGE NOT FOUND'",
+              "fecha": "2026-09-25"
+            }
+          ]
+        }
+      ],
+      "registro_sanitario": "RSA-006359-2018 (según ficha técnica 'Leche en polvo entera adicionada con hierro' publicada en Scribd; ingrediente: hierro aminoquelado)",
+      "en_sitio_web": "Si, como 'Leche en polvo entera the cántaro, presentaciones 380, 400, 500, 900 g', sin mencionar hierro.",
+      "fuentes": [
+        "https://www.exito.com/api/catalog_system/pub/products/search?ft=cantaro",
+        "https://www.scribd.com/document/468461546/FICHA-TECNICA-LECHE-THE-CANTARO-CON-HIERRO",
+        "https://mundilacteos.com/productos/"
+      ],
+      "captura": "auditoria/capturas/catalogo/catalogo-sitio-productos-bolsas-desktop.jpg",
+      "confianza": "confirmado",
+      "notas": "Posible SKU descontinuado (reemplazado por P01). Megatiendas usa el código 7707285610278 en la URL del 380 g actual; ese código no aparece como EAN en ninguna API."
+    },
+    {
+      "id": "P03",
+      "marca": "The Cántaro",
+      "nombre": "Leche en polvo azucarada",
+      "tipo": "leche azucarada",
+      "subtipo": "entera azucarada; sello frontal 'Exceso en azúcares'",
+      "formato": "bolsa (consumo)",
+      "presentaciones": [
+        {
+          "contenido": "380 g",
+          "ean": "7707285611480",
+          "empaque": "anterior (sello 'Milk Mait')",
+          "unidades_por_paca": 30,
+          "canales": [
+            {
+              "canal": "Éxito",
+              "url": "https://www.exito.com/leche-the-cantaro-leche-azucarada-380-gr-3188827/p",
+              "precio_cop": null,
+              "estado": "publicado, no disponible",
+              "fecha": "2026-09-25"
+            }
+          ]
+        },
+        {
+          "contenido": "380 g",
+          "ean": "7707285611619 (a confirmar)",
+          "empaque": "Nueva imagen; rinde 3 litros",
+          "unidades_por_paca": 30,
+          "canales": [
+            {
+              "canal": "Éxito / Carulla",
+              "url": "https://www.exito.com/leche-the-cantaro-descremada-380-gr-3218538/p",
+              "precio_cop": null,
+              "estado": "publicado, no disponible; el nombre dice 'descremada' pero la foto es la azucarada",
+              "fecha": "2026-09-25"
+            }
+          ]
+        },
+        {
+          "contenido": "400 g, 500 g, 900 g",
+          "ean": null,
+          "empaque": "declarado en el sitio",
+          "unidades_por_paca": "30 / 24 / 12",
+          "canales": [
+            {
+              "canal": "mundilacteos.com",
+              "url": "https://mundilacteos.com/productos/",
+              "precio_cop": null,
+              "estado": "solo texto; la foto usada es una mezcla (ver P06)",
+              "fecha": "2026-09-25"
+            }
+          ]
+        }
+      ],
+      "registro_sanitario": "RSA-006359-2018 (variedad 'leche en polvo entera azucarada')",
+      "en_sitio_web": "Si, pero ilustrada con la foto de la mezcla The Cántaro 900 g ('Mezcla en polvo a base de leche y endulzante')",
+      "fuentes": [
+        "https://www.exito.com/api/catalog_system/pub/products/search?ft=cantaro",
+        "https://www.carulla.com/api/catalog_system/pub/products/search?ft=cantaro",
+        "https://www.datos.gov.co/resource/ui32-p9f2.json?$q=MUNDILACTEOS",
+        "https://mundilacteos.com/productos/"
+      ],
+      "captura": "auditoria/capturas/catalogo/catalogo-empaques-the-cantaro-retail-desktop.jpg",
+      "confianza": "confirmado (380 g); no verificado (400, 500 y 900 g)",
+      "notas": "Éxito y Carulla asignan nombre, URL e imagen de forma cruzada entre azucarada y descremada: el EAN del empaque nuevo debe confirmarse con el cliente."
+    },
+    {
+      "id": "P04",
+      "marca": "The Cántaro",
+      "nombre": "Leche en polvo descremada 0 % grasa",
+      "tipo": "leche descremada",
+      "subtipo": null,
+      "formato": "bolsa (consumo)",
+      "presentaciones": [
+        {
+          "contenido": "380 g",
+          "ean": "7707285613545",
+          "empaque": "anterior (rosado, sello 'Milk Mait')",
+          "unidades_por_paca": 30,
+          "canales": [
+            {
+              "canal": "Éxito",
+              "url": "https://www.exito.com/leche-the-cantaro-leche-descremada-380-gr-3188826/p",
+              "precio_cop": null,
+              "estado": "no disponible (PLU 3616104)",
+              "fecha": "2026-09-25"
+            }
+          ]
+        },
+        {
+          "contenido": "380 g",
+          "ean": "7707285612494",
+          "empaque": "Nueva imagen; rinde 3 litros",
+          "unidades_por_paca": 30,
+          "canales": [
+            {
+              "canal": "Carulla",
+              "url": "https://www.carulla.com/leche-the-cantaro-azucarada-380-gr-3218541/p",
+              "precio_cop": 9370,
+              "estado": "disponible para 'Compra y recoge' (PLU 3725190); la URL dice 'azucarada'",
+              "fecha": "2026-09-25"
+            },
+            {
+              "canal": "Éxito",
+              "url": "https://www.exito.com/leche-the-cantaro-azucarada-380-gr-3218541/p",
+              "precio_cop": null,
+              "estado": "publicado, no disponible",
+              "fecha": "2026-09-25"
+            }
+          ]
+        }
+      ],
+      "registro_sanitario": "RSA-006359-2018 (variedad 'leche en polvo descremada')",
+      "en_sitio_web": "No aparece.",
+      "fuentes": [
+        "https://www.exito.com/api/catalog_system/pub/products/search?ft=cantaro",
+        "https://www.carulla.com/api/catalog_system/pub/products/search?ft=cantaro",
+        "https://www.carulla.com/leche-the-cantaro-azucarada-380-gr-3218541/p"
+      ],
+      "captura": "auditoria/capturas/catalogo/catalogo-carulla-the-cantaro-380g-3218541-desktop.jpg",
+      "confianza": "confirmado",
+      "notas": "Producto en el mercado ausente del sitio."
+    },
+    {
+      "id": "P05",
+      "marca": "The Cántaro",
+      "nombre": "Leche en polvo entera en bulto (saco kraft 'Leche entera The Cántaro')",
+      "tipo": "leche entera",
+      "subtipo": null,
+      "formato": "bulto (mayorista / industrial)",
+      "presentaciones": [
+        {
+          "contenido": "25 kg",
+          "ean": null,
+          "unidades_por_paca": "no aplica (sin embalaje secundario)",
+          "canales": [
+            {
+              "canal": "mundilacteos.com (foto)",
+              "url": "https://mundilacteos.com/wp-content/uploads/2022/10/Foto-5.png",
+              "precio_cop": null,
+              "estado": "foto del saco",
+              "fecha": "2022-10-15 (subida)"
+            }
+          ]
+        },
+        {
+          "contenido": "5 kg y 12,5 kg",
+          "ean": null,
+          "unidades_por_paca": null,
+          "canales": [
+            {
+              "canal": "mundilacteos.com",
+              "url": "https://mundilacteos.com/productos/",
+              "precio_cop": null,
+              "estado": "solo texto",
+              "fecha": "2026-09-25"
+            }
+          ]
+        }
+      ],
+      "registro_sanitario": "Impreso en el saco: 'RSA-006359-2018' (lectura de la foto Foto-5.png, baja resolución)",
+      "en_sitio_web": "Si ('Leche en polvo entera, presentaciones 5 kg, 12.5 kg y 25 kg').",
+      "fuentes": [
+        "https://mundilacteos.com/wp-content/uploads/2022/10/Foto-5.png",
+        "https://mundilacteos.com/productos/",
+        "https://www.scribd.com/document/630483993/REGISTRO-SANITARIO-LECHE-EN-POLVO-THE-CANTARO"
+      ],
+      "captura": "auditoria/capturas/catalogo/catalogo-sitio-productos-bultos-desktop.jpg",
+      "confianza": "confirmado (25 kg); no verificado (5 y 12,5 kg)",
+      "notas": "El saco muestra direcciones antiguas (Transversal 51 No. 21-36 El Bosque; Diagonal 22 No. 30-159 El Prado) y el teléfono (+57) 662 6064."
+    },
+    {
+      "id": "P06",
+      "marca": "The Cántaro",
+      "nombre": "Mezcla en polvo a base de leche y endulzante para preparar bebidas",
+      "tipo": "mezcla láctea",
+      "subtipo": "con endulzante",
+      "formato": "bolsa y bulto",
+      "presentaciones": [
+        {
+          "contenido": "900 g",
+          "ean": null,
+          "unidades_por_paca": 12,
+          "canales": [
+            {
+              "canal": "mundilacteos.com (foto)",
+              "url": "https://mundilacteos.com/wp-content/uploads/2022/10/The-cantaro2.png",
+              "precio_cop": null,
+              "estado": "foto usada como 'Leche en polvo azucarada'",
+              "fecha": "2022-10-21 (subida)"
+            }
+          ]
+        },
+        {
+          "contenido": "12,5 kg",
+          "ean": null,
+          "unidades_por_paca": "no aplica",
+          "canales": [
+            {
+              "canal": "mundilacteos.com (foto)",
+              "url": "https://mundilacteos.com/wp-content/uploads/2022/10/Foto-3.png",
+              "precio_cop": null,
+              "estado": "foto usada como 'Leche en polvo Azucarada' en bultos",
+              "fecha": "2022-10-15 (subida)"
+            }
+          ]
+        }
+      ],
+      "registro_sanitario": "RSA-003008-2017 (vigente; renovado 2026-09-11, vence 2031-09-11); número impreso en el saco de 12,5 kg",
+      "en_sitio_web": "Si, pero rotulado como 'Leche en polvo azucarada'.",
+      "fuentes": [
+        "https://www.datos.gov.co/resource/ui32-p9f2.json?$q=MUNDILACTEOS",
+        "https://mundilacteos.com/wp-content/uploads/2022/10/Foto-3.png",
+        "https://mundilacteos.com/wp-content/uploads/2022/10/The-cantaro2.png"
+      ],
+      "captura": "auditoria/capturas/catalogo/catalogo-sitio-productos-bultos-desktop.jpg",
+      "confianza": "confirmado (existencia del empaque y del registro); disponibilidad actual no verificada",
+      "notas": "No se encontro en ninguna tienda en línea consultada."
+    },
+    {
+      "id": "P07",
+      "marca": "La Becerrita",
+      "nombre": "Leche en polvo entera ('Fresca y natural')",
+      "tipo": "leche entera",
+      "subtipo": null,
+      "formato": "bolsa (consumo)",
+      "presentaciones": [
+        {
+          "contenido": "900 g",
+          "ean": null,
+          "unidades_por_paca": 12,
+          "canales": [
+            {
+              "canal": "mundilacteos.com (foto)",
+              "url": "https://mundilacteos.com/wp-content/uploads/2022/10/LAbecerrita.png",
+              "precio_cop": null,
+              "estado": "foto del empaque",
+              "fecha": "2022-10-21 (subida)"
+            }
+          ]
+        },
+        {
+          "contenido": "380 g, 400 g, 500 g",
+          "ean": null,
+          "unidades_por_paca": "30 / 30 / 24",
+          "canales": [
+            {
+              "canal": "mundilacteos.com",
+              "url": "https://mundilacteos.com/productos/",
+              "precio_cop": null,
+              "estado": "solo texto",
+              "fecha": "2026-09-25"
+            }
+          ]
+        }
+      ],
+      "registro_sanitario": "RSA-006359-2018 (LA BECERRITA figura entre las marcas autorizadas)",
+      "en_sitio_web": "Si.",
+      "fuentes": [
+        "https://mundilacteos.com/wp-content/uploads/2022/10/LAbecerrita.png",
+        "https://mundilacteos.com/productos/",
+        "https://www.scribd.com/document/630483993/REGISTRO-SANITARIO-LECHE-EN-POLVO-THE-CANTARO"
+      ],
+      "captura": "auditoria/capturas/catalogo/catalogo-sitio-productos-bolsas-desktop.jpg",
+      "confianza": "probable (900 g); no verificado (380, 400 y 500 g)",
+      "notas": "Sin resultados para 'becerrita' en las API de Éxito, Carulla, Megatiendas y Olímpica ni en Rappi."
+    },
+    {
+      "id": "P08",
+      "marca": "La Becerrita",
+      "nombre": "Mezcla en polvo a base de leche y endulzante para preparar bebida ('Natural y fresquita')",
+      "tipo": "mezcla láctea",
+      "subtipo": "con endulzante",
+      "formato": "bulto (mayorista / industrial)",
+      "presentaciones": [
+        {
+          "contenido": "25 kg",
+          "ean": null,
+          "unidades_por_paca": "no aplica",
+          "canales": [
+            {
+              "canal": "mundilacteos.com (foto)",
+              "url": "https://mundilacteos.com/wp-content/uploads/2022/10/Foto-2.jpg",
+              "precio_cop": null,
+              "estado": "foto usada como 'Leche en polvo entera' en bultos",
+              "fecha": "2022-10-11 (subida)"
+            }
+          ]
+        }
+      ],
+      "registro_sanitario": "Impreso en el saco: 'RSA-00300?-2017' (lectura parcial); corresponde por denominación a RSA-003008-2017",
+      "en_sitio_web": "Si, pero rotulado como 'Leche en polvo entera, presentaciones 5 kg, 12.5 kg y 25 kg'.",
+      "fuentes": [
+        "https://mundilacteos.com/wp-content/uploads/2022/10/Foto-2.jpg",
+        "https://www.datos.gov.co/resource/ui32-p9f2.json?$q=MUNDILACTEOS"
+      ],
+      "captura": "auditoria/capturas/catalogo/catalogo-sitio-productos-bultos-desktop.jpg",
+      "confianza": "confirmado (empaque en foto); disponibilidad actual no verificada",
+      "notas": "Lote de la foto: 170522, vencimiento impreso 170523 (foto de 2022)."
+    },
+    {
+      "id": "P09",
+      "marca": "Olímpica (marca propia de Supertiendas y Droguerías Olímpica)",
+      "nombre": "Leche en polvo entera / Leche en polvo entera azucarada",
+      "tipo": "leche entera; leche azucarada",
+      "subtipo": "maquila",
+      "formato": "bolsa (consumo)",
+      "presentaciones": [
+        {
+          "contenido": "900 g (entera)",
+          "ean": null,
+          "unidades_por_paca": 12,
+          "canales": [
+            {
+              "canal": "biblioteca de medios de mundilacteos.com",
+              "url": "https://mundilacteos.com/wp-content/uploads/2022/10/Foto-7.png",
+              "precio_cop": null,
+              "estado": "foto del empaque",
+              "fecha": "2022-10-15 (subida)"
+            }
+          ]
+        },
+        {
+          "contenido": "380 g (entera azucarada)",
+          "ean": null,
+          "unidades_por_paca": 30,
+          "canales": [
+            {
+              "canal": "biblioteca de medios de mundilacteos.com",
+              "url": "https://mundilacteos.com/wp-content/uploads/2022/10/Foto-10-removebg-preview-1.png",
+              "precio_cop": null,
+              "estado": "foto del empaque; lote impreso FAB 14 MAY 22",
+              "fecha": "2022-10-15 (subida)"
+            }
+          ]
+        }
+      ],
+      "registro_sanitario": "RSA-006359-2018 (OLIMPICA figura entre las marcas autorizadas)",
+      "en_sitio_web": "No (solo en la biblioteca de medios).",
+      "fuentes": [
+        "https://mundilacteos.com/wp-json/wp/v2/media?per_page=100",
+        "https://www.scribd.com/document/630483993/REGISTRO-SANITARIO-LECHE-EN-POLVO-THE-CANTARO",
+        "https://www.olimpica.com/api/io/_v/api/intelligent-search/product_search/?query=leche%20en%20polvo"
+      ],
+      "captura": "auditoria/capturas/catalogo/catalogo-biblioteca-medios-productos-desktop.jpg",
+      "confianza": "probable (maquila en 2022); vigencia actual no verificada",
+      "notas": "Hoy Olímpica pública su leche en polvo marca propia en 350 g, 700 g y 1000 g (entera), 350 g y 700 g (azucarada) y 380 g (descremada); los gramajes no coinciden con las fotos de 2022. No se puede atribuir el fabricante actual."
+    },
+    {
+      "id": "P10",
+      "marca": "Medalla de Oro (marca propia de Olímpica)",
+      "nombre": "Leche en polvo entera",
+      "tipo": "leche entera",
+      "subtipo": "maquila",
+      "formato": "bolsa (consumo)",
+      "presentaciones": [
+        {
+          "contenido": "900 g",
+          "ean": null,
+          "unidades_por_paca": 12,
+          "canales": [
+            {
+              "canal": "biblioteca de medios de mundilacteos.com",
+              "url": "https://mundilacteos.com/wp-content/uploads/2022/10/Foto-12-removebg-preview-1.png",
+              "precio_cop": null,
+              "estado": "foto del empaque",
+              "fecha": "2022-10-15 (subida)"
+            }
+          ]
+        }
+      ],
+      "registro_sanitario": "RSA-006359-2018 (MEDALLA DE ORO figura entre las marcas autorizadas)",
+      "en_sitio_web": "No (solo en la biblioteca de medios).",
+      "fuentes": [
+        "https://mundilacteos.com/wp-json/wp/v2/media?per_page=100",
+        "https://www.scribd.com/document/630483993/REGISTRO-SANITARIO-LECHE-EN-POLVO-THE-CANTARO",
+        "https://www.pulzo.com/economia/olimpica-su-leche-medalla-oro-cual-es-su-precio-quienes-fabrican-PP2805190"
+      ],
+      "captura": "auditoria/capturas/catalogo/catalogo-biblioteca-medios-productos-desktop.jpg",
+      "confianza": "probable (2022); no verificado hoy",
+      "notas": "Incongruencia: Pulzo (2023-06-02) atribuye la leche en polvo Medalla de Oro a Indulino S.A.S.; el registro de Mundilácteos también autoriza esa marca. Pueden coexistir proveedores."
+    },
+    {
+      "id": "P11",
+      "marca": "Sin marca identificada",
+      "nombre": "Alimento lácteo en polvo",
+      "tipo": "otros (alimento lácteo)",
+      "subtipo": null,
+      "formato": "no identificado",
+      "presentaciones": [],
+      "registro_sanitario": "RSA-0036572-2025 (expedido 2025-05-09, vence 2030-05-09; titular y fabricante Inversiones Mundilácteos)",
+      "en_sitio_web": "No.",
+      "fuentes": [
+        "https://www.datos.gov.co/resource/ui32-p9f2.json?$q=MUNDILACTEOS",
+        "https://www.icbf.gov.co/sites/default/files/censo_plantas_alimentos_y_beneficio_animal_-_bolivar_2018.pdf (censo 2018: línea 'Alimento lácteo en polvo')"
+      ],
+      "captura": "",
+      "confianza": "no verificado (registro confirmado; producto comercial no hallado)",
+      "notas": "Preguntar al cliente marca, presentaciones y canal (institucional o retail)."
+    },
+    {
+      "id": "P12",
+      "marca": "Sin marca identificada",
+      "nombre": "Mezcla láctea en polvo con café instantáneo, endulzada con panela (4 variedades: café en polvo, liofilizado, granulado y descafeinado)",
+      "tipo": "mezcla láctea",
+      "subtipo": "con café y panela",
+      "formato": "no identificado",
+      "presentaciones": [],
+      "registro_sanitario": "RSA-0037312-2025 (expedido 2025-07-18, vence 2030-07-18)",
+      "en_sitio_web": "No.",
+      "fuentes": [
+        "https://www.datos.gov.co/resource/ui32-p9f2.json?$q=MUNDILACTEOS"
+      ],
+      "captura": "",
+      "confianza": "no verificado (registro confirmado; producto comercial no hallado)",
+      "notas": "Posible lanzamiento 2025-2026; confirmar con el cliente."
+    },
+    {
+      "id": "P13",
+      "marca": "Sin marca identificada",
+      "nombre": "Leche en polvo entera y leche en polvo descremada (reempaque)",
+      "tipo": "leche entera; leche descremada",
+      "subtipo": "empacar y vender",
+      "formato": "no identificado",
+      "presentaciones": [],
+      "registro_sanitario": "RSA-0027065-2023 (modalidad EMPACAR Y VENDER; expedido 2023-08-11, vence 2028-08-11)",
+      "en_sitio_web": "No.",
+      "fuentes": [
+        "https://www.datos.gov.co/resource/ui32-p9f2.json?$q=MUNDILACTEOS"
+      ],
+      "captura": "",
+      "confianza": "no verificado (registro confirmado)",
+      "notas": "Modalidad de empacador: sugiere materia prima de terceros. Confirmar con el cliente que marcas usan este registro."
+    },
+    {
+      "id": "P14",
+      "marca": "The Cántaro / otras",
+      "nombre": "Leche en polvo entera adicionada con vitaminas A y D",
+      "tipo": "leche entera",
+      "subtipo": "fortificada con vitaminas A y D",
+      "formato": "no identificado",
+      "presentaciones": [],
+      "registro_sanitario": "RSA-006359-2018 (variedad registrada)",
+      "en_sitio_web": "No.",
+      "fuentes": [
+        "https://www.datos.gov.co/resource/ui32-p9f2.json?$q=MUNDILACTEOS",
+        "https://www.scribd.com/document/630483993/REGISTRO-SANITARIO-LECHE-EN-POLVO-THE-CANTARO"
+      ],
+      "captura": "",
+      "confianza": "no verificado (variedad registrada; sin evidencia comercial)",
+      "notas": "Variedad autorizada sin empaque hallado."
+    }
+  ],
+  "marcas_autorizadas_en_registro": {
+    "registro": "RSA-006359-2018 (leche en polvo, 5 variedades)",
+    "marcas_segun_consulta_invima_publicada": [
+      "THE CANTARO",
+      "LA BECERRITA",
+      "LA CARIBEÑA",
+      "ALKOSTO",
+      "ZAPATOCA",
+      "LOS IBAÑEZ",
+      "ARO",
+      "ROSALINDA",
+      "LATTI",
+      "PRODUCTOS CASTILLO TODO UN IMPERIO",
+      "MEDALLA DE ORO",
+      "OLIMPICA",
+      "MUA",
+      "MERCACENTRO",
+      "UNIDOS"
+    ],
+    "fuente_1": "https://www.scribd.com/document/630483993/REGISTRO-SANITARIO-LECHE-EN-POLVO-THE-CANTARO (captura de consulta INVIMA; vencimiento mostrado 2023/08/27, anterior a la renovación)",
+    "historial_segun_resolucion_2020042829": [
+      {
+        "fecha": "2018-08 (Res. 2018034383)",
+        "marcas": [
+          "THE CANTARO",
+          "LA BECERRITA",
+          "LA CARIBEÑA"
+        ]
+      },
+      {
+        "fecha": "2018-11-08 (Res. 2018048118)",
+        "marcas": [
+          "MAMAMU"
+        ]
+      },
+      {
+        "fecha": "2019-01-18 (Res. 2019001211)",
+        "marcas": [
+          "ALKOSTO",
+          "ZAPATOCA",
+          "LOS IBAÑEZ",
+          "ARO",
+          "ROSALINDA"
+        ]
+      },
+      {
+        "fecha": "2019-09-24 (Res. 2019042387)",
+        "marcas": [
+          "LATTI",
+          "LUCERITO",
+          "PRODUCTOS CASTILLO TODO UN IMPERIO"
+        ]
+      }
+    ],
+    "fuente_2": "https://www.scribd.com/document/555384734/RESOL-2020042829-MODIFICACION-LECHE-EN-POLVO-VARIEDADES-INVERSIONES-MUNDILACTEOS-SAS-3 (texto con fuente cifrada; decodificado en auditoria/datos/catalogo-fuentes/scribd-resol-2020042829-decodificada.txt)",
+    "presentaciones_autorizadas": "27 g, 104 g, 200 g, 380 g, 400 g, 500 g, 750 g, 800 g, 900 g, 1000 g, 5 kg, 12,5 kg, 25 kg",
+    "ficha_tecnica_marcas": "The Cántaro, La Becerrita, La Caribeña, Mamamu y Latty (https://www.scribd.com/document/495730462/Ficha-Tecnica-the-Cantaro-Nueva)",
+    "confianza": "confirmado en documentos del registro (2018-2023); la lista vigente tras la renovación de 2023-05-24 no se pudo consultar",
+    "nota": "La mayoría son marcas propias de cadenas (Alkosto, Aro de Makro, Olímpica, Medalla de Oro, Mercacentro, Zapatoca). No publicar estos nombres sin autorización del cliente y de cada cadena."
+  },
+  "unidades_por_paca_publicadas": {
+    "valores": {
+      "27 g": 300,
+      "104 g": 100,
+      "200 g": 60,
+      "380 g": 30,
+      "400 g": 30,
+      "500 g": 24,
+      "750 g": 15,
+      "800 g": 12,
+      "900 g": 12,
+      "1000 g": 12
+    },
+    "fuente": "https://mundilacteos.com/productos/ (sección Embalaje; el sitio dice '12 unidades para bolsa de 100gr', el documento INVIMA dice 1000 g) y https://www.scribd.com/document/630483993/REGISTRO-SANITARIO-LECHE-EN-POLVO-THE-CANTARO (caja de cartón corrugado 49 x 22 x 34 cm; bulto de 25 kg sin segundo embalaje)",
+    "nota": "Valores genéricos por gramaje; no confirmados por marca ni por SKU."
+  },
+  "registros_sanitarios": [
+    {
+      "registro": "RSA-0027065-2023",
+      "expediente": "20260841",
+      "producto_invima": "LECHE EN POLVO VARIEDADES: 1. LECHE EN POLVO ENTERA, LECHE EN POLVO DESCREMADA",
+      "titular": "INVERSIONES MUNDILACTEOS S.A.S.",
+      "rol_de_mundilacteos": "EMPACADOR",
+      "rol_registrado": "EMPACADOR: INVERSIONES MUNDILACTEOS S.A.S.",
+      "modalidad": "EMPACAR Y VENDER",
+      "fecha_expedicion": "2023-08-11",
+      "fecha_vencimiento": "2028-08-11",
+      "estado": "Vigente",
+      "fuente": "https://www.datos.gov.co/resource/ui32-p9f2.json?rsynso=RSA-0027065-2023"
+    },
+    {
+      "registro": "RSA-003008-2017",
+      "expediente": "20123826",
+      "producto_invima": "MEZCLAS EN POLVO A BASE DE LECHE Y ENDULZANTES PARA PREPARAR BEBIDAS",
+      "titular": "INVERSIONES MUNDILACTEOS S.A.S.",
+      "rol_de_mundilacteos": "FABRICANTE",
+      "rol_registrado": "FABRICANTE: INVERSIONES MUNDILACTEOS S.A.S.",
+      "modalidad": "FABRICAR Y VENDER",
+      "fecha_expedicion": "2026-09-11",
+      "fecha_vencimiento": "2031-09-11",
+      "estado": "Vigente",
+      "fuente": "https://www.datos.gov.co/resource/ui32-p9f2.json?rsynso=RSA-003008-2017"
+    },
+    {
+      "registro": "RSA-0036572-2025",
+      "expediente": "20306399",
+      "producto_invima": "ALIMENTO LÁCTEO EN POLVO",
+      "titular": "INVERSIONES MUNDILACTEOS S.A.S.",
+      "rol_de_mundilacteos": "FABRICANTE",
+      "rol_registrado": "FABRICANTE: INVERSIONES MUNDILACTEOS S.A.S.",
+      "modalidad": "FABRICAR Y VENDER",
+      "fecha_expedicion": "2025-05-09",
+      "fecha_vencimiento": "2030-05-09",
+      "estado": "Vigente",
+      "fuente": "https://www.datos.gov.co/resource/ui32-p9f2.json?rsynso=RSA-0036572-2025"
+    },
+    {
+      "registro": "RSA-0037312-2025",
+      "expediente": "20311394",
+      "producto_invima": "MEZCLA LACTEA EN POLVO CON CAFÉ INSTANTANEO EN POLVO Y ENDULZADA CON PANELA; MEZCLA LACTEA EN POLVO CON CAFÉ INSTANTANEO LIOFILIZADO EN POLVO Y ENDULZADA CON PANELA; MEZCLA LACTEA EN POLVO CON CAFÉ INSTANTANEO GRANULADO EN POLVO Y ENDULZADA CON PANELA; MEZCLA LACTEA EN POLVO CON CAFÉ INSTANTANEO EN POLVO DESCAFEINADO Y ENDULZADA CON PANELA",
+      "titular": "INVERSIONES MUNDILACTEOS S.A.S.",
+      "rol_de_mundilacteos": "FABRICANTE",
+      "rol_registrado": "FABRICANTE: INVERSIONES MUNDILACTEOS S.A.S.",
+      "modalidad": "FABRICAR Y VENDER",
+      "fecha_expedicion": "2025-07-18",
+      "fecha_vencimiento": "2030-07-18",
+      "estado": "Vigente",
+      "fuente": "https://www.datos.gov.co/resource/ui32-p9f2.json?rsynso=RSA-0037312-2025"
+    },
+    {
+      "registro": "RSA-006359-2018",
+      "expediente": "20149171",
+      "producto_invima": "LECHE EN POLVO VARIEDADES: 1. LECHE EN POLVO ENTERA, 2. LECHE EN POLVO ENTERA FORTIFICADA CON VITAMINAS A Y D, 3. LECHE EN POLVO DESCREMADA, 4. LECHE EN POLVO ENTERA FORTIFICADA CON HIERRO, 5. LECHE EN POLVO ENTERA AZUCARADA . .",
+      "titular": "INVERSIONES MUNDILACTEOS S.A.S.",
+      "rol_de_mundilacteos": "FABRICANTE",
+      "rol_registrado": "FABRICANTE: INVERSIONES MUNDILACTEOS S.A.S.",
+      "modalidad": "FABRICAR Y VENDER",
+      "fecha_expedicion": "2023-05-24",
+      "fecha_vencimiento": "2028-05-24",
+      "estado": "Vigente",
+      "fuente": "https://www.datos.gov.co/resource/ui32-p9f2.json?rsynso=RSA-006359-2018"
+    },
+    {
+      "registro": "RSA-0018470-2022",
+      "expediente": "20225153",
+      "producto_invima": "QUESOS FRESCOS VARIEDADES 1. QUESO FRESCO, GRASO SEMIDURO, MOZZARELLA. 2, QUESO FRESCO, GARASO, SEMIDURO, DOBLE CREMA, 3. QUESO FRESCO GRASO SEMIDURO, COSTEÑO, 4. QUESO FRESCO, GRASO, SEMIBLANDO, CAMPESINO, 5. QUESO FRESCO, GRASO SEMIDURO TIPO MOZZARELLA; QUESO CREMA FRESCO, SEMIBLANDO; QUESO CREMA FRESCO GRASO SEMIDURO.",
+      "titular": "SHADDAY SOLUCIONES S.A.S.",
+      "rol_de_mundilacteos": "FABRICANTE",
+      "rol_registrado": "FABRICANTE: INVERSIONES MUNDILACTEOS S.A.S.",
+      "modalidad": "FABRICAR Y VENDER",
+      "fecha_expedicion": "2022-04-11",
+      "fecha_vencimiento": "2027-04-11",
+      "estado": "Vigente",
+      "fuente": "https://www.datos.gov.co/resource/ui32-p9f2.json?rsynso=RSA-0018470-2022"
+    },
+    {
+      "registro": "RSA-0018770-2022",
+      "expediente": "20225776",
+      "producto_invima": "LECHE VARIEDADES: 1. ENTERA ULTRA ALTA TEMPERATURA (UHT), 2. DESCREMADA ULTRA ALTA TEMPERATURA (UHT), 3. ENTERA DESLACTOSADA ULTRA ALTA TEMPERATURA (UHT), 4. DESCREMADA - DESLACTOSADA ULTRA ALTA TEMPERATURA (UHT), 5. SEMIDESCREMADA - DESLACTOSADA ULTRA ALTA TEMPERATURA (UHT).",
+      "titular": "SHADDAY SOLUCIONES S.A.S.",
+      "rol_de_mundilacteos": "FABRICANTE",
+      "rol_registrado": "FABRICANTE: INVERSIONES MUNDILACTEOS S.A.S.",
+      "modalidad": "FABRICAR Y VENDER",
+      "fecha_expedicion": "2022-04-26",
+      "fecha_vencimiento": "2027-04-26",
+      "estado": "Vigente",
+      "fuente": "https://www.datos.gov.co/resource/ui32-p9f2.json?rsynso=RSA-0018770-2022"
+    },
+    {
+      "registro": "RSA-0018840-2022",
+      "expediente": "20226373",
+      "producto_invima": "BEBIDA LACTEA FERMENTADA CON DULCE, VARIEDADES 1. CON SABOR A MORA, 2.CON SABOR A FRESA, 3. CON SABOR A PIÑA, 4. CON SABOR A FRUTOS ROJOS. 5. CON SABOR A MELOCOTÓN. 6.CON SABOR AMARACUYÁ. 7. CON ABOR A AREQUIPE. 8. CON UVAS PASAS. 9. CON SABOR A KIWI.",
+      "titular": "SHADDAY SOLUCIONES S.A.S.",
+      "rol_de_mundilacteos": null,
+      "rol_registrado": "FABRICANTE: SHADDAY SOLUCIONES S.A.S.",
+      "modalidad": "FABRICAR Y VENDER",
+      "fecha_expedicion": "2022-05-04",
+      "fecha_vencimiento": "2035-12-12",
+      "estado": "Vigente",
+      "fuente": "https://www.datos.gov.co/resource/ui32-p9f2.json?rsynso=RSA-0018840-2022"
+    },
+    {
+      "registro": "RSA-0018845-2022",
+      "expediente": "20226372",
+      "producto_invima": "MANTEQUILLA A BASE DE LECHE ENTERA LÍQUIDA VARIEDAD 1. CON SAL 2. SIN SAL.NOMBRE DE FANTASÍA: LA BECERRITA",
+      "titular": "SHADDAY SOLUCIONES S.A.S.",
+      "rol_de_mundilacteos": "FABRICANTE",
+      "rol_registrado": "FABRICANTE: INVERSIONES MUNDILACTEOS S.A.S.",
+      "modalidad": "FABRICAR Y VENDER",
+      "fecha_expedicion": "2022-05-04",
+      "fecha_vencimiento": "2027-05-04",
+      "estado": "Vigente",
+      "fuente": "https://www.datos.gov.co/resource/ui32-p9f2.json?rsynso=RSA-0018845-2022"
+    },
+    {
+      "registro": "RSA-0018847-2022",
+      "expediente": "20226369",
+      "producto_invima": "SUERO COSTEÑO, VARIEDADES: 1. TRADICIONAL, 2. PICANTE",
+      "titular": "SHADDAY SOLUCIONES S.A.S.",
+      "rol_de_mundilacteos": "FABRICANTE",
+      "rol_registrado": "FABRICANTE: INVERSIONES MUNDILACTEOS S.A.S.",
+      "modalidad": "FABRICAR Y VENDER",
+      "fecha_expedicion": "2022-05-04",
+      "fecha_vencimiento": "2027-05-04",
+      "estado": "Vigente",
+      "fuente": "https://www.datos.gov.co/resource/ui32-p9f2.json?rsynso=RSA-0018847-2022"
+    },
+    {
+      "registro": "RSA-0018873-2022",
+      "expediente": "20226572",
+      "producto_invima": "YOGURT ENTERO CON DULCE, VARIEDADES 1. CON SABOR A MORA, 2.CON SABOR A FRESA, 3. CON A PIÑA, 4. CON SABOR A FRUTOS ROJOS. 5. CON SABOR A MELOCOTÓN. 6.CON SABOR A MARACUYÁ. 7. CON SABOR A AREQUIPE. 8. CON UVAS PASAS. 9. CON SABOR A KIWI; VARIEDADES 10. YOGURT ENTERO CON DULCE PARA MEZCLAR CON ARITOS FRUTADOS. 11. YOGURT ENTERO CON DULCE PARA MEZCLAR CON HOJUELAS DE MAÍZ AZUCARADAS. 12. YOGURT ENTERO CON DULCE PARA MEZCLAR CON ARROZ INFLADO CON SABOR A CHOCOLATE. 13. YOGURT ENTERO CON DULCE PARA MEZCLAR CON GALLETA DE CHOCOLATE TRITURADA. 14. YOGURT ENTERO CON DULCE, CON MELOCOTÓN. 15. YOGURT ENTERO CON DULCE, CON FRESAS. 16. YOGURT ENTERO CON DULCE, CON FRUTOS ROJOS. NOMBRE DE FANTASÍA: GOLOSITO, CANTAGURT, CON CEREAL, CON TROZOS DE FRUTA. 17. YOGURT ENTERO CON DULCE, NATURAL.",
+      "titular": "SHADDAY SOLUCIONES S.A.S.",
+      "rol_de_mundilacteos": "FABRICANTE",
+      "rol_registrado": "FABRICANTE: INVERSIONES MUNDILACTEOS S.A.S.",
+      "modalidad": "FABRICAR Y VENDER",
+      "fecha_expedicion": "2022-05-05",
+      "fecha_vencimiento": "2027-05-05",
+      "estado": "Vigente",
+      "fuente": "https://www.datos.gov.co/resource/ui32-p9f2.json?rsynso=RSA-0018873-2022"
+    },
+    {
+      "registro": "RSA-0019028-2022",
+      "expediente": "20227106",
+      "producto_invima": "BEBIDA LACTEA FERMENTADA CON DULCE, VARIEDADES 1. CON SABOR A MORA, 2.CON SABOR A FRESA, 3. CON SABOR A PIÑA, 4. CON SABOR A FRUTOS ROJOS. 5. CON SABOR A MELOCOTÓN. 6.CON SABOR A MARACUYÁ. 7. CON SABOR A AREQUIPE. 8. CON UVAS PASAS. 9. CON SABOR A KIWI.",
+      "titular": "SHADDAY SOLUCIONES S.A.S.",
+      "rol_de_mundilacteos": null,
+      "rol_registrado": "FABRICANTE: SHADDAY SOLUCIONES S.A.S.",
+      "modalidad": "FABRICAR Y VENDER",
+      "fecha_expedicion": "2022-05-13",
+      "fecha_vencimiento": "2027-05-13",
+      "estado": "Vigente",
+      "fuente": "https://www.datos.gov.co/resource/ui32-p9f2.json?rsynso=RSA-0019028-2022"
+    },
+    {
+      "registro": "RSA-0021394-2022",
+      "expediente": "20236027",
+      "producto_invima": "LECHE ENTERA SABORIZADA VARIEDAD: 1. CON SABOR FRESA (UHT), 2. CON SABOR CHOCOLATE (UHT), 3. CON SABOR A VAINILLA (UHT), 4. TRADICIONAL (UHT).",
+      "titular": "SHADDAY SOLUCIONES S.A.S.",
+      "rol_de_mundilacteos": null,
+      "rol_registrado": "FABRICANTE: SHADDAY SOLUCIONES S.A.S.",
+      "modalidad": "FABRICAR Y VENDER",
+      "fecha_expedicion": "2022-08-22",
+      "fecha_vencimiento": "2027-08-22",
+      "estado": "Vigente",
+      "fuente": "https://www.datos.gov.co/resource/ui32-p9f2.json?rsynso=RSA-0021394-2022"
+    }
+  ],
+  "datos_corporativos": {
+    "razon_social": {
+      "valor": "INVERSIONES MUNDILACTEOS S.A.S.",
+      "fuentes": [
+        "https://www.datos.gov.co/resource/uhs6-qp53.json?nit=900514916",
+        "https://empresas.larepublica.co/colombia/bolivar/turbaco/inversiones-mundilacteos-s-a-s-900514916"
+      ],
+      "confianza": "confirmado"
+    },
+    "nit": {
+      "valor": "900.514.916-2",
+      "fuentes": [
+        "https://www.datos.gov.co/resource/rq4n-pzga.json?$q=900514916 (identificación '900514916-2')",
+        "https://www.informacolombia.com/directorio-empresas/informacion-empresa/inversiones-mundilacteos-sas ('9005149162')",
+        "https://www.scribd.com/document/630483993/REGISTRO-SANITARIO-LECHE-EN-POLVO-THE-CANTARO (observaciones 'NI,9005149162')"
+      ],
+      "confianza": "confirmado"
+    },
+    "tipo_sociedad": {
+      "valor": "Sociedad por acciones simplificada",
+      "fuentes": [
+        "https://www.informacolombia.com/directorio-empresas/informacion-empresa/inversiones-mundilacteos-sas"
+      ],
+      "confianza": "confirmado"
+    },
+    "fecha_constitucion": {
+      "valor": "2011-12-30",
+      "fuentes": [
+        "https://www.emis.com/php/company-profile/CO/Inversiones_Mundilacteos_SAS_es_8162022.html"
+      ],
+      "confianza": "probable (fuente secundaria; RUES no consultado directamente)",
+      "incongruencias": [
+        "LinkedIn: 'Fundación 2010'",
+        "Sitio (inicio): 'más de 11 años' y '12 años' en la misma página (texto de 2022-2023)",
+        "LinkedIn: '12 años de experiencia'",
+        "Instagram (fragmento de buscador): '10 años de experiencia'"
+      ]
+    },
+    "camara_de_comercio": {
+      "valor": "Cartagena (según fragmento de buscador de lasempresas.com.co)",
+      "confianza": "no verificado (sitio respondio 403)"
+    },
+    "ciiu": {
+      "valor": [
+        {
+          "codigo": "1040",
+          "descripcion": "Elaboración de productos lácteos",
+          "fuente": "fragmento de buscador de lasempresas.com.co / La República (descripción)"
+        },
+        {
+          "codigo": null,
+          "descripcion": "Comercio al por mayor de productos alimenticios",
+          "fuente": "https://empresas.larepublica.co/colombia/bolivar/turbaco/inversiones-mundilacteos-s-a-s-900514916"
+        }
+      ],
+      "confianza": "probable"
+    },
+    "tamano": {
+      "valor": "Mediana; 49 empleados (2025); ventas 2025 entre 20.000 y 100.000 millones COP; LinkedIn: 11 a 50 empleados, 8 perfiles vinculados",
+      "fuentes": [
+        "https://empresas.larepublica.co/colombia/bolivar/turbaco/inversiones-mundilacteos-s-a-s-900514916",
+        "https://www.emis.com/php/company-profile/CO/Inversiones_Mundilacteos_SAS_es_8162022.html",
+        "https://www.informacolombia.com/directorio-empresas/informacion-empresa/inversiones-mundilacteos-sas",
+        "https://co.linkedin.com/company/inversiones-mundilacteos-sas"
+      ],
+      "confianza": "probable (fuentes secundarias)"
+    },
+    "representante_legal": {
+      "valor": "José Ricardo Sepúlveda García",
+      "fuentes": [
+        "https://www.datos.gov.co/resource/uhs6-qp53.json?nit=900514916 (corte 2025-05-27)"
+      ],
+      "confianza": "confirmado a la fecha del corte"
+    },
+    "direccion": {
+      "valor": "Km 1 Vía a Turbaco, Lote 2A-2B, Parque Industrial Europark Cartagena, R.P.H. Bodega 28, Turbaco (Bolívar)",
+      "fuentes": [
+        "https://www.datos.gov.co/resource/uhs6-qp53.json?nit=900514916",
+        "https://mundilacteos.com/contacto/",
+        "https://www.emis.com/php/company-profile/CO/Inversiones_Mundilacteos_SAS_es_8162022.html"
+      ],
+      "confianza": "confirmado",
+      "incongruencias": [
+        "El sitio dice 'Cartagena, Colombia'; INVIMA y los directorios ubican el municipio en Turbaco.",
+        "Fragmento de buscador del registro mercantil: 'Bodega 16' (Bodega 16 es la de Shadday Soluciones según INVIMA).",
+        "Resolución INVIMA 2020042829: 'R.P.H. BOD. 2A-2B'."
+      ],
+      "direcciones_anteriores": [
+        "Diagonal 22 No. 30-159, El Prado, Cartagena (sacos fotografiados; censo ICBF 2018)",
+        "Transversal 51 No. 21-36, El Bosque, Cartagena (saco The Cántaro 25 kg)"
+      ]
+    },
+    "telefonos": {
+      "valor": [
+        {
+          "numero": "+57 319 769 0990",
+          "uso": "contacto, pie de página, WhatsApp (Joinchat) y schema 'telephone'",
+          "fuente": "https://mundilacteos.com/contacto/"
+        },
+        {
+          "numero": "+57 311 429 3448",
+          "uso": "segundo pie de página del inicio; Informa Colombia",
+          "fuente": "https://mundilacteos.com/"
+        },
+        {
+          "numero": "(605) 662 6064 y (605) 662 2107",
+          "uso": "impresos en sacos antiguos; 662 6064 también en censo ICBF 2018",
+          "fuente": "https://mundilacteos.com/wp-content/uploads/2022/10/Foto-3.png"
+        }
+      ],
+      "confianza": "confirmado que se publican; vigencia de los fijos no verificada"
+    },
+    "correo": {
+      "valor": "El sitio no pública correo. Los sacos fotografiados imprimen comercial@mundilacteossas.com; el dominio mundilacteossas.com no resuelve (DNS NXDOMAIN, 2026-09-25).",
+      "confianza": "confirmado"
+    },
+    "sitio_web": {
+      "valor": "https://mundilacteos.com/ (páginas modificadas por última vez el 2023-02-13; última subida a la biblioteca de medios el 2023-01-24)",
+      "fuente": "https://mundilacteos.com/wp-json/wp/v2/pages",
+      "confianza": "confirmado"
+    },
+    "agencia_sitio": {
+      "valor": "Bangboo (bangbooagency.com). El pie dice 'Hecho por Bangboo' sin enlace; el portafolio de Bangboo incluye 'Content creation and Web design for Mundilacteos - Website Creation and Social Media Identity'.",
+      "fuentes": [
+        "https://www.bangbooagency.com/",
+        "https://mundilacteos.com/"
+      ],
+      "confianza": "confirmado",
+      "nota": "Directorios (DesignRush, TopInteractiveAgencies) ubican a Bangboo en Maringá, Brasil; no verificado directamente."
+    },
+    "redes_sociales": [
+      {
+        "red": "Instagram",
+        "url": "https://www.instagram.com/mundilacteos/",
+        "existe": true,
+        "activa": "si: publicación del 2026-02-12 (The Cántaro adicionada con hierro)",
+        "metricas": "128 seguidores y 12 publicaciones según fragmento de buscador (fecha desconocida); perfil no visible sin sesión (HTTP 429 / redirección a login)",
+        "enlazada_desde_sitio": false,
+        "confianza": "confirmado (existencia y post); métricas no verificadas"
+      },
+      {
+        "red": "TikTok",
+        "url": "https://www.tiktok.com/@mundilacteos",
+        "existe": true,
+        "activa": "no determinable (los videos no cargaron)",
+        "metricas": "4 seguidores, 4 me gusta, 1 siguiendo (2026-09-25)",
+        "enlazada_desde_sitio": false,
+        "confianza": "confirmado",
+        "nota": "Usa un logo de vaca verde distinto al logo del sitio."
+      },
+      {
+        "red": "LinkedIn",
+        "url": "https://co.linkedin.com/company/inversiones-mundilacteos-sas",
+        "existe": true,
+        "activa": "último post no visible sin sesión",
+        "metricas": "156 seguidores; 8 empleados vinculados; tipo 'Asociación'; fundación 2010; especialidades: quesos, yogurt, leche en polvo",
+        "enlazada_desde_sitio": false,
+        "confianza": "confirmado"
+      },
+      {
+        "red": "Facebook",
+        "url": "https://www.facebook.com/mundilacteos",
+        "existe": "no determinable (redirección a login)",
+        "activa": null,
+        "metricas": null,
+        "enlazada_desde_sitio": "icono sin enlace (sin href)",
+        "confianza": "no verificado"
+      },
+      {
+        "red": "YouTube",
+        "url": "https://www.youtube.com/@mundilacteos",
+        "existe": false,
+        "activa": null,
+        "metricas": "HTTP 404",
+        "enlazada_desde_sitio": "icono sin enlace (sin href)",
+        "confianza": "confirmado (handle no existe)"
+      },
+      {
+        "red": "X / Twitter",
+        "url": null,
+        "existe": "no verificado",
+        "activa": null,
+        "metricas": null,
+        "enlazada_desde_sitio": "icono sin enlace (sin href)",
+        "confianza": "no verificado"
+      }
+    ],
+    "certificaciones": [
+      {
+        "nombre": "ISO 9001:2015",
+        "declarada_en": "https://mundilacteos.com/ ('Iso 9001:2015 - Nuestras certificaciones'; 'Somos una compañía certificada')",
+        "ente_certificador": null,
+        "numero": null,
+        "alcance": null,
+        "vigencia": null,
+        "verificacion": "No verificable: el sitio no da ente ni número; IAF CertSearch devolvio 0 registros pero la consulta quedo bajo captcha (no concluyente); sin menciones en fuentes públicas.",
+        "confianza": "no verificado"
+      },
+      {
+        "nombre": "Concepto sanitario INVIMA",
+        "valor": "FAVORABLE; establecimiento activo No. 24741, línea 'Leches en polvo y crema de leches en polvo'",
+        "fuente": "https://www.datos.gov.co/resource/uhs6-qp53.json?nit=900514916 (corte 2025-05-27)",
+        "confianza": "confirmado"
+      },
+      {
+        "nombre": "Registros sanitarios INVIMA",
+        "valor": "5 registros vigentes como titular (RSA-006359-2018, RSA-003008-2017, RSA-0027065-2023, RSA-0036572-2025, RSA-0037312-2025)",
+        "fuente": "https://www.datos.gov.co/resource/ui32-p9f2.json?$q=MUNDILACTEOS (actualizado 2026-09-16)",
+        "confianza": "confirmado"
+      },
+      {
+        "nombre": "BPM / HACCP (listas INVIMA)",
+        "valor": "Sin registros para Mundilácteos",
+        "fuente": "https://www.datos.gov.co/resource/jdjx-jx6d.json y https://www.datos.gov.co/resource/rbvn-xj2w.json",
+        "confianza": "confirmado (0 filas)"
+      }
+    ],
+    "antecedentes_regulatorios": [
+      {
+        "tipo": "Proceso sancionatorio ejecutoriado INVIMA",
+        "valor": "Multa de 500 SMDLV; proceso 201602614; producto 'derivados lácteos'; firmeza 2019-02-07",
+        "fuente": "https://www.datos.gov.co/resource/rq4n-pzga.json?$q=MUNDILACTEOS",
+        "confianza": "confirmado",
+        "nota": "Dato público para contexto interno; no es contenido para el sitio."
+      }
+    ],
+    "empresa_relacionada": {
+      "razon_social": "SHADDAY SOLUCIONES S.A.S.",
+      "nit": "901450026",
+      "representante_legal": "José Ricardo Sepúlveda García (el mismo de Mundilácteos)",
+      "direccion": "Parque Industrial Europark, Bodega 16, Turbaco",
+      "linea_invima": "Quesos frescos",
+      "registros_con_mundilacteos_como_fabricante": [
+        "RSA-0018770-2022 leche UHT (entera, descremada, deslactosadas)",
+        "RSA-0018470-2022 quesos frescos (mozzarella, doble crema, costeño, campesino, crema)",
+        "RSA-0018845-2022 mantequilla con y sin sal 'La Becerrita'",
+        "RSA-0018847-2022 suero costeño tradicional y picante",
+        "RSA-0018873-2022 yogurt entero con dulce, 17 variedades (fantasía: Golosito, Cantagurt)"
+      ],
+      "registros_propios": [
+        "RSA-0018840-2022 y RSA-0019028-2022 bebida láctea fermentada",
+        "RSA-0021394-2022 leche entera saborizada UHT"
+      ],
+      "fuentes": [
+        "https://www.datos.gov.co/resource/uhs6-qp53.json?$q=SHADDAY",
+        "https://www.datos.gov.co/resource/ui32-p9f2.json?$q=MUNDILACTEOS"
+      ],
+      "confianza": "confirmado (registros); comercialización no verificada"
+    },
+    "aliados_comerciales_en_sitio": {
+      "valor": [
+        "Rapimercar",
+        "Olímpica",
+        "Mr. Bono",
+        "Megatiendas",
+        "Garosa"
+      ],
+      "fuente": "https://mundilacteos.com/wp-json/wp/v2/media?per_page=100",
+      "verificacion": "Megatiendas: 2 productos disponibles. Olímpica: página de marca con 0 productos y ficha 900 g en 404. Rapimercar, Mr. Bono y Garosa: no consultados. Éxito y Carulla publican The Cántaro y no figuran como aliados."
+    },
+    "declaraciones_del_sitio": {
+      "clientes": "'+869.000 clientes satisfechos' (sitio) frente a 'más de 896.000' (LinkedIn)",
+      "cobertura": "'Enviamos a toda Colombia'",
+      "canales": "'Multicanal: Supermercados, Rappi'"
+    }
+  },
+  "incongruencias": [
+    {
+      "tema": "Años de trayectoria",
+      "detalle": "Inicio del sitio: 'más de 11 años' y '12 años' en la misma página; LinkedIn: fundación 2010 y '12 años'; Instagram (fragmento de buscador): '10 años'; EMIS: constitución 2011-12-30.",
+      "fuentes": [
+        "https://mundilacteos.com/",
+        "https://co.linkedin.com/company/inversiones-mundilacteos-sas",
+        "https://www.emis.com/php/company-profile/CO/Inversiones_Mundilacteos_SAS_es_8162022.html"
+      ]
+    },
+    {
+      "tema": "Clientes",
+      "detalle": "Sitio: '+869.000 clientes satisfechos'; LinkedIn: 'más de 896.000'.",
+      "fuentes": [
+        "https://mundilacteos.com/",
+        "https://co.linkedin.com/company/inversiones-mundilacteos-sas"
+      ]
+    },
+    {
+      "tema": "Teléfonos",
+      "detalle": "El inicio muestra 311 4293448 y 319 7690990 en dos pies de página distintos.",
+      "fuentes": [
+        "https://mundilacteos.com/"
+      ]
+    },
+    {
+      "tema": "Ubicación",
+      "detalle": "Sitio: 'Cartagena'; INVIMA y directorios: municipio Turbaco. Bodega 28 (INVIMA, sitio) frente a Bodega 16 (fragmento del registro mercantil) y 'BOD. 2A-2B' (resolución INVIMA 2020042829).",
+      "fuentes": [
+        "https://www.datos.gov.co/resource/uhs6-qp53.json?nit=900514916",
+        "https://mundilacteos.com/contacto/",
+        "https://www.scribd.com/document/555384734/RESOL-2020042829-MODIFICACION-LECHE-EN-POLVO-VARIEDADES-INVERSIONES-MUNDILACTEOS-SAS-3"
+      ]
+    },
+    {
+      "tema": "Denominación de producto",
+      "detalle": "El sitio llama 'leche en polvo' (entera o azucarada) a empaques rotulados 'Mezcla en polvo a base de leche y endulzante' (RSA-003008-2017).",
+      "fuentes": [
+        "https://mundilacteos.com/productos/",
+        "https://mundilacteos.com/wp-content/uploads/2022/10/Foto-3.png",
+        "https://mundilacteos.com/wp-content/uploads/2022/10/Foto-2.jpg",
+        "https://mundilacteos.com/wp-content/uploads/2022/10/The-cantaro2.png"
+      ]
+    },
+    {
+      "tema": "Datos en tiendas",
+      "detalle": "Éxito y Carulla cruzan nombre, URL e imagen de la azucarada y la descremada 380 g 'Nueva imagen' (EAN 7707285611619 y 7707285612494).",
+      "fuentes": [
+        "https://www.exito.com/api/catalog_system/pub/products/search?ft=cantaro",
+        "https://www.carulla.com/api/catalog_system/pub/products/search?ft=cantaro"
+      ]
+    },
+    {
+      "tema": "Fabricante de Medalla de Oro",
+      "detalle": "Pulzo (2023-06-02) atribuye la leche en polvo Medalla de Oro a Indulino S.A.S.; el registro de Mundilácteos también autoriza la marca y su biblioteca de medios tiene una foto del empaque.",
+      "fuentes": [
+        "https://www.pulzo.com/economia/olimpica-su-leche-medalla-oro-cual-es-su-precio-quienes-fabrican-PP2805190",
+        "https://www.scribd.com/document/630483993/REGISTRO-SANITARIO-LECHE-EN-POLVO-THE-CANTARO",
+        "https://mundilacteos.com/wp-content/uploads/2022/10/Foto-12-removebg-preview-1.png"
+      ]
+    },
+    {
+      "tema": "Embalaje",
+      "detalle": "El sitio dice '12 unidades para bolsa de 100gr' (el documento INVIMA dice 1000 g) y lista 800 g en el embalaje, pero no en las presentaciones.",
+      "fuentes": [
+        "https://mundilacteos.com/productos/",
+        "https://www.scribd.com/document/630483993/REGISTRO-SANITARIO-LECHE-EN-POLVO-THE-CANTARO"
+      ]
+    },
+    {
+      "tema": "Aliados comerciales",
+      "detalle": "El sitio muestra a Olímpica, que hoy no pública The Cántaro (0 productos; ficha 900 g en 404). Éxito y Carulla sí lo publican y no figuran como aliados.",
+      "fuentes": [
+        "https://www.olimpica.com/the-cantaro",
+        "https://www.exito.com/api/catalog_system/pub/products/search?ft=cantaro"
+      ]
+    }
+  ],
+  "taxonomia_propuesta": {
+    "principio": "Separar lo que el producto ES (denominación legal del registro INVIMA) de COMO se vende (formato y canal). Cada SKU es una combinación producto + contenido neto + empaque.",
+    "categorias": [
+      {
+        "id": "leche-en-polvo",
+        "nombre": "Leche en polvo",
+        "subcategorias": [
+          "Entera",
+          "Entera fortificada (hierro / vitaminas A y D)",
+          "Descremada",
+          "Entera azucarada"
+        ],
+        "registros": [
+          "RSA-006359-2018",
+          "RSA-0027065-2023"
+        ]
+      },
+      {
+        "id": "mezclas-lacteas",
+        "nombre": "Mezclas lácteas en polvo para preparar bebidas",
+        "subcategorias": [
+          "Con endulzante",
+          "Con café y panela"
+        ],
+        "registros": [
+          "RSA-003008-2017",
+          "RSA-0037312-2025"
+        ],
+        "nota": "Nunca rotular como 'leche'."
+      },
+      {
+        "id": "alimento-lacteo",
+        "nombre": "Alimento lácteo en polvo",
+        "subcategorias": [],
+        "registros": [
+          "RSA-0036572-2025"
+        ]
+      },
+      {
+        "id": "refrigerados",
+        "nombre": "Refrigerados y derivados (opcional, solo si el grupo decide incluir a Shadday Soluciones)",
+        "subcategorias": [
+          "Leche UHT",
+          "Quesos frescos",
+          "Yogurt y bebidas lácteas",
+          "Mantequilla",
+          "Suero costeño"
+        ],
+        "registros": [
+          "RSA-0018770-2022",
+          "RSA-0018470-2022",
+          "RSA-0018873-2022",
+          "RSA-0018845-2022",
+          "RSA-0018847-2022"
+        ]
+      },
+      {
+        "id": "servicios-b2b",
+        "nombre": "Soluciones para empresas",
+        "subcategorias": [
+          "Venta a granel e industrial (bultos 5 / 12,5 / 25 kg)",
+          "Maquila y marca propia",
+          "Distribución mayorista (pacas)",
+          "Canal institucional"
+        ],
+        "registros": []
+      }
+    ],
+    "vistas_por_publico": {
+      "hogar_b2c": "Marca > tipo > contenido neto; boton 'Dónde comprar' con enlaces a Éxito, Carulla, Megatiendas y Rappi.",
+      "tendero_y_mayorista": "Pacas: unidades por paca, precio por paca bajo cotización, pedido minimo, cobertura.",
+      "industria": "Bultos, fichas fisicoquímicas y microbiológicas descargables, certificado de análisis por lote.",
+      "marca_propia": "Página de servicio con capacidades (gramajes 27 g a 25 kg, tipos de empaque, registro sanitario disponible), sin nombrar clientes sin autorización."
+    },
+    "filtros": [
+      {
+        "filtro": "Marca",
+        "valores": [
+          "The Cántaro",
+          "La Becerrita",
+          "Otras (a confirmar)"
+        ]
+      },
+      {
+        "filtro": "Tipo de producto",
+        "valores": [
+          "Entera",
+          "Entera fortificada",
+          "Descremada",
+          "Azucarada",
+          "Mezcla láctea",
+          "Alimento lácteo"
+        ]
+      },
+      {
+        "filtro": "Formato",
+        "valores": [
+          "Bolsa individual",
+          "Paca",
+          "Bulto"
+        ]
+      },
+      {
+        "filtro": "Contenido neto",
+        "valores": [
+          "Hasta 200 g",
+          "380 a 500 g",
+          "750 a 1000 g",
+          "5 kg",
+          "12,5 kg",
+          "25 kg"
+        ]
+      },
+      {
+        "filtro": "Fortificación",
+        "valores": [
+          "Hierro",
+          "Vitaminas A y D",
+          "Ninguna"
+        ]
+      },
+      {
+        "filtro": "Sellos de advertencia",
+        "valores": [
+          "Exceso en azúcares",
+          "Sin sello"
+        ]
+      },
+      {
+        "filtro": "Uso",
+        "valores": [
+          "Consumo en el hogar",
+          "Preparación de bebidas",
+          "Uso industrial (panadería, heladería, repostería)"
+        ]
+      },
+      {
+        "filtro": "Tipo de cliente",
+        "valores": [
+          "Hogar",
+          "Tienda / distribuidor",
+          "Industria",
+          "Marca propia",
+          "Institucional"
+        ]
+      },
+      {
+        "filtro": "Dónde comprar",
+        "valores": [
+          "Éxito",
+          "Carulla",
+          "Megatiendas",
+          "Rappi",
+          "Venta directa"
+        ]
+      }
+    ],
+    "atributos_ficha": {
+      "identificacion": [
+        "Nombre comercial",
+        "Denominación legal (texto exacto del registro)",
+        "Marca",
+        "Referencia interna",
+        "EAN-13 de la unidad",
+        "GTIN-14 / DUN-14 de la paca",
+        "Registro sanitario INVIMA y fecha de vencimiento",
+        "Titular / fabricante / empacador"
+      ],
+      "presentacion": [
+        "Contenido neto",
+        "Rendimiento en litros",
+        "Porciones por empaque",
+        "Empaque primario (material y cierre)",
+        "Unidades por paca",
+        "Dimensiones y peso de la paca",
+        "Pacas por estiba",
+        "Imagen frontal, posterior y de la paca (fondo blanco, alta resolución)"
+      ],
+      "composicion_y_nutricion": [
+        "Ingredientes",
+        "Fortificación (cantidad por porción)",
+        "Alérgenos",
+        "Tabla nutricional por 100 g y por porción",
+        "Sellos frontales de advertencia",
+        "Preparación (p. ej. 135 g por litro según ficha actual)"
+      ],
+      "calidad": [
+        "Especificaciones fisicoquímicas (proteína, grasa, humedad, acidez, insolubilidad, cenizas, lactosa)",
+        "Especificaciones microbiológicas",
+        "Normas de referencia",
+        "Ficha técnica en PDF con versión y fecha",
+        "Certificado de análisis por lote (a solicitud)"
+      ],
+      "conservacion": [
+        "Vida útil",
+        "Condiciones de almacenamiento",
+        "Recomendaciones una vez abierto"
+      ],
+      "comercial_b2b": [
+        "Pedido mínimo",
+        "Cobertura y tiempos de entrega",
+        "Condiciones de pago",
+        "Canal de cotización (WhatsApp / formulario)"
+      ],
+      "seo_y_datos_estructurados": [
+        "URL amigable por SKU",
+        "schema.org Product con gtin13, brand, weight y offers o enlace a tiendas",
+        "Texto alternativo de imágenes"
+      ]
+    },
+    "datos_a_solicitar_al_cliente": [
+      "Lista maestra de SKU vigentes: marca, denominación legal, contenido neto, EAN-13 y GTIN-14, estado (activo / descontinuado).",
+      "Confirmar el EAN de la azucarada y de la descremada 380 g con 'Nueva imagen' (las tiendas lo publican cruzado).",
+      "Confirmar si existen las presentaciones declaradas y no halladas: 27, 104, 200, 400, 500, 750, 800 y 1000 g; bultos de 5 y 12,5 kg de leche entera; La Becerrita en 380, 400 y 500 g.",
+      "Marca, empaque y canal de los registros nuevos: alimento lácteo en polvo (RSA-0036572-2025), mezcla con café y panela (RSA-0037312-2025) y reempaque (RSA-0027065-2023).",
+      "Estado de La Caribeña, Mamamu, Latti, Lucerito y demás marcas autorizadas; cuáles son propias y cuáles de terceros, y qué se puede publicar.",
+      "Decisión sobre la maquila y la marca propia como servicio publicable y sus capacidades (gramajes mínimos, empaques, tiempos).",
+      "Decisión sobre incluir los productos de Shadday Soluciones (UHT, quesos, yogurt, mantequilla, suero) en el catálogo.",
+      "Fotografías actuales de todos los empaques (frente, reverso y paca) en alta resolución.",
+      "Fichas técnicas vigentes por producto (las publicadas en Scribd no tienen versión ni fecha visibles) y tablas nutricionales en formato de la Res. 810 de 2021.",
+      "Certificado ISO 9001:2015: ente certificador, número, alcance y vigencia; si no está vigente, retirar la mención.",
+      "Datos de contacto oficiales: teléfono único, correo con dominio mundilacteos.com, dirección con municipio (Turbaco) y bodega correcta.",
+      "Año de fundación y cifra de clientes que se van a publicar (hoy hay versiones distintas).",
+      "URLs oficiales de redes sociales y cuáles se mantienen activas.",
+      "Canales de venta vigentes y enlaces 'Dónde comprar' (cadenas, Rappi, distribuidores por ciudad)."
+    ]
+  },
+  "fuentes_consultadas": [
+    {
+      "fuente": "mundilacteos.com (páginas y API REST de WordPress)",
+      "url": "https://mundilacteos.com/wp-json/wp/v2/media?per_page=100",
+      "resultado": "75 medios; última subida 2023-01-24; 6 tarjetas de producto en /productos/",
+      "estado": "ok"
+    },
+    {
+      "fuente": "datos.gov.co - INVIMA RS y NSO vigentes y vencidas (ui32-p9f2, actualizado 2026-09-16)",
+      "url": "https://www.datos.gov.co/resource/ui32-p9f2.json",
+      "resultado": "10 filas con MUNDILACTEOS: 5 como titular, 5 como fabricante para Shadday Soluciones; CANTARO y BECERRITA solo devuelven registros ajenos o ya listados",
+      "estado": "ok"
+    },
+    {
+      "fuente": "datos.gov.co - Establecimientos vigilados INVIMA alimentos (uhs6-qp53)",
+      "url": "https://www.datos.gov.co/resource/uhs6-qp53.json",
+      "resultado": "1 establecimiento activo, concepto favorable",
+      "estado": "ok"
+    },
+    {
+      "fuente": "datos.gov.co - Procesos sancionatorios ejecutoriados (rq4n-pzga)",
+      "url": "https://www.datos.gov.co/resource/rq4n-pzga.json",
+      "resultado": "1 multa (2019)",
+      "estado": "ok"
+    },
+    {
+      "fuente": "datos.gov.co - BPM (jdjx-jx6d), HACCP (rbvn-xj2w), certificados de inspección sanitaria (qu3n-jbd7)",
+      "url": "https://www.datos.gov.co/",
+      "resultado": "0 filas",
+      "estado": "ok"
+    },
+    {
+      "fuente": "consultaregistro.invima.gov.co",
+      "url": "https://consultaregistro.invima.gov.co/",
+      "resultado": "Redirige (302) a app.invima.gov.co; se uso el dataset abierto en su lugar",
+      "estado": "no usado"
+    },
+    {
+      "fuente": "Scribd (registro, resolución y 2 fichas técnicas)",
+      "url": "https://www.scribd.com/document/630483993/REGISTRO-SANITARIO-LECHE-EN-POLVO-THE-CANTARO",
+      "resultado": "Texto visible de 4 documentos subidos por terceros",
+      "estado": "ok (parcial: páginas bloqueadas tras la 4)"
+    },
+    {
+      "fuente": "Éxito y Carulla (API pública VTEX)",
+      "url": "https://www.exito.com/api/catalog_system/pub/products/search?ft=cantaro",
+      "resultado": "8 y 6 fichas The Cántaro; 0 La Becerrita",
+      "estado": "ok"
+    },
+    {
+      "fuente": "Megatiendas (API pública VTEX)",
+      "url": "https://www.megatiendas.co/api/catalog_system/pub/products/search?ft=cantaro",
+      "resultado": "2 fichas The Cántaro disponibles; 0 La Becerrita",
+      "estado": "ok"
+    },
+    {
+      "fuente": "Olímpica (API VTEX e intelligent search, página de marca)",
+      "url": "https://www.olimpica.com/the-cantaro",
+      "resultado": "0 productos; ficha de 900 g en 404",
+      "estado": "ok"
+    },
+    {
+      "fuente": "Jumbo Colombia (API VTEX)",
+      "url": "https://www.jumbocolombia.com/api/catalog_system/pub/products/search?ft=cantaro",
+      "resultado": "0 productos",
+      "estado": "ok"
+    },
+    {
+      "fuente": "Rappi",
+      "url": "https://www.rappi.com.co/p/the-cantaro-leche-en-polvo-entera-1501009",
+      "resultado": "Ficha maestra 'The Cantaro Leche en Polvo Entera' (descripción 'Bolsa'), agotada en la ubicación por defecto (Bogotá)",
+      "estado": "parcial (no se probó ubicación Cartagena)"
+    },
+    {
+      "fuente": "Mercado Libre Colombia",
+      "url": "https://listado.mercadolibre.com.co/the-cantaro-leche-en-polvo",
+      "resultado": "Redirige a verificación de cuenta; API 403",
+      "estado": "bloqueado"
+    },
+    {
+      "fuente": "Makro",
+      "url": "https://tienda.makro.com.co/p/leche-en-polvo-aro-entera-900g-139868",
+      "resultado": "Leche en polvo ARO 900 g publicada; no muestra fabricante",
+      "estado": "ok (sin dato de fabricante)"
+    },
+    {
+      "fuente": "D1, Ara, Isimo, Rapimercar, Mr. Bono, Garosa",
+      "url": null,
+      "resultado": "No consultados en detalle",
+      "estado": "no medido"
+    },
+    {
+      "fuente": "Instagram",
+      "url": "https://www.instagram.com/mundilacteos/",
+      "resultado": "Perfil tras login (429); un post leído por WebFetch",
+      "estado": "parcial"
+    },
+    {
+      "fuente": "Facebook",
+      "url": "https://www.facebook.com/mundilacteos",
+      "resultado": "Redireccion a login",
+      "estado": "bloqueado"
+    },
+    {
+      "fuente": "TikTok",
+      "url": "https://www.tiktok.com/@mundilacteos",
+      "resultado": "Perfil visible; videos no cargaron",
+      "estado": "parcial"
+    },
+    {
+      "fuente": "YouTube",
+      "url": "https://www.youtube.com/@mundilacteos",
+      "resultado": "404",
+      "estado": "ok"
+    },
+    {
+      "fuente": "LinkedIn",
+      "url": "https://co.linkedin.com/company/inversiones-mundilacteos-sas",
+      "resultado": "Página pública visible",
+      "estado": "ok"
+    },
+    {
+      "fuente": "La República (RUES), Informa Colombia, EMIS",
+      "url": "https://empresas.larepublica.co/colombia/bolivar/turbaco/inversiones-mundilacteos-s-a-s-900514916",
+      "resultado": "Datos básicos leídos",
+      "estado": "ok"
+    },
+    {
+      "fuente": "lasempresas.com.co, Veritrade, Datacrédito Empresas, pdfcoffee",
+      "url": "https://www.lasempresas.com.co/cartagena/inversiones-mundilacteos-sas/",
+      "resultado": "HTTP 403 del sitio",
+      "estado": "bloqueado"
+    },
+    {
+      "fuente": "einforma, Empresite, Portafolio",
+      "url": "https://directorio-empresas.einforma.co/informacion-empresa/inversiones-mundilacteos-sas",
+      "resultado": "HTTP 429",
+      "estado": "bloqueado"
+    },
+    {
+      "fuente": "Studocu (ficha 'Leche Caribeña')",
+      "url": "https://www.studocu.com/co/document/universidad-internacional-de-la-rioja-en-colombia/administracion/ficha-tecnica-leche-caribena/60649341",
+      "resultado": "Verificación anti-bot",
+      "estado": "bloqueado"
+    },
+    {
+      "fuente": "Fitia",
+      "url": "https://fitia.app/es/calorias-informacion-nutricional/leche-en-polvo-entera-milk-malt-F659du860d/",
+      "resultado": "Vercel Security Checkpoint (429)",
+      "estado": "bloqueado"
+    },
+    {
+      "fuente": "IAF CertSearch",
+      "url": "https://www.iafcertsearch.org/search/certified-entities",
+      "resultado": "0 registros, bajo captcha",
+      "estado": "no concluyente"
+    },
+    {
+      "fuente": "Censo ICBF de plantas de alimentos, Bolívar 2018",
+      "url": "https://www.icbf.gov.co/sites/default/files/censo_plantas_alimentos_y_beneficio_animal_-_bolivar_2018.pdf",
+      "resultado": "Mundilácteos, Dg 22 No 30-159 El Prado, tel. 6626064, 'Alimento lácteo en polvo'",
+      "estado": "ok"
+    },
+    {
+      "fuente": "Bangboo Agency",
+      "url": "https://www.bangbooagency.com/",
+      "resultado": "Caso 'Content creation and Web design for Mundilacteos'",
+      "estado": "ok"
+    }
+  ]
+}
