@@ -1,0 +1,106 @@
+[
+ {
+  "dataset": "jdjx-jx6d",
+  "q": "BECERRITA",
+  "filas": 0,
+  "nombre_dataset": "FABRICAS DE ALIMENTOS CERTIFICADAS EN BPM",
+  "consulta": "https://www.datos.gov.co/resource/jdjx-jx6d.json?$q=BECERRITA",
+  "fecha_consulta": "2026-09-25"
+ },
+ {
+  "dataset": "jdjx-jx6d",
+  "q": "CANTARO",
+  "filas": 0,
+  "nombre_dataset": "FABRICAS DE ALIMENTOS CERTIFICADAS EN BPM",
+  "consulta": "https://www.datos.gov.co/resource/jdjx-jx6d.json?$q=CANTARO",
+  "fecha_consulta": "2026-09-25"
+ },
+ {
+  "dataset": "jdjx-jx6d",
+  "q": "MUNDILACTEOS",
+  "filas": 0,
+  "nombre_dataset": "FABRICAS DE ALIMENTOS CERTIFICADAS EN BPM",
+  "consulta": "https://www.datos.gov.co/resource/jdjx-jx6d.json?$q=MUNDILACTEOS",
+  "fecha_consulta": "2026-09-25"
+ },
+ {
+  "dataset": "qu3n-jbd7",
+  "q": "BECERRITA",
+  "filas": 0,
+  "nombre_dataset": "CERTIFICADOS DE INSPECCION SANITARIA",
+  "consulta": "https://www.datos.gov.co/resource/qu3n-jbd7.json?$q=BECERRITA",
+  "fecha_consulta": "2026-09-25"
+ },
+ {
+  "dataset": "qu3n-jbd7",
+  "q": "CANTARO",
+  "filas": 0,
+  "nombre_dataset": "CERTIFICADOS DE INSPECCION SANITARIA",
+  "consulta": "https://www.datos.gov.co/resource/qu3n-jbd7.json?$q=CANTARO",
+  "fecha_consulta": "2026-09-25"
+ },
+ {
+  "dataset": "qu3n-jbd7",
+  "q": "MUNDILACTEOS",
+  "filas": 0,
+  "nombre_dataset": "CERTIFICADOS DE INSPECCION SANITARIA",
+  "consulta": "https://www.datos.gov.co/resource/qu3n-jbd7.json?$q=MUNDILACTEOS",
+  "fecha_consulta": "2026-09-25"
+ },
+ {
+  "dataset": "rbvn-xj2w",
+  "q": "BECERRITA",
+  "filas": 0,
+  "nombre_dataset": "FABRICAS DE ALIMENTOS CERTIFICADAS HACCP",
+  "consulta": "https://www.datos.gov.co/resource/rbvn-xj2w.json?$q=BECERRITA",
+  "fecha_consulta": "2026-09-25"
+ },
+ {
+  "dataset": "rbvn-xj2w",
+  "q": "CANTARO",
+  "filas": 0,
+  "nombre_dataset": "FABRICAS DE ALIMENTOS CERTIFICADAS HACCP",
+  "consulta": "https://www.datos.gov.co/resource/rbvn-xj2w.json?$q=CANTARO",
+  "fecha_consulta": "2026-09-25"
+ },
+ {
+  "dataset": "rbvn-xj2w",
+  "q": "MUNDILACTEOS",
+  "filas": 0,
+  "nombre_dataset": "FABRICAS DE ALIMENTOS CERTIFICADAS HACCP",
+  "consulta": "https://www.datos.gov.co/resource/rbvn-xj2w.json?$q=MUNDILACTEOS",
+  "fecha_consulta": "2026-09-25"
+ },
+ {
+  "dataset": "rq4n-pzga",
+  "q": "BECERRITA",
+  "filas": 0,
+  "nombre_dataset": "PROCESOS SANCIONATORIOS EJECUTORIADOS INVIMA",
+  "consulta": "https://www.datos.gov.co/resource/rq4n-pzga.json?$q=BECERRITA",
+  "fecha_consulta": "2026-09-25"
+ },
+ {
+  "dataset": "rq4n-pzga",
+  "q": "CANTARO",
+  "filas": 0,
+  "nombre_dataset": "PROCESOS SANCIONATORIOS EJECUTORIADOS INVIMA",
+  "consulta": "https://www.datos.gov.co/resource/rq4n-pzga.json?$q=CANTARO",
+  "fecha_consulta": "2026-09-25"
+ },
+ {
+  "dataset": "uhs6-qp53",
+  "q": "BECERRITA",
+  "filas": 0,
+  "nombre_dataset": "ESTABLECIMIENTOS VIGILADOS INVIMA ALIMENTOS",
+  "consulta": "https://www.datos.gov.co/resource/uhs6-qp53.json?$q=BECERRITA",
+  "fecha_consulta": "2026-09-25"
+ },
+ {
+  "dataset": "uhs6-qp53",
+  "q": "CANTARO",
+  "filas": 0,
+  "nombre_dataset": "ESTABLECIMIENTOS VIGILADOS INVIMA ALIMENTOS",
+  "consulta": "https://www.datos.gov.co/resource/uhs6-qp53.json?$q=CANTARO",
+  "fecha_consulta": "2026-09-25"
+ }
+]
