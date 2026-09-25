@@ -1,5 +1,7 @@
 # Concepto 2: Peso neto
 
+> Paleta actualizada el 25/09/2026 a la paleta de marca (ver §4.2 y /conceptos/compartido/MARCA.md). Las menciones a Kraft, Tinta café y Rojo saco en otras secciones se leen con la equivalencia de §4.2.
+
 Dirección final del Concepto 2 para el nuevo sitio de Inversiones Mundilácteos S.A.S. Sirve de guía para diseño, desarrollo y producción de contenido. Versión 1, 25 de septiembre de 2026.
 
 Cómo se construyó: la base es la propuesta **Peso neto**, que obtuvo el mayor puntaje sumado de los dos jueces (98,5 de 120). A ella se le injertaron la herramienta de cotización de **Nota de pedido** y la calidez y el orgullo de lugar de **Kilómetro Cero**, sin sumar un segundo gesto audaz. Es un concepto independiente: no se consultaron sitios de otras marcas del sector. De ui-ux-pro-max se adoptaron solo pautas de UX verificadas (sugerencias al escribir, sin resultados con alternativa, chips que se ajustan en varias filas, 8 px entre objetivos táctiles); sus sugerencias de tipografía y color no encajaban y se descartaron. Las cifras marcadas como *dato a confirmar* son ejemplos coherentes entre sí y deben salir de las fichas del cliente antes de publicar.
@@ -46,41 +48,31 @@ El tablero se arma con objetos del mundo del propio cliente, fotografiados en la
 
 Queda fuera del tablero: potrero con vaca, salpicaduras, gotas, vasos rebosantes, azul y blanco lácteo, globo terráqueo, murallas, balcones y mar turquesa.
 
-### 4.2 Paleta
+### 4.2 Paleta (actualizada: paleta de marca)
 
-| Nombre | Hex | Rol | Presencia aprox. |
-|---|---|---|---|
-| Blanco bolsa | `#FFFFFF` | Superficie principal y fondo de todos los packshots. Las fotos del cliente ya vienen recortadas sobre blanco. | 75 % |
-| Film | `#ECEEEB` | Gris frío del laminado. Paneles secundarios: filtros, mini-ficha, filas alternas de tablas, campos. Si el panel contiene controles, estos llevan borde en Tinta suave. | 10 % |
-| Kraft | `#D3B48A` | Solo zonas de venta por volumen: bloque Para su negocio, cabecera de Mi cotización, filas de bultos, bloque de marca propia. Es la regla de color que distingue el B2B. Sobre Kraft el texto va siempre en Tinta café. | 7 % |
-| Tinta café | `#3A2618` | Texto, iconos, bordes fuertes, chips activos y fondo del pie. Un café de tinta de impresión, saturado a propósito para que se lea como café y no como negro teñido. | 7 % |
-| Rojo saco | `#A8171F` | Botón primario, selección en la fila a escala, mensajes de error (siempre con icono y texto) y titulares de 24 px o más sobre Kraft. Nunca en áreas grandes ni sobre Tinta café. | 1 % |
-| Tinta suave | `#66574B` | Texto secundario sobre Blanco y Film. Borde de campos y controles (cumple 3:1). Prohibido sobre Kraft. | texto |
+**Actualización del 25/09/2026, por pedido del cliente:** el concepto usa exclusivamente la paleta de marca definida en `/conceptos/compartido/MARCA.md` (colores medidos del logo y de los empaques). Se retiran Kraft, Tinta café y Rojo saco de la interfaz; el kraft solo aparece dentro de las fotos reales de los sacos. En todo este documento, donde diga Kraft, Tinta café, Rojo saco, Film o Tinta suave, aplique la equivalencia de esta tabla.
 
-Auxiliares, que no amplían la paleta: **Rojo saco oscuro** `#8A1219` (hover y presionado del botón primario) y **Línea** `#D6D2CB` (divisores decorativos de tablas, nunca como único borde de un control).
+| Antes | Ahora | Hex | Rol en «Peso neto» | Presencia aprox. |
+|---|---|---|---|---|
+| Blanco bolsa | Blanco | `#FFFFFF` | Superficie principal y fondo de packshots. | 65 % |
+| Film | Verde tenue | `#EFF5EA` | Paneles secundarios: filtros, mini-ficha, filas alternas, campos. | 10 % |
+| Kraft (zonas B2B) | Verde tinte | `#E3F1D3` | Zonas de venta por volumen: Para su negocio, cabecera de Mi cotización, filas de bultos, marca propia. Texto en Azul noche. | 7 % |
+| — (nuevo) | Verde Mundilácteos | `#4AA603` | Color insignia: bandas de sección, línea base y regla de la fila a escala, sello M, iconos grandes. Texto encima en Azul noche (5,10:1). | 8 % |
+| Tinta café | Azul noche | `#0B1F4F` | Texto, cifras (como la tinta impresa del empaque), bordes fuertes, chips activos, pie y bandas oscuras. | 8 % |
+| Rojo saco (botón) | Verde hoja | `#2D7A12` | Botón primario con texto blanco (5,38:1); hover Verde bosque `#236310` (7,33:1). | 1 % |
+| Rojo saco (selección) | Cielo profundo | `#0B6FB8` | Cifra elegida en la fila, selección y enlaces activos, siempre con subrayado de 3 px (5,28:1 sobre blanco). Azul cielo `#1090E0` para rellenos de gráficos. | 1 % |
+| Rojo saco (error) | Rojo error | `#B42318` | Solo mensajes de error, con icono y texto (6,57:1). | puntual |
+| Tinta suave | Pizarra | `#4A5877` | Texto secundario y bordes de controles (7,11:1 sobre blanco; 6,41:1 sobre Verde tenue). | texto |
+| — | Azul Mundilácteos | `#0A2F8F` | Titulares de marca en secciones institucionales (Calidad, Nosotros) y enlaces del pie. | puntual |
+| — | Amarillo Becerrita | `#EAC55E` | Solo en el contexto de La Becerrita. | puntual |
 
-Ajuste respecto de la propuesta original: la Tinta café pasa de `#2E2118` a `#3A2618`. El primer valor quedaba cerca del negro teñido que la guía de diseño marca como rasgo genérico (observación del juez 1). El nuevo tono es más saturado (S 41 % frente a 31 %), se reconoce como café en el pie y conserva AAA en todos sus pares.
+Línea divisoria decorativa: `#D9E3D2`.
 
-**Contrastes** (fórmula WCAG 2.x, calculados con python3 sobre los valores finales):
+**Contrastes verificados** (WCAG 2.x, python3): Azul noche sobre Blanco 15,87:1; sobre Verde tinte 13,44:1; sobre Verde Mundilácteos 5,10:1. Blanco sobre Azul noche 15,87:1. Verde Mundilácteos sobre Azul noche 5,10:1 (enlaces y foco en el pie). Pizarra sobre Blanco 7,11:1.
 
-| Primer plano sobre fondo | Contraste | Uso permitido |
-|---|---|---|
-| Tinta café sobre Blanco | 14,28:1 | Todo texto (AAA) |
-| Tinta café sobre Film | 12,24:1 | Todo texto (AAA) |
-| Tinta café sobre Kraft | 7,25:1 | Todo texto (AAA) |
-| Tinta suave sobre Blanco | 6,93:1 | Texto secundario (AA); bordes de control |
-| Tinta suave sobre Film | 5,94:1 | Texto secundario (AA); bordes de control |
-| Blanco sobre Rojo saco | 7,48:1 | Texto del botón primario (AAA) |
-| Blanco sobre Rojo saco oscuro | 9,63:1 | Hover y presionado (AAA) |
-| Rojo saco sobre Blanco | 7,48:1 | Errores, selección, cifra elegida (AAA) |
-| Rojo saco sobre Film | 6,41:1 | Errores dentro de paneles (AA) |
-| Rojo saco sobre Kraft | 3,80:1 | Solo texto de 24 px o más (o 18,66 px en negrita) y elementos no textuales |
-| Kraft sobre Tinta café | 7,25:1 | Enlaces y foco en el pie (AAA) |
-| Film o Blanco sobre Tinta café | 12,24:1 y 14,28:1 | Texto del pie, chips activos (AAA) |
+Pares prohibidos: Verde Mundilácteos como texto pequeño sobre blanco (3,11:1); Azul cielo como texto pequeño sobre blanco (3,45:1); Amarillo sobre blanco.
 
-Pares prohibidos: Tinta suave sobre Kraft (3,52:1), Rojo saco sobre Tinta café (1,91:1), Tinta suave sobre Tinta café (2,06:1). Kraft contra Blanco (1,97:1), Film contra Blanco (1,17:1) y Línea contra Blanco (1,51:1) solo distinguen zonas de forma decorativa: nunca llevan información por sí solos.
-
-Foco visible: contorno de 3 px en Tinta café con 2 px de separación (14,28:1 contra Blanco, 7,25:1 contra Kraft). En el pie el contorno es Kraft (7,25:1). En el botón rojo el contorno queda por fuera, sobre el fondo de la página.
+Foco visible: contorno de 3 px en Azul noche con 2 px de separación; en el pie y bandas oscuras, contorno Verde Mundilácteos.
 
 ### 4.3 Tipografía
 
