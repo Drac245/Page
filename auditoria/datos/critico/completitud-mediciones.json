@@ -1,0 +1,562 @@
+{
+ "fecha": "2026-09-25",
+ "metodo": "Playwright (Chromium 141 vía proxy), Lighthouse 12.8.2 móvil por defecto (simulate, 4x CPU), curl, RDAP Verisign, Wayback CDX. Sin envío de formularios.",
+ "analitica": {
+  "html_4_paginas": "0 coincidencias de gtag, googletagmanager, google-analytics, G-/GTM-/UA-, fbq, facebook.net, hotjar, clarity, matomo, site-kit",
+  "red_16_cargas": "hosts en auditoria/datos/tecnica/playwright/auditoria-dom-red-axe.json: mundilacteos.com 2579, fonts.googleapis.com 44, fonts.gstatic.com 42, join.chat 32, secure.gravatar.com 10, wordpress.org 4, en.gravatar.com 4; 0 de analítica"
+ },
+ "privacidad": {
+  "campos_aceptacion_en_formularios": 0,
+  "checkbox_en_formularios": 0,
+  "urls_404": [
+   "/privacy-policy/",
+   "/politica-de-privacidad/",
+   "/politica-de-tratamiento-de-datos/",
+   "/terminos-y-condiciones/"
+  ],
+  "paginas_publicadas_wp_rest": [
+   "home (2023-02-12)",
+   "productos (2023-02-13)",
+   "contacto (2023-02-13)",
+   "nosotros (2023-02-13)",
+   "sample-page (2022-10-11)"
+  ]
+ },
+ "contacto_enlaces": {
+  "tel:": 0,
+  "mailto:": 0,
+  "iframe_mapa": 0,
+  "nota": "conteo sobre el HTML de /, /productos/, /nosotros/, /contacto/"
+ },
+ "ux_movil": {
+  "mode": "networkidle",
+  "header_arriba": {
+   "sel": "DIV.elementor.elementor-220.elementor-location-header",
+   "top": 0,
+   "bottom": 96,
+   "position": "static",
+   "scrollY": 0
+  },
+  "header_tras_scroll_2500": {
+   "sel": "DIV.elementor.elementor-220.elementor-location-header",
+   "top": -2500,
+   "bottom": -2404,
+   "position": "static",
+   "scrollY": 2500
+  },
+  "toggle": [
+   {
+    "tag": "DIV",
+    "cls": "elementor-menu-toggle",
+    "role": "button",
+    "tabindex": "0",
+    "ariaExpanded": "false",
+    "ariaLabel": "Menu Toggle",
+    "text": "Menu",
+    "w": 195,
+    "h": 33
+   }
+  ],
+  "tab_pasos": [
+   {
+    "tag": "A",
+    "cls": "skip-link screen-reader-text",
+    "text": "Skip to content",
+    "visible": true,
+    "ariaExpanded": null
+   },
+   {
+    "tag": "DIV",
+    "cls": "elementor-menu-toggle",
+    "text": "Menu",
+    "visible": true,
+    "ariaExpanded": "false"
+   }
+  ],
+  "tab_hasta_toggle": 2,
+  "tras_enter": {
+   "activeAriaExpanded": "false",
+   "nav": [
+    {
+     "cls": "elementor-nav-menu--main elementor-nav-menu__container eleme",
+     "visible": false,
+     "h": 0
+    },
+    {
+     "cls": "elementor-nav-menu--dropdown elementor-nav-menu__container",
+     "visible": false,
+     "h": 0
+    },
+    {
+     "cls": "elementor-nav-menu--main elementor-nav-menu__container eleme",
+     "visible": false,
+     "h": 0
+    },
+    {
+     "cls": "elementor-nav-menu--dropdown elementor-nav-menu__container",
+     "visible": false,
+     "h": 0
+    }
+   ]
+  },
+  "tab_dentro_menu": [
+   {
+    "tag": "A",
+    "text": "Contáctanos",
+    "visible": true,
+    "outline": "dotted 1px rgb(255, 255, 255)"
+   },
+   {
+    "tag": "A",
+    "text": "Conoce mas",
+    "visible": true,
+    "outline": "dotted 1px rgb(255, 255, 255)"
+   },
+   {
+    "tag": "A",
+    "text": "Conoce mas",
+    "visible": true,
+    "outline": "dotted 1px rgb(255, 255, 255)"
+   },
+   {
+    "tag": "A",
+    "text": "Contacta a un asesor",
+    "visible": true,
+    "outline": "dotted 1px rgb(255, 255, 255)"
+   },
+   {
+    "tag": "DIV",
+    "text": "Previous",
+    "visible": true,
+    "outline": "auto 1px rgb(229, 151, 0)"
+   },
+   {
+    "tag": "DIV",
+    "text": "Next",
+    "visible": true,
+    "outline": "auto 1px rgb(229, 151, 0)"
+   }
+  ],
+  "tras_escape": {
+   "ariaExpanded": "false",
+   "dropdownH": 0
+  },
+  "interacciones_cpu4x": [
+   {
+    "evento": "click",
+    "ms": 56,
+    "destino": "elementor-menu-toggle__icon--open eicon-"
+   },
+   {
+    "evento": "click",
+    "ms": 40,
+    "destino": "elementor-menu-toggle__icon--close eicon"
+   },
+   {
+    "evento": "click",
+    "ms": 40,
+    "destino": "elementor-menu-toggle__icon--open eicon-"
+   },
+   {
+    "evento": "click",
+    "ms": 40,
+    "destino": "eicon-chevron-right"
+   },
+   {
+    "evento": "click",
+    "ms": 32,
+    "destino": "eicon-chevron-right"
+   },
+   {
+    "evento": "click",
+    "ms": 48,
+    "destino": "eicon-chevron-right"
+   },
+   {
+    "evento": "click",
+    "ms": 32,
+    "destino": "elementor-field elementor-size-sm  eleme"
+   },
+   {
+    "evento": "keyup",
+    "ms": 32,
+    "destino": "elementor-field elementor-size-sm  eleme"
+   },
+   {
+    "evento": "keydown",
+    "ms": 24,
+    "destino": "elementor-field elementor-size-sm  eleme"
+   },
+   {
+    "evento": "keydown",
+    "ms": 16,
+    "destino": "elementor-field elementor-size-sm  eleme"
+   },
+   {
+    "evento": "keydown",
+    "ms": 16,
+    "destino": "elementor-field elementor-size-sm  eleme"
+   }
+  ]
+ },
+ "ux_desktop": {
+  "inicio": {
+   "mode": "networkidle",
+   "menu": [
+    {
+     "text": "Home",
+     "current": true,
+     "color": "rgb(255, 255, 255)",
+     "weight": "600",
+     "deco": "none",
+     "bg": "rgba(0, 0, 0, 0)",
+     "borderB": "0px none"
+    },
+    {
+     "text": "Nosotros",
+     "current": false,
+     "color": "rgb(255, 255, 255)",
+     "weight": "600",
+     "deco": "none",
+     "bg": "rgba(0, 0, 0, 0)",
+     "borderB": "0px none"
+    },
+    {
+     "text": "Productos",
+     "current": false,
+     "color": "rgb(255, 255, 255)",
+     "weight": "600",
+     "deco": "none",
+     "bg": "rgba(0, 0, 0, 0)",
+     "borderB": "0px none"
+    },
+    {
+     "text": "Contacto",
+     "current": false,
+     "color": "rgb(255, 255, 255)",
+     "weight": "600",
+     "deco": "none",
+     "bg": "rgba(0, 0, 0, 0)",
+     "borderB": "0px none"
+    }
+   ]
+  },
+  "productos": {
+   "mode": "networkidle",
+   "menu": [
+    {
+     "text": "Home",
+     "current": false,
+     "color": "rgb(255, 255, 255)",
+     "weight": "600",
+     "deco": "none",
+     "bg": "rgba(0, 0, 0, 0)",
+     "borderB": "0px none"
+    },
+    {
+     "text": "Nosotros",
+     "current": false,
+     "color": "rgb(255, 255, 255)",
+     "weight": "600",
+     "deco": "none",
+     "bg": "rgba(0, 0, 0, 0)",
+     "borderB": "0px none"
+    },
+    {
+     "text": "Productos",
+     "current": true,
+     "color": "rgb(255, 255, 255)",
+     "weight": "600",
+     "deco": "none",
+     "bg": "rgba(0, 0, 0, 0)",
+     "borderB": "0px none"
+    },
+    {
+     "text": "Contacto",
+     "current": false,
+     "color": "rgb(255, 255, 255)",
+     "weight": "600",
+     "deco": "none",
+     "bg": "rgba(0, 0, 0, 0)",
+     "borderB": "0px none"
+    }
+   ]
+  },
+  "header_tras_scroll_1500": {
+   "top": -1500,
+   "bottom": -1423,
+   "position": "static"
+  },
+  "carruseles": []
+ },
+ "ux2": {
+  "movil": {
+   "focus": "elementor-menu-toggle",
+   "tras_enter": {
+    "toggleVisible": true,
+    "ariaExpanded": "false",
+    "active": false,
+    "dropdownH": [
+     0,
+     0
+    ]
+   },
+   "tras_space": {
+    "toggleVisible": true,
+    "ariaExpanded": "false",
+    "active": false,
+    "dropdownH": [
+     0,
+     0
+    ]
+   },
+   "tras_tap": {
+    "toggleVisible": true,
+    "ariaExpanded": "true",
+    "active": true,
+    "dropdownH": [
+     0,
+     160
+    ]
+   },
+   "carruseles": [
+    {
+     "widget": "image-carousel.default",
+     "slides": 9,
+     "t0": "matrix(1, 0, 0, 1, -370, 0)",
+     "t1": "matrix(1, 0, 0, 1, -740, 0)",
+     "avanza_solo": true,
+     "botones_pausa": 0,
+     "flechas": 2,
+     "flechas_role": [
+      "DIV/button/Previous slide",
+      "DIV/button/Next slide"
+     ],
+     "aria_live": null
+    }
+   ]
+  },
+  "desktop": {
+   "carruseles": []
+  }
+ },
+ "menu_movil_teclado": {
+  "toggle": "div.elementor-menu-toggle role=button tabindex=0 aria-label='Menu Toggle'",
+  "tab_hasta_toggle": 2,
+  "enter": "aria-expanded=false, dropdown 0 px",
+  "espacio": "aria-expanded=false, la página se desplaza a scrollY=738",
+  "tap": "aria-expanded=true, dropdown 160 px"
+ },
+ "lighthouse_home_movil_3_corridas": [
+  {
+   "corrida": "tecnica 06:19 UTC",
+   "perf": 62,
+   "fcp_s": 3.87,
+   "lcp_s": 6.52,
+   "tbt_ms": 161,
+   "cls": 0.001,
+   "si_s": 6.31,
+   "ttfb_ms": 1828
+  },
+  {
+   "corrida": "adv 08:56 UTC (scratchpad/adv/lh)",
+   "perf": 66,
+   "fcp_s": 2.66,
+   "lcp_s": 6.26,
+   "tbt_ms": 146,
+   "cls": 0.035,
+   "si_s": 6.95,
+   "ttfb_ms": 1879
+  },
+  {
+   "corrida": "completitud 11:18 UTC",
+   "perf": 58,
+   "fcp_s": 3.37,
+   "lcp_s": 6.09,
+   "tbt_ms": 310,
+   "cls": 0.035,
+   "si_s": 7.44,
+   "ttfb_ms": 2169
+  }
+ ],
+ "benchmark_home_movil_1_corrida": [
+  {
+   "sitio": "alpina",
+   "url": "https://alpina.com/",
+   "perf": 26,
+   "acc": 84,
+   "bp": 71,
+   "seo": 92,
+   "fcp": 4.71,
+   "lcp": 51.95,
+   "tbt": 6055,
+   "cls": 0,
+   "si": 20.23,
+   "kib": 12791.2,
+   "req": 516,
+   "ttfb": 664,
+   "warn": [],
+   "err": null,
+   "lcpel": "div.pagebuilder-poster-content > div > p > img.banner-mb-1"
+  },
+  {
+   "sitio": "alqueria",
+   "url": "https://www.alqueria.com.co/",
+   "perf": 35,
+   "acc": 79,
+   "bp": 79,
+   "seo": 92,
+   "fcp": 3.33,
+   "lcp": 19.53,
+   "tbt": 2050,
+   "cls": 0,
+   "si": 6.31,
+   "kib": 3742.4,
+   "req": 79,
+   "ttfb": 234,
+   "warn": [],
+   "err": null,
+   "lcpel": "main.container > section.relative > div.relative > img.objec"
+  },
+  {
+   "sitio": "coolechera",
+   "url": "https://coolechera.com/",
+   "perf": 42,
+   "acc": 86,
+   "bp": 96,
+   "seo": 85,
+   "fcp": 5.88,
+   "lcp": 18.86,
+   "tbt": 534,
+   "cls": 0.0,
+   "si": 14.01,
+   "kib": 5749.3,
+   "req": 178,
+   "ttfb": 3273,
+   "warn": [],
+   "err": null,
+   "lcpel": "div.elementor-slides-wrapper > div#swiper-wrapper-965f951d71"
+  },
+  {
+   "sitio": "cosmolac",
+   "url": "https://cosmolac.com.co/",
+   "perf": 62,
+   "acc": 82,
+   "bp": 100,
+   "seo": 100,
+   "fcp": 3.9,
+   "lcp": 5.15,
+   "tbt": 160,
+   "cls": 0.157,
+   "si": 4.84,
+   "kib": 5303.4,
+   "req": 38,
+   "ttfb": 1083,
+   "warn": [],
+   "err": null,
+   "lcpel": "div.pxl-item--inner > span.image-small > picture.no-lazyload"
+  },
+  {
+   "sitio": "indunilo",
+   "url": "https://www.indunilo.com/",
+   "perf": 30,
+   "acc": 72,
+   "bp": 96,
+   "seo": 85,
+   "fcp": 9.0,
+   "lcp": 24.99,
+   "tbt": 270,
+   "cls": 0.46,
+   "si": 11.39,
+   "kib": 4363.7,
+   "req": 79,
+   "ttfb": 173,
+   "warn": [],
+   "err": null,
+   "lcpel": "ul.tp-revslider-mainul > li.tp-revslider-slidesli > div > di"
+  },
+  {
+   "sitio": "mundilacteos-r3",
+   "url": "https://mundilacteos.com/",
+   "perf": 58,
+   "acc": 93,
+   "bp": 100,
+   "seo": 85,
+   "fcp": 3.37,
+   "lcp": 6.09,
+   "tbt": 310,
+   "cls": 0.035,
+   "si": 7.44,
+   "kib": 849.6,
+   "req": 72,
+   "ttfb": 2169,
+   "warn": [],
+   "err": null,
+   "lcpel": "article#post-7 > div.entry-content > div.elementor > section"
+  },
+  {
+   "sitio": "nestle-klim",
+   "url": "https://www.nestlefamilynes.co/marcas/klim",
+   "perf": 31,
+   "acc": 97,
+   "bp": 100,
+   "seo": 92,
+   "fcp": 3.71,
+   "lcp": 6.0,
+   "tbt": 9644,
+   "cls": 0.029,
+   "si": 13.69,
+   "kib": 3534.2,
+   "req": 71,
+   "ttfb": 229,
+   "warn": [],
+   "err": null,
+   "lcpel": "div.hero > figure.hero__image > picture > img"
+  },
+  {
+   "sitio": "proleche",
+   "url": "https://prolechecolombia.com.co/",
+   "perf": 53,
+   "acc": 91,
+   "bp": 100,
+   "seo": 92,
+   "fcp": 4.55,
+   "lcp": 15.7,
+   "tbt": 212,
+   "cls": 0.029,
+   "si": 19.58,
+   "kib": 3109.5,
+   "req": 142,
+   "ttfb": 2553,
+   "warn": [],
+   "err": null,
+   "lcpel": "div.n2-ss-slide-background > div.n2-ss-slide-background-imag"
+  }
+ ],
+ "dominios": {
+  "mundilacteos.com_rdap": "registration 2022-04-14T23:14:45Z, expiration 2027-04-14, last changed 2025-04-21",
+  "wayback_cdx_mundilacteos.com": "200 el 2018-02-03 (sitio Publicar/Páginas Amarillas, logo INVERLACTEOS S.A.S.), 500 el 2018-08-07, sin capturas hasta 2023-05-30",
+  "mundilacteossas.com": "RDAP Verisign 404 (control mundilacteos.com 200); DNS NXDOMAIN (Status 3). Impreso en el saco: comercial@mundilacteossas.com y www.mundilacteossas.com",
+  "inverlacteos.com": "RDAP Verisign 404",
+  "mundilacteos.com.co y mundilacteos.co": "no verificado: rdap.nic.co devolvió 502 del proxy"
+ },
+ "wayback_2018": {
+  "url": "https://web.archive.org/web/20180203140232/http://mundilacteos.com/",
+  "titulo": "Inversiones Mundilácteos S.A.S. - UN MUNDO DE LÁCTEOS A SU DISPOSICIÓN.",
+  "texto": "The cántaro milk mail es una preparación láctea elaborada con ingredientes de la más alta calidad, a base de leche entera, malto, suero y endulzantes.",
+  "servicios": [
+   "La Becerrita: Mezcla Lactea Bulto x 25 Kg",
+   "The Cántaro: Mezcla Lactea Bulto x 25 Kg",
+   "The Cántaro: Mezcla Lactea Bulto x 12.5 Kg",
+   "Maltodextrina 18-20 25 KG"
+  ],
+  "contacto": "Tel +57 (5) 662 6064; móvil +57 315 721 0657; inverlacteos@gmail.com; Diagonal 22 N° 30-159 El Prado, Cartagena"
+ },
+ "colanta": {
+  "url": "https://colanta.com/",
+  "curl": "403 'Just a moment' (Cloudflare)",
+  "playwright": "403 'Verificación de seguridad en curso' tras 12 s",
+  "webfetch": "403",
+  "robots": "200"
+ }
+}

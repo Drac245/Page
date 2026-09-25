@@ -139,19 +139,39 @@
     O06: { fam: 'Oficio', desc: 'Retrato grupal del equipo en alta resolución.', spec: 'Formatos 3:2 y 4:5.' },
     O07: { fam: 'Oficio', desc: 'Fachada de la planta en Europark, con luz de mañana.', spec: 'Formato 3:2.' },
   };
-  function htmlToma(cod, proporcion, desc) {
+  var PICTO_FAMILIA = { Ficha: 'p-bolsa', Materia: 'p-cuchara', Oficio: 'p-planta', Clientes: 'p-tienda' };
+  function htmlToma(cod, proporcion, desc, extra) {
     var t = TOMAS[cod];
     var d = desc || t.desc;
-    return '<figure class="toma' + ((proporcion || '4 / 5') === '4 / 5' ? ' toma--vertical' : '') + '" style="--proporcion:' + (proporcion || '4 / 5') + '"><span class="toma-cuadro" role="img" aria-label="Foto por producir, toma ' + cod + ': ' + esc(d) + '">' +
-      '<span class="toma-estado" aria-hidden="true">Foto por producir</span><span class="toma-codigo" aria-hidden="true">' + cod + '</span>' +
-      '<span class="toma-texto" aria-hidden="true"><span class="toma-desc">' + esc(d) + '</span><span class="toma-spec">Familia ' + t.fam + '. ' + t.spec + '</span></span></span></figure>';
+    proporcion = proporcion || '4 / 5';
+    return '<figure class="toma' + (proporcion === '4 / 5' ? ' toma--vertical' : '') + '" style="--proporcion:' + proporcion + '">' +
+      '<span class="toma-cuadro" aria-hidden="true">' + icono(PICTO_FAMILIA[t.fam], 'toma-picto') + '<span class="toma-codigo">' + cod + '</span><span class="toma-estado">Toma por producir</span>' + (extra || '') + '</span>' +
+      '<figcaption class="toma-pie"><span class="sr">Foto por producir, toma ' + cod + ': </span>' + esc(d) + ' <span aria-hidden="true">Familia ' + t.fam + '. ' + t.spec + '</span></figcaption></figure>';
+  }
+  // Máximo un marco por sección: las demás tomas pendientes se nombran en una línea de texto
+  function tomaExtra(cod) {
+    var t = TOMAS[cod];
+    return '<p class="toma-extra">También por producir, toma ' + cod + ': ' + esc(t.desc.charAt(0).toLowerCase() + t.desc.slice(1)) + '</p>';
   }
 
+  // Packshots recortados (fondo transparente, sin margen) para apoyarlos sobre la línea base con sombra de contacto
+  var RECORTE = {
+    'becerrita-entera-380g': [237, 346], 'becerrita-entera-900g': [236, 360], 'becerrita-mezcla-bulto-25kg': [314, 454],
+    'cantaro-azucarada-380g': [262, 360], 'cantaro-azucarada-900g-380g': [390, 266], 'cantaro-entera-500g': [254, 360],
+    'cantaro-entera-800g': [236, 350], 'cantaro-entera-bulto-25kg': [262, 457], 'cantaro-mezcla-900g': [256, 360],
+    'cantaro-mezcla-bulto-12-5kg': [314, 439],
+  };
+  function recorte(archivo) {
+    var k = String(archivo).replace(/\.webp$/, '');
+    var d = RECORTE[k] || [400, 400];
+    return { src: RECORTE[k] ? 'img/r-' + k + '.webp' : 'img/' + archivo, w: d[0], h: d[1] };
+  }
   function imagenDe(p, pr) {
-    if (pr && pr.imagen) return { src: 'img/' + pr.imagen, propia: true, de: pr.contenido };
+    var r;
+    if (pr && pr.imagen) { r = recorte(pr.imagen); r.propia = true; r.de = pr.contenido; return r; }
     if (p.imagen) {
       var de = p.presentaciones.filter(function (x) { return x.imagen === p.imagen; })[0];
-      return { src: 'img/' + p.imagen, propia: !pr || de === pr, de: de ? de.contenido : null };
+      r = recorte(p.imagen); r.propia = !pr || de === pr; r.de = de ? de.contenido : null; return r;
     }
     return null;
   }
@@ -503,8 +523,8 @@
 
   function htmlBloqueProducto(p, refs) {
     var img = imagenDe(p, null);
-    var foto = img ? '<img src="' + img.src + '" alt="' + esc(altDe(p, img)) + '" width="96" height="120" loading="lazy" decoding="async">'
-      : '<span class="toma"><span class="toma-cuadro" role="img" aria-label="Foto por producir, toma F01 de ' + esc(p.nombre) + '"><span class="toma-codigo" aria-hidden="true">F01</span></span></span>';
+    var foto = img ? '<img src="' + img.src + '" alt="' + esc(altDe(p, img)) + '" width="' + img.w + '" height="' + img.h + '" loading="lazy" decoding="async" data-vt="' + p.slug + '">'
+      : '<span class="toma"><span class="toma-cuadro" role="img" aria-label="Foto por producir, toma F01 de ' + esc(p.nombre) + '">' + icono('p-bolsa', 'toma-picto') + '</span></span>';
     var id = 'p-' + p.slug;
     return '<article class="producto" aria-labelledby="' + id + '">' +
       '<div class="producto-cab"><a class="producto-foto" href="#producto-' + p.slug + '" tabindex="-1" aria-hidden="true">' + foto + '</a><div>' +
@@ -596,6 +616,13 @@
     var conFoto = p.presentaciones.filter(function (x) { return x.imagen === p.imagen && x.estado === 'confirmado'; })[0];
     return conFoto || p.presentaciones.filter(function (x) { return x.estado === 'confirmado'; })[0] || p.presentaciones[0] || null;
   }
+  function figuraFicha(x, f) {
+    if (x.imagen) {
+      var r = recorte(x.imagen);
+      return '<span class="fila-figura fila-figura--foto"><img src="' + r.src + '" alt="" width="' + r.w + '" height="' + r.h + '" decoding="async"></span>';
+    }
+    return '<span class="fila-figura fila-figura--silueta">' + silueta(x.formato, f.ancho, f.alto, false) + '</span>';
+  }
   function vistaProducto(slug, tokens) {
     var p = PROD[slug];
     if (!p) return vista404();
@@ -609,10 +636,11 @@
     if (p.presentaciones.length) {
       selector = '<fieldset class="selector-pres"><legend>Presentación</legend><ul class="fila-lista">' + p.presentaciones.map(function (x, i) {
         var f = FILA_DE[x.contenido] || { alto: 20, ancho: 15, t: 0.5 };
+        if (x.imagen) { var rr = recorte(x.imagen); f = { alto: f.alto, ancho: Math.round(f.alto * rr.w / rr.h), t: f.t }; }
         var id = 'pres-' + presSlug(x.contenido);
         return '<li class="fila-pieza" style="--alto-cm:' + f.alto + ';--ancho-cm:' + f.ancho + ';--t:' + f.t + ';--i:' + i + '">' +
           '<input type="radio" name="presentacion-ficha" id="' + id + '" value="' + presSlug(x.contenido) + '"' + (x === pr ? ' checked' : '') + '>' +
-          '<label for="' + id + '"><span class="fila-figura">' + silueta(x.formato, f.ancho, f.alto, false) + '</span>' +
+          '<label for="' + id + '">' + figuraFicha(x, f) +
           '<span class="fila-cifra">' + fmtPres(x.contenido) + (x.estado !== 'confirmado' ? '<span class="fila-ast" aria-hidden="true">*</span>' : '') + '</span>' +
           '<span class="sr">, ' + x.formato + (x.estado !== 'confirmado' ? ', presentación por confirmar' : '') + '</span></label></li>';
       }).join('') + '</ul></fieldset>';
@@ -620,7 +648,7 @@
     } else {
       selector = '<p>Presentaciones ' + aconf() + '</p>';
     }
-    var octo = p.sello_advertencia ? '<p class="sello-advertencia"><svg class="octogono" viewBox="0 0 36 36" aria-hidden="true"><path d="M11 1h14l10 10v14L25 35H11L1 25V11Z" fill="#000"/><path d="M11.8 3h12.4L33 11.8v12.4L24.2 33H11.8L3 24.2V11.8Z" fill="none" stroke="#fff" stroke-width="1.2"/></svg><span>Sello frontal de advertencia: «' + esc(p.sello_advertencia.valor) + '» ' + (p.sello_advertencia.estado !== 'confirmado' ? aconf() : '') + '</span></p>' : '';
+    var octo = p.sello_advertencia ? '<p class="sello-advertencia"><svg class="octogono" viewBox="0 0 36 36" aria-hidden="true"><path class="octogono-fondo" d="M11 1h14l10 10v14L25 35H11L1 25V11Z"/><path class="octogono-borde" d="M11.8 3h12.4L33 11.8v12.4L24.2 33H11.8L3 24.2V11.8Z" fill="none" stroke-width="1.2"/></svg><span>Sello frontal de advertencia: «' + esc(p.sello_advertencia.valor) + '» ' + (p.sello_advertencia.estado !== 'confirmado' ? aconf() : '') + '</span></p>' : '';
     var html = '<div class="envoltura">' + migas([['#inicio', 'Inicio'], ['#productos', 'Productos'], ['#productos~marca-' + p.marca, marca], [null, p.nombre]]) +
       '<div class="ficha">' +
       '<div class="ficha-galeria" data-dep="galeria"></div>' +
@@ -636,6 +664,10 @@
       '</div>';
     montar(html);
     renderFichaDep();
+    if (!reducido()) {
+      var fi = $('.ficha');
+      if (fi) { fi.classList.add('ficha--entra'); setTimeout(function () { fi.classList.remove('ficha--entra'); }, 900); }
+    }
   }
   function renderFichaDep() {
     var p = ficha.p, pr = ficha.pr;
@@ -643,16 +675,16 @@
     // Galería
     var img = imagenDe(p, pr);
     var fotos = [
-      { k: 'frente', rot: 'Frente', html: img ? '<img src="' + img.src + '" alt="' + esc(altDe(p, img)) + ', frente" width="400" height="500">' : htmlToma('F01', '4 / 5', 'Frente de ' + p.nombre + (pr ? ' ' + pr.contenido : '') + ' sobre fondo blanco, con regla física en el cuadro.') },
-      { k: 'reverso', rot: 'Reverso', html: htmlToma('F02', '4 / 5') },
-      { k: 'paca', rot: pr && esBulto(pr) ? 'Costura' : 'Paca', html: pr && esBulto(pr) ? htmlToma('M04', '4 / 5') : htmlToma('F03', '4 / 5') },
-      { k: 'uso', rot: 'En uso', html: pr && esBulto(pr) ? htmlToma(p.usos.indexOf('industria') !== -1 ? 'C05' : 'C01', '4 / 5') : htmlToma(p.categoria === 'mezcla-lactea' ? 'M02' : 'C04', '4 / 5') },
+      { k: 'frente', rot: 'Frente', cod: 'F01', foto: !!img, html: img ? '<span class="galeria-cifra" aria-hidden="true" style="--n:' + (pr ? pr.contenido.length : 4) + '">' + (pr ? fmtPres(pr.contenido) : '') + '</span><span class="galeria-sombra" aria-hidden="true"></span><img src="' + img.src + '" alt="' + esc(altDe(p, img)) + ', frente" width="' + img.w + '" height="' + img.h + '" data-vt="' + p.slug + '">' : htmlToma('F01', '4 / 5', 'Frente de ' + p.nombre + (pr ? ' ' + pr.contenido : '') + ' sobre fondo blanco, con regla física en el cuadro.') },
+      { k: 'reverso', rot: 'Reverso', cod: 'F02', html: htmlToma('F02', '4 / 5') },
+      { k: 'paca', rot: pr && esBulto(pr) ? 'Costura' : 'Paca', cod: pr && esBulto(pr) ? 'M04' : 'F03', html: pr && esBulto(pr) ? htmlToma('M04', '4 / 5') : htmlToma('F03', '4 / 5') },
+      { k: 'uso', rot: 'En uso', cod: pr && esBulto(pr) ? (p.usos.indexOf('industria') !== -1 ? 'C05' : 'C01') : (p.categoria === 'mezcla-lactea' ? 'M02' : 'C04'), html: pr && esBulto(pr) ? htmlToma(p.usos.indexOf('industria') !== -1 ? 'C05' : 'C01', '4 / 5') : htmlToma(p.categoria === 'mezcla-lactea' ? 'M02' : 'C04', '4 / 5') },
     ];
     var actual = fotos.filter(function (f) { return f.k === ficha.foto; })[0] || fotos[0];
     var nota = img && !img.propia && actual.k === 'frente' ? '<p class="galeria-nota">Foto de referencia de la presentación de ' + fmtPres(img.de) + '. La toma F01 de ' + fmtPres(pr.contenido) + ' está por producir.</p>' : '';
-    $('[data-dep="galeria"]').innerHTML = '<div class="galeria-principal" aria-live="polite">' + actual.html + '</div>' + nota +
+    $('[data-dep="galeria"]').innerHTML = '<div class="galeria-principal' + (actual.foto ? ' galeria-principal--foto' : '') + '" aria-live="polite">' + actual.html + '</div>' + nota +
       '<ul class="miniaturas" aria-label="Fotos del producto">' + fotos.map(function (f) {
-        var mini = f.k === 'frente' && img ? '<img src="' + img.src + '" alt="" width="72" height="72">' : '<span class="toma"><span class="toma-cuadro"><span class="toma-codigo">' + (f.html.match(/toma-codigo" aria-hidden="true">([A-Z0-9]+)</) || [0, 'F01'])[1] + '</span></span></span>';
+        var mini = f.k === 'frente' && img ? '<img src="' + img.src + '" alt="" width="' + img.w + '" height="' + img.h + '">' : '<span class="toma"><span class="toma-cuadro"><span class="toma-codigo">' + f.cod + '</span></span></span>';
         return '<li><button type="button" class="miniatura" data-foto="' + f.k + '" aria-pressed="' + (f.k === actual.k) + '" aria-label="Ver foto: ' + f.rot + '">' + mini + '</button><span class="miniatura-rotulo" aria-hidden="true">' + f.rot + '</span></li>';
       }).join('') + '</ul>';
 
@@ -783,7 +815,35 @@
       '<button type="button" class="enlace-boton" data-quitar>Quitar<span class="sr"> ' + esc(nombreRef(r)) + '</span></button></li>';
   }
   function htmlTotales(t) {
-    return '<p class="cot-total"><span>Total</span><span class="num">' + fmtKg(t.kg) + '</span></p><p class="cot-resumen-txt">' + textoTotales(t) + '</p>';
+    return '<p class="cot-total"><span>Total</span><span class="num">' + htmlKg(t.kg) + '</span></p><p class="cot-resumen-txt">' + textoTotales(t) + '</p>';
+  }
+  // Los kilos totales giran como un contador: cada cifra es una tira 0–9 que se desplaza (solo transform).
+  // El lector de pantalla recibe el valor final en texto; la tira es decorativa.
+  var kgMostrado = null, rodarPend = null;
+  function htmlOdo(desde, hasta) {
+    var out = '', n = hasta.length, m = desde.length;
+    for (var i = 0; i < n; i++) {
+      var c = hasta.charAt(i), prev = desde.charAt(m - (n - i));
+      if (/\d/.test(c)) {
+        out += '<span class="odo-d"><span class="odo-tira" style="--d:' + (/\d/.test(prev) ? prev : 0) + '" data-a="' + c + '"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span>';
+      } else out += '<span class="odo-c">' + c + '</span>';
+    }
+    return out;
+  }
+  function htmlKg(kg) {
+    var hasta = fmtKg(kg), desde = kgMostrado == null || reducido() ? hasta : fmtKg(kgMostrado);
+    rodarContadores();
+    return '<span class="sr">' + hasta + '</span><span class="odo" aria-hidden="true">' + htmlOdo(desde, hasta) + '</span>';
+  }
+  function rodarContadores() {
+    if (rodarPend) return;
+    rodarPend = requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        rodarPend = null;
+        $$('.odo-tira[data-a]').forEach(function (el) { el.style.setProperty('--d', el.getAttribute('data-a')); el.removeAttribute('data-a'); });
+        kgMostrado = totales(cot.lineas).kg;
+      });
+    });
   }
   function htmlAvisoAlmacen() {
     return almacenBloqueado ? '<p class="cot-aviso-almacen" role="alert">' + icono('i-alerta') + '<span>Este navegador no deja guardar la cotización. Envíela antes de cerrar la página o copie el enlace.</span></p>' : '';
@@ -838,13 +898,12 @@
     var t = totales(cot.lineas);
     var bc = $('[data-boton-cotizar]');
     if (bc) bc.setAttribute('aria-label', n ? 'Cotizar, ' + textoRefs(n) + ' en su cotización' : 'Cotizar');
-    var bi = $('[data-accion-cotizar]');
-    if (bi) bi.setAttribute('aria-label', n ? 'Cotizar, ' + textoRefs(n) + ' en su cotización' : 'Cotizar');
+    $$('[data-accion-cotizar]').forEach(function (bi) { bi.setAttribute('aria-label', n ? 'Cotizar, ' + textoRefs(n) + ' en su cotización' : 'Cotizar'); });
     // Franja de 1024 a 1439 px en Productos
     var fr = $('#franja-cot');
     var enProductos = document.body.getAttribute('data-ruta') === 'productos';
     if (enProductos && n) {
-      fr.innerHTML = '<div class="envoltura franja-in"><p><strong>Mi cotización:</strong> ' + textoRefs(n) + ', ' + fmtKg(t.kg) + '</p><div><button type="button" class="enlace-boton" data-abrir-panel>Ver detalle</button><a class="boton" href="#cotizar">Solicitar cotización</a></div></div>';
+      fr.innerHTML = '<div class="envoltura franja-in"><p><strong>Mi cotización:</strong> ' + textoRefs(n) + ', ' + htmlKg(t.kg) + '</p><div><button type="button" class="enlace-boton" data-abrir-panel>Ver detalle</button><a class="boton" href="#cotizar">Solicitar cotización</a></div></div>';
       fr.hidden = false; document.body.classList.add('con-franja');
     } else { fr.hidden = true; document.body.classList.remove('con-franja'); }
   }
@@ -1255,9 +1314,9 @@
 
   /* ---------- Nosotros ---------- */
   var MARCAS_HTML = '<ul class="marcas-lista">' +
-    '<li><img src="img/cantaro-entera-500g.webp" alt="Bolsa de The Cántaro Entera de 500 g, frente" width="400" height="400" loading="lazy" decoding="async"><h3>The Cántaro</h3><p>Leche en polvo entera, descremada y azucarada, y mezcla láctea. De 380' + NB + 'g a 25' + NB + 'kg.</p><a class="enlace" href="#productos~marca-the-cantaro">Ver The Cántaro</a></li>' +
-    '<li><img src="img/becerrita-entera-900g.webp" alt="Bolsa de La Becerrita Entera de 900 g, frente" width="400" height="400" loading="lazy" decoding="async"><h3>La Becerrita</h3><p>Leche en polvo entera de 380 a 900' + NB + 'g y mezcla láctea en bulto de 25' + NB + 'kg.</p><a class="enlace" href="#productos~marca-la-becerrita">Ver La Becerrita</a></li>' +
-    '<li><div class="su-marca" aria-hidden="true">' + silueta('bolsa', 20, 29, true) + '<span>Su marca</span></div><h3>Su marca</h3><p>Empacamos con la marca de su cadena, en 12 presentaciones de 27' + NB + 'g a 25' + NB + 'kg.</p><a class="enlace" href="#marca-propia">Ver marca propia</a></li></ul>';
+    '<li><div class="marca-foto"><img src="img/r-cantaro-entera-500g.webp" alt="Bolsa de The Cántaro Entera de 500 g, frente" width="254" height="360" loading="lazy" decoding="async"></div><h3>The Cántaro</h3><p>Leche en polvo entera, descremada y azucarada, y mezcla láctea. De 380' + NB + 'g a 25' + NB + 'kg.</p><a class="enlace" href="#productos~marca-the-cantaro">Ver The Cántaro</a></li>' +
+    '<li><div class="marca-foto"><img src="img/r-becerrita-entera-900g.webp" alt="Bolsa de La Becerrita Entera de 900 g, frente" width="236" height="360" loading="lazy" decoding="async"></div><h3>La Becerrita</h3><p>Leche en polvo entera de 380 a 900' + NB + 'g y mezcla láctea en bulto de 25' + NB + 'kg.</p><a class="enlace" href="#productos~marca-la-becerrita">Ver La Becerrita</a></li>' +
+    '<li><div class="marca-foto"><div class="su-marca" aria-hidden="true">' + silueta('bolsa', 20, 29, true) + '<span>Su marca</span></div></div><h3>Su marca</h3><p>Empacamos con la marca de su cadena, en 12 presentaciones de 27' + NB + 'g a 25' + NB + 'kg.</p><a class="enlace" href="#marca-propia">Ver marca propia</a></li></ul>';
 
   function vistaNosotros() {
     var r18 = REG['RSA-006359-2018'];
@@ -1294,7 +1353,7 @@
       ['Capacidad de empaque', aconf()],
     ], 'Datos de la planta') +
       acciones('<a class="enlace" href="' + MAPS_PLANTA + '" target="_blank" rel="noopener">Cómo llegar<span class="sr"> (abre Google Maps)</span></a><a class="enlace" href="#calidad">Ver calidad y certificaciones</a>') + '</div>' +
-      '<div class="tomas-par">' + htmlToma('O07', '3 / 2') + htmlToma('O01', '3 / 2') + '</div></div>';
+      '<div class="tomas-par">' + htmlToma('O07', '3 / 2') + tomaExtra('O01') + '</div></div>';
 
     var equipo = '<div class="texto"><p>' + E.empleados.valor + ' personas trabajan en Mundilácteos ' + aconf('fuente secundaria, La República, 2025: dato a confirmar') + '. Son quienes reciben, empacan, sellan y despachan cada bolsa desde Europark.</p>' +
       '<p>Los retratos de los asesores comerciales, con su nombre, llegan con la toma O06 y se publican también en <a href="#contacto">Contacto</a>.</p></div>' +
@@ -1332,10 +1391,8 @@
     ['Despacho', 'Pacas y bultos salen de Europark hacia toda Colombia.'],
   ];
   function tomaAnotada() {
-    return '<figure class="toma toma--anotada" style="--proporcion:4 / 5"><span class="toma-cuadro" role="img" aria-label="Foto por producir, toma F02: reverso de la bolsa con el lote (1) y la fecha de vencimiento (2) señalados.">' +
-      '<span class="toma-estado" aria-hidden="true">Foto por producir</span><span class="toma-codigo" aria-hidden="true">F02</span>' +
-      '<span class="toma-texto" aria-hidden="true"><span class="toma-desc">Reverso de la bolsa con lote y vencimiento legibles, anotado con 1 y 2.</span><span class="toma-spec">Familia Ficha. Formato 4:5, luz difusa.</span></span>' +
-      '<span class="toma-marca" style="--mx:70%;--my:30%" aria-hidden="true">1</span><span class="toma-marca" style="--mx:70%;--my:44%" aria-hidden="true">2</span></span></figure>';
+    return htmlToma('F02', '4 / 5', 'Reverso de la bolsa con el lote (1) y la fecha de vencimiento (2) señalados.',
+      '<span class="toma-marca" style="--mx:62%;--my:30%">1</span><span class="toma-marca" style="--mx:62%;--my:46%">2</span>');
   }
   function vistaCalidad() {
     var fav = '<div class="prueba"><h3>Concepto sanitario del INVIMA</h3>' + estado('ok', 'Verificado en datos.gov.co el ' + FECHA_DATOS) +
@@ -1355,7 +1412,7 @@
       }).join('') + '</tbody></table>' +
       '<p class="meta bloque-pie">Datos tomados de los registros del Invima publicados en datos.gov.co el ' + FECHA_DATOS + '.</p>' +
       acciones(ext(URL_INVIMA, 'Consultar un registro en el Invima', '(abre el sitio del Invima)'));
-    var empaque = '<div class="dos-cols">' + pasos(PASOS_EMPAQUE) + '<div class="tomas-par">' + htmlToma('O03', '3 / 2') + htmlToma('O02', '3 / 2') + '</div></div>' +
+    var empaque = '<div class="dos-cols">' + pasos(PASOS_EMPAQUE) + '<div class="tomas-par">' + htmlToma('O02', '3 / 2') + tomaExtra('O03') + '</div></div>' +
       '<p class="meta bloque-pie">Controles de cada paso por validar con la planta ' + aconf() + '</p>';
     var lote = '<div class="dos-cols"><div class="texto"><p class="entradilla">Cada bolsa lleva impresos el lote y la fecha de vencimiento. La vida útil es de ' + C.calidad.vida_util_meses + ' meses, según la ficha técnica.</p>' +
       '<ol class="lista-num"><li><p><strong>Lote.</strong> Identifica la tanda de empaque. Téngalo a mano si va a escribirnos por un reclamo.</p></li>' +
@@ -1475,7 +1532,7 @@
       ['Despacho', 'El pedido sale del Parque Industrial Europark hacia su ciudad.'],
       ['Entrega con factura', 'Recibe sus pacas y bultos con la factura.'],
     ]);
-    var distribuidor = '<section class="bloque" id="s-distribuidor" aria-labelledby="t-distribuidor"><div class="zona-negocio bloque-kraft"><div class="dos-cols"><div class="texto">' +
+    var distribuidor = '<section class="bloque" id="s-distribuidor" aria-labelledby="t-distribuidor"><div class="zona-negocio bloque-negocio"><div class="dos-cols"><div class="texto">' +
       '<h2 id="t-distribuidor">Sea distribuidor</h2><p>¿Tiene una distribuidora o un depósito y quiere llevar The Cántaro y La Becerrita a su zona? Escríbanos y le contamos las condiciones.</p>' +
       '<p>Zonas disponibles, volumen mínimo y condiciones comerciales ' + aconf() + '</p>' +
       acciones('<a class="boton" href="#contacto~motivo-distribuidor">Quiero ser distribuidor</a>' + waEnlace('Hola, quiero ser distribuidor de The Cántaro y La Becerrita. Mi ciudad es: ', 'WhatsApp:')) +
@@ -1561,8 +1618,8 @@
       '<section class="bloque bloque--primero" aria-labelledby="t-donde"><h2 id="t-donde" class="sr">Buscar por ciudad</h2><div class="dos-cols dos-cols--ancha"><div class="donde-col">' + form +
       '<div class="donde-res" id="donde-res"></div><p class="meta">Cobertura de cada cadena por ciudad y puntos de venta de La Becerrita ' + aconf() + '</p>' +
       '<p class="donde-ayuda">¿No la encuentra? Escríbanos y le decimos dónde. ' + waEnlace('Hola, no encuentro The Cántaro en mi ciudad. Mi ciudad es: ', 'WhatsApp:') + '</p></div>' +
-      '<div class="tomas-par">' + htmlToma('C03', '3 / 2') + htmlToma('C04', '4 / 5') + '</div></div></section>' +
-      '<section class="bloque" aria-labelledby="t-tienda"><div class="zona-negocio bloque-kraft bloque-kraft--linea"><div><h2 id="t-tienda">¿Tiene una tienda?</h2><p>Cotice por pacas de 12 a 30 bolsas, o por bultos si tiene panadería.</p></div>' +
+      '<div class="tomas-par">' + htmlToma('C03', '3 / 2') + tomaExtra('C04') + '</div></div></section>' +
+      '<section class="bloque" aria-labelledby="t-tienda"><div class="zona-negocio bloque-negocio bloque-negocio--linea"><div><h2 id="t-tienda">¿Tiene una tienda?</h2><p>Cotice por pacas de 12 a 30 bolsas, o por bultos si tiene panadería.</p></div>' +
       acciones('<a class="boton" href="#cotizar">Cotizar por volumen</a><a class="enlace" href="#productos~formato-bolsa">Ver pacas</a>') + '</div></section></div>');
     pintarDonde(c, c ? c.n : '');
     return 'Dónde comprar';
@@ -1672,19 +1729,19 @@
     var bolsas = gr.filter(function (c) { return FILA_DE[c].g < 5000; }).map(function (c) { return c.replace(/\s*g$/, ''); });
     var bultos = gr.filter(function (c) { return FILA_DE[c].g >= 5000; }).map(function (c) { return c.replace(/\s*kg$/, ''); });
     var rL = REG['RSA-006359-2018'], rM = REG['RSA-003008-2017'];
-    var oferta = '<section class="bloque bloque--primero" id="s-oferta" aria-labelledby="t-oferta"><div class="zona-negocio bloque-kraft"><h2 id="t-oferta">Qué ofrecemos</h2>' + tablaDatos([
+    var oferta = '<section class="bloque bloque--primero" id="s-oferta" aria-labelledby="t-oferta"><div class="zona-negocio bloque-negocio"><h2 id="t-oferta">Qué ofrecemos</h2>' + tablaDatos([
       ['Presentaciones', 'Bolsas de ' + lista(bolsas) + NB + 'g. Bultos de ' + lista(bultos) + NB + 'kg.'],
       ['Leche en polvo', esc(rL.producto.replace(/^Leche en polvo:\s*/, '').replace(/^./, function (x) { return x.toUpperCase(); })) + '. Registro ' + rL.numero + '.'],
       ['Mezclas lácteas', esc(rM.producto) + ' (registro ' + rM.numero + '). Se rotulan como mezcla, nunca como leche.'],
       ['Empaque', 'Bolsa laminada de tres capas, termosellada en atmósfera controlada de CO₂, en pacas. Bulto con bolsa interna de polietileno y saco kraft de triple capa.'],
       ['Registro sanitario', esc(C.maquila.resumen) + ' ' + esc(C.maquila.evidencia)],
       ['Titular del registro en su etiqueta', aconf()],
-    ], 'Qué ofrecemos en marca propia', 'tabla-kraft') + '</div></section>';
+    ], 'Qué ofrecemos en marca propia', 'tabla-negocio') + '</div></section>';
     var tamanos = [[292, 439], [350, 525], [314, 471]];
     var fotos = '<ul class="mp-fotos">' + C.maquila.imagenes.map(function (src, i) {
       var t = tamanos[i] || [300, 450];
-      return '<li class="mp-foto"><img src="img/' + src + '" alt="Empaque de marca propia de una cadena, difuminado (' + (i + 1) + ' de ' + C.maquila.imagenes.length + ')" width="' + t[0] + '" height="' + t[1] + '" loading="lazy" decoding="async"></li>';
-    }).join('') + '</ul><p class="meta mp-aviso">' + esc(C.maquila.nota_imagenes.replace(/ Mostrar.*$/, '')) + ' Se muestran difuminados: no publicamos las marcas que empacamos sin autorización escrita de cada cadena.</p>';
+      return '<li class="mp-foto"><img src="img/' + src + '" alt="Bolsa de leche en polvo de marca propia empacada por Mundilácteos para una cadena (' + (i + 1) + ' de ' + C.maquila.imagenes.length + ')" width="' + t[0] + '" height="' + t[1] + '" loading="lazy" decoding="async"></li>';
+    }).join('') + '</ul><p class="meta mp-aviso">' + esc(C.maquila.nota_imagenes.replace(/ Mostrar.*$/, '')) + ' Se muestran con autorización del cliente. Autorización escrita de cada cadena ' + aconf() + '</p>';
     var trabajo = pasos([
       ['Muestras y especificación', 'Nos cuenta presentaciones, tipo de leche y volumen. Le enviamos muestras.'],
       ['Diseño del empaque', 'Su cadena aporta el arte de la marca; lo ajustamos a la bolsa o al saco.'],
@@ -1943,15 +2000,24 @@
       : (C.unidades_por_paca[f.c] ? 'Paca de ' + C.unidades_por_paca[f.c] + ' bolsas, ' + fmtKg(C.unidades_por_paca[f.c] * f.g / 1000) + '.' : 'Paca: consultar.');
     var l2 = 'En leche en polvo rinde cerca de ' + (f.g < 100 ? fmtNum(f.g / G_POR_L * 1000, 0) + NB + 'ml' : fmtL(f.g / G_POR_L)) + ' por ' + (bulto ? 'bulto' : 'bolsa') + '.';
     var l3;
+    // Agrupa por marca para que la línea sea corta: "The Cántaro Entera, Azucarada y Mezcla Láctea; La Becerrita Entera"
+    var agrupar = function (refs) {
+      var orden = [], por = {};
+      refs.forEach(function (r) {
+        var m = MARCA[r.p.marca].nombre;
+        if (!por[m]) { por[m] = []; orden.push(m); }
+        por[m].push(r.p.nombre.indexOf(m + ' ') === 0 ? r.p.nombre.slice(m.length + 1) : r.p.nombre);
+      });
+      return orden.map(function (m) { return m + ' ' + lista(por[m]); }).join('; ');
+    };
     if (e.estado === 'maquila') l3 = 'Hoy solo para marca propia: la empacamos con la marca de su cadena.';
     else {
-      var conf = [], pc = [];
-      e.refs.forEach(function (r) { (r.pr.estado === 'confirmado' ? conf : pc).push(r.p.nombre); });
-      l3 = (conf.length ? 'Hoy en ' + lista(conf) + '.' : '') + (pc.length ? ' En ' + lista(pc) + ' ' + aconf() : '');
+      var conf = e.refs.filter(function (r) { return r.pr.estado === 'confirmado'; }), pc = e.refs.filter(function (r) { return r.pr.estado !== 'confirmado'; });
+      l3 = (conf.length ? 'Hoy en ' + agrupar(conf) + '.' : '') + (pc.length ? ' En ' + agrupar(pc) + ' ' + aconf() : '');
     }
-    var acc = e.estado === 'maquila' ? '<a class="boton boton-sec" href="#marca-propia">Ver marca propia</a>'
-      : '<a class="boton boton-sec" href="#productos~peso-' + presSlug(f.c) + '">Ver ' + fmtPres(f.c) + ' en Productos</a>';
-    return '<div class="minificha-datos"><p class="minificha-cifra">' + fmtPres(f.c) + '</p><p>' + l1 + ' ' + l2 + '</p><p>' + l3 + '</p></div><p class="minificha-accion">' + acc + '</p>';
+    var acc = e.estado === 'maquila' ? '<a class="enlace" href="#marca-propia">Ver marca propia</a>'
+      : '<a class="enlace" href="#productos~peso-' + presSlug(f.c) + '">Ver ' + fmtPres(f.c) + ' en Productos</a>';
+    return '<div class="minificha-datos"><p class="minificha-cifra" style="--n:' + f.c.length + '">' + fmtPres(f.c) + '</p><p>' + l1 + ' ' + l2 + '</p><p>' + l3 + '</p></div><p class="minificha-accion">' + acc + '</p>';
   }
   function iniciarFila() {
     var form = $('#fila-inicio'); if (!form) return;
@@ -1978,12 +2044,14 @@
     form.addEventListener('change', function () { pintar(true); });
     form.addEventListener('submit', function (e) { e.preventDefault(); });
     window.addEventListener('resize', mover);
-    // En móvil el estado inicial es 900 g, que está entre las 5 visibles
+    // Carga orquestada del hero, una vez por sesión y solo si se entra por la Home (EXPERIENCIA.md §2).
+    // En móvil el estado inicial es 900 g, que está entre las 5 visibles.
+    var hero = form.closest('.hero');
     try {
-      if (!sessionStorage.getItem('mundi.fila.vista')) {
-        if (!reducido()) {
-          form.classList.add('fila--anima');
-          setTimeout(function () { form.classList.remove('fila--anima'); mover(); }, 1000);
+      if (!sessionStorage.getItem('mundi.fila.vista') && parsear().base === 'inicio') {
+        if (!reducido() && hero) {
+          hero.classList.add('hero--anima');
+          setTimeout(function () { hero.classList.remove('hero--anima'); mover(); }, 1000);
         }
         sessionStorage.setItem('mundi.fila.vista', '1');
       }
@@ -2068,6 +2136,7 @@
         fijarLinea(id, (l ? l.cant : 0) + it.n, true);
         partes.push(it.n + ' ' + plural(it.n, 'bulto', 'bultos') + ' de ' + fmtPres(it.pr.contenido));
       });
+      volarACotizacion($('button[type="submit"]', f), 'p-bulto');
       avisar('<p>Agregado a la cotización: ' + esc(calcCombo.p.nombre) + ', ' + lista(partes) + '.</p><p class="aviso-acciones"><button type="button" class="enlace-boton" data-abrir-panel>Ver cotización</button></p>');
     });
     calcular();
@@ -2130,6 +2199,16 @@
   function montar(html) {
     var v = $('#vista');
     v.innerHTML = html;
+    // El encabezado (migas, H1 y entradilla) sale del contenedor y va en una banda Verde tenue de borde dentado
+    var cab = $('.pagina-cab', v);
+    if (cab) {
+      var env = cab.parentNode, banda = document.createElement('div'), dentro = document.createElement('div');
+      banda.className = 'pagina-banda dentado-abajo'; dentro.className = 'envoltura';
+      var mig = $('.migas', env);
+      if (mig && mig.parentNode === env) dentro.appendChild(mig);
+      dentro.appendChild(cab); banda.appendChild(dentro);
+      v.insertBefore(banda, v.firstChild);
+    }
     v.hidden = false;
     $('#vista-inicio').hidden = true;
   }
@@ -2140,7 +2219,27 @@
     var partes = h.split('~');
     return { base: partes[0], tokens: partes.slice(1).filter(function (t) { return /^[A-Za-z0-9._~-]+$/.test(t); }) };
   }
+  var marcadosVt = [];
+  function marcarVt(slug) {
+    if (!slug) return;
+    var el = $$('[data-vt="' + slug + '"]').filter(function (x) {
+      var r = x.getBoundingClientRect(); return r.width && r.bottom > 0 && r.top < window.innerHeight;
+    })[0];
+    if (el) { el.style.viewTransitionName = 'packshot'; marcadosVt.push(el); }
+  }
+  function desmarcarVt() { marcadosVt.forEach(function (el) { el.style.viewTransitionName = ''; }); marcadosVt = []; }
   function navegar() {
+    if (location.hash === ultimoHash) return;
+    if (primeraCarga || !document.startViewTransition || reducido()) { mostrarRuta(); return; }
+    var destino = parsear().base;
+    var slug = destino.indexOf('producto-') === 0 ? destino.slice(9) : (ficha ? ficha.p.slug : null);
+    marcarVt(slug);
+    try {
+      var t = document.startViewTransition(function () { desmarcarVt(); mostrarRuta(); marcarVt(slug); });
+      t.finished.then(desmarcarVt, desmarcarVt);
+    } catch (err) { desmarcarVt(); mostrarRuta(); }
+  }
+  function mostrarRuta() {
     if (location.hash === ultimoHash) return;
     ultimoHash = location.hash;
     cerrarTodo(false);
@@ -2211,12 +2310,64 @@
       if (modo === 'ficha' || modo === 'barra') refrescarAccionesFicha();
     } else { pend[id] = nueva; sincronizarRef(id, nueva, origen); }
   }
+  function destinoCot() {
+    // Prioridad: la columna de Mi cotización (desde 1440 px), la franja (1024 a 1439 px) y después el botón Cotizar visible
+    var cands = [].concat($$('.cot-columna .cot-cab'), $$('#franja-cot:not([hidden]) .franja-in p'), $$('[data-destino-cot]'));
+    for (var i = 0; i < cands.length; i++) {
+      var r = cands[i].getBoundingClientRect();
+      if (r.width && r.height && r.bottom > 0 && r.top < window.innerHeight) return cands[i];
+    }
+    return null;
+  }
+  function pulso(el) {
+    if (!el || reducido()) return;
+    el.classList.remove('recibe'); void el.offsetWidth; el.classList.add('recibe');
+    $$('[data-conteo]', el).forEach(function (c) { c.classList.remove('salta'); void c.offsetWidth; c.classList.add('salta'); });
+    setTimeout(function () { el.classList.remove('recibe'); }, 450);
+  }
+  // FLIP: la miniatura del empaque sale de su lugar y vuela a "Mi cotización"; con movimiento reducido solo cambia el número
+  function volarACotizacion(origen, picto) {
+    var destino = destinoCot();
+    if (!destino) return;
+    if (reducido() || !origen || !Element.prototype.animate) { pulso(destino); return; }
+    var ro = origen.getBoundingClientRect(), rd = destino.getBoundingClientRect();
+    var enVista = ro.width && ro.bottom > 0 && ro.top < window.innerHeight;
+    var el, w, h;
+    if (origen.tagName === 'IMG' && enVista) {
+      el = document.createElement('img'); el.src = origen.currentSrc || origen.src; el.alt = ''; el.className = 'vuelo';
+      h = Math.min(ro.height, 160); w = ro.width * h / ro.height;
+    } else {
+      el = document.createElement('span'); el.className = 'vuelo vuelo--picto'; el.innerHTML = icono(picto || 'p-bolsa', 'icono');
+      w = h = 48;
+    }
+    el.setAttribute('aria-hidden', 'true');
+    el.style.setProperty('--w', w + 'px'); el.style.setProperty('--h', h + 'px');
+    var x0 = ro.left + ro.width / 2 - w / 2, y0 = ro.top + ro.height / 2 - h / 2;
+    var x1 = rd.left + rd.width / 2 - w / 2, y1 = rd.top + rd.height / 2 - h / 2;
+    var xm = x0 + (x1 - x0) * 0.55, ym = Math.max(8, Math.min(y0, y1) - 90);
+    document.body.appendChild(el);
+    var a = el.animate([
+      { transform: 'translate(' + x0 + 'px,' + y0 + 'px) scale(1) rotate(0deg)', opacity: 1 },
+      { transform: 'translate(' + xm + 'px,' + ym + 'px) scale(0.72) rotate(-10deg)', opacity: 1, offset: 0.55 },
+      { transform: 'translate(' + x1 + 'px,' + y1 + 'px) scale(0.22) rotate(-16deg)', opacity: 0.35 },
+    ], { duration: 560, easing: 'cubic-bezier(0.2, 0.7, 0.2, 1)', fill: 'forwards' });
+    var fin = function () { if (el.parentNode) el.parentNode.removeChild(el); pulso(destino); };
+    a.onfinish = fin; a.oncancel = fin;
+  }
+  function origenVuelo(cont, boton) {
+    var modo = cont.getAttribute('data-modo');
+    var img = modo === 'fila' ? $('.producto-foto img', cont.closest('.producto') || document) : $('.galeria-principal img');
+    if (img) { var r = img.getBoundingClientRect(); if (r.width && r.bottom > 0 && r.top < window.innerHeight) return img; }
+    return boton || cont;
+  }
   function agregarDesde(cont, boton) {
     var id = cont.getAttribute('data-ref'), r = REF[id];
     var inp = $('[data-cant]', cont);
     var cant = leerCant(inp) || 1;
     var ya = !!linea(id);
+    var origen = origenVuelo(cont, boton);
     fijarLinea(id, cant);
+    volarACotizacion(origen, esBulto(r.pr) ? 'p-bulto' : 'p-bolsa');
     var fila = cont.closest('tr');
     if (fila && !reducido()) { fila.classList.remove('resaltada'); void fila.offsetWidth; fila.classList.add('resaltada'); }
     avisar('<p>' + (ya ? 'Cotización actualizada: ' : 'Agregado a la cotización: ') + esc(nombreRefNB(r)) + ', ' + cant + ' ' + unidad(r.pr, cant) + '.</p><p class="aviso-acciones"><button type="button" class="enlace-boton" data-abrir-panel>Ver cotización</button></p>');

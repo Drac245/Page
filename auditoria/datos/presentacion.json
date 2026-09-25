@@ -1,0 +1,639 @@
+{
+  "resumen": "El sitio actual (WordPress 6.8.10 sobre PHP 7.4.33, sin soporte desde noviembre de 2022) es liviano pero lento en móvil (LCP mediana 6,26 s), tiene plugins de 2022 con CVE públicas y un SEO débil (0/8 meta descriptions, idioma en inglés). Comercialmente muestra 3 de 14 productos identificados, rotula mezclas lácteas como leche, no pide autorización de datos en 5 formularios, no permite cotizar ni saber dónde comprar y no mide nada. Frente a 7 competidores es el sitio más liviano, y ninguno del segmento publica certificaciones verificables ni fichas B2B completas: ahí está la oportunidad del rediseño.",
+  "kpis": [
+    {
+      "etiqueta": "LCP móvil de la home",
+      "valor": "6,26 s",
+      "nota": "Mediana de 3 corridas Lighthouse; objetivo ≤ 2,5 s (CMP-12)"
+    },
+    {
+      "etiqueta": "Performance Lighthouse móvil",
+      "valor": "58–68",
+      "nota": "Home: 58, 62 y 66 en 3 corridas; páginas internas 62–68 (T03, CMP-12)"
+    },
+    {
+      "etiqueta": "TTFB del servidor",
+      "valor": "1,09–1,98 s",
+      "nota": "x-hcdn-upstream-rt; HTML sin caché (DYNAMIC) (T04)"
+    },
+    {
+      "etiqueta": "PHP en producción",
+      "valor": "7.4.33",
+      "nota": "Sin soporte desde el 28-nov-2022 (T01)"
+    },
+    {
+      "etiqueta": "Componentes con CVE públicas",
+      "valor": "≥ 3 de 7",
+      "nota": "Formidable 5.5.2, Elementor Pro 3.7.7 y Elementor 3.7.8 (T02)"
+    },
+    {
+      "etiqueta": "Páginas con meta description",
+      "valor": "0/8",
+      "nota": "lang='en' en todas; SEO Lighthouse 85 (T05)"
+    },
+    {
+      "etiqueta": "Formularios con autorización de datos",
+      "valor": "0/5",
+      "nota": "Ley 1581; ninguna política publicada (V03, CMP-02)"
+    },
+    {
+      "etiqueta": "Contraste del botón Cotizar",
+      "valor": "2,09:1",
+      "nota": "Mínimo AA 4,5:1; Enviar 1,99:1 (T07, V08)"
+    },
+    {
+      "etiqueta": "Productos publicados",
+      "valor": "3 de 14",
+      "nota": "14 identificados (7 confirmados); 8 EAN de The Cántaro en tiendas (CAT-01)"
+    },
+    {
+      "etiqueta": "Tarjetas con denominación contradictoria",
+      "valor": "3 de 6",
+      "nota": "El empaque dice 'mezcla en polvo' y el sitio 'leche en polvo' (V01, CAT-02)"
+    },
+    {
+      "etiqueta": "Enlaces tel: / mailto:",
+      "valor": "0 / 0",
+      "nota": "Teléfono en texto plano; 0 enlaces a puntos de venta (CMP-11, V09)"
+    },
+    {
+      "etiqueta": "Analítica",
+      "valor": "0 etiquetas",
+      "nota": "Sin línea base de visitas ni leads (CMP-03)"
+    },
+    {
+      "etiqueta": "Peso de la home móvil",
+      "valor": "0,85 MB",
+      "nota": "El más liviano del benchmark; competidores de 3,1 a 12,8 MB (CMP-13)"
+    }
+  ],
+  "hallazgos_top": [
+    {
+      "area": "Seguridad",
+      "severidad": "alta",
+      "titulo": "PHP 7.4.33 sin soporte y plugins de 2022 con CVE públicas",
+      "metrica": "EOL hace 3 años y 9 meses; ≥ 3 de 7 componentes con CVE (T01, T02)",
+      "captura": ""
+    },
+    {
+      "area": "Legal y datos",
+      "severidad": "alta",
+      "titulo": "Ningún formulario pide autorización de tratamiento de datos (Ley 1581)",
+      "metrica": "0/5 formularios; 0 páginas de política (V03, CMP-02)",
+      "captura": "auditoria/capturas/actual/detalle/inicio-desktop-hero-formulario.jpg"
+    },
+    {
+      "area": "Seguridad",
+      "severidad": "alta",
+      "titulo": "El dominio impreso en los sacos (mundilacteossas.com) no está registrado",
+      "metrica": "RDAP 404; DNS NXDOMAIN (CMP-01)",
+      "captura": "auditoria/capturas/actual/detalle/productos-bulto-datos-contacto-empaque.jpg"
+    },
+    {
+      "area": "Catálogo",
+      "severidad": "alta",
+      "titulo": "Mezclas lácteas presentadas como 'leche en polvo'",
+      "metrica": "3 de 6 tarjetas; el RSA-003008-2017 es 'mezclas en polvo' (V01, CAT-02)",
+      "captura": "auditoria/capturas/actual/detalle/productos-etiquetas-mezcla-en-polvo.jpg"
+    },
+    {
+      "area": "Catálogo",
+      "severidad": "alta",
+      "titulo": "El sitio muestra 3 productos; el portafolio verificable es mucho mayor",
+      "metrica": "3 publicados frente a 14 identificados; la descremada de Carulla no aparece (CAT-01, CAT-03)",
+      "captura": "auditoria/capturas/catalogo/catalogo-empaques-the-cantaro-retail-desktop.jpg"
+    },
+    {
+      "area": "Rendimiento",
+      "severidad": "alta",
+      "titulo": "LCP móvil de unos 6 s: hero en fondo CSS y HTML sin caché",
+      "metrica": "LCP mediana 6,26 s; TTFB 1,09–1,98 s (T03, T04, T12, CMP-12)",
+      "captura": "auditoria/capturas/tecnica/tecnica-home-mobile.jpg"
+    },
+    {
+      "area": "SEO",
+      "severidad": "alta",
+      "titulo": "Sin meta description, idioma en inglés y páginas de ejemplo de WordPress indexables",
+      "metrica": "0/8 meta description; 4 URL basura en el sitemap (T05, T06)",
+      "captura": "auditoria/capturas/tecnica/tecnica-sample-page-desktop.jpg"
+    },
+    {
+      "area": "Accesibilidad",
+      "severidad": "alta",
+      "titulo": "Los botones principales no cumplen el contraste mínimo",
+      "metrica": "Cotizar 2,09:1; Enviar 1,99:1; mínimo 4,5:1 (T07, V08)",
+      "captura": "auditoria/capturas/actual/detalle/contacto-desktop-formulario.jpg"
+    },
+    {
+      "area": "UX y conversión",
+      "severidad": "alta",
+      "titulo": "El mayorista no puede cotizar ni ver condiciones comerciales",
+      "metrica": "Cotización de 2 campos; 0 precios, mínimos, cobertura o fichas (V04)",
+      "captura": "auditoria/capturas/actual/detalle/inicio-desktop-cotizar.jpg"
+    },
+    {
+      "area": "UX y conversión",
+      "severidad": "alta",
+      "titulo": "No se puede saber dónde comprar ni contactar con un toque",
+      "metrica": "0 enlaces a puntos de venta; 0 tel:, 0 mailto:, 0 mapas (V09, CMP-11)",
+      "captura": "auditoria/capturas/actual/detalle/inicio-movil-aliados-carrusel.jpg"
+    },
+    {
+      "area": "Contenido",
+      "severidad": "alta",
+      "titulo": "Datos contradictorios en el mismo sitio",
+      "metrica": "11 frente a 12 años en la misma pantalla; 4, 9 o 10 presentaciones de bolsa (V02, V05)",
+      "captura": "auditoria/capturas/actual/detalle/inicio-movil-hero-11-vs-12-anos.jpg"
+    },
+    {
+      "area": "Marca",
+      "severidad": "alta",
+      "titulo": "Logo ilegible, sin enlace al inicio y tres identidades distintas",
+      "metrica": "70x57 px con 57 % de margen transparente; globo, vaca e Inverlácteos (V07, CMP-07)",
+      "captura": "auditoria/capturas/actual/detalle/logos-versiones-comparadas.jpg"
+    },
+    {
+      "area": "Accesibilidad",
+      "severidad": "media",
+      "titulo": "El menú móvil no abre con teclado y el WhatsApp no es accesible",
+      "metrica": "Enter y Espacio: 0 aperturas; 0 accesos por teclado al WhatsApp (CMP-04, T18)",
+      "captura": "auditoria/capturas/actual/detalle/inicio-movil-menu-tras-enter-cerrado.jpg"
+    },
+    {
+      "area": "Analítica",
+      "severidad": "media",
+      "titulo": "Sin analítica ni medición de conversiones",
+      "metrica": "0 etiquetas y 0 peticiones de analítica en 16 cargas (CMP-03)",
+      "captura": ""
+    }
+  ],
+  "prioridades": [
+    "Cerrar riesgos antes de lanzar: registrar mundilacteossas.com, publicar la política de tratamiento de datos con casilla de autorización en cada formulario y, mientras siga WordPress, actualizarlo o apagarlo (PHP 8.2+, plugins sin uso fuera).",
+    "Construir el catálogo desde una lista maestra de SKU validada por el cliente: denominación legal INVIMA (leche o mezcla láctea), gramajes, EAN, registro, unidades por paca y fotos del empaque vigente, con tabla nutricional en HTML y ficha técnica en PDF.",
+    "Publicar un sitio estático en Hostinger con presupuesto de rendimiento y accesibilidad: LCP ≤ 2,5 s, TTFB ≤ 0,8 s, ≤ 1 MB en el primer pantallazo móvil, contraste AA, lang es-CO, meta descriptions y schema LocalBusiness y Product.",
+    "Convertir B2B y B2C: cotizador mayorista (producto, presentación, cantidad, ciudad, empresa, NIT), WhatsApp y tel: clicables y un 'Dónde comprar' con enlaces a la ficha de cada cadena y a distribuidores de la Costa.",
+    "Unificar datos e identidad: logo oficial en SVG, una sola versión de año de fundación, municipio y teléfonos, certificados con número y vigencia (o retirar la mención de ISO) y GA4 con consentimiento al menos 4 semanas antes del lanzamiento."
+  ],
+  "hosting": {
+    "proveedor": "Hostinger (hPanel y CDN hcdn); dominio registrado en GoDaddy, vence el 2027-04-14",
+    "stack_actual": "WordPress 6.8.10 con Elementor 3.7.8, Elementor Pro 3.7.7 y tema Astra 4.10.0 sobre PHP 7.4.33; HTML sin caché (x-hcdn-cache-status DYNAMIC); TLS de Let's Encrypt con renovación automática",
+    "correo": "Hostinger Email: MX mx1/mx2.hostinger.com, SPF include:_spf.mail.hostinger.com ~all, DKIM hostingermail1 y DMARC p=none. No cambiar NS ni MX al desplegar.",
+    "opciones_sin_wordpress": [
+      "HTML estático compilado y publicado en public_html con la integración Git de hPanel (rama de despliegue con los archivos generados; no hay paso de build documentado). Disponible en planes web y cloud.",
+      "Subida por FTP o por el administrador de archivos de hPanel a public_html.",
+      "SSH y rsync: solo desde el plan Premium Web (no en Single) y desactivado por defecto.",
+      "Node.js: solo en Business Web o Cloud y obliga a recrear el sitio; no hace falta para un sitio estático.",
+      "Si se necesita un endpoint de formulario: PHP 8.3 (por defecto; seleccionables 8.2 a 8.5) con honeypot, límite de envíos y validación en el servidor."
+    ],
+    "recomendacion": "Sitio estático en public_html desplegado con la integración Git de hPanel (o FTP), con .htaccess para cabeceras de seguridad, redirecciones 301 de las URL actuales (incluidas las páginas de ejemplo) y caché en el CDN. Mantener DNS y correo en Hostinger sin tocar MX, SPF ni DKIM. Mientras WordPress siga en línea: respaldo completo, actualización o desactivación de plugins y PHP 8.2 o superior.",
+    "por_confirmar": [
+      "Plan exacto de Hostinger (define si hay SSH o Node.js).",
+      "Acceso a hPanel y a GoDaddy, y que el titular del dominio sea la empresa y no la agencia.",
+      "Cuentas de Hostinger Email en uso y destino actual de los formularios.",
+      "Si PHP 7.4 está forzado por .htaccess y qué plugins hay instalados (solo se ven los que aparecen en HTML o REST).",
+      "Configuración del CDN y del modo de seguridad (desafío 403 a clientes que no son navegadores, T29).",
+      "Registro defensivo de mundilacteossas.com y, a decidir, de mundilacteos.com.co y mundilacteos.co (no verificados)."
+    ]
+  },
+  "catalogo": {
+    "productos_encontrados": 14,
+    "marcas": [
+      "The Cántaro",
+      "La Becerrita"
+    ],
+    "resumen": "El sitio muestra 3 productos en 6 tarjetas. En fuentes públicas se identificaron 14 (7 confirmados; total no recalculado en la verificación): 8 EAN de The Cántaro en Éxito, Carulla y Megatiendas (solo 380 y 900 g), 5 registros INVIMA vigentes como titular y 5 más como fabricante para Shadday Soluciones (derivados refrigerados). Dos productos del sitio son mezclas lácteas rotuladas como leche, la descremada que vende Carulla no aparece y las presentaciones de bolsa difieren entre secciones (4, 9 o 10). La Becerrita no aparece en 4 tiendas en línea verificadas. La submarca 'Milk Mait' y 17 marcas autorizadas en el RSA-006359-2018 (maquila) están por confirmar con el cliente.",
+    "taxonomia": [
+      "Leche en polvo: entera, entera fortificada (hierro o vitaminas A y D), descremada y entera azucarada (RSA-006359-2018, RSA-0027065-2023).",
+      "Mezclas lácteas en polvo para preparar bebidas: con endulzante y con café y panela (RSA-003008-2017, RSA-0037312-2025). Nunca rotular como 'leche'.",
+      "Alimento lácteo en polvo (RSA-0036572-2025).",
+      "Soluciones para empresas: venta a granel e industrial (bultos de 5, 12,5 y 25 kg), maquila y marca propia, distribución mayorista por pacas y canal institucional.",
+      "Refrigerados y derivados (opcional, si el grupo decide incluir a Shadday Soluciones): leche UHT, quesos frescos, yogurt, mantequilla y suero costeño."
+    ]
+  },
+  "competidores": [
+    {
+      "nombre": "Cosmolac S.A.S.",
+      "slug": "cosmolac",
+      "url": "https://cosmolac.com.co/",
+      "segmento": "B2C y B2B. Planta pulverizadora propia en Cajicá.",
+      "bien": [
+        "Hero que explica el origen industrial en una frase (planta pulverizadora en Cajicá, leche cruda colombiana) y 5 viñetas de proceso.",
+        "Muro de 8 clientes reconocibles: Alquería, Makro, Ara, PAE, Éxito, Carulla, Surtimayorista y OXXO.",
+        "WhatsApp flotante con mensaje precargado y teléfono visible desde el primer pantallazo.",
+        "Páginas propias de compromiso ganadero y gestión ambiental, y directorio de contacto por área con correo directo."
+      ],
+      "destacado": [
+        "Hero de 'prueba de origen': planta, municipio, materia prima y controles en una frase.",
+        "Ficha organizada por preguntas del comprador: ¿Por qué elegirla?, ¿Cómo usarla?, Importante, Dónde encontrarla.",
+        "WhatsApp con mensaje precargado (mejorable con variantes por intención: bultos, distribuidor, detal).",
+        "Mascota propia usada como sistema en hero, contacto y banners."
+      ],
+      "debil": [
+        "Sin navegación en móvil: no hay menú ni hamburguesa a 390 px.",
+        "Restos de la plantilla de imprenta: 7 meta descriptions de 'imprenta', tarjetas móviles hacia un dominio de staging (503) y mailto:andresruge@.",
+        "Fichas sin tabla nutricional, gramajes en texto ni Invima; 4 de 5 sin H1; ninguna certificación ('trabajando en nuevas certificaciones').",
+        "Home desktop de 6,36 MB con un PNG de 4,25 MB; datos contradictorios (3 teléfonos, 2 NIT, planta en Cajicá y Zipaquirá)."
+      ],
+      "capturas": [
+        {
+          "ruta": "auditoria/capturas/competidores/cosmolac/home-desktop-fold.jpg",
+          "pagina": "Home (primer pantallazo)",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/cosmolac/menu-movil.jpg",
+          "pagina": "Cabecera móvil (evidencia de que no hay menú)",
+          "dispositivo": "móvil"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/cosmolac/catalogo-desktop.jpg",
+          "pagina": "Catálogo /nuestros-productos/",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/cosmolac/ficha-descremada-desktop.jpg",
+          "pagina": "Ficha /leche-en-polvo-descremada/ (la más completa)",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/cosmolac/clientes-desktop.jpg",
+          "pagina": "Home, bloque Nuestros clientes",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/cosmolac/empaques-banner-catalogo-zoom.jpg",
+          "pagina": "Recorte del banner del catálogo (imagen original del sitio)",
+          "dispositivo": "desktop"
+        }
+      ]
+    },
+    {
+      "nombre": "Coolechera",
+      "slug": "coolechera",
+      "url": "https://coolechera.com/",
+      "segmento": "B2C y B2B (institucional e industrial). Cooperativa regional del Caribe con sede en Barranquilla.",
+      "bien": [
+        "Relato de origen fuerte y verificable: 'Desde 1933', más de 1.000 familias ganaderas y fotografía real de ganaderos caribeños.",
+        "Packshots homogéneos en 80 productos, con franja de color por tipo y gramaje.",
+        "Prueba de escala: mapa de plantas, acopios y distritos, y directorio de contacto por canal de venta.",
+        "Página institucional con cifras B2B (más de 180 restaurantes y hoteles, PAE, Curazao y Venezuela) y WhatsApp por ciudad."
+      ],
+      "destacado": [
+        "Franja lateral de color en cada packshot con tipo de producto y gramaje.",
+        "WhatsApp que despliega ciudades antes de abrir el chat.",
+        "Artículo '¿Qué significan los sellos de nuestras bolsas?' con el empaque anotado.",
+        "Línea de tiempo con hitos industriales (1983: planta de pulverización de 100.000 L/día), aunque en imágenes.",
+        "Tono regional caribeño deliberado ('de verda' verda'', '#CaribeConsumeCaribe')."
+      ],
+      "debil": [
+        "Fuentes de marca rotas (CORS y 404 en coolechera.co) y unos 80 enlaces internos hacia rutas de coolechera.co que responden 404.",
+        "Carruseles de producto invisibles (opacity 0): 6.458 px en blanco en la página B2B.",
+        "Tienda WooCommerce sin comercio (79 de 80 productos a precio 0) y fichas vacías, sin tabla nutricional ni ficha técnica.",
+        "Sin meta description en 24 URL y sin H1 en home, tienda, Somos, Contacto y B2B.",
+        "Certificaciones dispersas en posts, sin número ni vigencia y con fechas contradictorias; BASC 6.0.1 figura como propósito, aunque el descubrimiento lo reportaba como sello publicado."
+      ],
+      "capturas": [
+        {
+          "ruta": "auditoria/capturas/competidores/coolechera/home-desktop-fold.jpg",
+          "pagina": "Inicio",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/coolechera/catalogo-desktop.jpg",
+          "pagina": "Tienda /tienda/",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/coolechera/ficha-desktop.jpg",
+          "pagina": "Ficha 'Leche en polvo 900' (/producto/leche-en-polvo-900-ml/)",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/coolechera/b2b-whatsapp-ciudades-movil.jpg",
+          "pagina": "Canal Institucional: directorio de WhatsApp desplegado",
+          "dispositivo": "móvil"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/coolechera/nosotros-desktop.jpg",
+          "pagina": "Somos Coolechera /somos-coolechera/",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/coolechera/calidad-sellos-desktop.jpg",
+          "pagina": "Post '¿Qué significan los sellos que tienen las bolsas de leche Coolechera?'",
+          "dispositivo": "desktop"
+        }
+      ]
+    },
+    {
+      "nombre": "Proleche (Grupo Lactalis)",
+      "slug": "proleche",
+      "url": "https://prolechecolombia.com.co/",
+      "segmento": "B2C y B2B. Marca nacional del Grupo Lactalis (con Parmalat, President y Kraft).",
+      "bien": [
+        "Landing de reclutamiento de autoventistas completa: promesa, video, testimonios, requisitos, calculadora de ganancias, FAQ y formulario, con FAQPage y VideoObject.",
+        "Identidad coherente: verde #009038, mascota vaca, ilustración rural tipo grabado y 'Desde 1932' en el logo.",
+        "Catálogo por pestañas con packshots sobre un pedestal ovalado consistente.",
+        "Fotografía real de su cadena (ganadero, planta, laboratorio, punto de venta) y select 'Tema' que separa recolector, productor, comercializador y PQRS."
+      ],
+      "destacado": [
+        "Calculadora de ganancias para distribuidores (clientes por día y ticket promedio).",
+        "Landing de canal: promesa, cómo funciona, testimonios, requisitos, FAQ y formulario.",
+        "Pestañas de categoría con miniatura y pedestal de color bajo cada packshot."
+      ],
+      "debil": [
+        "En desktop la precarga LoftLoader tapa el contenido hasta la primera interacción (seguía visible a los 18,8 s).",
+        "Sin certificaciones ni Invima: /tecnologia/ solo contiene PDFs de cookies y de política de TI.",
+        "Sin fichas por producto: ni tabla nutricional, ni especificaciones, ni foto del bulto de 25 kg.",
+        "Páginas clave huérfanas (/emprende-con-proleche/, /leche-en-polvo/ duplicada de Nosotros) y popups B2B con botones ocultos.",
+        "Contraste insuficiente: verde sobre blanco 4,16:1 y enlaces del footer 1,71:1."
+      ],
+      "capturas": [
+        {
+          "ruta": "auditoria/capturas/competidores/proleche/home-desktop-fold.jpg",
+          "pagina": "Inicio (/)",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/proleche/home-desktop-fold-precarga.jpg",
+          "pagina": "Inicio (/)",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/proleche/ficha-desktop.jpg",
+          "pagina": "Productos > pestaña EN POLVO (equivalente a ficha; no hay URL por producto)",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/proleche/distribuidores-desktop.jpg",
+          "pagina": "Emprende con Proleche (/emprende-con-proleche/, landing de autoventistas; solo en sitemap)",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/proleche/calidad-desktop.jpg",
+          "pagina": "Tecnología (/tecnologia/), la única página cercana a 'calidad'",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/proleche/catalogo-movil.jpg",
+          "pagina": "Productos (/productos/)",
+          "dispositivo": "móvil"
+        }
+      ]
+    },
+    {
+      "nombre": "Indunilo S.A.S.",
+      "slug": "indunilo",
+      "url": "https://www.indunilo.com/",
+      "segmento": "B2B (maquila e institucional) y marcas propias. Empresa familiar de Santander.",
+      "bien": [
+        "Discurso B2B explícito (maquila, clientela institucional) y formulario de cotización propio.",
+        "Pestañas 'Marcas propias / Maquilas' que muestran capacidad para terceros (Olímpica, Latti, Lelé).",
+        "Ficha con datos de proceso (atomización, malla 120 micras) y declaración de lo que no contiene (sin suero lácteo, edulcorantes ni conservantes).",
+        "Centro de cumplimiento (SAGRILAFT, PTEE, canales de denuncia) y política de calidad con 'prohibición de lactosueros no permitidos'."
+      ],
+      "destacado": [
+        "Pestañas 'Marcas propias / Maquilas' como vitrina de capacidad.",
+        "Bloque de especificación compacto y declaración de 'no contiene'.",
+        "Compromiso antiadulteración escrito en la política de calidad.",
+        "Relato fundacional con conflicto (Decreto 616 de 2006 y reinvención como pulverizadora), aunque enterrado en el blog."
+      ],
+      "debil": [
+        "El WhatsApp apunta a un número de Italia (+39 351 473 4637) y los enlaces tel: están mal formados.",
+        "Fichas técnicas en Google Drive con 404 y bloque 'Descargar Portafolio' vacío.",
+        "Enlaces del pie hacia /no-se-encuentra (404 blando con HTTP 200); home sin H1 ni JSON-LD; 0 enlaces a redes.",
+        "Cotizador genérico: producto en texto libre, sin volumen, presentación, NIT ni autorización de datos.",
+        "Lighthouse móvil Perf 30 y LCP 25,0 s, aunque con Playwright sin limitación carga en unos 1,7 s (métodos no comparables)."
+      ],
+      "capturas": [
+        {
+          "ruta": "auditoria/capturas/competidores/indunilo/home-desktop-fold.jpg",
+          "pagina": "Inicio (primer pantallazo)",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/indunilo/maquilas-desktop.jpg",
+          "pagina": "Leche en polvo > Entera > Maquilas",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/indunilo/ficha-desktop.jpg",
+          "pagina": "Ficha Miramonte leche en polvo entera",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/indunilo/cotizaciones-desktop.jpg",
+          "pagina": "Cotizaciones (/contactenos/cotizaciones)",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/indunilo/calidad-politica-desktop.jpg",
+          "pagina": "Política de Sistema Gestión Integral",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/indunilo/menu-movil-submenu.jpg",
+          "pagina": "Menú abierto con submenú Leche en Polvo",
+          "dispositivo": "móvil"
+        }
+      ]
+    },
+    {
+      "nombre": "Nestlé Colombia: KLIM y El Rodeo",
+      "slug": "nestle-klim",
+      "url": "https://www.nestlefamilynes.co/marcas/klim",
+      "segmento": "B2C (consumo). Líder de góndola; sitios nestlefamilynes.co y nestle-contigo.co.",
+      "bien": [
+        "Ficha con tabla nutricional en HTML real (24 nutrientes, por 100 mL y por porción) y modo de preparación con medidas caseras.",
+        "FAQ por producto con FAQPage y JSON-LD Product en la ficha.",
+        "Sistema visual coherente (corazón dorado, paleta acotada) y buen contraste (#1f2937 sobre blanco 14,68:1).",
+        "Accesibilidad Lighthouse 97, la más alta del benchmark; 0 de 108 imágenes sin alt en la página de marca."
+      ],
+      "destacado": [
+        "Barra sticky de anclas en pills: Beneficios, Tabla, Preparación, FAQ.",
+        "Rendimiento en unidades de consumo ('Rinde 15 vasos / 3 litros') y preparación con cucharadas y gramos.",
+        "Visor de empaque de El Rodeo con hotspots que explican la etiqueta y el sello de advertencia.",
+        "Pills de segmento en cada tarjeta de producto (Familia, Etapa escolar)."
+      ],
+      "debil": [
+        "No hay 'Dónde comprar', precio ni enlace a retailers en ninguna página.",
+        "KLIM Clásica queda en la página 2 de un catálogo infantil y no existe filtro de leche en polvo.",
+        "Sin página de calidad ni certificaciones (0 menciones de ISO, FSSC o INVIMA).",
+        "Marca fragmentada en 4 dominios; El Rodeo con tabla nutricional en imagen y contraste 2,27:1.",
+        "Página de marca sin H1; 7,84 MB tras el scroll en desktop."
+      ],
+      "capturas": [
+        {
+          "ruta": "auditoria/capturas/competidores/nestle-klim/home-desktop-fold.jpg",
+          "pagina": "Página de marca KLIM, primer pantallazo",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/nestle-klim/ficha-tabla-nutricional-desktop.jpg",
+          "pagina": "Pestaña Valores nutricionales",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/nestle-klim/ficha-desktop.jpg",
+          "pagina": "Ficha KLIM® Clásica (/producto/klim-clasica)",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/nestle-klim/catalogo-filtros-movil.jpg",
+          "pagina": "Panel de filtros",
+          "dispositivo": "móvil"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/nestle-klim/el-rodeo-empaque-0-desktop.jpg",
+          "pagina": "Visor de empaque El Rodeo, frente",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/nestle-klim/home-movil-fold.jpg",
+          "pagina": "Página de marca KLIM, primer pantallazo",
+          "dispositivo": "móvil"
+        }
+      ]
+    },
+    {
+      "nombre": "Alquería (con Freskaleche)",
+      "slug": "alqueria",
+      "url": "https://www.alqueria.com.co/",
+      "segmento": "B2C (consumo). La leche en polvo del grupo se vende con la marca Freskaleche (380 y 900 g).",
+      "bien": [
+        "'Compra este producto' enlaza a la ficha exacta en Éxito, Carulla, Rappi y Olímpica.",
+        "Tabla nutricional en HTML, tabla de presentaciones con porciones y comparador de leches.",
+        "Página propia de certificaciones con fotos reales de planta y puntaje B cuantificado (116,4 frente a 52,3 / 94,4 / 95,4).",
+        "Cadena de valor en 8 pasos y mapa de plantas y acopios; sistema visual coherente (rojo #ed1b2e sobre crema)."
+      ],
+      "destacado": [
+        "Tarjetas de retail al producto exacto, con respaldo 'también en tiendas y minimercados'.",
+        "Comparador con 3 datos fijos (grasa, proteína, calcio).",
+        "Certificaciones en zigzag con foto real de planta.",
+        "Selector Distribuidor/Comercializador o PQRS en el formulario de Freskaleche."
+      ],
+      "debil": [
+        "La leche en polvo es invisible en alqueria.com.co: las URL de producto redirigen 301 a /productos y la búsqueda no devuelve producto.",
+        "Certificaciones sin ISO, Invima, número ni vigencia; Freskaleche oculta sus sellos ISO con display:none.",
+        "Cifras contradictorias: 9 frente a 7 plantas; 62, 65 o 'más de seis décadas' de antigüedad.",
+        "Información clave dentro de imágenes (mapas, teléfonos) y 0 JSON-LD en 13 páginas.",
+        "Sin oferta B2B en alqueria.com.co; la ficha de Freskaleche no tiene H1, usa tabla en imagen y desborda en móvil."
+      ],
+      "capturas": [
+        {
+          "ruta": "auditoria/capturas/competidores/alqueria/ficha-donde-comprar-desktop.jpg",
+          "pagina": "Ficha: Compra este producto",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/alqueria/ficha-nutricional-desktop.jpg",
+          "pagina": "Ficha: información nutricional",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/alqueria/ficha-comparador-desktop.jpg",
+          "pagina": "Ficha: Comparador de leches",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/alqueria/certificaciones-desktop.jpg",
+          "pagina": "Certificaciones de calidad",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/alqueria/donde-estamos-plantas-desktop.jpg",
+          "pagina": "Dónde estamos: contadores y plantas",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/alqueria/freskaleche-polvo-desktop.jpg",
+          "pagina": "Freskaleche: Leche en polvo (ficha del grupo)",
+          "dispositivo": "desktop"
+        }
+      ]
+    },
+    {
+      "nombre": "Alpina",
+      "slug": "alpina",
+      "url": "https://alpina.com/",
+      "segmento": "B2C (consumo). Referente de catálogo; en polvo solo tiene la línea infantil Nutrimax.",
+      "bien": [
+        "Catálogo de 322 productos con megamenú, buscador predictivo y filtros con conteo por presentación.",
+        "Plantilla de packshot con banda de color de variante y volumen; ficha con SKU y EAN visibles.",
+        "Historia por eras con hitos y fotos de archivo.",
+        "Contacto con triaje por perfil (distribuidor, proveedor, empleo), página de canales con cifras y 12 informes de sostenibilidad."
+      ],
+      "destacado": [
+        "Filtros con conteo por atributo real de compra (Presentación: Bolsa 11 / Caja 11).",
+        "SKU y EAN junto al nombre en la ficha.",
+        "Triaje por perfil antes del formulario de contacto.",
+        "Banners con enlace profundo a la ficha del producto en el retailer (exito.com, jumbocolombia.com).",
+        "Búsquedas populares que revelan demanda de 'leche en polvo' sin tener el producto."
+      ],
+      "debil": [
+        "El sitio más pesado del grupo: 11,08 MB y 437 solicitudes en desktop.",
+        "Home sin H1, JSON-LD inválido y 84 de 162 imágenes sin alt útil.",
+        "Tienda oculta con CSS: sin precio ni 'dónde comprar' en la ficha, pero con precio en el JSON-LD.",
+        "Página B2B fuera del menú y sin formulario; política de calidad en un PDF de imagen.",
+        "CTA naranja con contraste 2,54:1 y dos líneas gratuitas distintas (018000 519 999 y 018000 529 999)."
+      ],
+      "capturas": [
+        {
+          "ruta": "auditoria/capturas/competidores/alpina/catalogo-desktop.jpg",
+          "pagina": "https://alpina.com/leches",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/alpina/ficha-desktop.jpg",
+          "pagina": "https://alpina.com/alimento-en-polvo-nutrimax-etapa-3-800-g",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/alpina/buscador-desktop.jpg",
+          "pagina": "https://alpina.com/",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/alpina/contacto-desktop.jpg",
+          "pagina": "https://alpina.com/alpina-contactenos-1",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/alpina/distribuidores-desktop.jpg",
+          "pagina": "https://alpina.com/canales-de-distribucion",
+          "dispositivo": "desktop"
+        },
+        {
+          "ruta": "auditoria/capturas/competidores/alpina/nosotros-desktop.jpg",
+          "pagina": "https://alpina.com/nuestra-historia",
+          "dispositivo": "desktop"
+        }
+      ]
+    }
+  ],
+  "que_funciona": [
+    "Tabla nutricional en HTML real, con porción y porciones por envase (KLIM, Alquería). En imagen pierde indexación y accesibilidad (Alpina, El Rodeo, Freskaleche).",
+    "'Dónde comprar' con enlace a la ficha exacta del producto en cada cadena (Alquería: Éxito, Carulla, Rappi y Olímpica; Alpina en banners con UTM).",
+    "Rendimiento en unidades de consumo: vasos, litros y porciones por presentación, y preparación con cucharadas y gramos (KLIM, El Rodeo, Alquería).",
+    "FAQ por producto que responde objeciones de compra, con marcado FAQPage (KLIM; Proleche en su landing de canal).",
+    "Triaje por perfil antes del formulario: distribuidor, proveedor, empleo o PQRS (Alpina, Freskaleche, Proleche con su select 'Tema', Nestlé con 'Solicitud Comercial').",
+    "Landing de captación de distribuidores con requisitos, calculadora de ganancias, testimonios y FAQ (Proleche).",
+    "Packshots homogéneos con código de color por variante y gramaje (Coolechera, Alpina, Proleche).",
+    "Filtros por atributos reales de compra con conteo, y SKU/EAN visibles en la ficha (Alpina).",
+    "Prueba de calidad con fotos reales de planta y cifras en contexto (Alquería); certificado, foto de la entrega e informe PDF (Indunilo).",
+    "Relato de origen con hitos fechados y fotos reales de ganaderos o de archivo (Alpina, Coolechera, Freskaleche).",
+    "Vitrina de capacidad B2B: pestañas 'Marcas propias / Maquilas' (Indunilo) y cifras por canal (Alpina, Coolechera).",
+    "WhatsApp con mensaje precargado (Cosmolac) o enrutado por ciudad (Coolechera)."
+  ],
+  "oportunidades": [
+    "Certificación verificable: ningún competidor publica en HTML el certificado con ente, número, alcance y vigencia, ni el registro Invima por SKU. Mundilácteos puede hacerlo con sus registros vigentes, el concepto sanitario favorable y el ISO 9001:2015 si el cliente lo acredita.",
+    "Ficha técnica B2B del bulto (5, 12,5 y 25 kg) con especificaciones fisicoquímicas, vida útil, unidades por paca y PDF propio: Proleche no muestra el bulto, Coolechera tiene fichas vacías e Indunilo enlaza PDF con 404.",
+    "Cotizador mayorista estructurado (producto, presentación, cantidad, frecuencia, ciudad, NIT) con autorización de datos: nadie lo tiene; lo más cercano es el texto libre de Indunilo.",
+    "'Dónde comprar' que combine cadenas nacionales y distribuidores de la Costa Caribe con WhatsApp por ciudad: Alquería cubre solo retail nacional y Coolechera solo puntos propios, con mapas rotos.",
+    "Denominación legal clara (leche en polvo frente a mezcla láctea) y una guía 'cómo leer el empaque': en el segmento abundan las confusiones (Cosmolac Total, Proleche deslactosada, El Rodeo entera o azucarada).",
+    "Sitio rápido y accesible: en el benchmark Lighthouse móvil nadie supera Performance 62 ni baja de 5,2 s de LCP; un sitio estático puede ser el único con LCP ≤ 2,5 s y CTA con contraste AA.",
+    "Maquila y marca propia como servicio bien presentado (solo Indunilo lo intenta, con enlaces rotos); el RSA-006359-2018 autoriza 17 marcas, sin nombrar cadenas sin su permiso.",
+    "Relato 'empresa familiar de Cartagena' en HTML con datos verificables: ninguna marca del Caribe lo cuenta bien (Coolechera tiene la historia en imágenes y el video roto).",
+    "Datos corporativos consistentes en sitio, empaques y redes: todos los competidores tienen contradicciones de teléfonos, años o cifras."
+  ]
+}

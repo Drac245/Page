@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paralelo 10: verificación del hero</title>
+<style>
+@font-face{font-family:"Encode Sans";src:url(encode-sans-latin-var.woff2) format("woff2");font-weight:100 900;font-stretch:75% 125%;font-display:swap}
+@font-face{font-family:"Source Serif 4";src:url(source-serif-4-latin-var.woff2) format("woff2");font-weight:200 900;font-display:swap}
+:root{
+  --noche:#0B1F4F;--azul:#0A2F8F;--cielo:#1090E0;--bruma:#EEF4FB;--blanco:#fff;--hoja:#2D7A12;--bosque:#236310;--verde:#4AA603;--pizarra:#4A5877;--cielo-prof:#0B6FB8;
+  --sans:"Encode Sans",Arial,sans-serif;--serif:"Source Serif 4",Georgia,serif;
+  --margen:16px;--cab:56px;
+  /* globo, móvil */
+  --D:136vw; --gx:-6vw; --b0:.34; --b1:.64; --sag:.03;
+  --h1-fs:min(clamp(2.25rem,10.4vw,2.75rem), .08*var(--D)); --h1-wd:112%; --h1-lh:.95; --h1-lineas:3;
+}
+@media (min-width:1024px){:root{
+  --margen:max(32px,calc((100vw - 1312px)/2)); --cab:72px;
+  --D:min(1040px,72vw,116vh); --gx:calc(var(--margen) + .34*(100vw - 2*var(--margen)));
+  --b0:.385; --b1:.645;
+  --h1-fs:min(5.4rem,5.9vw,.1*var(--D)); --h1-wd:125%; --h1-lineas:2;
+}}
+@media (min-width:1024px){:root{--margen:max(64px,calc((100vw - 1312px)/2))}}
+@media (min-width:600px) and (max-width:1023px){:root{--D:min(112vw,78vh);--gx:-6vw;--h1-fs:min(clamp(2.75rem,7.2vw,4rem), .08*var(--D));--margen:32px}}
+*{box-sizing:border-box;margin:0}
+html,body{background:var(--blanco);color:var(--noche)}
+body{font-family:var(--serif);font-size:17px;line-height:1.6;overflow-x:clip}
+header{height:var(--cab);display:flex;align-items:center;gap:28px;padding:0 var(--margen);font-family:var(--sans);font-size:16px;position:relative;z-index:5;background:#fff}
+.firma{display:flex;align-items:center;gap:8px;font-weight:700;font-stretch:112%;font-size:20px;color:var(--azul)}
+.firma svg{width:30px;height:30px}
+nav{display:flex;gap:24px;font-weight:500}
+nav a{color:var(--noche);text-decoration:none}
+.der{margin-left:auto;display:flex;gap:20px;align-items:center;font-weight:500}
+.btn{display:inline-flex;align-items:center;min-height:48px;padding:0 20px;border-radius:8px;font-family:var(--sans);font-weight:600;font-size:16px;text-decoration:none}
+.btn.p{background:var(--hoja);color:#fff}
+.btn.s{border:2px solid var(--azul);color:var(--azul)}
+@media (max-width:1279px){nav,.solo-escr{display:none}}
+@media (max-width:1023px){.der .btn{min-height:44px;padding:0 14px}}
+.hero{position:relative;padding:var(--carril-top) var(--margen) 64px;overflow-x:clip;display:flow-root;
+  /* posición del carril del titular */
+  --T0: calc(var(--D) * (var(--b0) + var(--sag)) + 0px);
+}
+.globo{position:absolute;width:var(--D);height:var(--D);left:var(--gx);top:var(--gtop);border-radius:50%;overflow:hidden;clip-path:circle(50%);z-index:0}
+.globo .f{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.f1{clip-path:url(#f1)} .f2{clip-path:url(#f2)} .f3{clip-path:url(#f3)} .f4{clip-path:url(#f4)}
+.plano{background:var(--azul)} .plano.b{background:var(--bruma)}
+.carril{position:relative;z-index:2;height:calc(var(--D) * (var(--b1) - var(--b0) - var(--sag)));display:flex;align-items:center}
+h1{font-family:var(--sans);font-weight:800;font-stretch:var(--h1-wd);font-size:var(--h1-fs);line-height:var(--h1-lh);letter-spacing:-.01em;color:var(--azul)}
+h1{white-space:nowrap} @media (min-width:1024px){br.m{display:none}} @media (max-width:1023px){br.d{display:none}}
+.bajo{position:relative;z-index:2;max-width:min(28rem,100%);padding-top:24px}
+.bajo p{font-size:clamp(18px,1.3vw + 4px,22px);line-height:1.45}
+.acc{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.cred{margin-top:20px;font-family:var(--sans);font-size:15px;line-height:1.5;color:var(--noche);display:flex;gap:8px}
+.cred a{color:var(--cielo-prof)}
+.cred svg{flex:0 0 20px;height:20px;margin-top:2px}
+/* desktop */
+@media (min-width:1024px){
+  .hero{--carril-top:clamp(160px,30vh,300px)}
+  .globo{--gtop:calc(var(--carril-top) - var(--D) * (var(--b0) + var(--sag)))}
+  .bajo{max-width:min(28rem, calc(var(--gx) + .03*var(--D) - var(--margen) - 24px))}
+}
+/* móvil: el globo arriba y el titular dentro de la franja */
+@media (max-width:1023px){
+  .hero{--carril-top:calc(var(--D) * (var(--b0) + var(--sag)) - var(--D)*.10)}
+  .globo{--gtop:calc(-1 * var(--D) * .10)}
+  .bajo{padding-top:calc(var(--D) * (1 - var(--b1)) - var(--D)*0 + 12px)}
+  .acc .btn{flex:1 1 100%;justify-content:center;min-height:52px}
+}
+.packs{position:absolute;z-index:1;pointer-events:none}
+.packs img{position:absolute;bottom:0;filter:drop-shadow(0 18px 14px rgb(11 31 79 / .28))}
+.var-foto .packs{display:none}
+.var-resp .fotos{display:none}
+.var-foto .planos{display:none}
+.destello{position:absolute;z-index:1}
+</style>
+</head>
+<body class="var-foto">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <defs id="defs"></defs>
+</svg>
+<header>
+ <a class="firma" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><clipPath id="cg"><circle cx="12" cy="12" r="12"/></clipPath></defs><g clip-path="url(#cg)"><rect width="24" height="24" fill="#4AA603"/><path d="M0 8 Q12 11 24 8 L24 10 Q12 13 0 10Z" fill="#fff"/><path d="M0 15 Q12 18 24 15 L24 17 Q12 20 0 17Z" fill="#fff"/><path d="M0 17 Q12 20 24 17 L24 24 L0 24Z" fill="#0A2F8F"/></g></svg>Mundilácteos</a>
+ <nav><a href="#">Productos</a><a href="#">Calidad</a><a href="#">Por qué elegirnos</a><a href="#">Cobertura</a><a href="#">Nosotros</a><a href="#">Recursos</a></nav>
+ <div class="der"><a class="solo-escr" href="#">Dónde comprar</a><a href="#">WhatsApp</a><a class="btn p" href="#">Cotizar</a></div>
+</header>
+<main>
+<section class="hero">
+ <figure class="globo" aria-hidden="false">
+  <div class="fotos">
+   <img class="f f1" src="../../compartido/img-cliente/equipo-planta.webp" alt="Equipo de Mundilácteos frente a la planta del Parque Industrial Europark, Turbaco" style="object-position:50% 0%">
+   <img class="f f2" src="../../compartido/img-cliente/equipo-planta.webp" alt="" style="object-position:50% 30%">
+   <img class="f f3" src="../../compartido/img-cliente/bultos-trio.webp" alt="" style="object-position:50% 100%;background:#EEF4FB">
+   <div class="f f4 plano"></div>
+  </div>
+  <div class="planos">
+   <div class="f f1 plano"></div><div class="f f2 plano b"></div><div class="f f3 plano"></div><div class="f f4 plano"></div>
+  </div>
+ </figure>
+ <div class="carril"><h1 id="h1">Leche en polvo<br class="m"> de Turbaco<br class="d"> para<br class="m"> toda Colombia.</h1></div>
+ <div class="packs" id="packs"><img src="../../compartido/img-cliente/cantaro-entera-bulto-25kg.webp" alt="" style="width:34%;left:52%;transform:rotate(-3deg)"><img src="../../compartido/img-cliente/cantaro-entera-500g.webp" alt="" style="width:50%;left:0;"><img src="../../compartido/img-cliente/becerrita-entera-900g.webp" alt="" style="width:46%;left:26%"></div>
+ <div class="bajo" id="bajo">
+  <p>The Cántaro y La Becerrita, en bolsa de 380 a 900&nbsp;g y en bulto de hasta 25&nbsp;kg. Despachamos a tiendas, panaderías, supermercados e industria.</p>
+  <div class="acc"><a class="btn p" href="#">Cotizar por volumen</a><a class="btn s" href="#">Ver productos</a></div>
+  <p class="cred"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="none" stroke="#2D7A12" stroke-width="2"/><path d="M6 10.5l2.6 2.5L14 7.5" fill="none" stroke="#2D7A12" stroke-width="2" stroke-linecap="round"/></svg><span>Registro INVIMA RSA-006359-2018, vigente hasta el 24/05/2028. <a href="#">Verificar</a></span></p>
+ </div>
+</section>
+</main>
+<script>
+// Franjas en unidades del cuadro (objectBoundingBox). Bordes: arcos paralelos con sagita --sag, más bajos en el centro.
+function franjas(){
+  const cs=getComputedStyle(document.documentElement);
+  const b0=+cs.getPropertyValue('--b0'), b1=+cs.getPropertyValue('--b1'), s=+cs.getPropertyValue('--sag');
+  const movil = innerWidth<1024;
+  // fronteras: [inicio, fin] de cada franja
+  const F = movil
+   ? [[-0.1,.16],[.185,b0],[b1,.82],[.845,1.1]]
+   : [[-0.1,.20],[.225,b0],[b1,.815],[.84,1.1]];
+  const arc=(y)=>`Q0.5,${(y+2*s).toFixed(4)} 1,${y.toFixed(4)}`;
+  const path=([a,b])=>`M0,${a.toFixed(4)} ${arc(a)} L1,${b.toFixed(4)} Q0.5,${(b+2*s).toFixed(4)} 0,${b.toFixed(4)} Z`;
+  document.getElementById('defs').innerHTML = F.map((f,i)=>`<clipPath id="f${i+1}" clipPathUnits="objectBoundingBox"><path d="${path(f)}"/></clipPath>`).join('');
+  return {b0,b1,s,F};
+}
+window.geo = franjas();
+addEventListener('resize',()=>{window.geo=franjas()});
+// empaques del respaldo: parados sobre la franja 3, a la derecha del final de la línea 2
+function packs(){
+  const g=document.querySelector('.globo').getBoundingClientRect(), hero=document.querySelector('.hero').getBoundingClientRect();
+  const rg=document.createRange(); rg.selectNodeContents(document.getElementById('h1')); const rr=[...rg.getClientRects()]; const l2=rr[rr.length-1];
+  const P=document.getElementById('packs'); const D=g.width;
+  if(innerWidth<1024){P.style.display='none';return}
+  const x0=Math.max(l2.right+24, g.left+D*.55), w=Math.min(g.right, innerWidth)-x0-24;
+  P.style.left=(x0-hero.left)+'px'; P.style.width=w+'px';
+  const baseY=g.top+D*.80; P.style.top=(baseY - w*.55 - hero.top)+'px'; P.style.height=(w*.55)+'px';
+}
+document.fonts.ready.then(packs); addEventListener('resize',packs);
+// Verificación geométrica: cada línea del H1 debe quedar sobre blanco (fuera del círculo o dentro de la franja del titular).
+window.verificar=()=>{
+  const g=document.querySelector('.globo').getBoundingClientRect(); const D=g.width, cx=g.left+D/2, cy=g.top+D/2, r=D/2;
+  const {b0,b1,s}=window.geo;
+  const edge=(x,y0)=>{const u=(x-g.left)/D; return g.top+D*(y0+4*s*u*(1-u));};
+  const c=document.createElement('canvas').getContext('2d');
+  const h1=document.getElementById('h1'); const cs=getComputedStyle(h1);
+  const res=[];
+  const rg=document.createRange(); rg.selectNodeContents(h1);
+  const rects=[...rg.getClientRects()].filter(r=>r.width>2); const lines=[];
+  for(const r of rects){ const L=lines.find(l=>Math.abs(l.top-r.top)<4); if(L){L.left=Math.min(L.left,r.left);L.right=Math.max(L.right,r.right);L.bottom=Math.max(L.bottom,r.bottom)} else lines.push({top:r.top,bottom:r.bottom,left:r.left,right:r.right}); }
+  const fs=parseFloat(cs.fontSize);
+  c.font=`${cs.fontWeight} ${cs.fontStretch==='125%'?'expanded':'semi-expanded'} ${cs.fontSize} "Encode Sans"`;
+  const mT=c.measureText('ÁLeche polvo Turbaco para Colombia'); // ascenso con tilde y descenso de p
+  lines.forEach((rc,i)=>{
+    const base = rc.top + (rc.bottom-rc.top)/2 + (1.03*fs-.22*fs)/2; // centro del área de contenido
+    const inkTop = base - mT.actualBoundingBoxAscent, inkBot = base + mT.actualBoundingBoxDescent;
+    let peor={arriba:1e9,abajo:1e9};
+    for(let x=Math.max(rc.left,g.left); x<=Math.min(rc.right,g.right); x+=2){
+      const dentro=(y)=>((x-cx)**2+(y-cy)**2)<=r*r;
+      if(!dentro(inkTop)&&!dentro(inkBot)) continue;
+      const top=edge(x,b0), bot=edge(x,b1);
+      peor.arriba=Math.min(peor.arriba, inkTop-top); peor.abajo=Math.min(peor.abajo, bot-inkBot);
+    }
+    res.push({linea:i+1, fs:+fs.toFixed(1), ancho:+(rc.right-rc.left).toFixed(0), x:[+rc.left.toFixed(0),+rc.right.toFixed(0)], tinta:[+inkTop.toFixed(0),+inkBot.toFixed(0)], holgura_sup:+peor.arriba.toFixed(1), holgura_inf:+peor.abajo.toFixed(1)});
+  });
+  // bajada, botones y credencial: no deben tocar el círculo
+  const choques=[];
+  document.querySelectorAll('.bajo p, .bajo .btn, .cred span').forEach(el=>{
+    for(const rc of el.getClientRects()){
+      for(let y=rc.top;y<=rc.bottom;y+=2){ const dx=r*r-(y-cy)**2; if(dx<=0) continue; const xl=cx-Math.sqrt(dx); if(rc.right>xl-8) {choques.push({el:el.className||el.tagName, derecha:+rc.right.toFixed(0), borde:+xl.toFixed(0), y:+y.toFixed(0)}); break;} }
+    }
+  });
+  const btn=document.querySelector('.acc .btn.p').getBoundingClientRect();
+  return {vw:innerWidth, vh:innerHeight, D:+D.toFixed(0), globo:{x:+g.left.toFixed(0), y:+g.top.toFixed(0)}, franja_titular_px:+(D*(b1-b0)).toFixed(0), sagita_px:+(D*s).toFixed(1), lineas:res, choques, boton_cotizar_bottom:+btn.bottom.toFixed(0), scrollW:document.documentElement.scrollWidth};
+};
+</script>
+</body>
+</html>

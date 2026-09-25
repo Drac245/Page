@@ -1,6 +1,6 @@
 # Concepto 2: Peso neto
 
-> Paleta actualizada el 25/09/2026 a la paleta de marca (ver §4.2 y /conceptos/compartido/MARCA.md). Las menciones a Kraft, Tinta café y Rojo saco en otras secciones se leen con la equivalencia de §4.2.
+> Actualizado el 25/09/2026 por pedido del cliente: todo el documento usa la paleta de marca de /conceptos/compartido/MARCA.md (§4.2) y la guía de movimiento, profundidad y tipografía de /conceptos/compartido/EXPERIENCIA.md (§4.3, §4.6, §4.7, §5 y §14). Kraft, Tinta café y Rojo saco ya no existen en la interfaz; el kraft solo aparece dentro de las fotos reales de los sacos.
 
 Dirección final del Concepto 2 para el nuevo sitio de Inversiones Mundilácteos S.A.S. Sirve de guía para diseño, desarrollo y producción de contenido. Versión 1, 25 de septiembre de 2026.
 
@@ -14,7 +14,7 @@ Cómo se construyó: la base es la propuesta **Peso neto**, que obtuvo el mayor 
 
 ## 2. Enfoque
 
-Mundilácteos se presenta con su producto medido: gramos exactos, unidades por paca, litros que rinde cada bolsa y meses de vida útil. El sitio se construye con los materiales de sus empaques (el blanco de la bolsa, el kraft del bulto, el café y el rojo de la impresión) y tiene un solo gesto audaz: las 12 presentaciones de pie, a escala real. Alrededor de ese gesto funciona una herramienta de cotización que convierte pacas y bultos en kilos al instante, con la luz y la gente de la Costa en la fotografía.
+Mundilácteos se presenta con su producto medido: gramos exactos, unidades por paca, litros que rinde cada bolsa y meses de vida útil. El sitio se construye con el blanco de la bolsa y el verde y el azul que la marca lleva en su logo y en sus empaques, con los empaques reales como protagonistas, y tiene un solo gesto audaz: las 12 presentaciones de pie, a escala real. Alrededor de ese gesto funciona una herramienta de cotización que convierte pacas y bultos en kilos al instante, con la luz y la gente de la Costa en la fotografía.
 
 ## 3. Idea central
 
@@ -38,19 +38,20 @@ El tablero se arma con objetos del mundo del propio cliente, fotografiados en la
 
 | Referencia material | Qué se toma de ella | Dónde aparece |
 |---|---|---|
-| Saco kraft triple con rotulación condensada en rojo ("12,5 Kilos Neto", "Industria colombiana") | El kraft, el rojo de tinta y la letra condensada en tipo oración | Paleta, titulares, zonas B2B, pie |
-| Borde dentado del termosellado de la bolsa | La forma del sello M | Logo, favicon |
+| Saco kraft triple con rotulación condensada ("12,5 Kilos Neto", "Industria colombiana") | La letra condensada en tipo oración y la cifra como rótulo. El kraft queda dentro de la foto del saco | Titulares, cifras gigantes, pie |
+| Logo actual y empaques de The Cántaro | El Verde Mundilácteos, el Azul Mundilácteos y la onda azul del globo | Paleta, bandas, sello M |
+| Borde dentado del termosellado de la bolsa | La forma del sello M y el borde de las bandas | Logo, favicon, cortes de sección |
 | Leyenda de peso neto y codificación de lote y vencimiento | Cifras tabulares, precisión, trazabilidad | Tablas, ficha técnica, Calidad |
 | Báscula de verificación y cuchara rasa nivelada | La idea de medida exacta | Fotografía de Materia y Oficio |
 | Pacas en estiba | El ritmo de filas iguales | Planilla del catálogo |
-| Empaques de The Cántaro y La Becerrita | El color lo ponen los empaques; la interfaz se mantiene neutra | Packshots |
+| Empaques de The Cántaro y La Becerrita | Los packshots recortados, de pie sobre la línea base | Fila a escala, planilla, ficha, bandas |
 | Luz dura de mediodía sobre concreto en Cartagena | Calidez del lugar sin postal | Fotografía de Clientes |
 
-Queda fuera del tablero: potrero con vaca, salpicaduras, gotas, vasos rebosantes, azul y blanco lácteo, globo terráqueo, murallas, balcones y mar turquesa.
+Queda fuera del tablero: potrero con vaca, salpicaduras, gotas, vasos rebosantes, degradados azules de «leche fresca», globo terráqueo, murallas, balcones y mar turquesa.
 
 ### 4.2 Paleta (actualizada: paleta de marca)
 
-**Actualización del 25/09/2026, por pedido del cliente:** el concepto usa exclusivamente la paleta de marca definida en `/conceptos/compartido/MARCA.md` (colores medidos del logo y de los empaques). Se retiran Kraft, Tinta café y Rojo saco de la interfaz; el kraft solo aparece dentro de las fotos reales de los sacos. En todo este documento, donde diga Kraft, Tinta café, Rojo saco, Film o Tinta suave, aplique la equivalencia de esta tabla.
+**Actualización del 25/09/2026, por pedido del cliente:** el concepto usa exclusivamente la paleta de marca definida en `/conceptos/compartido/MARCA.md` (colores medidos del logo y de los empaques). Se retiran Kraft, Tinta café y Rojo saco de la interfaz; el kraft solo aparece dentro de las fotos reales de los sacos. La columna «Antes» queda como registro del cambio; el resto del documento ya usa los nombres nuevos.
 
 | Antes | Ahora | Hex | Rol en «Peso neto» | Presencia aprox. |
 |---|---|---|---|---|
@@ -63,10 +64,10 @@ Queda fuera del tablero: potrero con vaca, salpicaduras, gotas, vasos rebosantes
 | Rojo saco (selección) | Cielo profundo | `#0B6FB8` | Cifra elegida en la fila, selección y enlaces activos, siempre con subrayado de 3 px (5,28:1 sobre blanco). Azul cielo `#1090E0` para rellenos de gráficos. | 1 % |
 | Rojo saco (error) | Rojo error | `#B42318` | Solo mensajes de error, con icono y texto (6,57:1). | puntual |
 | Tinta suave | Pizarra | `#4A5877` | Texto secundario y bordes de controles (7,11:1 sobre blanco; 6,41:1 sobre Verde tenue). | texto |
-| — | Azul Mundilácteos | `#0A2F8F` | Titulares de marca en secciones institucionales (Calidad, Nosotros) y enlaces del pie. | puntual |
+| — | Azul Mundilácteos | `#0A2F8F` | Logotipo, contorno del sello M, H1 de las páginas institucionales (Calidad, Nosotros) y hover de los botones sobre Azul noche. | puntual |
 | — | Amarillo Becerrita | `#EAC55E` | Solo en el contexto de La Becerrita. | puntual |
 
-Línea divisoria decorativa: `#D9E3D2`.
+Línea divisoria decorativa: Azul noche al 16 % (`rgb(11 31 79 / 0.16)`), el mismo matiz del texto; así no se suma ningún hex fuera de MARCA.md. Sombras y brillos siguen la misma regla: Azul noche o Verde Mundilácteos con transparencia.
 
 **Contrastes verificados** (WCAG 2.x, python3): Azul noche sobre Blanco 15,87:1; sobre Verde tinte 13,44:1; sobre Verde Mundilácteos 5,10:1. Blanco sobre Azul noche 15,87:1. Verde Mundilácteos sobre Azul noche 5,10:1 (enlaces y foco en el pie). Pizarra sobre Blanco 7,11:1.
 
@@ -76,39 +77,50 @@ Foco visible: contorno de 3 px en Azul noche con 2 px de separación; en el pie 
 
 ### 4.3 Tipografía
 
-**Una sola familia: Archivo**, de Omnibus-Type (fundición latinoamericana), variable, licencia OFL.
+**Una familia, dos voces: Archivo**, de Omnibus-Type (fundición latinoamericana), variable, licencia OFL.
 
 - Ficha: https://fonts.google.com/specimen/Archivo
 - CSS de Google Fonts: `https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap`
 - Verificado el 25/09/2026 sobre el archivo servido: subconjunto latin en woff2 de 90.104 bytes (88 KB); ejes `wght` 100 a 900 y `wdth` 62 a 125; funciones `tnum`, `pnum`, `frac`, `numr` y `dnom`; glifos á, é, í, ó, ú, ñ, ü, ¿, ¡, × y − presentes.
-- Se descarga ese woff2 y se sirve desde el mismo dominio en Hostinger (`/fuentes/archivo-latin-var.woff2`) con `preload`. Así se evita una conexión a terceros y se controla el caché. No se carga la cursiva: el énfasis se hace con peso.
+- En producción se descarga ese woff2 y se sirve desde el mismo dominio en Hostinger (`/fuentes/archivo-latin-var.woff2`) con `preload`. El prototipo lo carga desde Google Fonts, único host de fuentes permitido en la publicación. No se carga la cursiva: el énfasis se hace con peso.
 
-La misma familia trabaja en dos voces por su ancho: **condensada y pesada** para titulares (eco de la rotulación de los sacos, pero en tipo oración) y **normal** para lectura. Los datos van en semicondensada con cifras tabulares, sin monoespaciada.
+**Evaluación de una segunda familia** (pedido del cliente del 25/09/2026, EXPERIENCIA.md §4): se probaron una serif editorial y una grotesca de cifras. Ninguna aporta más contraste que el propio eje de ancho de Archivo, que va de 62 (condensada) a 125 (expandida) con pesos de 100 a 900. Se mantiene una sola familia con dos voces muy separadas, lo que además ahorra un archivo de carga:
 
-| Rol | Escritorio (≥ 1280) | Móvil (< 600) | wdth | wght | Notas |
-|---|---|---|---|---|---|
-| Titular del hero | 72/72 px (4.5rem) | 48/48 px (3rem) | 68 (móvil 62) | 800 | Entre 600 y 1279 px: 60/60 px, wdth 66 |
-| H1 interior | 48/52 px (3rem) | 36/40 px (2.25rem) | 72 | 800 | |
-| H2 | 36/40 px (2.25rem) | 24/30 px (1.5rem) | 75 | 800 | |
-| H3 | 24/30 px (1.5rem) | 21/28 px (1.3125rem) | 100 | 700 | |
-| Entradilla | 21/32 px (1.3125rem) | 21/32 px | 100 | 400 | |
-| Cuerpo | 18/28 px (1.125rem) | 18/28 px | 100 | 400; énfasis 600 | Medida de 60 a 72 caracteres |
-| Interfaz (botones, menú, etiquetas) | 16/24 px (1rem) | 16/24 px | 100 | botones 600; menú y etiquetas 500 | |
-| Datos (tablas, pesos, pacas, kilos, lotes) | 16/24 px; totales 21/32 px | igual | 85 | 600 | `font-variant-numeric: tabular-nums`, alineados a la derecha |
-| Meta (migas, notas, pie) | 14/20 px (0.875rem) | 14/20 px | 100 | 400 o 500 | Mínimo absoluto del sitio |
-| Cifras de la fila a escala | 24 px | 18 px | 62 a 125 (móvil 75 a 125) | 300 a 900 (móvil 500 a 900) | Ver sección 12 |
+- **Condensada y pesada** (wdth 62 a 72, wght 800 a 820) para titulares: eco de la rotulación de los sacos, en tipo oración.
+- **Expandida y negra** (wdth 110 a 125, wght 850 a 900) para las cifras que funcionan como gesto gráfico.
+- **Normal** (wdth 100) para lectura e interfaz; los datos en semicondensada (wdth 85) con cifras tabulares.
 
-Escala: la clásica de *The Elements of Typographic Style* (Bringhurst): 14, 16, 18, 21, 24, 36, 48, 60 y 72 px. El cuerpo sube a 18 px también en móvil porque el comprador lee referencias y cantidades en el celular, muchas veces al sol en la tienda o la bodega. El espaciado vertical va en múltiplos de 4 y 8 px.
+Escala dramática, implementada con `clamp()` (valores medidos a 1440 y 390 px):
+
+| Rol | Token | Escritorio (1440) | Móvil (390) | wdth | wght | Interlineado |
+|---|---|---|---|---|---|---|
+| Titular del hero | `--hero-fs: clamp(3rem, 1.2rem + 6vw, 7.5rem)` | 106 px (tope 120) | 48 px | 62 móvil, 64 desde 600, 66 desde 1024 | 820 | 0,92 |
+| H1 interior | `--h1-fs: clamp(2.5rem, 1.4rem + 4.2vw, 5.5rem)` | 83 px (tope 88) | 40 px | 66, 68 desde 1024 | 800 | 0,96 |
+| H2 | `--h2-fs: clamp(2rem, 1.3rem + 2.3vw, 3.5rem)` | 54 px | 32 px | 70 | 800 | 1 |
+| H3 | `--h3-fs: clamp(1.3125rem, 1.15rem + 0.5vw, 1.625rem)` | 26 px | 21 px | 88 | 720 | 1,2 |
+| Cifra gigante (gesto) | `--cifra-fs: clamp(4.5rem, 1.5rem + 8vw, 9rem)` | 139 px (tope 144) | 72 px | 125 | 900 | 0,82 |
+| Cifra de la mini-ficha | `--fs-48` a `--fs-60` | 48 a 60 px | 48 px | 118 | 880 | 0,95 |
+| Total de Solicitar cotización | `clamp(3rem, 1.8rem + 3.2vw, 4.75rem)` | 74 px | 48 px | 118 | 900 | 1 |
+| Entradilla | `--fs-21` | 21/32 px | 21/32 px | 100 | 400 | |
+| Cuerpo | `--fs-18` | 18/28 px | 18/28 px | 100 | 400; énfasis 600 | medida de 60 a 72 caracteres |
+| Interfaz (botones, menú, etiquetas) | `--fs-16` | 16/24 px | 16/24 px | 100 | menú 520 (activo 700), botones 650 | |
+| Datos (tablas, pesos, pacas, kilos, lotes) | `--fs-16` | 16/24 px; totales 24 px | igual | 85 | 600 | `tabular-nums`, a la derecha |
+| Meta (migas, notas, pie de foto) | `--fs-14` | 14/20 px | 14/20 px | 100 | 400 o 500 | mínimo absoluto |
+| Cifras de la fila a escala | `--fila-cifra-fs` | 24 px | 18 px | 62 a 125 (móvil 75 a 125) | 300 a 900 (móvil 500 a 900) | ver sección 12 |
+
+**Cifras gigantes, en uno o dos lugares por página y nunca como hero:** Home, "7,4 L" de leche por kilo en la banda de Cuánto rinde y "12" meses de vida útil en Hecha para el calor; ficha, la presentación elegida ("500 g") en Verde Mundilácteos detrás del empaque, ajustada al ancho de la galería; Solicitar cotización, el total en kilos; Calidad, "FAVORABLE"; Nosotros, los años de la historia en expandida verde. Todas acompañan un dato, no lo sustituyen.
 
 Reglas:
 
 - Tipo oración siempre. Sin mayúsculas sostenidas en etiquetas, sin rótulos pequeños sobre los títulos y sin resaltar una palabra suelta del titular con otro color, cursiva o peso.
 - Tracking 0 en todos los tamaños (sin tracking negativo en la condensada).
+- **`text-rendering: geometricPrecision` en `body` y heredado por los controles de formulario** (el navegador les pone `auto`). Corrige los huecos irregulares entre letras que se veían en móvil ("Produc tos", "Ent era", "Regist ro"): el archivo que Google Fonts entrega a iOS no trae tabla `prep` y, con el redondeo del hinting, los avances de t, f y el guion salían enteros e irregulares. Con `geometricPrecision` los avances no se redondean. Verificado midiendo el ancho de cada glifo en Chromium con el agente de iPhone.
 - Todo alineado a la izquierda. Nunca justificado; nada centrado salvo los iconos de la barra inferior.
 - Formato colombiano: coma decimal, punto de miles y espacio fino no separable antes de la unidad (12,5 kg; 1.250 kg; 27 g). El nombre de la presentación se escribe como en el empaque (1000 g).
 - Ancho y peso se fijan con `font-stretch` y `font-weight`, no con `font-variation-settings`, para que la cascada funcione.
+- **Ejes animados solo en cifras**: la cifra de la fila y la de la mini-ficha o la ficha "se imprimen" (el ancho pasa de 62 % a su valor mientras se revelan de izquierda a derecha); el menú activo gana peso. Nunca en texto corrido y sin cambiar el ancho del contenedor.
 - Respaldo métrico: `@font-face` "Archivo Fallback" sobre Arial con `size-adjust` y `ascent-override` calculados contra Archivo para reducir el salto de diseño (CLS) mientras carga la fuente.
-- Se revisaron las sugerencias de ui-ux-pro-max (Playfair Display SC con Karla, Plus Jakarta Sans, Barlow Condensed) y se descartaron: responden a registros de restaurante, SaaS o deporte. Tampoco se adoptó la segunda familia de Nota de pedido (Atkinson Hyperlegible): el cuerpo a 18 px con Archivo resuelve la legibilidad sin sumar peso de carga.
+- Se revisaron las sugerencias de ui-ux-pro-max (Playfair Display SC con Karla, Plus Jakarta Sans, Barlow Condensed) y se descartaron: responden a registros de restaurante, SaaS o deporte. Tampoco se adoptó Atkinson Hyperlegible: el cuerpo a 18 px con Archivo resuelve la legibilidad sin sumar peso de carga.
 
 ### 4.4 Fotografía
 
@@ -129,13 +141,13 @@ Sin banco de imágenes, sin vacas, sin salpicaduras y sin sonrisas posadas. Colo
 | F04 | Ficha | Bultos de 5, 12,5 y 25 kg, frente y tres cuartos | 4:5, fondo blanco | Fila, ficha, franja de bultos |
 | F05 | Ficha | Las 12 presentaciones de pie sobre una misma línea base, en una sola toma | 21:9, regla visible | Nosotros, imagen para compartir (OG), prensa |
 | F06 | Ficha | Bolsas de marca propia | Solo con autorización escrita de la cadena | Marca propia |
-| M01 | Materia | Cuchara rasa nivelada con espátula | Macro 1:1, luz rasante | Home, Cuánto rinde |
+| M01 | Materia | Cuchara rasa nivelada con espátula | Macro 1:1, luz rasante | Recursos (Cuánto rinde); en la Home la reemplaza la cifra 7,4 L |
 | M02 | Materia | Polvo disolviéndose en un vaso de 200 ml, secuencia de 3 | 1:1 | Ficha (preparación), Recursos |
 | M03 | Materia | Grano bajo lupa de 10x | 1:1 | Calidad |
 | M04 | Materia | Costura y papel triple del saco kraft | Macro 3:2 | Ficha de bultos |
 | M05 | Materia | Dentado del termosellado de la bolsa | Macro 3:2 | Nosotros (origen del sello M) |
 | O01 | Oficio | Manos con guantes y cofia en la empacadora | 3:2 | Calidad, Nosotros |
-| O02 | Oficio | Codificación de lote y vencimiento en la bolsa | 3:2 | Home (Así empacamos), Calidad |
+| O02 | Oficio | Codificación de lote y vencimiento en la bolsa | 3:2 | Calidad (Así empacamos); en la Home va la foto real del equipo |
 | O03 | Oficio | Pesaje de verificación con la pantalla de la báscula legible | 3:2 | Por qué elegirnos, Calidad |
 | O04 | Oficio | Pacas en estiba en la bodega | 3:2 | Para su negocio, Distribución |
 | O05 | Oficio | Cargue del camión en el muelle y camión saliendo por la vía Turbaco | 3:2 | Distribución |
@@ -144,50 +156,67 @@ Sin banco de imágenes, sin vacas, sin salpicaduras y sin sonrisas posadas. Colo
 | C01 | Clientes | Panadero de Cartagena abriendo un bulto en su obrador, luz de mediodía que entra por la puerta | 4:5 | Home (Hecha para el calor), Para su negocio |
 | C02 | Clientes | Tendera recibiendo una paca en su tienda de barrio | 3:2 | ¿Qué necesita?, Distribución |
 | C03 | Clientes | Góndola de un supermercado de la Costa con The Cántaro y La Becerrita | 3:2, con permiso de la cadena | Dónde comprar |
-| C04 | Clientes | Cocina de casa: alguien prepara un vaso o arequipe con The Cántaro, luz de ventana | 4:5 | Para su casa, Recursos (En la cocina) |
+| C04 | Clientes | Cocina de casa: alguien prepara un vaso o arequipe con The Cántaro, luz de ventana | 4:5 | Recursos (En la cocina), ficha (En uso); en la Home, Para su casa usa los packshots |
 | C05 | Clientes | Operario de una industria de alimentos vaciando un bulto en la mezcladora | 3:2, si un cliente lo permite | Para su negocio, marca propia |
 
 Reglas de producción y uso:
 
 - Autorización firmada de cada persona fotografiada (la imagen es dato personal según la Ley 1581 de 2012).
 - Formatos AVIF con respaldo WebP; `srcset` de 480, 960, 1440 y 1920 px; `width` y `height` declarados para reservar el espacio; carga diferida debajo del primer pantallazo. El hero no depende de una foto: su contenido principal es texto y SVG, lo que acelera la primera carga.
-- Mientras llega la sesión, el prototipo usa los recursos de `conceptos/compartido/img-cliente/`: `cantaro-entera-frente.webp`, `cantaro-azucarada-frente.webp`, `becerrita-entera-frente.webp`, `cantaro-bulto-25kg.webp`, `becerrita-bulto-25kg.webp`, `bulto-kraft-rojo.webp` y `bultos-trio.webp`. `equipo-planta.webp` solo en Nosotros (es de baja resolución y tiene decoración de temporada). Las bolsas de marca Olímpica solo con permiso. No se usan `foto-actual-vacas.webp` ni el logo actual, salvo como "antes" en la presentación al cliente.
+- Mientras llega la sesión, el prototipo usa las fotos reales de `conceptos/compartido/img-cliente/`. Los packshots se recortan al borde de la bolsa (fondo transparente, sin margen) y se guardan como `img/r-*.webp` para apoyarlos sobre la línea base con su sombra de contacto: The Cántaro Azucarada 380 g, The Cántaro Entera 500 g, 800 g y bulto de 25 kg, La Becerrita Entera 380 g y 900 g, The Cántaro Mezcla Láctea 900 g y bulto de 12,5 kg, La Becerrita Mezcla Láctea en bulto de 25 kg y los tres bultos juntos (`r-bultos-trio.webp`, en Para su negocio). `equipo-planta.webp` va en la Home (Así empacamos) y en Nosotros; `equipo-evento-a.webp` y `equipo-evento-b.webp` en Nosotros (tienen decoración de temporada). Las bolsas de marca propia (`marca-propia-*.webp`) solo en Marca propia, con el aviso "se muestran con autorización del cliente". No se usan `foto-actual-vacas.webp` ni el logo actual, salvo como "antes" en la presentación al cliente.
+- Las tomas que aún no existen se muestran como **marcos de dirección fotográfica**, no como huecos: fondo Verde tenue con brillo radial, marcas de encuadre en Verde Mundilácteos, el pictograma de su familia (Ficha: bolsa; Materia: cuchara; Oficio: planta; Clientes: tienda), el código pequeño y un pie de foto breve. **Máximo un marco por sección**, nunca dominante (360 px de ancho como máximo); si una sección necesita otra toma, se nombra en una línea de texto ("También por producir, toma O01: ...").
+- Home: sin marcos en el primer pantallazo. Para su casa usa los packshots, Cuánto rinde usa la cifra "7,4 L" en lugar de la toma M01 y Así empacamos usa la foto real del equipo en lugar de O02 (que pasa a Calidad). Queda un solo marco en la Home: C01 en Hecha para el calor.
 - La estatua de vaca de la planta es real y puede aparecer en Nosotros, nunca como hero ni como símbolo de la marca.
 
 ### 4.5 Ilustración e iconografía
 
-- **Pictogramas propios** de trazo 1,75 px con remates y uniones rectos, en Tinta café, sobre retícula de 24 px, dibujados a partir de los formatos reales: bolsa con sello dentado, paca, bulto cosido, estiba, camión, cuchara rasa, vaso de 200 ml, lote y vencimiento, certificado y registro. Solo aparecen donde informan: filtros de formato, filas de empaque de la ficha, calculadora y Distribución.
+- **Pictogramas propios** de trazo 1,75 px (1,5 px en planta y tienda) con remates y uniones rectos, en Azul noche (Verde hoja dentro de los marcos de toma), sobre retícula de 24 px, dibujados a partir de los formatos reales: bolsa con sello dentado, paca, bulto cosido, estiba, camión, cuchara rasa, vaso de 200 ml, planta, tienda, lote y vencimiento, certificado y registro. Solo aparecen donde informan: filtros de formato, filas de empaque de la ficha, marcos de toma, vuelo a Mi cotización y Distribución.
 - **Iconos de interfaz** (buscar, menú, cerrar, más, menos, descargar, copiar enlace, imprimir, confirmación, alerta): se parte de Lucide y se reexportan con el mismo trazo de 1,75 px y remates rectos para que convivan con los pictogramas. Siempre acompañados de texto visible o de `aria-label` si van solos. El glifo de WhatsApp se usa tal como lo exige su marca, solo junto a la palabra WhatsApp.
-- **Siluetas de la fila a escala**: monolínea con el mismo trazo, como respaldo mientras llegan los packshots calibrados.
-- **Mapa lineal de Colombia** en Distribución: contorno de 1,75 px, Cartagena marcada con un punto relleno y las ciudades de despacho como puntos con nombre. Sin flechas de ruta inventadas y sin pines.
+- **Siluetas de la fila a escala**: monolínea en Azul noche con relleno Verde tenue (punteada y sin relleno si solo es de maquila), solo para las presentaciones sin foto.
+- **Mapa lineal de Colombia** en Distribución: contorno de 2 px en Verde Mundilácteos con relleno Blanco, Cartagena marcada con un punto relleno y las ciudades de despacho como puntos con nombre. Sin flechas de ruta inventadas y sin pines.
 - Nada de iconos dentro de círculos de color, rejillas de beneficios con iconos, emoji, bandera tricolor ni gotas.
 
-### 4.6 Texturas
+### 4.6 Texturas y formas de marca
 
-La interfaz no tiene texturas: el Kraft es un color plano, sin ruido de papel ni grano simulado. Las texturas viven solo en la fotografía (la fibra del saco, el brillo del laminado, el grano del polvo en macro). Se descartó el papel con grano, la perforación de talonario y el sello de goma de Nota de pedido: son recursos esqueuomorfos conocidos, cuestan rendimiento y restan legibilidad.
+La interfaz no tiene texturas: nada de ruido de papel, grano ni perforaciones. Las texturas viven solo en la fotografía (la fibra del saco, el brillo del laminado, el grano del polvo en macro). La profundidad sale de formas de marca planas, todas con colores de MARCA.md:
+
+- **Borde dentado del termosellado.** Dientes de 14 × 7 px (18 × 9 px desde 1024 px) hechos con `conic-gradient` del color de la banda, sin imágenes. Van arriba y abajo de la banda Verde Mundilácteos de Cuánto rinde (una tira sellada), arriba del panel Verde tinte de Para su negocio y de la banda Verde tenue de Distribución, abajo de la banda de encabezado de las páginas interiores y arriba del pie en Azul noche.
+- **Bandas por capas.** Verde Mundilácteos (Cuánto rinde, con la calculadora como tarjeta blanca con sombra), Azul noche (Nuestras marcas y el pie), Verde tinte (zonas B2B) y Verde tenue (encabezados interiores, Distribución). Los empaques desbordan las bandas: los bultos rompen el borde del panel Para su negocio y las bolsas de Nuestras marcas quedan mitad sobre el blanco y mitad sobre el Azul noche.
+- **Brillo radial** de Verde Mundilácteos (26 % al centro, 0 en el borde) detrás de la fila a escala, de los packshots de la planilla, de la galería de la ficha y de los encabezados.
+- **Sombras de contacto** en Azul noche translúcido bajo cada empaque recortado, y una sombra ambiente que crece cuando el empaque se eleva. Una sola sombra de tarjeta (`--sombra-tarjeta`) para la calculadora, la mini-ficha flotante, el resumen de Cotizar y el aviso.
+- **Foto con respaldo verde**: la foto real del equipo en la Home lleva un bloque Verde Mundilácteos desplazado 18 px detrás.
 
 ### 4.7 Movimiento
 
-**Un solo momento orquestado**: la carga de la fila a escala en la Home, con una duración máxima de 900 ms.
+Actualizado el 25/09/2026 con EXPERIENCIA.md, que tiene prioridad sobre el criterio 7 del checklist de tendencias. **Personalidad: precisión de planta.** Nada rebota ni flota porque sí: los empaques suben a la línea base como en la empacadora, las cifras se imprimen y el pedido suma kilos. Solo se animan `transform`, `opacity`, `clip-path` y los ejes de la fuente. Curvas: `cubic-bezier(.2,.7,.2,1)` para entradas (`--curva-entra`) y `cubic-bezier(.4,0,1,1)` para salidas (`--curva-sale`).
 
-1. La línea base se traza de izquierda a derecha (300 ms).
-2. Desde los 100 ms, las presentaciones suben 8 px hasta la línea base en orden de peso, como una línea de llenado: 200 ms por pieza, `ease-out`, 40 ms de escalón.
-3. Al mismo tiempo, cada cifra pasa de `wght` 100 a su grosor final en 240 ms. Solo se anima el peso: el ancho no se anima y cada cifra tiene una caja de ancho reservado, así el texto no empuja nada.
-4. Se reproduce una vez por sesión (se recuerda en `sessionStorage`); al volver atrás aparece en su estado final.
+**Momento orquestado 1: carga del hero** (una vez por sesión, recordada en `sessionStorage`, y solo si se entra por la Home; total ≤ 900 ms). Si no hay JavaScript o hay movimiento reducido, todo está en su estado final.
 
-El resto del movimiento solo responde a acciones de la persona:
+| Paso | Qué pasa | Tiempo |
+|---|---|---|
+| 1 | El titular sube 32 px y aparece | 0 a 520 ms |
+| 2 | Bajada y botones suben 16 px | 140 a 600 ms |
+| 3 | La línea base Verde Mundilácteos se traza de izquierda a derecha y aparece la regla | 160 a 480 ms |
+| 4 | Los 12 empaques suben uno a uno desde detrás de la línea base, recortados en ella con `clip-path`, como en la línea de empaque | desde 200 ms, 300 ms cada uno, 36 ms de escalón |
+| 5 | Cada cifra "se imprime": se revela de izquierda a derecha y su ancho pasa de 62 % a su valor final | 260 ms, 40 ms después de su empaque |
+| 6 | La mini-ficha sube a su sitio | 540 a 880 ms |
+
+**Momento orquestado 2: entrada a la ficha.** Cambio de ruta con View Transitions (`document.startViewTransition`, solo si existe): la vista vieja sale en 180 ms, la nueva entra en 420 ms y el packshot es elemento compartido (`view-transition-name: packshot`) desde la planilla de Productos o Nuestras marcas hasta la galería de la ficha, y de vuelta (480 ms). La cabecera y la barra inferior tienen nombre propio y no parpadean. En la ficha, la cifra de la presentación se imprime detrás del empaque (420 ms) y los datos suben escalonados 40 ms. Sin soporte, el cambio es directo.
+
+El resto del movimiento responde a acciones de la persona:
 
 | Acción | Respuesta | Duración |
 |---|---|---|
-| Elegir una presentación en la fila | El subrayado rojo se desplaza; la mini-ficha cambia con fundido cruzado | 160 ms |
-| Agregar a la cotización | El conteo de Cotizar da un salto de escala (1 a 1,12 a 1); la línea nueva en Mi cotización se resalta en Kraft y se desvanece | 200 ms y 600 ms |
-| Abrir hoja inferior (Filtrar, Mi cotización) | Sube desde abajo | 220 ms |
-| Abrir panel lateral de cotización | Entra desde la derecha | 240 ms |
-| Acordeones de la ficha | Abren y cierran | 200 ms |
-| Filtrar o buscar en Productos | Fundido cruzado de resultados | 150 ms |
+| Pasar el cursor o enfocar un empaque (fila, planilla, Nuestras marcas, galería, marca propia) | Se eleva 6 a 10 px y gira de −2 a −3°; la sombra de contacto se encoge y una sombra ambiente crece debajo. También con `:focus-visible` | 240 ms |
+| Elegir una presentación en la fila | El empaque queda 3 px arriba, el subrayado Cielo profundo se desliza a la cifra elegida, la cifra de la mini-ficha se imprime y sus líneas suben escalonadas | 240 ms |
+| Agregar a la cotización (planilla, ficha, barra de la ficha, calculadora) | FLIP: una copia del packshot (o el pictograma de bolsa o bulto si no está a la vista) vuela en arco hasta Mi cotización: la columna desde 1440 px, la franja entre 1024 y 1439 px o el botón Cotizar de la cabecera o de la barra inferior. Al llegar, el destino late (1 → 1,08 → 1) y el conteo salta. Los kilos totales giran como un contador de cifras (odómetro), escalonado 40 ms por cifra. La fila agregada se resalta en Verde tinte. `aria-live` anuncia el total en texto | 560 ms y 620 ms |
+| Presionar un botón | Escala 0,97 | 120 ms |
+| Hacer scroll | Titulares, bloques, filas de listas, tablas, fotos y tarjetas se desplazan 22 px hasta su sitio (`animation-timeline: view()` dentro de `@supports`). Los empaques que desbordan bandas se desplazan ±16 px a otra velocidad que su banda. Sin cambio de opacidad: el texto nunca pierde contraste y todo está visible en reposo. Sin scroll-jacking ni parallax de fondos | ligado al scroll |
+| Abrir hoja inferior, panel o menú | Sube o entra desde la derecha; en el menú móvil los destinos entran escalonados 40 ms | 220 a 320 ms |
+| Filtrar o buscar en Productos | Fundido de resultados | 150 ms |
 | Elegir ciudad en Distribución | Resalta el punto y la fila de la tabla | 160 ms |
 
-Sin revelados al hacer scroll, sin parallax, sin carruseles automáticos, sin tarjetas que se elevan al pasar el cursor. Con `prefers-reduced-motion: reduce` todo aparece en su estado final y las hojas se abren sin deslizarse.
+Con `prefers-reduced-motion: reduce` los tokens de duración valen 0, toda animación y transición dura 0,01 ms, no se inicia ninguna View Transition (y el CSS anula sus pseudo-elementos), no hay vuelo (solo cambia el número) y el contador muestra el valor final. Sin carruseles automáticos y nada que se mueva solo más de 5 segundos.
 
 ---
 
@@ -195,14 +224,14 @@ Sin revelados al hacer scroll, sin parallax, sin carruseles automáticos, sin ta
 
 ### Concepto: el sello M
 
-El símbolo es la silueta de una bolsa cuyo borde superior de termosellado (el dentado de los sobres) forma una M: dos lados verticales y dos dientes. Una línea horizontal interior marca el nivel de llenado, el peso neto. Es monolínea y de una sola tinta, así que se imprime en flexografía sobre kraft, en film laminado, en etiqueta de paca y en relieve, y sigue siendo legible a 16 px.
+El símbolo es la silueta de una bolsa cuyo borde superior de termosellado (el dentado de los sobres) forma una M: dos lados verticales y dos dientes. La bolsa está llena hasta la línea de peso neto con el **Verde Mundilácteos** del globo actual, y una **onda en Azul cielo** cruza el llenado como las franjas azules del logo de hoy. El contorno va en **Azul Mundilácteos**. Es la evolución del logo actual: conserva sus dos colores y su movimiento, pero cambia la esfera genérica por el objeto que la empresa fabrica y lo vuelve legible a 16 px, imprimible a una tinta y utilizable en relieve.
 
-Se retira el globo verde y azul con degradado: es el cliché de mundo igual a esfera, pierde detalle al reducirse, no imprime a una tinta y lleva el azul que el brief pide evitar.
+Se retira el globo con degradado: el mundo como esfera es un cliché, pierde detalle al reducirse y no imprime a una tinta. Se conservan sus colores, su curva y la tilde que el logo actual omite.
 
 ### Construcción
 
 ```
-Retícula de 24 x 24 unidades (u). Trazo de 2 u, remates y uniones rectos.
+Retícula de 24 x 24 unidades (u). Contorno de 2 u, remates y uniones rectos.
 
         x=4             x=20
          |               |
@@ -215,14 +244,13 @@ Retícula de 24 x 24 unidades (u). Trazo de 2 u, remates y uniones rectos.
          |     \   /     |
          |      \ /      |
   y=11   |       *       |        valle en x=12, a 9 u del borde superior (45 % del alto)
-         |               |
-         |               |
-  y=16   |   ---------   |        línea de llenado, de x=7 a x=17 (solo de 48 px en adelante)
-         |               |
-         |               |
+         | ~~~~.   .~~~~ |        borde del llenado: curva suave entre y=11,6 e y=14 (el globo)
+         |#####`~~~'#####|        llenado Verde Mundilácteos hasta la base
+  y=17,6 |##~~~~~~~~~~~##|        onda Azul cielo de 1,4 u
+         |###############|
   y=22   \_______________/        base con radios de 2 u
 
-Versión de 16 px (favicon): trazo de 3 u, sin línea de llenado.
+Versión de 16 px (favicon): contorno de 3 u, llenado verde sin onda.
 
 Firma horizontal:   [sello]  Mundilácteos
                     alto del sello = 1,4 veces la altura de mayúscula; separación = 6 u
@@ -231,7 +259,9 @@ Firma vertical:     [sello] sobre Mundilácteos, alineados a la izquierda, separ
 Tamaños mínimos:    sello de 16 px en pantalla y 8 mm en impreso; firma horizontal de 120 px
 ```
 
-**Logotipo:** "Mundilácteos" en tipo oración, dibujado sobre Archivo (wdth 75, wght 750) con ajustes a mano: la tilde de la á es un trazo recto con el mismo ángulo de las diagonales del sello, se compensan los espacios entre l, á y c, y se corrige la unión "ct". Recupera la tilde que el logo actual omite.
+Archivos: `img/sello-m.svg` (maestro a color) y `img/sello-m-16.svg` (favicon). En el sitio, el símbolo `#sello` del sprite usa `currentColor` para el contorno y las variables `--sello-lleno` y `--sello-onda` para las otras dos tintas.
+
+**Logotipo:** "Mundilácteos" en Azul Mundilácteos, tipo oración, dibujado sobre Archivo (wdth 75, wght 760) con ajustes a mano: la tilde de la á es un trazo recto con el mismo ángulo de las diagonales del sello, se compensan los espacios entre l, á y c, y se corrige la unión "ct". Recupera la tilde que el logo actual omite.
 
 **Descriptor** (opcional, en el pie y en impresos): "Leche en polvo. Empacada en Cartagena."
 
@@ -239,21 +269,21 @@ Tamaños mínimos:    sello de 16 px en pantalla y 8 mm en impreso; firma horizo
 
 | Versión | Colores | Uso |
 |---|---|---|
-| Positiva | Tinta café sobre Blanco o Kraft | Sitio, documentos, etiqueta de paca |
-| Acento | Rojo saco sobre Kraft (sello de 24 px o más) | Sacos, cajas, material de punto de venta |
-| Negativa | Kraft o Blanco sobre Tinta café | Pie del sitio, vehículos, uniformes oscuros |
-| Una tinta | Cualquier tinta plana del impresor | Flexografía, sello de caucho, relieve, bordado |
+| Positiva (principal) | Contorno Azul Mundilácteos, llenado Verde Mundilácteos, onda Azul cielo; logotipo Azul Mundilácteos, sobre Blanco o Verde tenue | Cabecera del sitio, documentos, etiqueta de paca |
+| Negativa | Contorno Blanco, llenado Verde Mundilácteos, onda Azul cielo; logotipo Blanco, sobre Azul noche | Pie del sitio, vehículos, uniformes oscuros |
+| Sobre verde | Contorno Azul noche, llenado Blanco, onda Azul Mundilácteos; logotipo Azul noche, sobre Verde Mundilácteos | Bandas verdes, material de punto de venta |
+| Una tinta | Contorno y llenado en una sola tinta plana (Azul Mundilácteos o la del impresor), sin onda | Flexografía sobre saco, sello de caucho, relieve, bordado |
 
 ### Usos
 
 - Favicon SVG y ICO (versión de 16 px), ícono de 180 px para pantallas de inicio, imagen para compartir (OG) con la foto F05.
-- Cabecera del sitio: firma horizontal con el sello de 32 px.
+- Cabecera del sitio: firma horizontal con el sello de 30 px (34 px en escritorio).
 - Reverso de The Cántaro y La Becerrita: sello M con la leyenda "Empacado por Mundilácteos en Cartagena". Las marcas de producto conservan sus empaques, que el consumidor ya reconoce.
 - Marca propia: el sello aparece en el empaque de la cadena solo si la cadena lo autoriza.
 - Etiqueta de paca y de estiba: sello, referencia, lote y vencimiento.
 - Documentos comerciales: cotización impresa, fichas técnicas en PDF, firma de correo.
 
-Prohibido: degradados, contornos alrededor del sello, sombras, girarlo, deformarlo, ponerlo sobre fotos sin un panel liso, cambiar el ángulo de los dientes, usar Rojo saco sobre Tinta café, o Rojo saco sobre Kraft por debajo de 24 px.
+Prohibido: degradados, contornos alrededor del sello, sombras, girarlo o deformarlo, ponerlo sobre fotos sin un panel liso, cambiar el ángulo de los dientes, usar colores fuera de las cuatro versiones o separar la onda del llenado.
 
 Entregables: SVG maestro, versiones a una tinta en PDF vectorial para imprenta, favicon, ícono de 180 px, plantilla de etiqueta de paca y guía de marca de una página.
 
@@ -297,16 +327,16 @@ CABECERA ESCRITORIO (>= 1280 px). Al bajar, la franja de utilidad se va y la fil
 | [sello M] Mundilácteos  Productos  Marca propia  Calidad  Distribución  Nosotros  Recursos       |
 |                                             [ Marca, gramos o código ]    [ Cotizar (3) ]        |
 +--------------------------------------------------------------------------------------------------+
-| Enlace activo: subrayado de 3 px en Tinta café bajo el texto (no cambia de color).               |
+| Enlace activo: peso 700 y subrayado de 3 px en Verde Mundilácteos bajo el texto.                  |
 | Entre 1024 y 1279 px el buscador pasa a botón "Buscar", que abre un campo con sugerencias.       |
-| "Cotizar" es el único botón rojo de la cabecera. Con referencias en la lista muestra el conteo.  |
+| "Cotizar" es el único botón Verde hoja de la cabecera. Con referencias muestra el conteo.         |
 +--------------------------------------------------------------------------------------------------+
 ```
 
 - Seis destinos: Productos, Marca propia, Calidad, Distribución, Nosotros y Recursos. **Marca propia** es destino propio (injerto de Nota de pedido) porque la maquila tiene un comprador distinto.
 - **Por qué elegirnos** no ocupa lugar en el menú de escritorio: es un argumento, no un destino. Vive en la Home, en Nosotros, en el menú móvil y en el pie, y tiene su propia página para que un asesor pueda enviarla.
 - El **buscador** está siempre visible desde 1280 px (injerto de Nota de pedido). Entre 1024 y 1279 px es un botón que abre el campo.
-- **Cotizar** es el único botón rojo. Con referencias en la lista muestra el conteo: "Cotizar (3)". Lleva a `/cotizar/`.
+- **Cotizar** es el único botón Verde hoja de la cabecera. Con referencias en la lista muestra el conteo: "Cotizar (3)". Lleva a `/cotizar/`. Es también el destino del vuelo del empaque al agregar. En la ficha móvil, donde no hay barra inferior, la cabecera muestra un botón Cotizar compacto con el conteo.
 - La franja de utilidad da al consumidor final una entrada directa ("¿Es para su casa? Dónde comprar") sin mezclarlo con el flujo mayorista.
 
 ### Menú y barras en móvil
@@ -357,7 +387,7 @@ MÓVIL: barra inferior en la ficha
 
 ### Pie
 
-Fondo Tinta café. Cuatro grupos: Productos (The Cántaro, La Becerrita, Bultos, Marca propia), Empresa (Nosotros, Por qué elegirnos, Calidad, Distribución, Recursos), Atención (Escribir a un asesor, Contacto, Dónde comprar, Peticiones, quejas y reclamos) y Datos (Inversiones Mundilácteos S.A.S., NIT, Parque Industrial Europark, Km 1 vía Turbaco, Cartagena, horario, Política de datos, Términos). Cierra con el sello M en Kraft y la frase "Industria colombiana. Empacamos en Cartagena."
+Fondo Azul noche con el borde dentado del termosellado arriba. Cuatro grupos: Productos (The Cántaro, La Becerrita, Bultos, Marca propia), Empresa (Nosotros, Por qué elegirnos, Calidad, Distribución, Recursos), Atención (WhatsApp, teléfono y correo con el número visible, Contacto, Dónde comprar, Peticiones, quejas y reclamos) y Datos (Inversiones Mundilácteos S.A.S., NIT, dirección en Europark, horario, Política de datos, Términos). Enlaces en Verde Mundilácteos (5,10:1) y texto en Verde tenue. Cierra con el sello M en su versión negativa y la frase "Industria colombiana. Empacamos en Cartagena." en condensada de 48 px.
 
 ### Reglas de navegación
 
@@ -373,14 +403,14 @@ Fondo Tinta café. Cuatro grupos: Productos (The Cántaro, La Becerrita, Bultos,
 | # | Sección | Propósito | Contenido y comportamiento |
 |---|---|---|---|
 | 1 | Cabecera | Orientar y dar acceso a cotizar | Franja de utilidad y fila principal (sección 6) |
-| 2 | Hero con la fila a escala | Mostrar la amplitud del surtido y el origen en la primera mirada | H1 "Leche en polvo empacada en Cartagena, de 27 gramos a 25 kilos." en columnas 1 a 8. Bajada y botones en columnas 9 a 12, alineados a la base del H1: "Cotizar por volumen" (rojo) y "Ver productos" (enlace). Debajo, la fila a escala con sus 12 presentaciones (sección 12). Al elegir una, la mini-ficha en Film muestra paca, peso de paca, rinde y en qué productos está, con el enlace "Ver 900 g en Productos". Estado inicial: 900 g elegida (en móvil, 1000 g). |
-| 3 | ¿Qué necesita? | Enrutar por tipo de comprador (injerto de Kilómetro Cero) | Dos columnas al mismo nivel. **Para su negocio** (fondo Kraft): tres rutas en lista, Supermercados y cadenas (Surtido o marca propia, "Ver marca propia"), Distribuidores y mayoristas (Pacas de 12 a 300 unidades, "Ver pacas"), Panaderías e industria (Bultos de 5, 12,5 y 25 kg, "Ver bultos"), más el botón "Cotizar por volumen". **Para su casa** (fondo Blanco): las cadenas donde se consigue, en texto, foto C04 y "Ver dónde comprar". "Ver pacas" y "Ver bultos" abren Productos ya filtrado. |
-| 4 | Cuánto rinde y calculadora | Traducir el producto a litros y el consumo a bultos | Izquierda: foto M01 y "26 g en 200 ml de agua preparan un vaso. Un kilo rinde cerca de 7,7 litros." Derecha: formulario "Calcule su pedido de bultos" con Producto, Litros que prepara al día y Días de trabajo al mes. Resultado en `aria-live`: "Necesita cerca de 34 kg al mes: 1 bulto de 25 kg y 2 de 5 kg (35 kg)." Regla: la combinación que cubre la necesidad con el menor sobrante; si empatan, la de menos bultos. Botón "Agregar estos bultos a la cotización". |
-| 5 | Hecha para el calor | Orgullo de la Costa y verdad de producto (injerto de Kilómetro Cero) | "No necesita nevera. Cerrada, en un lugar seco y a la sombra, dura 12 meses: aguanta la ruta, la bodega y la tienda de barrio." Con la foto C01. Se publica solo si la ficha técnica respalda la frase (ver sección 18). |
+| 2 | Hero con la fila a escala | Mostrar la amplitud del surtido y el origen en la primera mirada | H1 "Leche en polvo empacada en Cartagena, de 27 gramos a 25 kilos." en columnas 1 a 9, a escala de display (106 px). Bajada y botones en columnas 10 a 12, alineados a la base del H1: "Cotizar por volumen" (Verde hoja) y "Ver productos" (enlace). Debajo, la fila a escala con sus 12 presentaciones, con los packshots reales donde existen (sección 12). Al elegir una, la mini-ficha en Verde tinte (desde 1280 px flota como tarjeta en el hueco que dejan las bolsas pequeñas) muestra paca, peso de paca, rinde y en qué productos está, con el enlace "Ver 900 g en Productos". Estado inicial: 900 g elegida, también en móvil. |
+| 3 | ¿Qué necesita? | Enrutar por tipo de comprador (injerto de Kilómetro Cero) | Dos columnas al mismo nivel. **Para su negocio** (panel Verde tinte con borde dentado y la foto real de tres bultos que lo desborda por arriba): tres rutas en lista, Supermercados y cadenas (Surtido o marca propia, "Ver marca propia"), Distribuidores y mayoristas (Pacas de 12 a 300 unidades, "Ver pacas"), Panaderías e industria (Bultos de 5, 12,5 y 25 kg, "Ver bultos"), más el botón "Cotizar por volumen". **Para su casa** (fondo Blanco): dos bolsas reales superpuestas sobre un brillo verde, las cadenas donde se consigue, en texto, y "Ver dónde comprar". "Ver pacas" y "Ver bultos" abren Productos ya filtrado. |
+| 4 | Cuánto rinde y calculadora | Traducir el producto a litros y el consumo a bultos | Banda Verde Mundilácteos dentada arriba y abajo. Izquierda: la cifra gigante "7,4 L" de leche por cada kilo, y "135 g de leche en polvo preparan un litro. La bolsa de 27 g prepara un vaso de 200 ml." Derecha: tarjeta blanca con sombra y el formulario "Calcule su pedido de bultos" con Producto, Litros que prepara al día y Días de trabajo al mes. Resultado en `aria-live`: "Necesita cerca de 34 kg al mes: 1 bulto de 25 kg y 2 de 5 kg (35 kg)." Regla: la combinación que cubre la necesidad con el menor sobrante; si empatan, la de menos bultos. Botón "Agregar estos bultos a la cotización". |
+| 5 | Hecha para el calor | Orgullo de la Costa y verdad de producto (injerto de Kilómetro Cero) | "No necesita nevera. Cerrada, en un lugar seco y a la sombra, dura 12 meses: aguanta la ruta, la bodega y la tienda de barrio." Cifra gigante "12" meses de vida útil y el marco de dirección fotográfica C01 (el único de la Home). Se publica solo si la ficha técnica respalda la frase (ver sección 18). |
 | 6 | Por qué elegirnos | Confianza verificable (injerto de Nota de pedido y Kilómetro Cero) | Planilla de dos columnas, hecho y prueba, sin tarjetas: planta propia (Ver la planta), ISO 9001:2015 (Descargar certificado), registro Invima por referencia (Consultar en el Invima), lote y vencimiento en cada bolsa (Cómo leer el lote), 12 presentaciones y pacas de 12 a 300 unidades (Ver productos), despacho a toda Colombia (Ver tiempos por ciudad). Enlace "Ver todas las razones". |
-| 7 | Nuestras marcas | Arquitectura de marcas | Tres columnas sin marco ni sombra: The Cántaro, La Becerrita y Su marca. Packshot, línea de presentaciones y enlace al catálogo filtrado o a Marca propia. |
-| 8 | Así empacamos cada bolsa | Mostrar el oficio | Secuencia real, por eso numerada: 1 Recepción, 2 Análisis, 3 Empaque y pesaje, 4 Sellado, lote y vencimiento, 5 Despacho. Foto O02. Enlace "Ver calidad y certificaciones". |
-| 9 | Distribución | Cobertura nacional | Mapa lineal pequeño y lista "Elija su ciudad" con tiempo de entrega de tres ciudades. Enlace "Ver todas las ciudades". |
+| 7 | Nuestras marcas | Arquitectura de marcas | Banda Azul noche con tres columnas: The Cántaro, La Becerrita y Su marca. Los packshots desbordan la banda por arriba (mitad sobre blanco, mitad sobre Azul noche); Su marca es una silueta punteada en Verde Mundilácteos. Enlaces en Verde Mundilácteos al catálogo filtrado o a Marca propia. |
+| 8 | Así empacamos cada bolsa | Mostrar el oficio | Secuencia real, por eso numerada: 1 Recepción, 2 Análisis, 3 Empaque y pesaje, 4 Sellado, lote y vencimiento, 5 Despacho, con los números en expandida Verde Mundilácteos. Foto real del equipo frente a la planta, con un bloque verde desplazado detrás. Enlace "Ver calidad y certificaciones". |
+| 9 | Distribución | Cobertura nacional | Banda Verde tenue dentada arriba. Mapa lineal pequeño y lista "Elija su ciudad" con tiempo de entrega de tres ciudades. Enlace "Ver todas las ciudades". |
 | 10 | Recursos | Contenido útil y SEO | Tres artículos en lista de texto: título, tema y minutos de lectura. |
 | 11 | Pie | Datos, legal y orgullo | Sección 6 |
 
@@ -421,24 +451,25 @@ Fondo Tinta café. Cuatro grupos: Productos (The Cántaro, La Becerrita, Bultos,
 +--------------------------------------------------------------------------------------------------+
 | ¿Qué necesita?                                |                                                  |
 +-----------------------------------------------+--------------------------------------------------+
-| (fondo Kraft) Para su negocio                 | (fondo Blanco) Para su casa                      |
+| (Verde tinte) Para su negocio                 | (fondo Blanco) Para su casa                      |
 | Supermercados y cadenas                       | Encuéntrenos en Olímpica, Megatiendas,           |
 |   Surtido o marca propia  Ver marca propia    | Mr. Bono, Rapimercar, La Garosa y Rappi.         |
-| Distribuidores y mayoristas                   | [foto C04: cocina de casa, luz de ventana]       |
+| Distribuidores y mayoristas                   | [dos bolsas reales superpuestas, brillo verde]   |
 |   Pacas de 12 a 300 unidades  Ver pacas       |                                                  |
 | Panaderías e industria                        | Ver dónde comprar                                |
 |   Bultos de 5, 12,5 y 25 kg   Ver bultos      |                                                  |
 | [ Cotizar por volumen ]                       |                                                  |
 +-----------------------------------------------+--------------------------------------------------+
 | Cuánto rinde                                  | Calcule su pedido de bultos                      |
-| [foto M01: cuchara rasa, luz rasante]         | Producto  [ The Cántaro entera, bulto  v ]       |
+| (banda Verde Mundilácteos, dentada)           | (tarjeta blanca con sombra)                      |
+| 7,4 L  <- cifra gigante, expandida 125        | Producto  [ The Cántaro entera, bulto  v ]       |
 |                                               | Litros que prepara al día     [ 10 ]             |
-| 26 g en 200 ml de agua preparan un vaso.      | Días de trabajo al mes        [ 26 ]             |
-| Un kilo rinde cerca de 7,7 litros.            | Necesita cerca de 34 kg al mes:                  |
+| 135 g preparan un litro; 27 g, un vaso.       | Días de trabajo al mes        [ 26 ]             |
+| de leche por cada kilo de polvo               | Necesita cerca de 34 kg al mes:                  |
 | (dosis tomada de la etiqueta de cada          | 1 bulto de 25 kg y 2 de 5 kg (35 kg).            |
 |  producto; dato a confirmar)                  | [ Agregar estos bultos a la cotización ]         |
 +-----------------------------------------------+--------------------------------------------------+
-| Hecha para el calor                           | [foto C01: panadero de Cartagena abriendo        |
+| Hecha para el calor    12 meses de vida útil  | [marco C01: panadero de Cartagena abriendo       |
 | No necesita nevera. Cerrada, en un lugar      |  un bulto, luz dura de mediodía]                 |
 | seco y a la sombra, dura 12 meses: aguanta    |                                                  |
 | la ruta, la bodega y la tienda de barrio.     |                                                  |
@@ -453,7 +484,8 @@ Fondo Tinta café. Cuatro grupos: Productos (The Cántaro, La Becerrita, Bultos,
 | Ver todas las razones                                                                            |
 +--------------------------------------------------------------------------------------------------+
 | Nuestras marcas                |                                |                                |
-| [packshot The Cántaro]         | [packshot La Becerrita]        | [bolsa de marca propia]        |
+| (los packshots desbordan la banda Azul noche por arriba)                                        |
+| [packshot The Cántaro]         | [packshot La Becerrita]        | [silueta punteada Su marca]    |
 | The Cántaro                    | La Becerrita                   | Su marca                       |
 | Entera y azucarada,            | Entera, de 380 g a 25 kg       | Empacamos para su cadena       |
 | de 27 g a 25 kg                | Ver La Becerrita               | Ver marca propia               |
@@ -461,7 +493,7 @@ Fondo Tinta café. Cuatro grupos: Productos (The Cántaro, La Becerrita, Bultos,
 +--------------------------------------------------------------------------------------------------+
 | Así empacamos cada bolsa                                     Ver calidad y certificaciones       |
 | 1 Recepción   2 Análisis   3 Empaque y pesaje   4 Sellado, lote y vencimiento   5 Despacho       |
-| [foto O02: codificación del lote en la bolsa]                                                    |
+| [foto real: el equipo frente a la planta, bloque verde desplazado detrás]                         |
 +--------------------------------------------------------------------------------------------------+
 | Distribución                                  | Elija su ciudad                                  |
 | [mapa lineal de Colombia: Cartagena marcada,  | Barranquilla      24 a 48 h   Ver                |
@@ -474,22 +506,22 @@ Fondo Tinta café. Cuatro grupos: Productos (The Cántaro, La Becerrita, Bultos,
 | Cómo almacenar bultos en clima cálido                          Para su negocio   4 min           |
 | Arequipe casero con leche en polvo                             En la cocina      6 min           |
 +--------------------------------------------------------------------------------------------------+
-| (pie en Tinta café) Productos  Marca propia  Calidad  Distribución | Parque Industrial Europark  |
+| (pie en Azul noche) Productos  Marca propia  Calidad  Distribución | Parque Industrial Europark  |
 | Nosotros  Por qué elegirnos  Recursos  Dónde comprar  Contacto     | Km 1 vía Turbaco, Cartagena |
 | Política de datos (Ley 1581 de 2012)   NIT 000.000.000-0           | Lun. a vie., 7 a 5 p. m.    |
-| Industria colombiana. Empacamos en Cartagena.                      | [sello M en Kraft]          |
+| Industria colombiana. Empacamos en Cartagena.                      | [sello M, versión negativa] |
 +--------------------------------------------------------------------------------------------------+
 
 Notas:
 - Franja de utilidad de 40 px; se va al hacer scroll
 - Cabecera fija de 72 px; se compacta a 56 px
-- H1: Archivo 72/72, wdth 68, wght 800, columnas 1 a 8
+- H1: Archivo 106/98 (clamp hasta 120), wdth 66, wght 820, columnas 1 a 9
 - Bajada: 21/32, columnas 9 a 12, alineada a la base del H1
-- Botón rojo Cotizar por volumen y enlace Ver productos
-- Pista de la fila: 16/24, Tinta suave
-- Mini-ficha de la presentación elegida: fondo Film, aria-live="polite"
+- Botón Verde hoja Cotizar por volumen y enlace Ver productos
+- Pista de la fila: 16/24, Pizarra
+- Mini-ficha de la presentación elegida: fondo Verde tinte, aria-live="polite"
 - Fin del primer pantallazo: cabecera, H1, fila y mini-ficha caben en 1440 x 800
-- H2 36/40, wdth 75, wght 800
+- H2 54/54, wdth 70, wght 800
 - Dos H2 en paralelo; la calculadora es un formulario con resultado aria-live
 - Hecha para el calor: se publica solo si la ficha técnica lo respalda
 - Por qué elegirnos: H2 y bajada en la misma línea base
@@ -506,7 +538,7 @@ Notas:
 +-----------------------------------+
 | [M] Mundilácteos            Menú  |  cabecera 56 px
 +-----------------------------------+
-| Leche en polvo                    |  H1 48/48, wdth 62, wght 800
+| Leche en polvo                    |  H1 48/44, wdth 62, wght 820
 | empacada en                       |
 | Cartagena, de 27                  |
 | gramos a 25 kilos.                |
@@ -533,7 +565,7 @@ Notas:
 | 12,0 kg. Rinde cerca de 7,7 L.    |
 +-----------------------------------+
 | ¿Qué necesita?                    |
-| (Kraft) Para su negocio           |
+| (Verde tinte) Para su negocio     |
 | Supermercados y cadenas       >   |
 | Distribuidores y mayoristas   >   |
 | Panaderías e industria        >   |
@@ -543,19 +575,19 @@ Notas:
 | Ver dónde comprar                 |
 +-----------------------------------+
 | Cuánto rinde + calculadora        |
-| Hecha para el calor + foto C01    |
+| Hecha para el calor + marco C01   |
 | Por qué elegirnos (6 filas)       |
 | Nuestras marcas (1 columna)       |
 | Así empacamos (1 a 5 apilados)    |
 | Distribución (lista de ciudades)  |
 | Recursos (3 enlaces)              |
-| Pie en Tinta café                 |
+| Pie en Azul noche                 |
 +-----------------------------------+
 | Buscar  | WhatsApp  | Cotizar (3) |  barra inferior fija, 64 px
 +-----------------------------------+
 ```
 
-En móvil la fila muestra 5 presentaciones representativas (27 g, 200 g, 1000 g, 5 kg y 25 kg) sin scroll horizontal, con el enlace "Ver las 12 presentaciones". Las secciones se apilan en el mismo orden; las dos columnas de "¿Qué necesita?" pasan a bloques con Kraft primero.
+En móvil la fila muestra 5 presentaciones representativas (27 g, 200 g, 900 g, 5 kg y 25 kg) sin scroll horizontal, con el enlace "Ver las 12 presentaciones". Las secciones se apilan en el mismo orden; las dos columnas de "¿Qué necesita?" pasan a bloques con el panel Verde tinte primero.
 
 ---
 
@@ -569,13 +601,13 @@ La página se llama **Productos** en el menú, en el H1 y en los botones ("Ver p
 
 1. **Encabezado.** Migas, H1 "Productos", entradilla "12 presentaciones de leche en polvo, en bolsa y bulto. El precio por volumen llega con la cotización." y el buscador.
 2. **Buscador** (injerto de Nota de pedido). Etiqueta "Buscar productos" y ejemplo "Marca, gramos o código". Busca sobre el JSON del catálogo mientras se escribe (espera de 120 ms) e ignora tildes y mayúsculas. Sinónimos: kilo, kilos y k equivalen a kg; gramos, gr y grs a g; 1 kg a 1000 g; saco y costal a bulto; fardo a paca; azúcar y dulce a azucarada; cantaro a The Cántaro. Un número solo ("400", "25", "12,5" o "12.5") busca la presentación. En Productos filtra la planilla; en la cabecera de otras páginas muestra hasta 6 sugerencias (patrón combobox) y Enter abre `/productos/?q=`.
-3. **Filtros** (panel en Film, columna izquierda). Marca (The Cántaro, La Becerrita), Tipo (Entera, Azucarada; las opciones salen de las denominaciones registradas), Formato (Bolsa, Bulto), Peso (12 chips que se ajustan en varias filas, nunca recortados) y Uso (Hogar, Tienda, Panadería, Industria). Cada opción muestra cuántos productos quedan. Todo se refleja en la URL.
+3. **Filtros** (panel en Verde tenue, columna izquierda). Marca (The Cántaro, La Becerrita), Tipo (Entera, Azucarada; las opciones salen de las denominaciones registradas), Formato (Bolsa, Bulto), Peso (12 chips que se ajustan en varias filas, nunca recortados) y Uso (Hogar, Tienda, Panadería, Industria). Cada opción muestra cuántos productos quedan. Todo se refleja en la URL.
 4. **Chips de filtros activos y conteo.** "(The Cántaro, quitar) (Bolsa, quitar)", "Quitar filtros" y "7 referencias de 2 productos" anunciado con `aria-live="polite"`. Orden: "Peso, de menor a mayor" (predeterminado) o "Marca".
 5. **Bloque de producto.** Foto del producto, marca y denominación exacta del registro. Debajo, una tabla con una fila por presentación: Presentación, Paca (unidades), Peso de paca, Rinde aproximado, Cantidad y Agregar. Cifras tabulares alineadas a la derecha. Cierra con "Ver ficha técnica".
 6. **Fila de presentación** (injerto de Nota de pedido: cantidad en cada fila). Control "[−] 1 paca [+]" con campo numérico editable (`inputmode="numeric"`), cálculo en vivo "= 240 bolsas, 216,0 kg" y botón "Agregar". Las bolsas se cotizan por paca; los bultos, por bulto. Estados: *inicial* (cantidad 1, botón Agregar), *agregado* (texto "Agregado", el control queda sincronizado con Mi cotización y aparece "Quitar"), *sin dato* (si falta el dato de paca, se muestra "Consultar" y la fila se puede agregar igual).
-7. **Filas de bultos.** Van sobre Kraft: es la regla de color del volumen.
+7. **Filas de bultos.** Van sobre Verde tinte: es la regla de color del volumen. Cada producto lleva su packshot recortado con brillo verde y sombra de contacto; al pasar el cursor o enfocar la fila, se eleva y gira. Al agregar, el empaque vuela a Mi cotización y los kilos giran como un contador (§4.7).
 8. **Fila de marca propia** al final: "Su marca: empacamos con la de su cadena. Ver marca propia".
-9. **Mi cotización** (injerto de Nota de pedido). Desde 1440 px es una columna fija a la derecha de 304 px: cabecera en Kraft, líneas con su control de cantidad y kilos, totales ("330 bolsas en 13 pacas y 2 bultos. Total 302,0 kg"), botón "Solicitar cotización" y acciones secundarias (Copiar enlace, Imprimir o guardar en PDF, Vaciar la cotización). Entre 1024 y 1439 px, para no apretar la planilla, pasa a una franja fija abajo ("Mi cotización: 3 referencias, 302,0 kg") que abre un panel lateral de 400 px. En móvil es la hoja inferior de Cotizar.
+9. **Mi cotización** (injerto de Nota de pedido). Desde 1440 px es una columna fija a la derecha de 304 px: cabecera en Verde tinte, líneas con su control de cantidad y kilos, totales ("330 bolsas en 13 pacas y 2 bultos. Total 302,0 kg"), botón "Solicitar cotización" y acciones secundarias (Copiar enlace, Imprimir o guardar en PDF, Vaciar la cotización). Entre 1024 y 1439 px, para no apretar la planilla, pasa a una franja fija abajo ("Mi cotización: 3 referencias, 302,0 kg") que abre un panel lateral de 400 px. En móvil es la hoja inferior de Cotizar.
 10. **Sin resultados** (injerto de Nota de pedido). Propone la alternativa real con un botón: "No hay La Becerrita en bulto de 5 kg. Sí la hay en 25 kg." [Ver La Becerrita 25 kg] y "Quitar filtros". En búsqueda: "No encontramos «cantaro 700». La presentación más cercana es 750 g." [Ver The Cántaro 750 g].
 
 La página se entrega prerenderizada en HTML con todas las referencias (sirve sin JavaScript y para buscadores). El JavaScript agrega filtros, búsqueda, cantidades y la cotización.
@@ -590,7 +622,7 @@ PRODUCTOS, ESCRITORIO >= 1440 px (/productos/?marca=the-cantaro&formato=bolsa)
 | 12 presentaciones de leche en polvo, en bolsa y bulto.  |                                        |
 | El precio por volumen llega con la cotización.          |                                        |
 +----------------------+----------------------------------------------+----------------------------+
-| Filtros (fondo Film) | 7 referencias de 2 productos                 | (cabecera Kraft)           |
+| Filtros (Verde tenue)| 7 referencias de 2 productos                 | (cabecera Verde tinte)     |
 |                      | Ordenar: peso, de menor a mayor              | Mi cotización              |
 | Marca                | (The Cántaro  x) (Bolsa  x)  Quitar filtros  | 3 referencias              |
 | [x] The Cántaro (2)  | -------------------------------------------- | -------------------------- |
@@ -621,7 +653,7 @@ PRODUCTOS, ESCRITORIO >= 1440 px (/productos/?marca=the-cantaro&formato=bolsa)
 +--------------------------------------------------------------------------------------------------+
 
 Notas:
-- Productos: H1 48/52; el buscador filtra la planilla mientras se escribe
+- Productos: H1 83/80 (clamp de 40 a 88 px, wdth 68) en la banda Verde tenue de borde dentado; el buscador filtra la planilla mientras se escribe
 ```
 
 ### Wireframe móvil, hoja de filtros y hoja de cotización
@@ -632,7 +664,7 @@ PRODUCTOS, MÓVIL (375 px)
 | [M] Mundilácteos            Menú  |
 +-----------------------------------+
 | Inicio / Productos                |
-| Productos                         |  H1 36/40
+| Productos                         |  H1 40/38
 | [ Marca, gramos o código      ]   |
 | [ Filtrar (2) ]  Ordenar: peso    |
 | (The Cántaro x) (Bolsa x)         |
@@ -680,7 +712,7 @@ Hoja inferior: Filtrar
 
 Hoja inferior: Mi cotización (al tocar Cotizar)
 +-----------------------------------+
-| (cabecera Kraft) Mi cotización    |
+| (Verde tinte) Mi cotización       |
 | 3 referencias                     |
 | The Cántaro entera 900 g          |
 | [-] 10 pacas [+]       216,0 kg   |
@@ -770,7 +802,7 @@ FICHA, ESCRITORIO (/productos/the-cantaro-entera/900-g/)
 
 Notas:
 - Marca del producto: 21/32, wght 600
-- H1 48/52: denominación exacta del registro Invima
+- H1 83/80 (clamp de 40 a 88 px): denominación exacta del registro Invima. Galería con la cifra gigante de la presentación en Verde Mundilácteos detrás del packshot, brillo radial y sombra de contacto
 - Miniaturas 1:1 que cambian la foto principal (botones, no carrusel automático)
 - Ficha técnica: tabla HTML con th scope="row"; el PDF es copia, no sustituto
 - Información nutricional: tabla con cifras tabulares alineadas a la derecha
@@ -785,7 +817,7 @@ FICHA, MÓVIL
 | [packshot 900 g, 4:5]             |
 | [frente] [reverso] [paca]         |
 | The Cántaro                       |
-| Leche en polvo entera             |  H1 36/40
+| Leche en polvo entera             |  H1 40/38
 | Registro Invima RSA-000000-0000   |
 | Presentación                      |
 | [27 g] [200 g] [400 g] [900 g]    |  chips, se ajustan
@@ -842,7 +874,7 @@ COTIZAR, ESCRITORIO (/cotizar/). Tres pasos: secuencia real, por eso numerada
 | Solicitar cotización                                                                             |
 | 1 Productos  --------  2 Entrega  --------  3 Contacto                                           |
 +--------------------------------------------------------------+-----------------------------------+
-| Paso 2 de 3: Entrega                                         | (cabecera Kraft) Su cotización    |
+| Paso 2 de 3: Entrega                                         | (Verde tinte) Su cotización       |
 | Ciudad de entrega                                            | The Cántaro entera 900 g          |
 | [ Montería                          v ]                      | 10 pacas               216,0 kg   |
 | Con su ciudad calculamos el despacho desde Cartagena.        | La Becerrita entera 25 kg         |
@@ -868,8 +900,9 @@ COTIZAR, ESCRITORIO (/cotizar/). Tres pasos: secuencia real, por eso numerada
 +--------------------------------------------------------------------------------------------------+
 
 Notas:
-- Solicitar cotización: H1 48/52
-- Indicador de pasos: el paso actual va en Tinta café, wght 700, con subrayado
+- Solicitar cotización: H1 83/80 (clamp de 40 a 88 px) en la banda de encabezado
+- Indicador de pasos: el paso actual va en Azul noche, wght 700, con subrayado
+- Resumen Su cotización: tarjeta con sombra; el total en kilos es la cifra gigante de la página (74 px, expandida) y gira como contador al cambiar cantidades
 - Confirmación: reemplaza el formulario y el foco pasa a su título
 ```
 
@@ -954,7 +987,7 @@ DISTRIBUCIÓN, ESCRITORIO (/distribucion/)
 | Despachamos desde Cartagena a toda Colombia. Elija su ciudad para ver el tiempo de entrega y     |
 | el pedido mínimo.                                                                                |
 +-----------------------------------------------+--------------------------------------------------+
-| (mapa lineal, trazo 1,75 px, Tinta café)      | Ciudad                Entrega      Pedido mínimo |
+| (mapa lineal, trazo 2 px, Verde Mundilácteos) | Ciudad                Entrega      Pedido mínimo |
 |              o Santa Marta                    | Barranquilla          24 a 48 h    00 pacas      |
 |        o Barranquilla                         | Santa Marta           24 a 48 h    00 pacas      |
 |    * Cartagena (planta)                       | Sincelejo             48 h         00 pacas      |
@@ -963,7 +996,7 @@ DISTRIBUCIÓN, ESCRITORIO (/distribucion/)
 |         o Medellín                            | Bucaramanga           3 a 5 días   00 pacas      |
 |                o Bogotá                       | Bogotá                4 a 6 días   00 pacas      |
 |       o Cali                                  | Cali                  5 a 7 días   00 pacas      |
-| (punto elegido: anillo rojo de 3 px)          | (tabla = alternativa accesible del mapa)         |
+| (punto elegido: anillo Cielo profundo de 3 px)| (tabla = alternativa accesible del mapa)         |
 +-----------------------------------------------+--------------------------------------------------+
 | Montería: entrega en 48 a 72 horas desde la confirmación. Pedido mínimo: 00 pacas o 00 bultos.   |
 | Despachamos martes y viernes. [ Cotizar para Montería ]                                          |
@@ -973,8 +1006,8 @@ DISTRIBUCIÓN, ESCRITORIO (/distribucion/)
 +--------------------------------------------------------------------------------------------------+
 
 Notas:
-- H1 48/52 y entradilla 21/32
-- Fila de la ciudad elegida: marcador de 3 px en Rojo saco a la izquierda y texto en 700
+- H1 83/80 (clamp de 40 a 88 px) y entradilla 21/32
+- Fila de la ciudad elegida: marcador de 3 px en Cielo profundo a la izquierda y texto en 700
 - Panel de la ciudad elegida: se anuncia con aria-live="polite"
 ```
 
@@ -982,7 +1015,7 @@ Notas:
 
 - H1 "Dónde comprar". Entradilla: "The Cántaro y La Becerrita están en supermercados de la Costa y en Rappi."
 - Lista por ciudad con las cadenas (Olímpica, Megatiendas, Mr. Bono, Rapimercar, La Garosa), en texto hasta tener autorización para usar logos. Enlace a Rappi.
-- Foto C03 y C04. "¿No la encuentra? Escríbanos y le decimos dónde." "¿Tiene una tienda? Cotice por pacas."
+- Marco de la toma C03 (la C04 se nombra en una línea de texto: un marco por sección). "¿No la encuentra? Escríbanos y le decimos dónde." "¿Tiene una tienda? Cotice por pacas."
 
 ### Contacto (`/contacto/`)
 
@@ -995,7 +1028,7 @@ Notas:
 
 - H1 "Recursos". Lista de texto filtrable por tema: Para su negocio, En la cocina, Calidad y almacenamiento.
 - Primeros artículos: "Cuánta leche en polvo necesita su panadería al mes", "Cómo almacenar bultos en clima cálido", "Cómo leer el lote y la fecha de vencimiento", "Cuánto rinde un kilo de leche en polvo", "Arequipe casero con leche en polvo" y "Primero lo que vence primero: rotación en la tienda". Las recetas se prueban antes de publicar.
-- Plantilla de artículo: H1 48/52, entradilla, cuerpo 18/28 a 68 caracteres, tablas con cifras tabulares, "Productos mencionados" con enlace a sus fichas y un cierre según el tema ("Calcule su pedido" o "Dónde comprar"). Fotos de las familias Materia y Clientes.
+- Plantilla de artículo: H1 83/80 (clamp de 40 a 88 px), entradilla, cuerpo 18/28 a 68 caracteres, tablas con cifras tabulares, "Productos mencionados" con enlace a sus fichas y un cierre según el tema ("Calcule su pedido" o "Dónde comprar"). Fotos de las familias Materia y Clientes.
 - También aloja documentos descargables: fichas técnicas, certificado y catálogo en PDF.
 
 ### 404 y páginas legales
@@ -1027,27 +1060,31 @@ Medidas estimadas a partir de empaques típicos; se reemplazan por las medidas r
 | 900 g | 29 | 20 | 0,51 | 610 / 94 | 710 / 101 |
 | 1000 g | 30 | 21 | 0,53 | 620 / 95 | 710 / 101 |
 | 5 kg | 45 | 30 | 0,76 | 760 / 110 | 810 / 113 |
-| 12,5 kg | 65 | 40 | 0,90 | 840 / 119 | 860 / 120 |
-| 25 kg | 90 | 50 | 1,00 | 900 / 125 | 900 / 125 |
+| 12,5 kg | 65 | 40 (46 con la foto del bulto) | 0,90 | 840 / 119 | 860 / 120 |
+| 25 kg | 90 | 50 (52 con la foto del bulto) | 1,00 | 900 / 125 | 900 / 125 |
 
 ### Escala por ancho de pantalla
 
-| Ancho de pantalla | Piezas | px por cm | Separación | Ancho ocupado | Alto del bulto de 25 kg |
+| Ancho de pantalla | Piezas | px por cm | Separación | Ancho ocupado (con regla) | Alto del bulto de 25 kg |
 |---|---|---|---|---|---|
-| < 1024 px | 5 (27 g, 200 g, 1000 g, 5 kg, 25 kg) | 2,0 | 8 px | 336 px (cabe en 343) | 180 px |
-| 1024 a 1279 px | 12 | 2,6 | 12 px | 888 px (cabe en 896) | 234 px |
-| ≥ 1280 px | 12 | 3,0 | 16 px | 1.007 px (cabe en 1.152) | 270 px |
+| < 380 px | 5 (27 g, 200 g, 900 g, 5 kg, 25 kg) | 1,9 | 6 px | 324 px (cabe en 328) | 171 px |
+| 380 a 1023 px | 5 (27 g, 200 g, 900 g, 5 kg, 25 kg) | 2,0 | 8 px | 340 px (cabe en 358) | 180 px |
+| 1024 a 1279 px | 12 | 2,6 | 12 px | 956 px (cabe en 960) | 234 px |
+| 1280 a 1439 px | 12 | 3,2 | 14 px | 1.103 px (cabe en 1.152) | 288 px |
+| ≥ 1440 px | 12 | 3,6 | 14 px | 1.235 px (cabe en 1.312) | 324 px |
+
+Con foto, el ancho de la columna sale de la proporción real del packshot recortado (alto × ancho ÷ alto de la foto), así la bolsa no se deforma. Desde 1280 px la mini-ficha flota como tarjeta sobre las bolsas pequeñas (de 27 g a 1000 g, que no pasan de 30 cm), en el hueco que ellas dejan bajo la marca de 90 cm.
 
 Cada columna mide como mínimo 48 px aunque la silueta sea más angosta: la bolsa de 27 g se dibuja pequeña, pero su área táctil no lo es (observación de ambos jueces).
 
 ### Comportamiento
 
 - **Marcado:** un `fieldset` con leyenda oculta "Presentaciones" y un `input type="radio"` por presentación dentro de su `label`. Las flechas recorren las opciones de forma nativa y el lector anuncia "900 g, bolsa, 8 de 12, seleccionado". No es un `canvas`.
-- **Estados:** en reposo, silueta o packshot con la cifra en Tinta café; al pasar el cursor, la silueta toma relleno Film; elegida, la cifra en Rojo saco con subrayado rojo de 3 px (color más forma, nunca solo color); con foco, contorno de 3 px en Tinta café alrededor de la columna.
+- **Estados:** en reposo, packshot (o silueta con relleno Verde tenue) de pie sobre la línea base Verde Mundilácteos, con sombra de contacto, y la cifra en Azul noche; al pasar el cursor o con foco, el empaque se eleva 7 px y gira −3°, la sombra de contacto se encoge y crece una sombra ambiente; elegida, el empaque queda 3 px arriba, la silueta toma relleno Verde tinte y la cifra pasa a Cielo profundo con una barra de 3 px que se desliza (color más forma, nunca solo color); con foco, contorno de 3 px en Azul noche alrededor de la columna.
 - **Efecto:** en la Home, elegir actualiza la mini-ficha (`aria-live="polite"`). En la ficha, cambia la presentación, los datos de venta y la URL.
 - **Regla:** decorativa (`aria-hidden="true"`), con un texto equivalente oculto: "Alturas reales aproximadas: de 11 cm (27 g) a 90 cm (25 kg)."
-- **Cifras legibles:** en pantallas menores de 1024 px la cifra mide 18 px y su peso mínimo es 500 (observación del juez 2).
-- **Respaldo:** siluetas SVG monolínea mientras no existan los packshots calibrados (F01 y F04); se reemplazan una por una. Si falla el JavaScript, la fila se ve completa y el `fieldset` es un formulario GET con el botón "Ver en Productos", que abre `/productos/?peso=900-g`.
+- **Cifras legibles:** en pantallas menores de 1280 px la cifra mide 18 px (24 px desde 1280) y en móvil su peso mínimo es 500 (observación del juez 2). La columna no se ensancha por la cifra (`min-width: 0`): el ancho lo manda el empaque.
+- **Fotos y respaldo:** en la Home ya van los packshots reales de 380 g (The Cántaro Azucarada), 500 g (The Cántaro Entera), 900 g (La Becerrita Entera), 12,5 kg (bulto de The Cántaro Mezcla Láctea, rotulado como mezcla en su texto alternativo, nunca como leche) y 25 kg (bulto de The Cántaro Entera). En la ficha, el selector usa la foto de esa referencia cuando existe (también 800 g). El resto son siluetas SVG monolínea hasta la sesión F01 y F04; se reemplazan una por una. Si falla el JavaScript, la fila se ve completa y el `fieldset` es un formulario GET con el botón "Ver en Productos", que abre `/productos/?peso=900-g`.
 - **Implementación:** cada `li` recibe `--alto-cm`, `--ancho-cm` y `--t`. La columna mide `max(var(--fila-min-col), calc(var(--ancho-cm) * var(--fila-escala)))`, la imagen se alinea abajo con alto `calc(var(--alto-cm) * var(--fila-escala))`, y la cifra usa `font-weight` y `font-stretch` calculados con `--t`.
 
 ---
@@ -1153,59 +1190,58 @@ Cada columna mide como mínimo 48 px aunque la silueta sea más angosta: la bols
 
 ## 14. Tokens CSS
 
+Tokens implementados en `concepto-2/estilos.css` (25/09/2026). Todo color sale de MARCA.md; las transparencias (`--c-linea`, sombras y brillos) son el mismo matiz de Azul noche o Verde Mundilácteos con alfa, no colores nuevos. En producción la fuente se sirve desde el propio dominio con el `@font-face` de la sección 4.3.
+
 ```css
 /* Concepto 2: Peso neto. Tokens base, móvil primero. */
-
-@font-face {
-  font-family: "Archivo";
-  src: url("/fuentes/archivo-latin-var.woff2") format("woff2");
-  font-weight: 100 900;
-  font-stretch: 62% 125%;
-  font-style: normal;
-  font-display: swap;
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
 :root {
   color-scheme: light;
 
-  /* Color: primitivos */
-  --c-blanco-bolsa: #FFFFFF;
-  --c-film: #ECEEEB;
-  --c-kraft: #D3B48A;
-  --c-tinta-cafe: #3A2618;
-  --c-tinta-suave: #66574B;
-  --c-rojo-saco: #A8171F;
-  --c-rojo-saco-oscuro: #8A1219;
-  --c-linea: #D6D2CB;
+  /* Paleta de marca: núcleo medido (MARCA.md) */
+  --c-blanco: #FFFFFF;
+  --c-verde: #4AA603;            /* Verde Mundilácteos: insignia, bandas, línea base y regla de la fila */
+  --c-azul-marca: #0A2F8F;       /* Azul Mundilácteos: logo y titulares institucionales */
+  --c-azul-cielo: #1090E0;       /* Azul cielo: rellenos y ondas del sello, nunca texto pequeño */
+  --c-amarillo: #EAC55E;         /* Amarillo Becerrita: solo en el contexto de La Becerrita */
+  /* Derivados funcionales (MARCA.md) */
+  --c-azul-noche: #0B1F4F;       /* texto y cifras, como la tinta del empaque */
+  --c-verde-hoja: #2D7A12;       /* botón primario con texto blanco (5,38:1) */
+  --c-verde-bosque: #236310;     /* hover y presionado del primario (7,33:1) */
+  --c-cielo-profundo: #0B6FB8;   /* selección, siempre con subrayado (5,28:1) */
+  --c-pizarra: #4A5877;          /* texto secundario y bordes de controles (7,11:1) */
+  --c-verde-tenue: #EFF5EA;      /* paneles neutros */
+  --c-verde-tinte: #E3F1D3;      /* zonas B2B: bultos, cotización, marca propia */
+  --c-rojo-error: #B42318;       /* solo errores, con icono y texto */
+  /* Transparencias del mismo matiz: no son colores nuevos */
+  --c-linea: rgb(11 31 79 / 0.16);   /* Azul noche al 16 %: divisor decorativo */
+  --c-sombra: 11 31 79;              /* Azul noche en canales, para sombras */
+  --c-brillo: 74 166 3;              /* Verde Mundilácteos en canales, para brillos radiales */
 
-  /* Color: roles */
-  --color-fondo: var(--c-blanco-bolsa);
-  --color-panel: var(--c-film);
-  --color-zona-negocio: var(--c-kraft);
-  --color-texto: var(--c-tinta-cafe);
-  --color-texto-secundario: var(--c-tinta-suave);     /* nunca sobre Kraft */
-  --color-borde-control: var(--c-tinta-suave);        /* 6,93:1 sobre Blanco */
-  --color-borde-fuerte: var(--c-tinta-cafe);
-  --color-divisor: var(--c-linea);                    /* decorativo */
-  --color-accion: var(--c-rojo-saco);
-  --color-accion-hover: var(--c-rojo-saco-oscuro);
-  --color-sobre-accion: var(--c-blanco-bolsa);
-  --color-seleccion: var(--c-rojo-saco);
-  --color-error: var(--c-rojo-saco);                  /* siempre con icono y texto */
-  --color-chip-activo-fondo: var(--c-tinta-cafe);
-  --color-chip-activo-texto: var(--c-blanco-bolsa);
-  --color-foco: var(--c-tinta-cafe);
-  --color-pie-fondo: var(--c-tinta-cafe);
-  --color-pie-texto: var(--c-film);
-  --color-pie-enlace: var(--c-kraft);
-  --color-pie-foco: var(--c-kraft);
-  --color-resaltado: rgb(211 180 138 / 0.45);         /* línea recién agregada */
-  --color-velo: rgb(58 38 24 / 0.48);                 /* detrás de hojas y paneles */
+  --color-fondo: var(--c-blanco);
+  --color-panel: var(--c-verde-tenue);
+  --color-zona-negocio: var(--c-verde-tinte);
+  --color-texto: var(--c-azul-noche);
+  --color-texto-secundario: var(--c-pizarra);
+  --color-borde-control: var(--c-pizarra);
+  --color-borde-fuerte: var(--c-azul-noche);
+  --color-divisor: var(--c-linea);
+  --color-insignia: var(--c-verde);
+  --color-accion: var(--c-verde-hoja);
+  --color-accion-hover: var(--c-verde-bosque);
+  --color-sobre-accion: var(--c-blanco);
+  --color-seleccion: var(--c-cielo-profundo);
+  --color-error: var(--c-rojo-error);
+  --color-chip-activo-fondo: var(--c-azul-noche);
+  --color-chip-activo-texto: var(--c-blanco);
+  --color-foco: var(--c-azul-noche);
+  --color-foco-oscuro: var(--c-verde);
+  --color-pie-fondo: var(--c-azul-noche);
+  --color-pie-texto: var(--c-verde-tenue);
+  --color-pie-enlace: var(--c-verde);
+  --color-pie-foco: var(--c-verde);
+  --color-velo: rgb(11 31 79 / 0.55);
 
-  /* Tipografía */
+  /* Tipografía: escala dramática (EXPERIENCIA.md §4) */
   --fuente: "Archivo", "Archivo Fallback", Arial, sans-serif;
   --fs-14: 0.875rem;  --lh-14: 1.25rem;
   --fs-16: 1rem;      --lh-16: 1.5rem;
@@ -1217,10 +1253,11 @@ Cada columna mide como mínimo 48 px aunque la silueta sea más angosta: la bols
   --fs-60: 3.75rem;
   --fs-72: 4.5rem;
 
-  --hero-fs: var(--fs-48);  --hero-lh: 1;            --hero-wdth: 62%;  --hero-wght: 800;
-  --h1-fs: var(--fs-36);    --h1-lh: var(--lh-36);   --h1-wdth: 72%;    --h1-wght: 800;
-  --h2-fs: var(--fs-24);    --h2-lh: var(--lh-24);   --h2-wdth: 75%;    --h2-wght: 800;
-  --h3-fs: var(--fs-21);    --h3-lh: 1.75rem;        --h3-wdth: 100%;   --h3-wght: 700;
+  --hero-fs: clamp(3rem, 1.2rem + 6vw, 7.5rem);   --hero-lh: 0.92;  --hero-wdth: 62%;  --hero-wght: 820;
+  --h1-fs: clamp(2.5rem, 1.4rem + 4.2vw, 5.5rem); --h1-lh: 0.96;    --h1-wdth: 66%;    --h1-wght: 800;
+  --h2-fs: clamp(2rem, 1.3rem + 2.3vw, 3.5rem);   --h2-lh: 1;       --h2-wdth: 70%;    --h2-wght: 800;
+  --h3-fs: clamp(1.3125rem, 1.15rem + 0.5vw, 1.625rem); --h3-lh: 1.2; --h3-wdth: 88%;  --h3-wght: 720;
+  --cifra-fs: clamp(4.5rem, 1.5rem + 8vw, 9rem);  --cifra-lh: 0.82; --cifra-wdth: 125%; --cifra-wght: 900;
   --entradilla-fs: var(--fs-21); --entradilla-lh: var(--lh-21);
   --cuerpo-fs: var(--fs-18);     --cuerpo-lh: var(--lh-18);
   --ui-fs: var(--fs-16);         --ui-lh: var(--lh-16);
@@ -1229,12 +1266,13 @@ Cada columna mide como mínimo 48 px aunque la silueta sea más angosta: la bols
   --medida-texto: 68ch;
 
   /* Fila a escala */
-  --fila-escala: 2px;               /* px por centímetro real */
+  --fila-escala: 2px;
   --fila-min-col: 48px;
   --fila-separacion: 8px;
   --fila-cifra-fs: var(--fs-18);
   --fila-wght-min: 500;  --fila-wght-max: 900;
   --fila-wdth-min: 75;   --fila-wdth-max: 125;
+  --fila-pie: 2.5rem;
 
   /* Espacio (base 4 px) */
   --esp-1: 0.25rem;  --esp-2: 0.5rem;  --esp-3: 0.75rem;  --esp-4: 1rem;
@@ -1242,20 +1280,26 @@ Cada columna mide como mínimo 48 px aunque la silueta sea más angosta: la bols
   --seccion: var(--esp-8);
 
   /* Retícula */
-  --contenedor: 82rem;              /* 1312 px */
+  --contenedor: 82rem;
   --margen: 1rem;
   --canal: 1rem;
   --columnas: 4;
-  --cotizacion-ancho: 19rem;        /* 304 px, columna fija desde 1440 px */
+  --cotizacion-ancho: 19rem;
 
-  /* Forma */
-  --radio-0: 0;                     /* fotos, secciones, paneles */
-  --radio-control: 4px;             /* botones, campos, chips */
-  --radio-hoja: 8px;                /* esquinas superiores de hojas inferiores */
+  /* Forma y profundidad */
+  --radio-0: 0;
+  --radio-control: 4px;
+  --radio-hoja: 8px;
   --borde-control: 1px solid var(--color-borde-control);
   --borde-divisor: 1px solid var(--color-divisor);
   --subrayado-activo: 3px;
-  --sombra-hoja: 0 -8px 24px rgb(58 38 24 / 0.18);   /* única sombra de interfaz */
+  --diente: 14px;                   /* borde dentado del termosellado: ancho de cada diente */
+  --diente-alto: 7px;
+  --sombra-hoja: 0 -8px 24px rgb(var(--c-sombra) / 0.18);
+  --sombra-tarjeta: 0 1px 2px rgb(var(--c-sombra) / 0.1), 0 24px 48px -20px rgb(var(--c-sombra) / 0.45);
+  --sombra-contacto: radial-gradient(closest-side, rgb(var(--c-sombra) / 0.42), rgb(var(--c-sombra) / 0.12) 55%, rgb(var(--c-sombra) / 0));
+  --sombra-ambiente: radial-gradient(closest-side, rgb(var(--c-sombra) / 0.22), rgb(var(--c-sombra) / 0));
+  --brillo-verde: radial-gradient(closest-side, rgb(var(--c-brillo) / 0.26), rgb(var(--c-brillo) / 0.08) 60%, rgb(var(--c-brillo) / 0));
 
   /* Interacción */
   --objetivo-tactil: 48px;
@@ -1266,16 +1310,21 @@ Cada columna mide como mínimo 48 px aunque la silueta sea más angosta: la bols
   --utilidad-alto: 0px;
   --barra-inferior-alto: 64px;
 
-  /* Movimiento */
+  /* Movimiento: precisión de planta (EXPERIENCIA.md §3) */
   --dur-rapida: 120ms;
   --dur-cambio: 150ms;
   --dur-seleccion: 160ms;
   --dur-pieza: 200ms;
+  --dur-hover: 240ms;
   --dur-hoja: 220ms;
   --dur-panel: 240ms;
+  --dur-vista: 420ms;
+  --dur-vuelo: 560ms;
+  --dur-contador: 620ms;
   --dur-resaltado: 600ms;
-  --escalon-fila: 40ms;
-  --curva-salida: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --escalon-fila: 36ms;
+  --curva-entra: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --curva-sale: cubic-bezier(0.4, 0, 1, 1);
   --curva-estandar: cubic-bezier(0.4, 0, 0.2, 1);
 
   /* Capas */
@@ -1284,83 +1333,81 @@ Cada columna mide como mínimo 48 px aunque la silueta sea más angosta: la bols
   --z-velo: 70;
   --z-hoja: 80;
   --z-aviso: 90;
+  --z-vuelo: 95;
 }
 
 @media (min-width: 600px) {
-  :root {
-    --margen: 2rem; --canal: 1.5rem; --columnas: 8;
-    --hero-fs: var(--fs-60); --hero-wdth: 66%;
-  }
+  :root { --margen: 2rem; --canal: 1.5rem; --columnas: 8; --hero-wdth: 64%; }
 }
-
 @media (min-width: 1024px) {
   :root {
-    --margen: 4rem; --columnas: 12; --seccion: var(--esp-9);
+    --margen: 4rem; --columnas: 12; --seccion: 6rem;
     --cabecera-alto: 72px; --utilidad-alto: 40px; --barra-inferior-alto: 0px;
-    --h1-fs: var(--fs-48); --h1-lh: var(--lh-48);
-    --h2-fs: var(--fs-36); --h2-lh: var(--lh-36);
-    --h3-fs: var(--fs-24); --h3-lh: var(--lh-24);
+    --hero-wdth: 66%; --h1-wdth: 68%;
     --fila-escala: 2.6px; --fila-separacion: 12px;
     --fila-cifra-fs: var(--fs-24);
     --fila-wght-min: 300; --fila-wdth-min: 62;
+    --fila-pie: 3rem;
+    --diente: 18px; --diente-alto: 9px;
   }
 }
-
+@media (min-width: 1024px) and (max-width: 1279px) {
+  :root { --margen: 2rem; }
+}
 @media (min-width: 1280px) {
-  :root {
-    --hero-fs: var(--fs-72); --hero-wdth: 68%;
-    --fila-escala: 3px; --fila-separacion: 16px;
-  }
+  :root { --fila-escala: 3.2px; --fila-separacion: 14px; }
 }
-
+@media (min-width: 1440px) {
+  :root { --fila-escala: 3.6px; }
+}
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --dur-rapida: 0ms; --dur-cambio: 0ms; --dur-seleccion: 0ms; --dur-pieza: 0ms;
-    --dur-hoja: 0ms; --dur-panel: 0ms; --dur-resaltado: 0ms; --escalon-fila: 0ms;
+    --dur-rapida: 0ms; --dur-cambio: 0ms; --dur-seleccion: 0ms; --dur-pieza: 0ms; --dur-hover: 0ms;
+    --dur-hoja: 0ms; --dur-panel: 0ms; --dur-vista: 0ms; --dur-vuelo: 0ms; --dur-contador: 0ms;
+    --dur-resaltado: 0ms; --escalon-fila: 0ms;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
+
 /* Uso base */
-html { background: var(--color-fondo); color: var(--color-texto); }
-body {
-  font-family: var(--fuente);
-  font-size: var(--cuerpo-fs);
-  line-height: var(--cuerpo-lh);
-  font-stretch: 100%;
-  font-weight: 400;
-  background: var(--color-fondo);
-}
-:focus-visible {
-  outline: var(--foco-ancho) solid var(--color-foco);
-  outline-offset: var(--foco-separacion);
-}
-.cifra, table td.num {
-  font-stretch: var(--datos-wdth);
-  font-weight: var(--datos-wght);
-  font-variant-numeric: tabular-nums;
-  text-align: right;
-}
-.fila-escala li {
-  flex: 0 0 max(var(--fila-min-col), calc(var(--ancho-cm) * var(--fila-escala)));
-}
-.fila-escala .figura { block-size: calc(var(--alto-cm) * var(--fila-escala)); }
-.fila-escala .cifra-fila {
+body { font-family: var(--fuente); font-size: var(--cuerpo-fs); line-height: var(--cuerpo-lh); background: var(--color-fondo); color: var(--color-texto); text-rendering: geometricPrecision; }
+button, input, select, textarea { font: inherit; text-rendering: inherit; }
+:focus-visible { outline: var(--foco-ancho) solid var(--color-foco); outline-offset: var(--foco-separacion); }
+.banda--noche :focus-visible, .pie :focus-visible { outline-color: var(--color-foco-oscuro); }
+.cifra, table td.num { font-stretch: var(--datos-wdth); font-weight: var(--datos-wght); font-variant-numeric: tabular-nums; text-align: right; }
+.fila-pieza { flex: 0 0 max(var(--fila-min-col), calc(var(--ancho-cm) * var(--fila-escala))); }
+.fila-figura { height: calc(var(--alto-cm) * var(--fila-escala)); }
+.fila-cifra {
   font-size: var(--fila-cifra-fs);
   font-weight: calc(var(--fila-wght-min) + (var(--fila-wght-max) - var(--fila-wght-min)) * var(--t));
   font-stretch: calc((var(--fila-wdth-min) + (var(--fila-wdth-max) - var(--fila-wdth-min)) * var(--t)) * 1%);
 }
+.dentado-arriba::before { background: conic-gradient(from 135deg at 50% 0, var(--banda) 90deg, transparent 0) 0 0 / var(--diente) var(--diente-alto) repeat-x; }
+.dentado-abajo::after { background: conic-gradient(from -45deg at 50% 100%, var(--banda) 90deg, transparent 0) 0 0 / var(--diente) var(--diente-alto) repeat-x; }
 @media (forced-colors: active) {
-  .fila-escala input:checked ~ .cifra-fila { text-decoration: underline 3px; }
+  .fila-pieza input:checked + label .fila-cifra { text-decoration: underline 3px; }
 }
 ```
 
 Componentes base con estos tokens:
 
-- **Botón primario:** fondo `--color-accion`, texto `--color-sobre-accion` 16/24 wght 600, alto mínimo 48 px, relleno de 12 por 20 px, `--radio-control`, sin sombra. Hover y presionado: `--color-accion-hover`.
-- **Botón secundario:** sin relleno, borde de 2 px en Tinta café, mismo tamaño.
-- **Enlace:** Tinta café subrayado (1 px, separación 3 px); en hover el subrayado pasa a 2 px. Sin flechas añadidas al texto.
-- **Campo:** fondo Blanco, `--borde-control`, alto de 48 px, etiqueta visible arriba en 16/24 wght 500; error con borde de 2 px en Rojo saco, icono y mensaje debajo.
-- **Chip de filtro:** borde Tinta suave, `--radio-control`, alto de 40 px dentro de un área táctil de 48 px; activo con fondo Tinta café y texto Blanco.
+- **Botón primario:** fondo `--color-accion` (Verde hoja), texto Blanco 16/24 wght 650, alto mínimo 48 px, relleno de 12 por 22 px, `--radio-control`. Hover y presionado: Verde bosque; al presionar, escala 0,97.
+- **Botón sobre banda verde u oscura:** `.boton--noche`, fondo Azul noche con texto Blanco; hover Azul Mundilácteos.
+- **Botón secundario:** sin relleno, borde de 2 px en Azul noche, mismo tamaño; hover Verde tenue.
+- **Enlace:** Azul noche subrayado (1 px, separación 3 px); en hover el subrayado pasa a 2 px. En el pie y en bandas Azul noche, Verde Mundilácteos (5,10:1). Sin flechas añadidas al texto.
+- **Enlace activo del menú:** peso 700 y subrayado de 3 px en Verde Mundilácteos.
+- **Selección:** Cielo profundo, siempre con subrayado o barra de 3 px (cifra elegida en la fila, ciudad elegida, punto del mapa).
+- **Campo:** fondo Blanco, `--borde-control`, alto de 48 px, etiqueta visible arriba en 16/24 wght 500; con foco suma un halo de 4 px en Verde tinte; error con borde de 2 px en Rojo error, icono y mensaje debajo.
+- **Chip de filtro:** borde Pizarra, `--radio-control`, alto de 40 px dentro de un área táctil de 48 px; activo con fondo Azul noche y texto Blanco.
+- **Zona B2B:** fondo Verde tinte con texto Azul noche (filas de bultos, cabecera de Mi cotización, Para su negocio, marca propia).
+- **Marco de toma por producir:** fondo Verde tenue con brillo radial, marcas de encuadre en Verde Mundilácteos, pictograma de la familia (bolsa, cuchara, planta o tienda) en Verde hoja, código pequeño sobre Blanco y pie de foto breve debajo; máximo uno por sección y 360 px de ancho.
 
 ---
 
@@ -1368,7 +1415,7 @@ Componentes base con estos tokens:
 
 Objetivo: WCAG 2.2 nivel AA en todo el sitio, AAA en el contraste del texto principal.
 
-1. **Contraste:** solo los pares aprobados en 4.2. Texto sobre Kraft siempre en Tinta café. Rojo sobre Kraft solo a 24 px o más.
+1. **Contraste:** solo los pares aprobados en 4.2. Texto sobre Verde Mundilácteos y Verde tinte siempre en Azul noche; sobre Azul noche, Blanco, Verde tenue o Verde Mundilácteos (enlaces). Verde Mundilácteos como texto sobre blanco solo en cifras de 24 px o más. Las apariciones al hacer scroll no cambian la opacidad, así el contraste nunca baja.
 2. **Nunca solo color:** estado elegido con subrayado, error con icono y texto, enlace activo con subrayado, ciudad elegida con marcador y peso 700.
 3. **Foco visible** en todo elemento interactivo (3 px, separación de 2 px); nunca `outline: none` sin reemplazo. El foco no queda tapado por la cabecera fija ni por la barra inferior (`scroll-padding` con sus altos).
 4. **Objetivos táctiles** de 48 px como mínimo con 8 px de separación, incluidas las columnas de la fila a escala, los chips y los controles de cantidad.
@@ -1394,7 +1441,7 @@ Objetivo: WCAG 2.2 nivel AA en todo el sitio, AAA en el contraste del texto prin
 - Sitio generado como HTML estático (por ejemplo con Eleventy) a partir de `datos/catalogo.json` (productos, presentaciones, medidas, paca, rinde, registros), `datos/cobertura.json` (ciudades, tiempos, mínimos) y `datos/atencion.json` (horario, festivos, asesores). Cada ficha y cada presentación salen prerenderizadas para buscadores.
 - Despliegue en `public_html` por Git o FTP. `.htaccess` con URL limpias, redirecciones 301 desde WordPress, caché larga para fuentes e imágenes y compresión.
 - Formularios: script PHP con SMTP de Hostinger, campo trampa, límite por IP y validación en el servidor. Alternativa: servicio de formularios. Respaldo: WhatsApp con mensaje prellenado.
-- Presupuesto de carga: fuente de 88 KB, CSS de 25 KB o menos y JavaScript de 35 KB o menos (comprimidos), sin jQuery ni librerías de animación. Objetivo: LCP por debajo de 2,5 s en 4G y Lighthouse de 95 o más en rendimiento y accesibilidad.
+- Presupuesto de carga: fuente de 88 KB, CSS de 25 KB o menos y JavaScript de 35 KB o menos por página (comprimidos), sin jQuery ni librerías de animación: el movimiento es CSS nativo (View Transitions, `animation-timeline`) y unas 120 líneas de JavaScript propio (vuelo FLIP y contador). Medido en el prototipo el 25/09/2026: CSS de 23 KB y JavaScript de 56 KB con gzip, sin minificar y con todas las vistas en un solo archivo; en producción cada página prerenderizada carga solo su parte. Packshots recortados de 10 a 40 KB en WebP. Objetivo: LCP por debajo de 2,5 s en 4G y Lighthouse de 95 o más en rendimiento y accesibilidad.
 - Datos estructurados: `Organization`, `LocalBusiness` y `Product` en JSON-LD; `sitemap.xml`; imagen para compartir por ficha.
 - `localStorage` y `sessionStorage` siempre dentro de `try/catch`; el sitio funciona completo si están bloqueados.
 
@@ -1403,16 +1450,16 @@ Objetivo: WCAG 2.2 nivel AA en todo el sitio, AAA en el contraste del texto prin
 ## 17. Qué NO hacer
 
 1. Vaca en potrero, salpicaduras de leche, gotas, vasos rebosantes ni el globo del logo actual.
-2. Azul y blanco lácteo, degradados decorativos, bandera tricolor, murallas, balcones, palmeras o mar turquesa.
+2. Degradados decorativos (el globo actual incluido), bandera tricolor, murallas, balcones, palmeras o mar turquesa.
 3. Fotos de banco de imágenes o de personas posando.
-4. Fondo crema o beige: la superficie es Blanco bolsa.
-5. Kraft fuera de las zonas de venta por volumen, o Kraft con textura de papel.
-6. Rojo en áreas grandes, rojo sobre Tinta café, texto pequeño rojo sobre Kraft, Tinta suave sobre Kraft.
+4. Fondo crema o beige: la superficie es Blanco.
+5. Colores fuera de MARCA.md: kraft, café, terracota, rojo de marca, morado, naranja o negros teñidos. El kraft solo existe dentro de las fotos de los sacos.
+6. Verde Mundilácteos o Azul cielo como texto pequeño sobre blanco; Pizarra sobre Verde Mundilácteos; Rojo error fuera de los mensajes de error; Amarillo Becerrita fuera del contexto de La Becerrita.
 7. Cuadrículas de tarjetas iguales con esquinas redondeadas y la misma sombra gris; el catálogo es una planilla.
 8. Rótulos en mayúsculas sobre los títulos, etiquetas en mayúsculas sostenidas, cadenas de datos unidas con punto medio, flechas añadidas a botones y enlaces, fuente monoespaciada para datos.
 9. Numeración 01, 02, 03 donde no hay secuencia. Solo llevan números Así empacamos, Cómo trabajamos, Cómo llega su pedido, la historia y los pasos de la cotización.
-10. Una cifra gigante con etiqueta pequeña como hero, o franjas de "12 años, 32 departamentos".
-11. Revelados al hacer scroll, parallax, carruseles automáticos, tarjetas que suben al pasar el cursor, animación del ancho tipográfico.
+10. Una cifra gigante con etiqueta pequeña como hero, franjas de "12 años, 32 departamentos" o más de dos cifras gigantes por página.
+11. Apariciones que ocultan contenido (opacidad 0) o bajan el contraste del texto, parallax de fondos completos, scroll-jacking, carruseles automáticos, animación del ancho en texto corrido y cualquier movimiento fuera del repertorio de EXPERIENCIA.md.
 12. Un segundo elemento audaz, o la fila a escala repetida como adorno en otras secciones.
 13. Palabras de comercio electrónico: carrito, comprar, pagar, checkout. No se muestran precios.
 14. Llamar leche a una mezcla con endulzante: cada referencia usa la denominación exacta de su registro Invima.
@@ -1487,12 +1534,12 @@ Objetivo: WCAG 2.2 nivel AA en todo el sitio, AAA en el contraste del texto prin
 
 | Observación | Juez | Ajuste |
 |---|---|---|
-| Tinta café `#2E2118` cerca del negro teñido genérico | 1 | Cambia a `#3A2618`, más saturada; todos sus pares siguen en AAA |
+| Tinta café `#2E2118` cerca del negro teñido genérico | 1 | Cambió a `#3A2618`. Reemplazada el 25/09/2026 por Azul noche `#0B1F4F` (paleta de marca) |
 | La bolsa de 27 g queda diminuta en móvil | 1 y 2 | Columnas de 48 px como mínimo, independientes del dibujo |
 | Cifras de 300 y ancho 62 ilegibles a tamaño pequeño | 2 | En móvil, cifras de 18 px con peso mínimo de 500 y ancho mínimo de 75 |
 | Sin buscador | 2 | Buscador visible en cabecera y Productos |
 | La cantidad solo se elegía en la ficha | 2 | Control de cantidad en cada fila de la planilla |
 | Tono frío de planilla para el consumidor | 1 y 2 | Fotografía de Clientes, "Hecha para el calor", bloque Para su casa, página Dónde comprar y recetas en Recursos |
-| El kraft con rojo puede leerse como artesanal o como el rojo de una cadena | 1 | Blanco dominante (75 %), rojo solo en botón y selección, fotografía de planta y tablas precisas que anclan el tono industrial |
+| El kraft con rojo puede leerse como artesanal o como el rojo de una cadena | 1 | Resuelto de raíz el 25/09/2026: kraft y rojo salen de la interfaz; blanco dominante con Verde Mundilácteos y Azul noche de la marca |
 | Dependencia de 12 packshots y medidas reales | 2 | Siluetas SVG de respaldo y tabla de medidas estimadas para reemplazar |
 | Densidad de tres columnas a 1280 px (señalada en Nota de pedido) | 2 | La columna de cotización aparece desde 1440 px; por debajo es una franja con panel lateral |

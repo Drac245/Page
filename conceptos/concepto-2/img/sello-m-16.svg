@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
-  <!-- Versión de 16 px (favicon): trazo de 3 u, sin línea de llenado. -->
-  <path d="M4.5 2.5 12 11 19.5 2.5V19.5A2 2 0 0 1 17.5 21.5H6.5A2 2 0 0 1 4.5 19.5Z" fill="none" stroke="#3A2618" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="10"/>
+  <!-- Versión de 16 px (favicon): trazo de 3 u, llenado verde sin onda. -->
+  <path d="M6 14.2C8.3 12.9 10.1 15.2 12.2 14.2 14.3 13.2 16.2 13 18 13.8V19.8H6Z" fill="#4AA603"/>
+  <path d="M4.5 2.5 12 11 19.5 2.5V19.5A2 2 0 0 1 17.5 21.5H6.5A2 2 0 0 1 4.5 19.5Z" fill="none" stroke="#0A2F8F" stroke-width="3" stroke-linejoin="miter" stroke-miterlimit="10"/>
 </svg>
