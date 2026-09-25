@@ -1751,6 +1751,35 @@ textarea.control { min-block-size: 120px; resize: vertical; }
 .no-existe-bajo .buscador { max-width: 30rem; }
 .no-existe-bajo .buscador .control { border-color: var(--c-pizarra); }
 
+
+/* Visor de la bolsa en páginas interiores: radios con data-zona (sin ids repetidos) */
+.bolsa-visor:has([data-zona="registro"]:checked) .z-registro,
+.bolsa-visor:has([data-zona="lote"]:checked) .z-lote,
+.bolsa-visor:has([data-zona="vence"]:checked) .z-vence,
+.bolsa-visor:has([data-zona="peso"]:checked) .z-peso,
+.bolsa-visor:has([data-zona="tabla"]:checked) .z-tabla { fill: rgb(16 144 224 / 0.3); stroke-width: 3; }
+.bolsa-visor:has([data-zona="registro"]:checked) .lienzo { transform: scale(1.8) translate(33px, -138px); }
+.bolsa-visor:has([data-zona="lote"]:checked) .lienzo { transform: scale(1.8) translate(48px, 118px); }
+.bolsa-visor:has([data-zona="vence"]:checked) .lienzo { transform: scale(1.8) translate(-48px, 118px); }
+.bolsa-visor:has([data-zona="peso"]:checked) .lienzo { transform: scale(1.8) translate(-64px, -137px); }
+.bolsa-visor:has([data-zona="tabla"]:checked) .lienzo { transform: scale(1.35) translate(33px, -11px); }
+.bolsa-visor:has([data-zona="registro"]:checked) .zt-registro,
+.bolsa-visor:has([data-zona="lote"]:checked) .zt-lote,
+.bolsa-visor:has([data-zona="vence"]:checked) .zt-vence,
+.bolsa-visor:has([data-zona="peso"]:checked) .zt-peso,
+.bolsa-visor:has([data-zona="tabla"]:checked) .zt-tabla { display: grid; gap: 0.75rem; animation: fundido var(--dur-cambio) var(--curva-entrada); }
+.panel-bruma .bolsa-marco .marco-area { background: var(--c-blanco); }
+.panel-bruma .escena .franja { background: var(--c-blanco); }
+.panel-bruma .escena .franja.filete-becerrita::after { background: var(--c-blanco); }
+.pasos-articulo h4 { font-size: var(--fs-19); font-weight: 700; line-height: 1.25; color: var(--c-azul-noche); }
+.mp-bolsas .grupo { bottom: 12px; }
+@media (min-width: 1024px) {
+  .mp-bolsas { top: auto; bottom: -56px; height: 380px; }
+  .mp-bolsas .grupo { bottom: 0; }
+  .mp-aviso { top: auto; bottom: -132px; }
+  .cabeza-mp + .bloque { padding-top: calc(var(--seccion) + 96px); }
+}
+
 /* 12. Movimiento ------------------------------------------------------------------ */
 
 @keyframes fundido { from { opacity: 0; } to { opacity: 1; } }

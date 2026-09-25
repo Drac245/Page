@@ -394,10 +394,11 @@
       var numero = copiar.getAttribute('data-copiar');
       copiarTexto(numero).then(function () {
         copiar.classList.add('copiado');
-        var t = copiar.querySelector('span:not(.sr)'); var antes = t.textContent; t.textContent = 'Número copiado';
-        anunciar('Número ' + numero + ' copiado.');
+        var t = copiar.querySelector('span:not(.sr)'); var antes = t.textContent, hecho = copiar.getAttribute('data-copiado');
+        t.textContent = hecho || 'Número copiado';
+        anunciar(hecho ? hecho + '.' : 'Número ' + numero + ' copiado.');
         window.setTimeout(function () { copiar.classList.remove('copiado'); t.textContent = antes; }, 2000);
-      }, function () { aviso('No se pudo copiar. El número es ' + numero + '.'); });
+      }, function () { aviso('No se pudo copiar. El texto es: ' + numero + '.'); });
       return;
     }
     if (e.target.closest('[data-copiar-enlace]')) {
@@ -1025,7 +1026,7 @@
   function accionAgregar(btn) {
     var s = btn.getAttribute('data-agregar'), k = btn.getAttribute('data-pres');
     if (!k) return;
-    var cont = btn.closest('.vitrina, .ficha-rejilla');
+    var cont = btn.closest('.vitrina, .ficha-rejilla, [data-con-pack]');
     var img = cont ? cont.querySelector('img.pack') : null;
     if (btn.hasAttribute('data-ficha-boton')) {
       var n = parseInt(($('#cantidad-ficha') || {}).value, 10) || 1;
@@ -1333,7 +1334,12 @@
           '</form>' +
         '</section>' +
       '</div>';
-    return { titulo: 'Solicitar cotización', html: html, montar: montarCotizar };
+    var ciudadPre = null;
+    (r.params || []).forEach(function (t) { if (t.indexOf('ciudad-') === 0) ciudadPre = ciudadDeSlug(t.slice(7)); });
+    return { titulo: 'Solicitar cotización', html: html, montar: function (vista) {
+      montarCotizar(vista);
+      if (ciudadPre) { $('#f-ciudad', vista).value = ciudadPre; actualizarWACotizar(); }
+    } };
   };
 
   function pintarListaCotizar() {
@@ -1436,75 +1442,958 @@
     });
   }
 
-  /* ---------- Vistas mínimas (se completan en la tarea 2) ---------- */
+  /* ---------- Vista de texto simple (páginas legales) ---------- */
   function enlacesHTML(lista) { return '<div class="interior-enlaces">' + lista.map(function (l) { return '<a class="enlace" href="' + l[1] + '">' + esc(l[0]) + '</a>'; }).join('') + '</div>'; }
   function minima(titulo, entradilla, cuerpo, enlaces, rastro) {
     return { titulo: titulo, html: cabezaInterior(titulo, entradilla, rastro) + '<div class="contenedor interior-cuerpo">' + (cuerpo || '') + (enlaces ? enlacesHTML(enlaces) : '') + '</div>' };
   }
+
+  /* ---------------------------------------------------------------------------
+     Páginas interiores: componentes compartidos
+     --------------------------------------------------------------------------- */
+  var TEL = C.empresa.telefono_visible;
+  var TEL_HREF = 'tel:' + C.empresa.telefono.replace(/\s/g, '');
+  var WA_VISIBLE = '+57 ' + TEL;
+  var MAPS = 'https://www.google.com/maps/search/?api=1&query=Parque+Industrial+Europark+Turbaco+Bol%C3%ADvar';
+  var DATOS_GOV = C.calidad.invima_establecimiento.fuente;
+  var DIRECCION_TXT = C.empresa.direccion + '. Turbaco, Bolívar (área metropolitana de Cartagena).';
+  var NB = '&#8239;';
+  var T_COSTA = (C.cobertura.tiempos.valor.match(/Costa Caribe: ([^.]+)\./) || [])[1] || '';
+  var T_RESTO = (C.cobertura.tiempos.valor.match(/Resto del país: ([^.]+)\./) || [])[1] || '';
+  DIM['bultos-trio.webp'] = [883, 366];
+
+  function enlaceExterno(href, html, sr) { return '<a href="' + esc(href) + '" target="_blank" rel="noopener">' + html + '<span class="sr">' + esc(sr || ', abre otra pestaña') + '</span></a>'; }
+  function btnWA(msg, texto, clase) { return '<a class="btn ' + (clase || 'btn-primario') + '" href="' + esc(waUrl(msg)) + '" target="_blank" rel="noopener">' + icono('i-wa', 'ico-relleno') + esc(texto) + '<span class="sr">, abre WhatsApp</span></a>'; }
+  function lineaWA(msg) { return '<p class="mensaje-wa">Mensaje que se enviará al ' + TEL + ': <q>' + esc(msg) + '</q></p>'; }
+  function btnCopiar(texto, etiqueta, copiado, sr) {
+    return '<button class="btn btn-secundario btn-copiar solo-js" type="button" data-copiar="' + esc(texto) + '"' + (copiado ? ' data-copiado="' + esc(copiado) + '"' : '') + '>' + icono('i-copiar', 'ico-copiar') + icono('i-hecho', 'ico-hecho') + '<span>' + esc(etiqueta) + '</span>' + (sr ? '<span class="sr"> ' + esc(sr) + '</span>' : '') + '</button>';
+  }
+  function verificado(html) { return '<p class="verificado">' + icono('i-verificado') + '<span>' + html + '</span></p>'; }
+  function titulo2(id, texto, clase) { return '<h2 id="' + id + '" tabindex="-1"' + (clase ? ' class="' + clase + '"' : '') + '>' + texto + '</h2>'; }
+
+  function cabeza(o) {
+    return '<section class="contenedor interior-cabeza' + (o.clase ? ' ' + o.clase : '') + '">' + migas(o.rastro || [['Inicio', '#inicio'], [o.titulo, '']]) +
+      '<div class="cabeza-rejilla"><div><h1>' + esc(o.titulo) + '</h1>' + (o.entradilla ? '<p class="entradilla">' + o.entradilla + '</p>' : '') + (o.meta || '') + '</div>' +
+      (o.lado ? '<div class="cabeza-lado">' + o.lado + '</div>' : '') + '</div></section>';
+  }
+  function enPagina(ruta, items) {
+    return '<nav class="en-pagina" aria-label="En esta página"><p class="etiqueta">En esta página</p><ul>' + items.map(function (it) {
+      return '<li><a href="#' + ruta + '" data-ancla="' + it[0] + '">' + esc(it[1]) + '</a></li>';
+    }).join('') + '</ul></nav>';
+  }
+  /* La secuencia corre sobre un arco de paralelo: y = 4·x·(1 − x) */
+  function recorridoHTML(items, tipo) {
+    var n = items.length;
+    return '<div class="recorrido-marco recorrido-' + tipo + '"><svg class="recorrido-arco" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 0Q50 20 100 0"/></svg>' +
+      '<ol class="recorrido" style="--n:' + n + '">' + items.map(function (it, i) {
+        var x = i / n, y = 4 * x * (1 - x);
+        var marca = tipo === 'anios'
+          ? '<span class="recorrido-punto" aria-hidden="true"></span><p class="recorrido-anio">' + esc(it.marca) + '</p>'
+          : '<span class="recorrido-num" aria-hidden="true">' + (i + 1) + '</span>';
+        return '<li style="--y:' + y.toFixed(3) + '">' + marca + '<h3>' + it.titulo + '</h3><p>' + it.texto + '</p></li>';
+      }).join('') + '</ol></div>';
+  }
+  function itemPack(archivo, alt, clase) {
+    var d = DIM[archivo] || [300, 400];
+    return '<div class="item' + (clase ? ' ' + clase : '') + '"><img src="img/r-' + archivo + '" width="' + d[0] + '" height="' + d[1] + '" alt="' + esc(alt) + '" loading="lazy"></div>';
+  }
+  function escenaGrupo(items, clase, becerrita) {
+    return '<div class="escena marca-escena' + (clase ? ' ' + clase : '') + '"><span class="franja' + (becerrita ? ' filete-becerrita' : '') + '" aria-hidden="true"></span><span class="brillo" aria-hidden="true"></span><div class="grupo">' + items.join('') + '</div></div>';
+  }
+  function marcoToma(codigo, texto, pictograma, clase, ratio) {
+    return '<figure class="marco' + (clase ? ' ' + clase : '') + '"><div class="marco-area"' + (ratio ? ' style="--marco-ratio:' + ratio + '"' : '') + '><svg viewBox="' + (pictograma === 'p-retratos' ? '0 0 72 40' : '0 0 48 64') + '" aria-hidden="true"><use href="#' + pictograma + '"/></svg></div><figcaption><span class="codigo-toma">' + codigo + '</span><span>' + texto + '</span></figcaption></figure>';
+  }
+  function numeroSolicitud() { return String(Math.floor(Date.now() / 60000) % 10000).padStart(4, '0'); }
+
+  /* Formularios cortos: validación al salir del campo y al enviar, resumen con enlaces, confirmación */
+  function campoTexto(id, etiqueta, attrs, error, ayuda, opcional) {
+    var describe = (ayuda ? id + '-ayuda ' : '') + (error ? id + '-error' : '');
+    var control = attrs.indexOf('textarea') === 0
+      ? '<textarea class="control" id="' + id + '"' + attrs.slice(8) + (describe ? ' aria-describedby="' + describe.trim() + '"' : '') + '></textarea>'
+      : '<input class="control" id="' + id + '"' + attrs + (describe ? ' aria-describedby="' + describe.trim() + '"' : '') + '>';
+    return '<div class="campo" id="campo-' + id + '"><label for="' + id + '">' + etiqueta + (opcional ? ' <span class="campo-opcional">(opcional)</span>' : '') + '</label>' +
+      (ayuda ? '<p class="ayuda" id="' + id + '-ayuda">' + ayuda + '</p>' : '') + control +
+      (error ? '<p class="error-campo" id="' + id + '-error">' + icono('i-alerta') + '<span>' + error + '</span></p>' : '') + '</div>';
+  }
+  function campoWA(id) {
+    return campoTexto(id, 'WhatsApp', ' name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="300 123 4567" required', 'Escriba un número de WhatsApp de 10 dígitos, por ejemplo 300 123 4567.');
+  }
+  function campoAcepto(id, para) {
+    return '<div class="campo" id="campo-' + id + '"><label class="casilla"><input type="checkbox" id="' + id + '" name="acepto" data-regla="' + id + '" aria-describedby="' + id + '-error"><span>Autorizo a Inversiones Mundilácteos S.A.S. a tratar mis datos para ' + para + ', según la <a href="#privacidad">Política de tratamiento de datos</a> (Ley 1581 de 2012).</span></label>' +
+      '<p class="error-campo" id="' + id + '-error">' + icono('i-alerta') + '<span>Para enviar, autorice el tratamiento de sus datos.</span></p></div>';
+  }
+  var validaWA = function (v) { return /^3\d{9}$/.test(String(v).replace(/\D/g, '').replace(/^57(?=\d{10}$)/, '')); };
+  var validaTexto = function (min) { return function (v) { return String(v).trim().length >= min; }; };
+  function montarFormulario(form, reglas, alEnviar) {
+    var tocado = {};
+    function valor(id) { var el = $('#' + id, form); return el ? (el.type === 'checkbox' ? el.checked : el.value) : ''; }
+    function validar(solo) {
+      var errores = [];
+      Object.keys(reglas).forEach(function (id) {
+        if (solo && solo !== id) return;
+        var r = reglas[id], ok = r.grupo ? !!form.querySelector('input[name="' + r.grupo + '"]:checked') : r.ok(valor(id));
+        var cont = $('#campo-' + id, form);
+        if (ok) cont.removeAttribute('data-error'); else { cont.setAttribute('data-error', ''); errores.push(id); }
+        var el = $('#' + id, form); if (el && !r.grupo) el.setAttribute('aria-invalid', String(!ok));
+      });
+      return errores;
+    }
+    form.addEventListener('focusout', function (e) {
+      var id = e.target.id;
+      if (reglas[id] && !reglas[id].grupo && e.target.type !== 'checkbox' && String(e.target.value).trim()) { tocado[id] = true; validar(id); }
+    });
+    form.addEventListener('input', function (e) { if (reglas[e.target.id] && (tocado[e.target.id] || tocado.enviado) && e.target.type !== 'checkbox') validar(e.target.id); });
+    form.addEventListener('change', function (e) { var g = e.target.getAttribute('data-regla'); if (g && tocado.enviado) validar(g); });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      tocado.enviado = true;
+      var errores = validar(), resumen = $('.resumen-errores', form);
+      if (errores.length) {
+        resumen.innerHTML = '<h3>' + icono('i-alerta') + 'Revise ' + errores.length + ' ' + plural(errores.length, 'campo', 'campos') + ' antes de enviar.</h3><ul>' + errores.map(function (id) {
+          return '<li><a href="#' + id + '" data-enfocar="' + id + '">' + esc(reglas[id].nombre) + ': ' + esc($('#' + id + '-error', form).textContent.trim()) + '</a></li>';
+        }).join('') + '</ul>';
+        resumen.hidden = false; resumen.focus();
+        return;
+      }
+      resumen.hidden = true;
+      alEnviar(function (id) { var el = $('#' + id, form); return el ? el.value.trim() : ''; });
+    });
+    form.addEventListener('click', function (e) {
+      var a = e.target.closest('[data-enfocar]'); if (!a) return;
+      e.preventDefault();
+      var el = document.getElementById(a.getAttribute('data-enfocar'));
+      if (el) { el.scrollIntoView({ block: 'center' }); el.focus(); }
+    });
+  }
+  function confirmar(cont, o) {
+    var numero = numeroSolicitud();
+    var msg = o.msg.replace('{n}', numero);
+    cont.innerHTML = '<div class="confirmacion"><h2 id="' + o.id + '" tabindex="-1"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M7.8 12.4l2.9 2.8 5.5-5.9"/></svg>' + esc(o.titulo) + ' N.º ' + numero + '.</h2>' +
+      '<p>' + o.texto + '</p>' +
+      '<div class="acciones">' + btnWA(msg, 'Continuar por WhatsApp') + (o.extra || '') + '</div>' + lineaWA(msg) +
+      '<p class="nota-prototipo">Prototipo: el mensaje no salió de este navegador. En el sitio publicado llega al equipo comercial por correo.</p></div>';
+    var h = $('#' + o.id, cont); if (h) h.focus();
+    anunciar(o.titulo + ' Número ' + numero + '.');
+  }
+  function resumenErroresHTML() { return '<div class="resumen-errores" role="alert" tabindex="-1" hidden></div>'; }
+
+  /* Esquema de la bolsa: mismo visor de la Home, con radios propios (sin ids repetidos) */
+  var ZONAS_BOLSA = [
+    ['registro', 'Registro sanitario', 'Es el número que el INVIMA asigna a este producto. Cópielo y verifíquelo. En The Cántaro Entera es el <strong class="nw">RSA-006359-2018</strong>.', true],
+    ['lote', 'Lote', 'Indica el día y el turno de empaque. Con él rastreamos cada bolsa. Téngalo a mano si necesita escribirnos por un producto. ' + porConfirmar()],
+    ['vence', 'Vencimiento', 'La fecha hasta la que la bolsa cerrada conserva su calidad. La vida útil es de ' + C.calidad.vida_util_meses + ' meses desde el empaque, en un lugar fresco y seco.'],
+    ['peso', 'Peso neto', 'Lo que contiene la bolsa, sin contar el empaque: 380' + NB + 'g en la bolsa de este ejemplo, que rinde 3 litros según su etiqueta.'],
+    ['tabla', 'Tabla nutricional', 'Los valores por porción y por 100' + NB + 'g, con el formato de la Resolución 810 de 2021. En cada ficha técnica la encuentra también como tabla.']
+  ];
+  function visorBolsaHTML(pref) {
+    var svg = '<svg class="esquema-bolsa" viewBox="0 0 300 400" role="img" aria-label="Esquema del reverso de una bolsa con cinco zonas: lote, vencimiento, tabla nutricional, registro sanitario y peso neto"><g class="lienzo">' +
+      '<path class="bolsa-cuerpo" d="M40 380Q40 386 46 386H254Q260 386 260 380V40L255 32L250 40L245 40L240 40L235 32L230 40L225 40L220 40L215 32L210 40L205 40L200 40L195 32L190 40L185 40L180 40L175 32L170 40L165 40L160 40L155 32L150 40L145 40L140 40L135 32L130 40L125 40L120 40L115 32L110 40L105 40L100 40L95 32L90 40L85 40L80 40L75 32L70 40L65 40L60 40L55 32L50 40L45 40L40 40Z"/>' +
+      '<path class="linea" d="M44 56H256"/><rect class="zona z-lote" x="62" y="70" width="80" height="24" rx="3"/><text class="rotulo" x="70" y="86">Lote</text>' +
+      '<rect class="zona z-vence" x="158" y="70" width="80" height="24" rx="3"/><text class="rotulo" x="166" y="86">Vence</text>' +
+      '<rect class="zona z-tabla" x="62" y="114" width="110" height="194" rx="3"/><text class="rotulo" x="70" y="130">Información</text><text class="rotulo" x="70" y="141">nutricional</text>' +
+      [156, 174, 192, 210, 228, 246, 264, 282].map(function (y, i) { return '<path class="linea" d="M70 ' + y + 'H' + (i % 3 === 2 ? 150 : 164) + '"/>'; }).join('') +
+      [120, 132, 144, 156, 168, 180, 192, 204, 216].map(function (y, i) { return '<path class="linea" d="M188 ' + y + 'H' + (i % 3 === 2 ? 228 : 242) + '"/>'; }).join('') +
+      '<rect class="zona z-registro" x="62" y="326" width="110" height="24" rx="3"/><text class="rotulo" x="70" y="342">RSA-006359-2018</text>' +
+      '<rect class="zona z-peso" x="186" y="316" width="56" height="42" rx="3"/><text class="rotulo" x="193" y="333">Peso neto</text><text class="rotulo" x="193" y="348">380 g</text></g></svg>';
+    return '<div class="bolsa-visor"><figure class="marco bolsa-marco"><div class="marco-area">' + svg + '</div><figcaption><span class="codigo-toma">E02</span><span>Toma por producir: reverso legible de The Cántaro 380' + NB + 'g. Mientras llega, este esquema señala las cinco zonas.</span></figcaption></figure>' +
+      '<div class="bolsa-explica"><fieldset><legend class="sr">Zona de la bolsa</legend><div class="chips">' + ZONAS_BOLSA.map(function (z, i) {
+        return '<label class="chip"><input type="radio" name="' + pref + '-zona" data-zona="' + z[0] + '"' + (i === 0 ? ' checked' : '') + '><span class="chip-cara">' + CHECK + z[1] + '</span></label>';
+      }).join('') + '</div></fieldset><div aria-live="polite">' + ZONAS_BOLSA.map(function (z) {
+        return '<div class="zona-texto zt-' + z[0] + '"><h3>' + z[1] + '</h3><p>' + z[2] + '</p>' + (z[3] ? '<div class="acciones">' + btnCopiar('RSA-006359-2018', 'Copiar número') + enlaceExterno(INVIMA, 'Verificar en el INVIMA') + '</div>' : '') + '</div>';
+      }).join('') + '</div></div></div>';
+  }
+
+  /* Globo reducido (Nosotros y 404): misma geometría del hero; el titular corre por el paralelo 10 */
+  function cabezaGlobo(o) {
+    var f2 = o.foto ? '<img class="relleno foto" src="' + o.foto[0] + '" width="' + o.foto[1] + '" height="' + o.foto[2] + '" alt="' + esc(o.foto[3]) + '">' : '<div class="relleno"></div>';
+    return '<section class="cabeza-globo' + (o.clase ? ' ' + o.clase : '') + '" style="--cg-k:' + o.k + '">' +
+      '<div class="contenedor">' + migas(o.rastro) + '</div>' +
+      '<div class="cg-escenario"><div class="globo globo-mini' + (o.bruma ? ' globo-bruma' : '') + '">' +
+        '<div class="franja f1"><div class="relleno"></div></div><div class="franja f2">' + f2 + '</div><div class="franja f3"><div class="relleno"></div></div>' +
+        '<div class="franja f4"><div class="relleno"><svg class="destello" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M30 50.75Q37 52.85 44 53.48"/></svg></div></div></div>' +
+        '<div class="cg-carril"><h1>' + o.h1 + '</h1></div>' +
+        '<div class="cg-bajo">' + o.bajo + '</div>' +
+      '</div></section>';
+  }
+  function entrarGlobo(vista) {
+    var s = $('.cabeza-globo', vista);
+    if (!s || reducido()) return;
+    s.classList.add('entra');
+    window.setTimeout(function () { s.classList.remove('entra'); }, 1300);
+  }
+
+  /* ---------- Nosotros ---------- */
   VISTAS.nosotros = function () {
-    return minima('Nosotros', 'Una empresa familiar con planta en Turbaco, Bolívar.',
-      '<div class="cuerpo-texto"><p>' + esc(C.empresa.razon_social) + ' fabrica y empaca leche en polvo en el Parque Industrial Europark, en Turbaco, con las marcas The Cántaro y La Becerrita, y empaca para cadenas y distribuidores con su marca.</p><p>Año de constitución: ' + esc(C.empresa.constitucion.valor) + ' ' + porConfirmar() + '</p></div>',
-      [['Por qué elegirnos', '#por-que-elegirnos'], ['Ver productos', '#productos'], ['Contacto', '#contacto']]);
+    var e = C.empresa;
+    var historia = [
+      { marca: e.constitucion.valor, titulo: 'Nace la empresa', texto: 'Se constituye ' + esc(e.razon_social) + ', NIT ' + e.nit + '. EMIS registra el 30/12/2011; LinkedIn, 2010. ' + porConfirmar() },
+      { marca: '2017', titulo: 'Registro para mezclas lácteas', texto: 'El INVIMA expide el RSA-003008-2017 para mezclas en polvo a base de leche y endulzantes, vigente hasta el ' + fechaCO(REGS['RSA-003008-2017'].vence) + '.' },
+      { marca: '2018', titulo: 'Registro para leche en polvo', texto: 'RSA-006359-2018: leche en polvo entera, descremada, azucarada y fortificada. Es el registro de The Cántaro y La Becerrita.' },
+      { marca: '2023', titulo: 'Registro para empacar', texto: 'RSA-0027065-2023: empacar y vender leche en polvo entera y descremada.' },
+      { marca: '2025', titulo: 'Dos productos nuevos', texto: 'Alimento lácteo en polvo (RSA-0036572-2025) y mezcla láctea con café, endulzada con panela (RSA-0037312-2025).' },
+      { marca: 'Hoy', titulo: 'Planta en Europark', texto: 'Fabricamos y empacamos en el Parque Industrial Europark, en Turbaco, y despachamos a todo el país.' }
+    ];
+    var bajo = '<p class="entradilla">Una empresa familiar con planta en Turbaco, Bolívar.</p>' +
+      '<div class="credencial">' + verificado('Concepto sanitario favorable del INVIMA para la planta de Europark. ' + enlaceExterno(DATOS_GOV, 'Ver en datos.gov.co')) + '</div>';
+    var html = cabezaGlobo({
+      rastro: [['Inicio', '#inicio'], ['Nosotros', '']], k: 5.08, h1: '<span class="frag">Nosotros</span>', bajo: bajo,
+      foto: ['img/equipo-evento-b-recorte.webp', 560, 375, 'Siete personas del equipo de Mundilácteos en fila, con camisetas de La Becerrita']
+    }) +
+      '<section class="bloque" aria-labelledby="h2-somos"><div class="contenedor dos-col siete-cinco">' +
+        '<div class="cuerpo-texto">' + titulo2('h2-somos', 'Leche en polvo hecha en Turbaco.') +
+          '<p>Somos ' + esc(e.razon_social) + '. En nuestra planta del Parque Industrial Europark, en el km 1 de la vía a Turbaco, fabricamos y empacamos leche en polvo con dos marcas de la casa, The Cántaro y La Becerrita, y con la marca de las cadenas y distribuidores que nos confían su producto.</p>' +
+          '<p>Trabajamos con cinco registros sanitarios vigentes y despachamos desde Bolívar a tiendas, panaderías, supermercados e industria de todo el país.</p></div>' +
+        '<dl class="ficha-datos-lista empresa-datos">' +
+          '<dt>Razón social</dt><dd>' + esc(e.razon_social) + '</dd><dt>NIT</dt><dd class="num">' + e.nit + '</dd>' +
+          '<dt>Planta</dt><dd>Parque Industrial Europark, Bodega 28</dd><dt>Municipio</dt><dd>Turbaco, Bolívar (área metropolitana de Cartagena)</dd>' +
+          '<dt>Constitución</dt><dd>' + e.constitucion.valor + ' ' + porConfirmar() + '</dd>' +
+          '<dt>Equipo</dt><dd>' + e.empleados.valor + ' personas ' + porConfirmar() + '</dd></dl>' +
+      '</div></section>' +
+      '<section class="bloque" aria-labelledby="h2-historia"><div class="contenedor">' + titulo2('h2-historia', 'Nuestra historia, en años reales.') +
+        '<p class="bloque-intro">Cada año de esta línea remite a un documento público: el registro mercantil o un registro sanitario del INVIMA.</p>' +
+        recorridoHTML(historia, 'anios') + '</div></section>' +
+      '<section class="banda azul arco-sup abre oscuro" aria-labelledby="h2-gente"><div class="contenedor">' + titulo2('h2-gente', 'La gente que hace Mundilácteos.') +
+        '<p class="bloque-intro" style="margin-top:1.25rem;color:var(--c-bruma)">Detrás de cada bolsa hay alguien que la empaca, alguien que controla el lote y alguien que atiende su pedido. Pronto los conocerá por su nombre y su cargo.</p>' +
+        '<div class="gente-rejilla"><figure><div class="ventana-franja arco-sup arco-inf ventana-alta"><img src="img/equipo-planta.webp" width="900" height="466" alt="Equipo completo de Mundilácteos con camisetas de La Becerrita frente a la planta de Europark, con la estatua de vaca de la entrada" loading="lazy"></div>' +
+          '<figcaption class="foto-pie">El equipo frente a la planta de Europark. Foto provisional, con decoración de fin de año: la reemplaza la toma N01.</figcaption></figure>' +
+        '<div class="gente-lado"><figure><div class="ventana"><img src="img/equipo-evento-a.webp" width="606" height="404" alt="Las mujeres del equipo de Mundilácteos con camisetas de La Becerrita, en la celebración de fin de año" loading="lazy"></div>' +
+          '<figcaption class="foto-pie">Parte del equipo en la celebración de fin de año. Foto provisional: los retratos R01 a R06, con nombre y cargo, están por producir.</figcaption></figure></div></div>' +
+      '</div></section>' +
+      '<section class="bloque" aria-labelledby="h2-familia"><div class="contenedor dos-col cinco-siete centrado">' +
+        marcoToma('R06', 'Retrato de la familia fundadora en la planta, por producir, con autorización de uso de imagen.', 'p-retratos', '', '4 / 3') +
+        '<div class="cuerpo-texto">' + titulo2('h2-familia', 'Una empresa de familia.') +
+          '<p>Mundilácteos es una empresa familiar. En este espacio sus fundadores contarán, con su nombre y una cita firmada, por qué empezaron a hacer leche en polvo en Turbaco. ' + porConfirmar('texto por entregar') + '</p>' +
+          '<p class="nota">No publicamos testimonios ni citas sin la autorización de quien las firma.</p></div>' +
+      '</div></section>' +
+      '<section class="bloque" aria-labelledby="h2-planta-n"><div class="contenedor dos-col siete-cinco">' +
+        '<div class="direccion-bloque">' + titulo2('h2-planta-n', 'Visítenos en Europark.') +
+          '<address><strong>Parque Industrial Europark</strong>' + esc(DIRECCION_TXT) + '</address>' +
+          '<dl class="ficha-datos-lista"><dt>Coordenadas</dt><dd>' + porConfirmar('dato a confirmar con GPS') + '</dd><dt>Atención</dt><dd>' + esc(e.horario.valor) + ' ' + porConfirmar() + '</dd></dl>' +
+          '<div class="acciones"><a class="btn btn-primario" href="#contacto~visita">Solicitar visita a la planta</a>' +
+            '<a class="btn btn-secundario" href="' + MAPS + '" target="_blank" rel="noopener">' + icono('i-lugar') + 'Cómo llegar<span class="sr">, abre Google Maps</span></a>' +
+            btnCopiar(DIRECCION_TXT, 'Copiar dirección', 'Dirección copiada') + '</div></div>' +
+        marcoToma('P06', 'Fachada de la planta con la señal del parque industrial, por fotografiar.', 'p-bulto', '', '3 / 2') +
+      '</div></section>' +
+      '<section class="panel-bruma arco-sup seccion marcas-bloque" aria-labelledby="h2-marcas-n"><div class="contenedor">' + titulo2('h2-marcas-n', 'Nuestras marcas.', 'bloque-titulo') +
+        '<div class="marcas-nosotros">' +
+          '<div class="con-tilt">' + escenaGrupo([itemPack('cantaro-entera-500g.webp', 'The Cántaro Entera, bolsa de 500 g', 'bolsa'), itemPack('cantaro-entera-bulto-25kg.webp', 'The Cántaro Entera, bulto de 25 kg')], 'escena-media') +
+            '<h3>The Cántaro</h3><p>' + esc(MARCAS['the-cantaro'].descripcion) + '</p><a class="enlace" href="#productos~marca-the-cantaro">Ver The Cántaro</a></div>' +
+          '<div class="con-tilt">' + escenaGrupo([itemPack('becerrita-entera-900g.webp', 'La Becerrita Entera, bolsa de 900 g', 'bolsa'), itemPack('becerrita-mezcla-bulto-25kg.webp', 'La Becerrita Mezcla Láctea, bulto de 25 kg')], 'escena-media', true) +
+            '<h3>La Becerrita</h3><p>' + esc(MARCAS['la-becerrita'].descripcion.replace(/"([^"]+)"/g, '«$1»')) + '</p><a class="enlace" href="#productos~marca-la-becerrita">Ver La Becerrita</a></div>' +
+          '<div>' + '<div class="escena marca-escena escena-media"><span class="franja" aria-hidden="true"></span><div class="grupo"><svg class="pictograma-grupo" viewBox="0 0 48 64" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#p-bolsa"/></svg></div></div>' +
+            '<h3>Con su marca</h3><p>' + esc(MARCAS['marca-propia'].descripcion) + '</p><a class="enlace" href="#marca-propia">Conocer la maquila</a></div>' +
+        '</div></div></section>' +
+      '<section class="bloque" aria-labelledby="h2-cierre-n"><div class="contenedor">' + titulo2('h2-cierre-n', 'Seis razones, cada una con la forma de comprobarla.') +
+        '<div class="cierre-enlaces"><a class="btn btn-primario" href="#por-que-elegirnos">Ver por qué elegirnos</a><a class="enlace" href="#calidad">Calidad y registros</a><a class="enlace" href="#contacto">Contacto</a></div></div></section>';
+    return { titulo: 'Nosotros', html: html, montar: entrarGlobo };
   };
+
+  /* ---------- Calidad ---------- */
   VISTAS.calidad = function () {
-    var lista = '<ul class="lista-limpia" style="display:grid;gap:.75rem;font-family:var(--fuente-sans)">' + C.calidad.registros.map(function (r) {
-      return '<li class="verificado">' + icono('i-verificado') + '<span><strong class="num">' + r.numero + '</strong>: ' + esc(r.producto) + '. Vigente hasta el ' + fechaCO(r.vence) + '. <a href="' + INVIMA + '" target="_blank" rel="noopener">Verificar<span class="sr"> ' + r.numero + ', abre otra pestaña</span></a></span></li>';
-    }).join('') + '</ul><p class="verificado" style="font-family:var(--fuente-sans)">' + icono('i-verificado') + '<span>Concepto sanitario favorable del establecimiento N.º 24741. <a href="' + esc(C.calidad.invima_establecimiento.fuente) + '" target="_blank" rel="noopener">Ver en datos.gov.co<span class="sr">, abre otra pestaña</span></a></span></p>';
-    return minima('Calidad y registros', 'Cada número de esta página se puede comprobar en una fuente pública.', lista, [['Por qué elegirnos', '#por-que-elegirnos'], ['Contacto para peticiones, quejas y reclamos', '#contacto']]);
+    var filas = C.calidad.registros.map(function (r) {
+      return '<tr role="row"><th scope="row" role="rowheader"><span class="cifra-48">' + r.numero + '</span></th>' +
+        '<td role="cell" class="reg-ampara">' + esc(r.producto) + '</td>' +
+        '<td role="cell" data-etq="Modalidad">' + esc(r.modalidad) + '</td>' +
+        '<td role="cell" class="reg-vence" data-etq="Estado"><strong>' + esc(r.estado) + '</strong> hasta el ' + fechaCO(r.vence) + '</td>' +
+        '<td role="cell" class="reg-acciones"><div class="registro-acciones">' + btnCopiar(r.numero, 'Copiar número', null, r.numero) +
+        '<a href="' + INVIMA + '" target="_blank" rel="noopener">Abrir consulta<span class="sr"> del INVIMA para ' + r.numero + ', abre otra pestaña</span></a></div></td></tr>';
+    }).join('');
+    var pasos = [
+      { titulo: 'Recepción', texto: 'Recibimos materias primas e insumos con su documentación. Detalle del proceso: ' + porConfirmar() },
+      { titulo: 'Análisis', texto: 'Cada lote se analiza antes de empacar. Parámetros y laboratorio: ' + porConfirmar() },
+      { titulo: 'Empaque en atmósfera de CO<sub>2</sub>', texto: 'La leche se envasa en bolsa laminada de tres capas, en atmósfera controlada de CO<sub>2</sub>.' },
+      { titulo: 'Sellado con lote y vencimiento', texto: 'La bolsa se termosella y lleva impresos su lote y su fecha de vencimiento: ' + C.calidad.vida_util_meses + ' meses.' },
+      { titulo: 'Despacho', texto: 'Pacas y bultos salen de Europark hacia la Costa Caribe y el resto del país.' }
+    ];
+    var capas = '<svg class="capas" viewBox="0 0 480 300" role="img" aria-labelledby="capas-titulo"><title id="capas-titulo">Corte esquemático de la bolsa laminada: tres capas por fuera y, adentro, la leche en polvo en atmósfera controlada de CO2.</title>' +
+      [[20, 'c1', 'Capa 1'], [46, 'c2', 'Capa 2'], [72, 'c3', 'Capa 3']].map(function (c) {
+        var y = c[0];
+        return '<path class="capa ' + c[1] + '" d="M20 ' + y + 'Q160 ' + (y + 40) + ' 300 ' + y + 'L300 ' + (y + 20) + 'Q160 ' + (y + 60) + ' 20 ' + (y + 20) + 'Z"/><path class="guia" d="M306 ' + (y + 10) + 'H330"/><text x="338" y="' + (y + 15) + '">' + c[2] + '</text>';
+      }).join('') +
+      '<path class="interior" d="M20 100Q160 140 300 100L300 250Q160 290 20 250Z"/>' +
+      [[70, 150], [96, 176], [124, 158], [150, 190], [182, 166], [212, 184], [240, 160], [262, 198], [88, 210], [132, 226], [176, 214], [220, 232], [118, 190], [200, 206], [60, 186], [252, 222]].map(function (p) { return '<circle class="polvo" cx="' + p[0] + '" cy="' + p[1] + '" r="4"/>'; }).join('') +
+      '<text class="fuerte" x="160" y="258" text-anchor="middle">Leche en polvo</text><text x="160" y="278" text-anchor="middle">en atmósfera controlada de CO<tspan dy="4" font-size="11">2</tspan></text></svg>';
+    var fichas = PRODS.map(function (p) {
+      return '<li><span class="f-nombre">' + esc(p.nombre) + '</span><span class="f-reg">' + p.registro + '</span><a href="#producto-' + p.slug + '">Ficha técnica en HTML<span class="sr"> de ' + esc(p.nombre) + '</span></a>' +
+        '<button class="btn-descargar solo-js" type="button" data-descargar-ficha="' + p.slug + '">' + icono('i-abajo') + 'Descargar (HTML, ' + pesoFicha(p) + ')<span class="sr"> ficha técnica de ' + esc(p.nombre) + '</span></button></li>';
+    }).join('');
+    var msgPQR = 'Hola, Mundilácteos. Quiero reportar un problema con un producto. Lote: ____. Vencimiento: ____. Ciudad: ____.';
+    var html = cabeza({
+      titulo: 'Calidad y registros', entradilla: 'Cada número de esta página se puede comprobar en una fuente pública.',
+      lado: enPagina('calidad', [['h2-reg-c', 'Registros'], ['h2-cert', 'Certificaciones'], ['h2-proceso', 'Así trabajamos'], ['h2-bolsa-c', 'Cómo leer una bolsa'], ['h2-traza', 'Trazabilidad'], ['h2-empaque', 'Empaque'], ['h2-docs', 'Fichas técnicas']])
+    }) +
+      '<section class="banda noche arco-sup abre oscuro registros registros-calidad" aria-labelledby="h2-reg-c"><div class="contenedor">' +
+        '<div class="registros-cabeza">' + titulo2('h2-reg-c', 'Cinco registros sanitarios vigentes.') + '<p>Copie el número y consúltelo en el INVIMA. Última verificación: 25/09/2026.</p></div>' +
+        '<table class="tabla-reg" role="table"><caption class="sr">Registros sanitarios de Mundilácteos ante el INVIMA</caption><thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader">Registro</th><th scope="col" role="columnheader">Ampara</th><th scope="col" role="columnheader">Modalidad</th><th scope="col" role="columnheader">Vigencia</th><th scope="col" role="columnheader">Verificar</th></tr></thead><tbody role="rowgroup">' + filas + '</tbody></table>' +
+        '<div class="concepto-sanitario">' + verificado('Concepto sanitario favorable del establecimiento N.º 24741, línea «Leches en polvo y crema de leches en polvo».') + '<p>' + enlaceExterno(DATOS_GOV, 'Ver en datos.gov.co') + '</p></div>' +
+      '</div></section>' +
+      '<section class="bloque" aria-labelledby="h2-cert"><div class="contenedor">' + titulo2('h2-cert', 'Lo que está verificado y lo que falta por confirmar.', 'bloque-titulo') +
+        '<div class="certs">' +
+          '<article class="cert cert-verificada" aria-labelledby="h3-invima"><p class="cert-estado">' + icono('i-verificado') + 'Verificado en fuente pública</p><h3 id="h3-invima">Concepto sanitario del INVIMA</h3>' +
+            '<dl class="ficha-datos-lista"><dt>Ente</dt><dd>INVIMA</dd><dt>Establecimiento</dt><dd>N.º 24741, activo</dd><dt>Concepto</dt><dd>Favorable</dd><dt>Línea</dt><dd>Leches en polvo y crema de leches en polvo</dd><dt>Registros</dt><dd>Cinco, vigentes hasta 2028, 2030 y 2031</dd></dl>' +
+            '<div class="acciones">' + enlaceExterno(DATOS_GOV, 'Ver en datos.gov.co') + enlaceExterno(INVIMA, 'Consulta de registros del INVIMA') + '</div></article>' +
+          '<article class="cert cert-pendiente" aria-labelledby="h3-iso"><p class="cert-estado">' + icono('i-alerta') + 'Pendiente de soporte: no se muestra como sello</p><h3 id="h3-iso">ISO 9001:2015</h3>' +
+            '<p class="texto-sans">El sitio actual la declara. Para publicarla como certificación faltan cuatro datos:</p>' +
+            '<ul><li><span>Ente certificador</span>' + porConfirmar() + '</li><li><span>Número de certificado</span>' + porConfirmar() + '</li><li><span>Alcance</span>' + porConfirmar() + '</li><li><span>Vigencia</span>' + porConfirmar() + '</li></ul>' +
+            '<p class="nota">Cuando lleguen, aquí irán el certificado en PDF y el enlace de verificación del ente. Si no está vigente, se retira.</p></article>' +
+        '</div></div></section>' +
+      '<section class="bloque" aria-labelledby="h2-proceso"><div class="contenedor">' + titulo2('h2-proceso', 'Así trabajamos.') +
+        '<p class="bloque-intro" style="margin-top:1rem">Cinco pasos, de la recepción al camión. Lo que aún no tiene soporte está marcado.</p>' + recorridoHTML(pasos, 'pasos') +
+        '<div style="margin-top:var(--esp-6)">' + marcoToma('P01–P05', 'Fotos por producir de cada paso: recepción, análisis por lote, línea de empaque, codificación de lote y vencimiento, y cargue del camión.', 'p-bolsa', 'marco-ancho') + '</div>' +
+      '</div></section>' +
+      '<section class="panel-bruma arco-sup seccion" aria-labelledby="h2-bolsa-c"><div class="contenedor"><div class="encabezado-seccion">' + titulo2('h2-bolsa-c', 'Cómo leer una bolsa') + '</div>' + visorBolsaHTML('cq') + '</div></section>' +
+      '<section class="bloque" aria-labelledby="h2-traza"><div class="contenedor dos-col">' +
+        '<div class="cuerpo-texto">' + titulo2('h2-traza', 'Trazabilidad por lote.') +
+          '<p>Cada bolsa y cada bulto llevan impresos su lote y su fecha de vencimiento. El lote indica el día y el turno de empaque: con él rastreamos la bolsa hasta su producción. ' + porConfirmar() + '</p>' +
+          '<p>Si algo no está bien con un producto, el lote es lo primero que le vamos a pedir.</p></div>' +
+        '<div class="recuadro"><h3>¿Encontró un problema con un producto?</h3><ol class="pasos-articulo" style="margin-top:1.25rem">' +
+          '<li><h4 class="h4-paso">Guarde el empaque</h4><p>Anote el lote y la fecha de vencimiento, o tómeles una foto.</p></li>' +
+          '<li><h4 class="h4-paso">Escríbanos</h4><p>Por WhatsApp o por el formulario de contacto, con la foto y su ciudad.</p></li>' +
+          '<li><h4 class="h4-paso">Revisamos el lote</h4><p>El área de calidad revisa esa producción y le responde. Tiempo de respuesta: ' + porConfirmar() + '</p></li></ol>' +
+          '<div class="acciones" style="margin-top:1.25rem"><a class="btn btn-primario" href="#contacto~pqr">Escribir por un producto</a>' + btnWA(msgPQR, 'WhatsApp', 'btn-secundario') + '</div>' + lineaWA(msgPQR) + '</div>' +
+      '</div></section>' +
+      '<section class="bloque" aria-labelledby="h2-empaque"><div class="contenedor">' + titulo2('h2-empaque', 'Un empaque que protege la leche.', 'bloque-titulo') +
+        '<div class="empaque-rejilla"><div><h3>La bolsa</h3>' + capas +
+          '<dl class="ficha-datos-lista"><dt>Material</dt><dd>' + esc(C.calidad.empaque.bolsa.replace('CO₂', 'CO2')).replace('CO2', 'CO<sub>2</sub>') + '</dd><dt>Capas</dt><dd>Composición de cada capa ' + porConfirmar() + '</dd><dt>Vida útil</dt><dd>' + C.calidad.vida_util_meses + ' meses, con la bolsa cerrada</dd><dt>Caja</dt><dd>' + esc(C.calidad.empaque.caja.valor) + ' ' + porConfirmar() + '</dd></dl></div>' +
+          '<div class="con-tilt"><h3>El bulto</h3>' + escenaGrupo([itemPack('cantaro-entera-bulto-25kg.webp', 'The Cántaro Entera, bulto de 25 kg'), itemPack('cantaro-mezcla-bulto-12-5kg.webp', 'The Cántaro Mezcla Láctea, bulto de 12,5 kg')], 'escena-media') +
+          '<dl class="ficha-datos-lista" style="margin-top:1.25rem"><dt>Material</dt><dd>' + esc(C.calidad.empaque.bulto) + '</dd><dt>Pesos</dt><dd>12,5 y 25' + NB + 'kg</dd></dl></div></div>' +
+      '</div></section>' +
+      '<section class="bloque" aria-labelledby="h2-docs"><div class="contenedor"><div class="encabezado-seccion">' + titulo2('h2-docs', 'Fichas técnicas.') + '<a class="enlace" href="#recursos">Ver recursos</a></div>' +
+        '<p class="bloque-intro">Cada ficha existe como página: la descarga es una copia de esa misma tabla. El PDF de 240' + NB + 'KB se publica con el sitio.</p><ul class="fichas-lista">' + fichas + '</ul></div></section>' +
+      '<section class="banda azul arco-sup arco-inf abre oscuro cierre cierre-interior" aria-labelledby="h2-pqr"><div class="contenedor cierre-rejilla"><div>' + titulo2('h2-pqr', '¿Encontró un problema con un producto?') +
+        '<p style="margin-top:1rem;color:var(--c-bruma)">Tenga a mano el lote y escríbanos. Le responde el área de calidad.</p>' +
+        '<div class="acciones"><a class="btn btn-primario" href="#contacto~pqr">Escribir por un producto</a><a class="btn btn-secundario" href="' + TEL_HREF + '">' + icono('i-tel') + 'Llamar al ' + TEL + '</a></div>' +
+        '<p class="telefono-visible">WhatsApp y teléfono: ' + TEL + '.</p></div></div></section>';
+    return { titulo: 'Calidad y registros', html: html };
   };
+
+  /* Fichas técnicas descargables: copia en HTML de la misma tabla de la ficha */
+  function documentoFicha(p) {
+    var tabla = tablaTecnicaHTML(p).replace(/<span class="sr">[^<]*<\/span>/g, '').replace(/ tabindex="0" role="region" aria-labelledby="cap-tecnica"/, '');
+    return '<!doctype html><html lang="es-CO"><head><meta charset="utf-8"><title>Ficha técnica: ' + esc(p.nombre) + '</title><meta name="viewport" content="width=device-width, initial-scale=1">' +
+      '<style>body{font:16px/1.55 Arial,sans-serif;color:#0B1F4F;background:#FFFFFF;max-width:780px;margin:32px auto;padding:0 16px}h1{color:#0A2F8F;font-size:30px;line-height:1.1;margin:0 0 6px}p{margin:0 0 12px}table{border-collapse:collapse;width:100%;margin-top:16px}caption{text-align:left;font-weight:700;padding-bottom:8px}th,td{text-align:left;vertical-align:top;padding:8px 12px}th{width:30%;color:#0A2F8F}tr:nth-child(odd)>*{background:#EEF4FB}a{color:#0B6FB8}.por-confirmar,.nota-asterisco{color:#4A5877;font-size:13px}.por-confirmar::before{content:"("}.por-confirmar::after{content:")"}small{color:#4A5877}</style></head><body>' +
+      '<p><small>Inversiones Mundilácteos S.A.S. NIT ' + C.empresa.nit + '. ' + esc(C.empresa.direccion) + ', Turbaco (Bolívar). Tel. y WhatsApp ' + TEL + '.</small></p>' +
+      '<h1>Ficha técnica: ' + esc(p.nombre) + '</h1><p>' + esc(p.denominacion) + '</p>' + tabla +
+      '<p><small>Documento generado desde el catálogo del ' + fechaCO(C.actualizado) + '. Los datos marcados «dato a confirmar» los valida el cliente antes de publicar.</small></p></body></html>';
+  }
+  function pesoFicha(p) { var b = documentoFicha(p).length; return Math.max(1, Math.round(b / 1024)) + NB + 'KB'; }
+  function descargarFicha(slug) {
+    var p = producto(slug); if (!p) return;
+    try {
+      var blob = new Blob([documentoFicha(p)], { type: 'text/html;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = 'ficha-tecnica-' + slug + '.html'; a.style.display = 'none';
+      document.body.appendChild(a); a.click(); a.remove();
+      window.setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+      aviso('Ficha técnica de ' + p.nombre + ' descargada en HTML. Puede abrirla en su navegador y guardarla como PDF.');
+    } catch (e) {
+      aviso('No se pudo descargar la ficha. Puede consultarla en su página de producto.');
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-descargar-ficha]');
+    if (b) descargarFicha(b.getAttribute('data-descargar-ficha'));
+  });
+
+  /* ---------- Por qué elegirnos ---------- */
+  var PREGUNTAS = [
+    ['¿Tienen registro sanitario?', 'Sí, cinco, todos vigentes. Compruébelos en la consulta pública del INVIMA con el número que trae cada empaque.', '#calidad', 'Ver los registros'],
+    ['¿Despachan fuera de la Costa?', 'Sí. Despachamos desde Turbaco a todo el país. En Cobertura están los tiempos de ejemplo por ciudad; el asesor de su zona le confirma el de su pedido.', '#distribucion', 'Ver cobertura'],
+    ['¿Empacan con la marca de mi cadena?', 'Sí, con nuestro registro sanitario vigente, en gramajes de 27' + NB + 'g a 25' + NB + 'kg. Las condiciones se acuerdan con cada cadena.', '#marca-propia', 'Conocer la maquila'],
+    ['¿Cuánto dura la leche en polvo cerrada?', C.calidad.vida_util_meses + ' meses desde el empaque, en un lugar fresco y seco. La fecha exacta está impresa en cada bolsa, junto al lote.', '#producto-cantaro-entera', 'Ver la ficha técnica'],
+    ['¿Es leche o mezcla láctea?', 'Depende del producto. La leche en polvo es leche; la mezcla láctea es una mezcla en polvo a base de leche y endulzante. Cada ficha lo dice en su denominación.', '#articulo-leche-o-mezcla-lactea', 'Cómo diferenciarlas'],
+    ['¿Cómo pido precio?', 'Arme su cotización con las presentaciones y cantidades que necesita y envíela sin crear cuenta ni pagar nada. Un asesor le responde por WhatsApp.', '#cotizar', 'Solicitar cotización']
+  ];
   VISTAS['por-que-elegirnos'] = function () {
-    var razones = ['Cinco registros sanitarios vigentes.', 'Concepto sanitario favorable del establecimiento.', 'Planta propia en el Parque Industrial Europark, Turbaco.', 'Bolsa de tres capas sellada en atmósfera de CO₂ y 12 meses de vida útil.', 'De 380 g a 25 kg, y con su marca.', 'Despacho a todo el país con asesor por zona.'];
-    return minima('Por qué elegirnos', 'Seis razones, cada una con la forma de comprobarla.', '<ul class="cuerpo-texto">' + razones.map(function (r) { return '<li>' + esc(r) + '</li>'; }).join('') + '</ul>', [['Verificar registros', '#calidad'], ['Ver productos', '#productos'], ['Ver cobertura', '#distribucion']]);
+    var regs = C.calidad.registros.map(function (r) { return '<li><span class="cifra">' + r.numero + '</span><span class="vence">Vigente hasta el ' + fechaCO(r.vence) + '</span></li>'; }).join('');
+    var razones = [
+      { id: 'registros', titulo: 'Cinco registros sanitarios vigentes.', texto: 'Cada producto que vendemos está amparado por un registro del INVIMA, con su número y su fecha de vencimiento a la vista. El más próximo a vencer, el de leche en polvo, está vigente hasta el 24/05/2028.',
+        acciones: '<a class="btn btn-primario" href="#calidad">Ver los registros</a>' + enlaceExterno(INVIMA, 'Verificar en el INVIMA'),
+        prueba: '<div class="prueba-registros arco-sup arco-inf"><ol aria-label="Números de registro sanitario">' + regs + '</ol></div>' },
+      { id: 'concepto', titulo: 'Concepto sanitario favorable.', texto: 'El INVIMA registra nuestra planta como establecimiento activo, con concepto sanitario favorable para la línea de leches en polvo. Es un dato público, no una declaración nuestra.',
+        acciones: '<a class="btn btn-secundario" href="' + esc(DATOS_GOV) + '" target="_blank" rel="noopener">Ver en datos.gov.co<span class="sr">, abre otra pestaña</span></a>',
+        prueba: '<div class="prueba-documento"><div class="documento"><p class="doc-cabeza"><svg viewBox="0 0 40 48" aria-hidden="true"><path d="M6 3h20l8 8v34H6z"/><path d="M26 3v8h8"/><path d="M12 20h16M12 26h16M12 32h9"/><circle cx="29" cy="38" r="6"/><path d="M26.4 38.2l1.8 1.7 3.2-3.4"/></svg>Establecimiento ante el INVIMA</p>' +
+          '<p class="doc-estado">' + icono('i-verificado') + 'Concepto favorable</p><dl class="ficha-datos-lista"><dt>N.º</dt><dd>24741</dd><dt>Línea</dt><dd>Leches en polvo y crema de leches en polvo</dd><dt>Titular</dt><dd>' + esc(C.empresa.razon_social) + '</dd><dt>NIT</dt><dd>' + C.empresa.nit + '</dd></dl></div></div>' },
+      { id: 'planta', titulo: 'Planta propia en Europark.', texto: 'Fabricamos y empacamos en el Parque Industrial Europark, en el km 1 de la vía a Turbaco, Bolívar. Si compra en volumen, venga a conocerla: coordine la visita con el área comercial.',
+        acciones: '<a class="btn btn-primario" href="#contacto~visita">Solicitar visita a la planta</a><a class="btn btn-secundario" href="' + MAPS + '" target="_blank" rel="noopener">' + icono('i-lugar') + 'Cómo llegar<span class="sr">, abre Google Maps</span></a>',
+        prueba: '<figure><div class="ventana-franja arco-sup arco-inf"><img src="img/equipo-planta.webp" width="900" height="466" alt="Equipo de Mundilácteos frente a la planta del Parque Industrial Europark, en Turbaco" loading="lazy"></div><figcaption class="foto-pie">El equipo frente a la planta. Foto provisional con decoración de fin de año; la reemplaza la toma P06.</figcaption></figure>' },
+      { id: 'empaque', titulo: 'Bolsa de tres capas sellada con CO<sub>2</sub> y ' + C.calidad.vida_util_meses + ' meses de vida útil.', texto: 'La bolsa laminada de tres capas se termosella y se envasa en atmósfera controlada de CO<sub>2</sub>, que protege la leche de la humedad del Caribe. Cerrada, conserva su calidad ' + C.calidad.vida_util_meses + ' meses.',
+        acciones: '<a class="btn btn-secundario" href="#producto-cantaro-entera">Ver ficha técnica</a><a class="enlace" href="#calidad">Cómo es el empaque</a>',
+        prueba: '<div class="con-tilt">' + escenaGrupo([itemPack('cantaro-entera-500g.webp', 'The Cántaro Entera, bolsa laminada de 500 g', 'bolsa'), itemPack('cantaro-azucarada-380g.webp', 'The Cántaro Azucarada, bolsa de 380 g', 'bolsa-chica')], 'escena-media') + '<p class="pie-escena">Empaques de 2022, provisionales hasta las fotos «Nueva imagen» (E01).</p></div>' },
+      { id: 'presentaciones', titulo: 'De 380' + NB + 'g a 25' + NB + 'kg, y con su marca.', texto: 'Bolsas de 380 a 900' + NB + 'g para el hogar y la tienda, pacas de 12 a 30 bolsas y bultos de 12,5 y 25' + NB + 'kg para panaderías e industria. Y si su cadena quiere su propia marca, la empacamos con nuestro registro.',
+        acciones: '<a class="btn btn-primario" href="#productos">Ver productos</a><a class="enlace" href="#marca-propia">Conocer la maquila</a>',
+        prueba: '<div class="con-tilt">' + escenaGrupo([itemPack('becerrita-entera-380g.webp', 'La Becerrita Entera, bolsa de 380 g', 'bolsa-chica'), itemPack('cantaro-mezcla-900g.webp', 'The Cántaro Mezcla Láctea, bolsa de 900 g', 'bolsa'), itemPack('cantaro-mezcla-bulto-12-5kg.webp', 'The Cántaro Mezcla Láctea, bulto de 12,5 kg')], 'escena-media') + '</div>' },
+      { id: 'despacho', titulo: 'Despacho a todo el país, con asesor por zona.', texto: 'Salimos de Turbaco hacia la Costa Caribe y el resto de Colombia. Cada zona tiene un asesor que le confirma el tiempo de entrega y las condiciones de su pedido. ' + porConfirmar('tiempos por confirmar'),
+        acciones: '<a class="btn btn-secundario" href="#distribucion">Ver cobertura</a><a class="enlace" href="#donde-comprar">Dónde comprar</a>',
+        prueba: '<div class="con-tilt">' + escenaGrupo([itemPack('bultos-trio.webp', 'Tres bultos: The Cántaro Entera de 25 kg, La Becerrita Mezcla Láctea de 25 kg y The Cántaro Mezcla Láctea de 12,5 kg', 'ancho')], 'escena-media despacho-escena') + '</div>' }
+    ];
+    var ld = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: PREGUNTAS.map(function (q) { return { '@type': 'Question', name: q[0], acceptedAnswer: { '@type': 'Answer', text: q[1].replace(/&#8239;/g, ' ') } }; }) };
+    var msg = 'Hola, Mundilácteos. Quiero cotizar leche en polvo para mi negocio en ____.';
+    var html = cabeza({ titulo: 'Por qué elegirnos', entradilla: 'Seis razones, cada una con la forma de comprobarla.' }) +
+      '<div class="contenedor bloque" style="padding-top:var(--esp-4)"><div class="razones">' + razones.map(function (r) {
+        return '<section class="razon" aria-labelledby="h2-r-' + r.id + '"><div class="razon-prueba">' + r.prueba + '</div><div class="razon-texto"><h2 id="h2-r-' + r.id + '">' + r.titulo + '</h2><p>' + r.texto + '</p><div class="acciones">' + r.acciones + '</div></div></section>';
+      }).join('') + '</div></div>' +
+      '<section class="panel-bruma arco-sup seccion" aria-labelledby="h2-preguntas"><div class="contenedor">' + titulo2('h2-preguntas', 'Lo que nos preguntan antes de comprar.', 'bloque-titulo') +
+        '<div class="preguntas preguntas-grandes">' + PREGUNTAS.map(function (q) {
+          return '<details><summary>' + q[0] + icono('i-mas') + '</summary><div><p>' + q[1] + '</p><p><a class="enlace" href="' + q[2] + '">' + q[3] + '</a></p></div></details>';
+        }).join('') + '</div>' +
+        '<p class="nota" style="margin-top:var(--esp-5)">Testimonios de clientes: solo se publican reales, con nombre, negocio, ciudad y autorización. ' + porConfirmar('por recopilar') + '</p></div></section>' +
+      '<section class="banda azul arco-sup arco-inf abre oscuro cierre cierre-interior" aria-labelledby="h2-cierre-p"><div class="contenedor cierre-rejilla"><div>' + titulo2('h2-cierre-p', 'Arme su cotización sin crear cuenta.') +
+        '<div class="acciones"><a class="btn btn-primario" href="#cotizar">Cotizar por volumen</a>' + btnWA(msg, 'Escribir a un asesor', 'btn-secundario') + '</div>' +
+        '<p class="telefono-visible">WhatsApp y teléfono: ' + TEL + '.</p></div></div></section>' +
+      '<script type="application/ld+json">' + JSON.stringify(ld).replace(/</g, '\\u003c') + '<\/script>';
+    return { titulo: 'Por qué elegirnos', html: html };
   };
-  VISTAS.distribucion = function () {
-    return minima('Distribución y cobertura', 'Salimos de Turbaco hacia toda Colombia. Elija su ciudad para ver el tiempo de entrega y quién le atiende.',
-      '<div class="cuerpo-texto"><p>' + esc(C.cobertura.texto) + '</p><p>' + esc(C.cobertura.tiempos.valor) + ' ' + porConfirmar() + '</p><p>Pedido mínimo: ' + esc(C.cobertura.pedido_minimo.valor) + '</p></div>',
-      [['Cotizar por volumen', '#cotizar'], ['Dónde comprar', '#donde-comprar'], ['Contacto', '#contacto']], [['Inicio', '#inicio'], ['Cobertura', '']]);
+
+  /* ---------- Distribución y cobertura ---------- */
+  var COB = [
+    { id: 'cartagena', n: 'Cartagena', a: 1, ang: -60 }, { id: 'barranquilla', n: 'Barranquilla', a: 1, ang: -40 }, { id: 'santa-marta', n: 'Santa Marta', a: 1, ang: -20 },
+    { id: 'riohacha', n: 'Riohacha', a: 1, ang: 0 }, { id: 'valledupar', n: 'Valledupar', a: 1, ang: 20 }, { id: 'sincelejo', n: 'Sincelejo', a: 1, ang: 40 }, { id: 'monteria', n: 'Montería', a: 1, ang: 60 },
+    { id: 'bucaramanga', n: 'Bucaramanga', a: 2, ang: -36 }, { id: 'medellin', n: 'Medellín', a: 2, ang: -12 }, { id: 'bogota', n: 'Bogotá', a: 2, ang: 12 }, { id: 'cali', n: 'Cali', a: 2, ang: 36 }
+  ];
+  function cobPorId(id) { for (var i = 0; i < COB.length; i++) if (COB[i].id === id) return COB[i]; return null; }
+  function anillosSVG(o) {
+    var O = o.O, pt = function (r, ang) { var t = ang * Math.PI / 180; return [O[0] + r * Math.cos(t), O[1] + r * Math.sin(t)]; };
+    var f = function (n) { return n.toFixed(1); };
+    var arco = function (r, a) { var p0 = pt(r, -a), p1 = pt(r, a); return 'M' + f(p0[0]) + ' ' + f(p0[1]) + 'A' + r + ' ' + r + ' 0 0 1 ' + f(p1[0]) + ' ' + f(p1[1]); };
+    var s1 = pt(o.r1, -o.a1), s2 = pt(o.r1, o.a1);
+    var h = '<svg class="anillos-diagrama anillos-grande ' + o.clase + '" viewBox="0 0 ' + o.w + ' ' + o.h + '" role="img" aria-labelledby="' + o.clase + '-t"><title id="' + o.clase + '-t">Anillos desde Turbaco. Primer anillo, Costa Caribe: Cartagena, Barranquilla, Santa Marta, Riohacha, Valledupar, Sincelejo y Montería, de ' + T_COSTA + '. Segundo anillo, resto del país: Bucaramanga, Medellín, Bogotá y Cali, de ' + T_RESTO + '. Tiempos por confirmar.</title>' +
+      '<path class="anillo-fondo" d="M' + O[0] + ' ' + O[1] + 'L' + f(s1[0]) + ' ' + f(s1[1]) + 'A' + o.r1 + ' ' + o.r1 + ' 0 0 1 ' + f(s2[0]) + ' ' + f(s2[1]) + 'Z" opacity="0.7"/>' +
+      '<path class="anillo" d="' + arco(o.r1, o.a1) + '"/><path class="anillo" d="' + arco(o.r2, o.a2) + '"/>' + (o.etiquetas || '');
+    COB.forEach(function (c) {
+      var p = pt(c.a === 1 ? o.r1 : o.r2, c.ang);
+      var m = [(O[0] + p[0]) / 2, (O[1] + p[1]) / 2], dx = p[0] - O[0], dy = p[1] - O[1], L = Math.sqrt(dx * dx + dy * dy);
+      var q = [m[0] + dy / L * 0.18 * L, m[1] - dx / L * 0.18 * L];
+      h += '<path class="ruta" data-ruta="' + c.id + '" d="M' + O[0] + ' ' + O[1] + 'Q' + f(q[0]) + ' ' + f(q[1]) + ' ' + f(p[0]) + ' ' + f(p[1]) + '"/>';
+    });
+    h += '<g class="origen"><circle cx="' + O[0] + '" cy="' + O[1] + '" r="9"/><text x="' + (O[0] - 12) + '" y="' + (O[1] + 30) + '">Turbaco</text></g>';
+    COB.forEach(function (c) {
+      var p = pt(c.a === 1 ? o.r1 : o.r2, c.ang), fin = o.anclaFin && c.a === 2;
+      h += '<g class="ciudad" data-ciudad="' + c.id + '"><circle class="blanco-toque" cx="' + f(p[0]) + '" cy="' + f(p[1]) + '" r="18"/><circle cx="' + f(p[0]) + '" cy="' + f(p[1]) + '" r="6.5"/><text x="' + f(p[0] + (fin ? -12 : 12)) + '" y="' + f(p[1] + 4.5) + '"' + (fin ? ' text-anchor="end"' : '') + '>' + c.n + '</text></g>';
+    });
+    return h + '</svg>';
+  }
+  function resultadoCobHTML(c) {
+    if (!c) {
+      var msgO = 'Hola, Mundilácteos. Quiero cotizar despacho a ____.';
+      return '<h3>Otra ciudad</h3><p>Escríbanos y le decimos cómo llegar a su ciudad: un asesor le responde con el tiempo y el costo del despacho.</p><div class="acciones">' + btnWA(msgO, 'Escribir a un asesor') + '<a class="enlace" href="#donde-comprar">Dónde comprar</a></div>' + lineaWA(msgO);
+    }
+    var costa = c.a === 1, msg = 'Hola, Mundilácteos. Quiero cotizar despacho a ' + c.n + '.';
+    return '<h3>' + c.n + '</h3><dl class="ficha-datos-lista"><dt>Anillo</dt><dd>' + (costa ? 'Costa Caribe' : 'Resto del país') + '</dd>' +
+      '<dt>Entrega</dt><dd>' + (costa ? T_COSTA : T_RESTO) + ' desde la confirmación ' + porConfirmar('tiempo de ejemplo') + '</dd>' +
+      '<dt>Pedido mínimo</dt><dd>' + porConfirmar() + '</dd><dt>Le atiende</dt><dd>Asesor comercial ' + (costa ? 'de la Costa Caribe' : 'para el interior') + ' ' + porConfirmar('nombre por confirmar') + '</dd></dl>' +
+      '<div class="acciones">' + btnWA(msg, costa ? 'Escribir al asesor de la Costa' : 'Escribir a un asesor') + '<a class="enlace" href="#cotizar~ciudad-' + c.id + '">Cotizar para ' + c.n + '</a></div>' + lineaWA(msg);
+  }
+  VISTAS.distribucion = function (r) {
+    var sel = null; (r.params || []).forEach(function (t) { if (cobPorId(t)) sel = t; });
+    sel = sel || 'barranquilla';
+    var ancho = anillosSVG({ clase: 'anillos-ancho', w: 640, h: 600, O: [56, 300], r1: 190, a1: 72, r2: 390, a2: 46, anclaFin: false,
+      etiquetas: '<text class="anillo-etq" x="96" y="532">Costa Caribe: ' + T_COSTA + '*</text><text class="anillo-etq" x="330" y="596">Resto del país: ' + T_RESTO + '*</text>' });
+    var compacto = anillosSVG({ clase: 'anillos-compacto', w: 360, h: 330, O: [28, 165], r1: 120, a1: 70, r2: 250, a2: 40, anclaFin: true });
+    var chips = COB.map(function (c) {
+      return '<label class="chip"><input type="radio" name="cob-ciudad" value="' + c.id + '"' + (c.id === sel ? ' checked' : '') + '><span class="chip-cara">' + CHECK + c.n + '</span></label>';
+    }).join('') + '<label class="chip"><input type="radio" name="cob-ciudad" value="otra"><span class="chip-cara">' + CHECK + 'Otra ciudad</span></label>';
+    var filas = COB.map(function (c) {
+      var costa = c.a === 1;
+      return '<tr data-fila="' + c.id + '"><th scope="row">' + c.n + '</th><td>' + (costa ? 'Costa Caribe' : 'Resto del país') + '</td><td>' + (costa ? T_COSTA : T_RESTO) + '*</td><td>' + porConfirmar() + '</td><td>Asesor ' + (costa ? 'de la Costa' : 'del interior') + '*</td><td><a href="#cotizar~ciudad-' + c.id + '">Cotizar para ' + c.n + '</a></td></tr>';
+    }).join('') + '<tr><th scope="row">Otras ciudades</th><td>—</td><td>Consultar</td><td>Consultar</td><td>Un asesor</td><td><a href="' + esc(waUrl('Hola, Mundilácteos. Quiero cotizar despacho a ____.')) + '" target="_blank" rel="noopener">Escribir por WhatsApp<span class="sr">, abre WhatsApp</span></a></td></tr>';
+    var html = cabeza({
+      titulo: 'Distribución y cobertura', rastro: [['Inicio', '#inicio'], ['Cobertura', '']],
+      entradilla: 'Salimos de Turbaco hacia toda Colombia. Elija su ciudad para ver el tiempo de entrega y quién le atiende.',
+      lado: enPagina('distribucion', [['h2-anillos-c', 'Anillos desde Turbaco'], ['h2-ciudades', 'Ciudades y tiempos'], ['h2-despacho', 'Cómo despachamos'], ['h2-distribuidor', 'Ser distribuidor']])
+    }) +
+      '<section class="bloque" aria-labelledby="h2-anillos-c" style="padding-top:var(--esp-4)"><div class="contenedor">' + titulo2('h2-anillos-c', 'Anillos desde Turbaco.', 'bloque-titulo') +
+        '<div class="cobertura-rejilla"><figure>' + ancho + compacto +
+          '<figcaption class="meta" style="margin-top:0.75rem">Los anillos ordenan las ciudades por tiempo de entrega, no por distancia. Primer anillo, Costa Caribe: ' + T_COSTA + '. Segundo anillo, resto del país: ' + T_RESTO + '. * Tiempos de ejemplo, por confirmar con el área comercial.</figcaption></figure>' +
+        '<div class="cob-ciudades"><fieldset><legend class="etiqueta" style="margin-bottom:0.5rem">Su ciudad</legend><div class="chips">' + chips + '</div></fieldset>' +
+          '<div class="cob-resultado" id="cob-resultado" aria-live="polite">' + resultadoCobHTML(cobPorId(sel)) + '</div></div></div>' +
+      '</div></section>' +
+      '<section class="bloque" aria-labelledby="h2-ciudades"><div class="contenedor">' + titulo2('h2-ciudades', 'Ciudades, tiempos y asesores.', 'bloque-titulo') +
+        '<div class="tabla-marco tabla-ciudades" tabindex="0" role="region" aria-labelledby="cap-ciudades"><table class="tabla tabla-fija"><caption id="cap-ciudades">Tiempos de entrega y pedido mínimo por ciudad (datos a confirmar)</caption>' +
+        '<thead><tr><th scope="col">Ciudad</th><th scope="col">Anillo</th><th scope="col">Entrega</th><th scope="col">Pedido mínimo</th><th scope="col">Le atiende</th><th scope="col">Acción</th></tr></thead><tbody>' + filas + '</tbody></table></div>' +
+        '<p class="nota" style="margin-top:0.75rem">* Tiempo de ejemplo desde la confirmación del pedido y asesor por zona: datos a confirmar con el área comercial. ' + esc(C.cobertura.pedido_minimo.valor) + '</p></div></section>' +
+      '<section class="panel-bruma arco-sup seccion" aria-labelledby="h2-despacho"><div class="contenedor dos-col centrado">' +
+        '<div class="con-tilt">' + escenaGrupo([itemPack('bultos-trio.webp', 'Tres bultos: The Cántaro Entera de 25 kg, La Becerrita Mezcla Láctea de 25 kg y The Cántaro Mezcla Láctea de 12,5 kg', 'ancho')], 'despacho-escena') + '</div>' +
+        '<div>' + titulo2('h2-despacho', 'Cómo despachamos.') + '<p style="margin-top:1rem">' + esc(C.cobertura.texto) + '</p>' +
+          '<dl class="ficha-datos-lista" style="margin-top:1.25rem"><dt>Origen</dt><dd>Parque Industrial Europark, Turbaco (Bolívar)</dd><dt>Formatos</dt><dd>Pacas de 12 a 30 bolsas y bultos de 12,5 y 25' + NB + 'kg</dd>' +
+          '<dt>Tiempos</dt><dd>Costa Caribe: ' + T_COSTA + '. Resto del país: ' + T_RESTO + '. ' + porConfirmar() + '</dd><dt>Pedido mínimo</dt><dd>' + porConfirmar() + '</dd><dt>Días de despacho</dt><dd>' + porConfirmar() + '</dd></dl>' +
+          '<div class="acciones" style="margin-top:1.5rem"><a class="btn btn-primario" href="#cotizar">Cotizar por volumen</a></div></div>' +
+      '</div></section>' +
+      '<section class="bloque" aria-labelledby="h2-distribuidor" id="ser-distribuidor"><div class="contenedor dos-col siete-cinco">' +
+        '<div id="caja-distribuidor">' + titulo2('h2-distribuidor', 'Ser distribuidor.') +
+          '<p style="margin:1rem 0 1.5rem">¿Tiene una distribuidora, un mayorista o una red de tiendas? Déjenos sus datos y un asesor de su zona le escribe para conocer su negocio.</p>' +
+          '<form class="form-corto" id="form-distribuidor" novalidate>' + resumenErroresHTML() +
+            campoTexto('d-empresa', 'Empresa', ' name="empresa" type="text" autocomplete="organization" required', 'Escriba el nombre de su empresa.') +
+            '<div class="dos-campos">' + campoTexto('d-ciudad', 'Ciudad', ' name="ciudad" type="text" list="d-lista-ciudades" autocomplete="address-level2" required', 'Escriba su ciudad.') +
+              campoWA('d-wa') + '</div>' +
+            '<datalist id="d-lista-ciudades">' + CIUDADES.map(function (c) { return '<option value="' + c + '">'; }).join('') + '</datalist>' +
+            campoTexto('d-zona', 'Zona que atiende', ' name="zona" type="text" required', 'Cuéntenos qué zona atiende.', 'Barrios, municipios o departamentos donde vende.') +
+            campoAcepto('d-acepto', 'responder esta solicitud') +
+            '<div class="acciones acciones-apiladas"><button class="btn btn-primario" type="submit">Quiero ser distribuidor</button></div>' +
+          '</form></div>' +
+        '<aside class="recuadro" aria-labelledby="h3-casa"><h3 id="h3-casa">¿Es para su casa?</h3><p>The Cántaro está en supermercados de la Costa y del país.</p><div class="acciones" style="margin-top:1rem"><a class="btn btn-secundario" href="#donde-comprar">Ver dónde comprar</a></div>' +
+          '<h3 style="margin-top:1.75rem">Qué pasa después</h3><p>Un asesor de su zona le escribe por WhatsApp, conoce su negocio y le envía las condiciones. ' + porConfirmar('condiciones por confirmar') + '</p></aside>' +
+      '</div></section>';
+    return { titulo: 'Distribución y cobertura', html: html, montar: function (vista) { montarCobertura(vista, sel, r); } };
   };
-  VISTAS['donde-comprar'] = function () {
-    var canales = '<ul class="lista-limpia" style="display:grid;gap:.5rem;font-family:var(--fuente-sans)">' + C.canales.filter(function (c) { return c.url; }).map(function (c) {
-      return '<li><a href="' + esc(c.url) + '" target="_blank" rel="noopener">' + esc(c.nombre) + '<span class="sr">, abre otra pestaña</span></a>: ' + esc(c.tipo.toLowerCase()) + ', ' + esc(c.region.toLowerCase()) + '. ' + esc(c.estado) + '.</li>';
-    }).join('') + '</ul>';
-    return minima('Dónde comprar', 'The Cántaro está en supermercados de la Costa y del país. Busque su ciudad.', canales, [['Ser distribuidor', '#distribucion'], ['Ver productos para el hogar', '#productos~negocio-hogar']], [['Inicio', '#inicio'], ['Cobertura', '#distribucion'], ['Dónde comprar', '']]);
+  function montarCobertura(vista, sel, r) {
+    var res = $('#cob-resultado', vista);
+    function marcar(id, anunciarlo) {
+      $$('[data-ruta]', vista).forEach(function (el) { el.classList.toggle('activa', el.getAttribute('data-ruta') === id); });
+      $$('.ciudad', vista).forEach(function (el) { el.classList.toggle('activa', el.getAttribute('data-ciudad') === id); });
+      $$('[data-fila]', vista).forEach(function (el) { el.classList.toggle('activa', el.getAttribute('data-fila') === id); });
+      if (anunciarlo) {
+        res.innerHTML = resultadoCobHTML(cobPorId(id));
+        if (!reducido()) { res.classList.remove('cambia'); void res.offsetWidth; res.classList.add('cambia'); }
+        try { history.replaceState(null, '', '#distribucion' + (cobPorId(id) ? '~' + id : '')); rutaActual = leerRuta(); } catch (e) { /* sin historial */ }
+      }
+    }
+    window.requestAnimationFrame(function () { marcar(sel, false); });
+    vista.addEventListener('change', function (e) { if (e.target.name === 'cob-ciudad') marcar(e.target.value, true); });
+    vista.addEventListener('click', function (e) {
+      var g = e.target.closest('.ciudad[data-ciudad]'); if (!g) return;
+      var input = $('input[name="cob-ciudad"][value="' + g.getAttribute('data-ciudad') + '"]', vista);
+      if (input && !input.checked) { input.checked = true; marcar(input.value, true); }
+    });
+    var form = $('#form-distribuidor', vista);
+    montarFormulario(form, {
+      'd-empresa': { nombre: 'Empresa', ok: validaTexto(2) }, 'd-ciudad': { nombre: 'Ciudad', ok: validaTexto(3) },
+      'd-wa': { nombre: 'WhatsApp', ok: validaWA }, 'd-zona': { nombre: 'Zona que atiende', ok: validaTexto(3) },
+      'd-acepto': { nombre: 'Autorización de datos', ok: function (v) { return v === true; } }
+    }, function (v) {
+      confirmar($('#caja-distribuidor', vista), { id: 'h2-dist-ok', titulo: 'Solicitud enviada.', texto: 'Un asesor de su zona le escribe por WhatsApp en horario hábil para conocer ' + esc(v('d-empresa')) + '.',
+        msg: 'Hola, Mundilácteos. Envié la solicitud N.º {n} para ser distribuidor. Empresa: ' + v('d-empresa') + '. Ciudad: ' + v('d-ciudad') + '. Zona: ' + v('d-zona') + '.' });
+    });
+    if ((r.params || []).indexOf('distribuidor') !== -1) {
+      window.setTimeout(function () { var h = $('#h2-distribuidor', vista); if (h) { h.scrollIntoView({ block: 'start' }); h.focus({ preventScroll: true }); } }, 80);
+    }
+  }
+
+  /* ---------- Dónde comprar ---------- */
+  var COORD = { 'Cartagena': [10.391, -75.479], 'Turbaco': [10.332, -75.412], 'Barranquilla': [10.964, -74.796], 'Santa Marta': [11.241, -74.199], 'Montería': [8.748, -75.881], 'Sincelejo': [9.304, -75.397], 'Valledupar': [10.463, -73.253], 'Riohacha': [11.544, -72.907], 'Medellín': [6.244, -75.581], 'Bogotá': [4.711, -74.072], 'Cali': [3.451, -76.532], 'Bucaramanga': [7.119, -73.122] };
+  var PRINCIPALES = ['Bogotá', 'Medellín', 'Cali', 'Barranquilla', 'Cartagena', 'Bucaramanga'];
+  function ciudadCanonica(t) { var n = normal(t).trim(); for (var i = 0; i < CIUDADES.length; i++) if (normal(CIUDADES[i]) === n) return CIUDADES[i]; return null; }
+  function slugCiudad(n) { return normal(n).trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+  function ciudadDeSlug(s) { for (var i = 0; i < CIUDADES.length; i++) if (slugCiudad(CIUDADES[i]) === s) return CIUDADES[i]; return null; }
+  function resultadosDondeHTML(texto) {
+    var nombre = ciudadCanonica(texto);
+    var dist = '<a class="btn btn-secundario" href="#distribucion~distribuidor">Ser distribuidor</a>';
+    if (!nombre) {
+      var enLinea = C.canales.filter(function (c) { return c.region === 'Nacional'; });
+      return '<div class="resultado-cabeza"><h2 id="h2-res-donde" tabindex="-1">Aún no tenemos un punto de venta confirmado en ' + esc(texto) + '.</h2></div>' +
+        '<div class="sin-cobertura"><p>Si tiene una tienda, puede ser distribuidor. Mientras tanto, The Cántaro está publicada en tiendas en línea de alcance nacional:</p><ul class="puntos">' + enLinea.map(function (c) { return puntoHTML(c, null); }).join('') + '</ul><div class="acciones">' + dist + '</div></div>';
+    }
+    var costa = COSTA.indexOf(nombre) !== -1;
+    var lista = C.canales.filter(function (c) {
+      if (c.region === 'Nacional') return true;
+      if (c.region === 'Costa Caribe') return costa;
+      if (c.region === 'Ciudades principales') return PRINCIPALES.indexOf(nombre) !== -1;
+      return false;
+    });
+    return '<div class="resultado-cabeza"><h2 id="h2-res-donde" tabindex="-1">Dónde buscar The Cántaro en ' + esc(nombre) + '</h2>' +
+      '<p class="nota">' + lista.length + ' cadenas, según el catálogo del ' + fechaCO(C.actualizado) + '. La lista de puntos de venta con dirección, horario y WhatsApp la entrega Mundilácteos. ' + porConfirmar() + '</p></div>' +
+      '<ul class="puntos">' + lista.map(function (c) { return puntoHTML(c, nombre); }).join('') + '</ul>' +
+      '<div class="acciones" style="margin-top:1.25rem"><a class="btn btn-primario" href="#cotizar~ciudad-' + slugCiudad(nombre) + '">¿Para su negocio? Cotizar por volumen</a>' + dist + '</div>';
+  }
+  function puntoHTML(c, ciudad) {
+    var pendiente = /por confirmar|Aliado/i.test(c.estado);
+    var estado = c.estado + (ciudad === 'Bogotá' && c.nombre === 'Rappi' ? '' : '');
+    var acciones = [];
+    if (c.url) acciones.push(enlaceExterno(c.url, 'Ver tienda en línea', ' de ' + c.nombre + ', abre otra pestaña'));
+    if (ciudad && c.tipo === 'Supermercado') acciones.push(enlaceExterno('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(c.nombre + ' ' + ciudad), icono('i-lugar') + 'Cómo llegar', ' a ' + c.nombre + ' en ' + ciudad + ', abre Google Maps'));
+    return '<li class="punto"><div><h3>' + esc(c.nombre) + '</h3><p class="tipo">' + esc(c.tipo) + '. ' + esc(c.region) + '.</p></div>' +
+      '<p class="estado">' + (pendiente ? esc(estado) + ' ' + porConfirmar() : '<span class="verificado">' + icono('i-verificado') + '<span>' + esc(estado) + '</span></span>') + '</p>' +
+      '<div class="acciones">' + (acciones.join('') || '<span class="nota">Horario y dirección ' + porConfirmar() + '</span>') + '</div></li>';
+  }
+  VISTAS['donde-comprar'] = function (r) {
+    var inicial = null; (r.params || []).forEach(function (t) { if (ciudadDeSlug(t)) inicial = ciudadDeSlug(t); });
+    var refs = [];
+    PRODS.forEach(function (p) { p.presentaciones.forEach(function (x) { if (x.donde && x.donde.length) refs.push([p, x]); }); });
+    var cadenas = ['Megatiendas', 'Carulla', 'Éxito'];
+    var filas = refs.map(function (rf) {
+      var p = rf[0], x = rf[1], im = imagenDe(p, x);
+      var celdas = cadenas.map(function (cad) {
+        var d = x.donde.filter(function (y) { return y.canal === cad; })[0];
+        return '<td>' + (d ? enlaceExterno(d.url, 'Ver ficha', ' de ' + referencia(p, x) + ' en ' + cad + ', abre otra pestaña') : '<span aria-hidden="true">—</span><span class="sr">No publicada</span>') + '</td>';
+      }).join('');
+      return '<tr><th scope="row"><span class="ref-celda">' + (im ? '<img src="' + im.src + '" width="' + im.w + '" height="' + im.h + '" alt="" loading="lazy">' : '<svg viewBox="0 0 48 64" aria-hidden="true"><use href="#p-bolsa"/></svg>') + '<a href="#producto-' + p.slug + '~' + presKey(x.contenido) + '">' + esc(referencia(p, x)) + '</a></span></th>' + celdas + '</tr>';
+    }).join('');
+    var rapidas = ['Cartagena', 'Barranquilla', 'Santa Marta', 'Montería', 'Bogotá', 'Medellín'];
+    var html = '<section class="banda azul arco-inf cabeza-banda oscuro"><div class="contenedor">' + migas([['Inicio', '#inicio'], ['Cobertura', '#distribucion'], ['Dónde comprar', '']]) +
+        '<div class="cabeza-productos"><div><h1>Dónde comprar</h1><p class="entradilla">The Cántaro está en supermercados de la Costa y del país. Busque su ciudad.</p></div>' +
+        '<form class="buscar-ciudad" id="form-donde" role="search" novalidate><label for="dc-ciudad">Su ciudad</label><div class="buscar-fila">' +
+          '<input class="control" id="dc-ciudad" name="ciudad" type="text" list="dc-lista" autocomplete="address-level2" placeholder="Por ejemplo: Barranquilla"' + (inicial ? ' value="' + esc(inicial) + '"' : '') + '>' +
+          '<datalist id="dc-lista">' + CIUDADES.map(function (c) { return '<option value="' + c + '">'; }).join('') + '</datalist>' +
+          '<button class="btn btn-primario" type="submit">' + icono('i-buscar') + 'Buscar</button></div>' +
+          '<div class="acciones"><button class="btn btn-secundario solo-js" type="button" id="dc-ubicacion">' + icono('i-lugar') + 'Usar mi ubicación</button></div>' +
+          '<p class="estado-ubicacion" id="dc-estado" aria-live="polite"></p></form></div></div></section>' +
+      '<section class="bloque" aria-label="Resultados de la búsqueda"><div class="contenedor"><div id="dc-resultados" aria-live="polite">' +
+        (inicial ? resultadosDondeHTML(inicial) : '<div class="resultado-cabeza"><h2 id="h2-res-donde" tabindex="-1">Elija su ciudad.</h2><p class="nota">O empiece por una de estas:</p></div>') + '</div>' +
+        '<div class="chips" style="margin-top:1rem" id="dc-rapidas">' + rapidas.map(function (c) { return '<button class="chip chip-enlace" type="button" data-ciudad-rapida="' + c + '"><span class="chip-cara">' + icono('i-lugar') + c + '</span></button>'; }).join('') + '</div>' +
+      '</div></section>' +
+      '<section class="bloque" aria-labelledby="h2-en-linea"><div class="contenedor dos-col siete-cinco centrado"><div>' + titulo2('h2-en-linea', 'Pídala en línea.', 'bloque-titulo') +
+        '<p class="bloque-intro">Enlaces a la ficha exacta de cada presentación en los supermercados que la publican. Se verifican en cada actualización del sitio.</p>' +
+        '<div class="tabla-marco en-linea-tabla" tabindex="0" role="region" aria-labelledby="cap-en-linea"><table class="tabla tabla-fija"><caption id="cap-en-linea">Presentaciones con ficha en supermercados en línea, al ' + fechaCO(C.actualizado) + '</caption><thead><tr><th scope="col">Presentación</th>' + cadenas.map(function (c) { return '<th scope="col">' + c + '</th>'; }).join('') + '</tr></thead><tbody>' + filas + '</tbody></table></div></div>' +
+        '<div class="con-tilt">' + escenaGrupo([itemPack('cantaro-entera-500g.webp', 'The Cántaro Entera, bolsa de leche en polvo', 'bolsa'), itemPack('cantaro-azucarada-380g.webp', 'The Cántaro Azucarada, bolsa de 380 g', 'bolsa-chica')], 'escena-media') + '<p class="pie-escena">Empaques de 2022, provisionales hasta las fotos «Nueva imagen».</p></div>' +
+      '</div></section>' +
+      '<section class="panel-bruma arco-sup seccion" aria-labelledby="h2-cadenas"><div class="contenedor">' + titulo2('h2-cadenas', 'Cadenas donde se consigue.', 'bloque-titulo') +
+        '<ul class="canales-lista">' + C.canales.map(function (c) {
+          var pend = /por confirmar|Aliado/i.test(c.estado);
+          return '<li><strong>' + esc(c.nombre) + '</strong><span>' + esc(c.tipo) + ', ' + esc(c.region.toLowerCase()) + '</span><span>' + esc(c.estado) + (pend ? ' ' + porConfirmar() : '') + (c.url ? '. ' + enlaceExterno(c.url, 'Ir al sitio', ' de ' + c.nombre + ', abre otra pestaña') : '') + '</span></li>';
+        }).join('') + '</ul>' +
+        '<div style="margin-top:var(--esp-6)">' + marcoToma('C03', 'Góndola con The Cántaro en un supermercado de Cartagena, con permiso de la cadena, por fotografiar.', 'p-bolsa', 'marco-ancho') + '</div>' +
+      '</div></section>' +
+      '<section class="bloque" aria-labelledby="h2-tienda"><div class="contenedor dos-col"><div>' + titulo2('h2-tienda', '¿Tiene una tienda?') +
+        '<p style="margin-top:1rem">Aún no tenemos un punto de venta en todas las ciudades. Si tiene una tienda o una distribuidora, puede vender The Cántaro y La Becerrita.</p>' +
+        '<div class="acciones" style="margin-top:1.25rem"><a class="btn btn-primario" href="#distribucion~distribuidor">Ser distribuidor</a><a class="enlace" href="#productos~negocio-tienda">Ver pacas para tienda</a></div></div>' +
+        '<p class="nota">El mapa de puntos de venta se cargará solo si usted lo pide, para que la página no pese de más.</p></div></section>';
+    return { titulo: 'Dónde comprar', html: html, montar: montarDonde };
   };
+  function montarDonde(vista) {
+    var form = $('#form-donde', vista), input = $('#dc-ciudad', vista), res = $('#dc-resultados', vista), estado = $('#dc-estado', vista);
+    function buscar(texto, enfocar) {
+      texto = String(texto || '').trim();
+      if (!texto) { estado.textContent = 'Escriba el nombre de su ciudad.'; input.focus(); return; }
+      estado.textContent = '';
+      res.innerHTML = resultadosDondeHTML(texto);
+      var nombre = ciudadCanonica(texto);
+      try { history.replaceState(null, '', '#donde-comprar' + (nombre ? '~' + slugCiudad(nombre) : '')); rutaActual = leerRuta(); } catch (e) { /* sin historial */ }
+      if (enfocar) { var h = $('#h2-res-donde', res); if (h) { h.focus({ preventScroll: true }); h.scrollIntoView({ block: 'start', behavior: reducido() ? 'auto' : 'smooth' }); } }
+    }
+    form.addEventListener('submit', function (e) { e.preventDefault(); buscar(input.value, true); });
+    vista.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-ciudad-rapida]'); if (!b) return;
+      input.value = b.getAttribute('data-ciudad-rapida'); buscar(input.value, true);
+    });
+    $('#dc-ubicacion', vista).addEventListener('click', function () {
+      if (!navigator.geolocation) { estado.textContent = 'Este navegador no comparte la ubicación. Escriba su ciudad.'; return; }
+      estado.textContent = 'Buscando su ubicación…';
+      try {
+        navigator.geolocation.getCurrentPosition(function (pos) {
+          var la = pos.coords.latitude, lo = pos.coords.longitude, mejor = null, dmin = Infinity;
+          Object.keys(COORD).forEach(function (c) { var d = Math.pow(COORD[c][0] - la, 2) + Math.pow((COORD[c][1] - lo) * Math.cos(la * Math.PI / 180), 2); if (d < dmin) { dmin = d; mejor = c; } });
+          var km = Math.sqrt(dmin) * 111;
+          if (mejor && km < 60) { input.value = mejor; estado.textContent = 'Usamos su ubicación: está cerca de ' + mejor + '.'; buscar(mejor, true); }
+          else { estado.textContent = 'No encontramos una ciudad con puntos de venta cerca de usted. Escriba su ciudad.'; }
+        }, function () {
+          estado.textContent = 'No pudimos usar su ubicación. Escriba su ciudad.';
+        }, { timeout: 8000, maximumAge: 600000 });
+      } catch (err) { estado.textContent = 'No pudimos usar su ubicación. Escriba su ciudad.'; }
+    });
+  }
+
+  /* ---------- Con su marca (maquila) ---------- */
   VISTAS['marca-propia'] = function () {
-    var imgs = '<figure><div class="chips" style="gap:1.5rem;align-items:flex-end">' + C.maquila.imagenes.map(function (a, i) {
-      return '<img src="img/' + a + '" width="120" height="180" style="height:180px;width:auto" alt="Empaque de marca propia fabricado por Mundilácteos, ejemplo ' + (i + 1) + '" loading="lazy">';
-    }).join('') + '</div><figcaption class="foto-pie">Empaques de marcas propias fabricados en 2022. Se muestran con autorización del cliente.</figcaption></figure>';
-    return minima('Leche en polvo con la marca de su cadena', 'Empacamos en Turbaco con nuestro registro sanitario vigente.',
-      '<div class="cuerpo-texto"><p>' + esc(C.maquila.resumen) + '</p><p>Gramajes: ' + esc(C.maquila.gramajes.map(conUnidad).join(', ')) + '.</p><p>No publicamos las marcas que empacamos sin autorización escrita.</p></div>' + imgs,
-      [['Pedir muestras', '#contacto'], ['Ver productos', '#productos']], [['Inicio', '#inicio'], ['Productos', '#productos'], ['Con su marca', '']]);
+    var gr = C.maquila.gramajes, bolsas = gr.filter(function (g) { return / g$/.test(g); }), bultos = gr.filter(function (g) { return / kg$/.test(g); });
+    var altMP = ['Bolsa de leche en polvo entera de marca propia de una cadena, empacada por Mundilácteos', 'Bolsa de leche en polvo entera de otra marca propia, empacada por Mundilácteos', 'Bolsa de leche en polvo entera azucarada de marca propia, empacada por Mundilácteos'];
+    var dimMP = { 'marca-propia-a.webp': [240, 366], 'marca-propia-b.webp': [245, 341], 'marca-propia-c.webp': [255, 352] };
+    var bolsasMP = C.maquila.imagenes.map(function (a, i) { var d = dimMP[a] || [240, 360]; return '<div class="item"><img src="img/' + a + '" width="' + d[0] + '" height="' + d[1] + '" alt="' + altMP[i] + '"' + (i ? ' loading="lazy"' : '') + '></div>'; }).join('');
+    var pasos = [
+      { titulo: 'Muestras y especificación', texto: 'Nos cuenta qué presentaciones, tipos de leche y volúmenes necesita, y le enviamos muestras para evaluar.' },
+      { titulo: 'Arte del empaque', texto: 'Su cadena aporta el diseño con su marca. Le indicamos los datos que la etiqueta debe llevar.' },
+      { titulo: 'Aprobación de arte y registro', texto: 'Revisamos juntos el arte final y su amparo en el registro sanitario RSA-006359-2018.' },
+      { titulo: 'Producción y despacho', texto: 'Empacamos en Turbaco y despachamos a sus centros de distribución. Tiempos: ' + porConfirmar() }
+    ];
+    var paca = Object.keys(C.unidades_por_paca).map(function (g) {
+      var u = C.unidades_por_paca[g], gramos = parseInt(g, 10);
+      return '<tr><th scope="row">' + conUnidad(g) + '</th><td class="der">' + u + '</td><td class="der">' + kg(u * gramos / 1000) + '</td></tr>';
+    }).join('');
+    var reg = REGS['RSA-006359-2018'];
+    var msg = 'Hola, Mundilácteos. Quiero información para empacar leche en polvo con mi marca. Empresa: ____. Ciudad: ____.';
+    var html = '<section class="cabeza-mp"><div class="banda azul arco-inf cabeza-banda oscuro"><div class="contenedor">' + migas([['Inicio', '#inicio'], ['Productos', '#productos'], ['Con su marca', '']]) +
+        '<div class="cabeza-texto"><h1>Leche en polvo con la marca de su cadena</h1><p class="entradilla">Empacamos en Turbaco con nuestro registro sanitario vigente.</p>' +
+        '<div class="acciones" style="margin-top:1.5rem"><a class="btn btn-primario" href="#marca-propia" data-ancla="h2-muestras">Pedir muestras</a>' + btnWA(msg, 'WhatsApp', 'btn-secundario') + '</div>' + lineaWA(msg) + '</div></div></div>' +
+        '<div class="mp-bolsas"><div class="escena marca-escena"><div class="grupo">' + bolsasMP + '</div></div></div>' +
+        '<p class="pie-escena mp-aviso">Empaques de marcas propias fabricados por Mundilácteos en 2022. Se muestran con autorización del cliente. No publicamos las marcas que empacamos sin autorización escrita.</p></section>' +
+      '<section class="bloque" aria-labelledby="h2-ofrecemos"><div class="contenedor gramajes-rejilla"><div>' + titulo2('h2-ofrecemos', 'Qué empacamos con su marca.') +
+          '<div class="gramajes-grupo" style="margin-top:1.5rem"><p class="etiqueta">En bolsa</p><ul class="gramajes">' + bolsas.map(function (g) { return '<li>' + conUnidad(g) + '</li>'; }).join('') + '</ul></div>' +
+          '<div class="gramajes-grupo"><p class="etiqueta">En bulto</p><ul class="gramajes">' + bultos.map(function (g) { return '<li>' + conUnidad(g) + '</li>'; }).join('') + '</ul></div></div>' +
+        '<dl class="ficha-datos-lista"><dt>Tipos</dt><dd>' + esc(reg.producto.replace(/^Leche en polvo: /, 'Leche en polvo ')) + '</dd><dt>Registro</dt><dd>' + reg.numero + ', vigente hasta el ' + fechaCO(reg.vence) + '. Condiciones de uso ' + porConfirmar() + '</dd>' +
+          '<dt>Respaldo</dt><dd>' + esc(C.maquila.evidencia) + '</dd></dl>' +
+      '</div></section>' +
+      '<section class="panel-bruma arco-sup seccion" aria-labelledby="h2-como-mp"><div class="contenedor">' + titulo2('h2-como-mp', 'Cómo trabajamos.') + recorridoHTML(pasos, 'pasos') + '</div></section>' +
+      '<section class="bloque" aria-labelledby="h2-espec"><div class="contenedor dos-col siete-cinco"><div>' + titulo2('h2-espec', 'Ficha de especificación.', 'bloque-titulo') +
+          '<div class="tabla-marco" tabindex="0" role="region" aria-labelledby="cap-espec"><table class="tabla tabla-tecnica"><caption id="cap-espec">Especificación de la leche en polvo con marca propia</caption><tbody>' +
+          '<tr><th scope="row">Producto</th><td>' + esc(reg.producto) + '</td></tr><tr><th scope="row">Registro INVIMA</th><td>' + reg.numero + ', vigente hasta el ' + fechaCO(reg.vence) + '. <a href="' + INVIMA + '" target="_blank" rel="noopener">Verificar<span class="sr">, abre otra pestaña</span></a></td></tr>' +
+          '<tr><th scope="row">Empaque de la bolsa</th><td>' + esc(C.calidad.empaque.bolsa) + '</td></tr><tr><th scope="row">Empaque del bulto</th><td>' + esc(C.calidad.empaque.bulto) + '</td></tr>' +
+          '<tr><th scope="row">Vida útil</th><td>' + C.calidad.vida_util_meses + ' meses, con el empaque cerrado</td></tr><tr><th scope="row">Pedido mínimo</th><td>' + porConfirmar() + '</td></tr><tr><th scope="row">Tiempo de producción</th><td>' + porConfirmar() + '</td></tr>' +
+          '</tbody></table></div>' +
+          '<div class="tabla-marco tabla-paca" tabindex="0" role="region" aria-labelledby="cap-paca" style="margin-top:var(--esp-5)"><table class="tabla"><caption id="cap-paca">Bolsas por paca según el gramaje ' + porConfirmar('confirmar por referencia') + '</caption><thead><tr><th scope="col">Gramaje</th><th scope="col" class="der">Bolsas por paca</th><th scope="col" class="der">Peso de la paca</th></tr></thead><tbody>' + paca + '</tbody></table></div></div>' +
+        '<div class="recuadro"><h3>Lo que necesitamos de su cadena</h3><ul class="texto-sans" style="margin:0.75rem 0 0;padding-left:1.25rem;display:grid;gap:0.5rem"><li>Razón social y NIT.</li><li>Presentaciones y volumen mensual estimado.</li><li>El arte del empaque con su marca.</li><li>Ciudades de despacho.</li></ul>' +
+          '<h3 style="margin-top:1.75rem">Lo que le confirma el área comercial</h3><ul class="texto-sans" style="margin:0.75rem 0 0;padding-left:1.25rem;display:grid;gap:0.5rem"><li>Pedido mínimo ' + porConfirmar() + '</li><li>Tiempo de producción ' + porConfirmar() + '</li><li>Titularidad del registro para su marca ' + porConfirmar() + '</li></ul></div>' +
+      '</div></section>' +
+      '<section class="bloque" aria-labelledby="h2-muestras"><div class="contenedor dos-col siete-cinco"><div id="caja-muestras">' + titulo2('h2-muestras', 'Pedir muestras.') +
+          '<p style="margin:1rem 0 1.5rem">Cuéntenos qué necesita su cadena. Un asesor le escribe para coordinar el envío de muestras.</p>' +
+          '<form class="form-corto" id="form-muestras" novalidate>' + resumenErroresHTML() +
+            '<div class="dos-campos">' + campoTexto('m-empresa', 'Empresa', ' name="empresa" type="text" autocomplete="organization" required', 'Escriba el nombre de su empresa.') +
+              campoTexto('m-nit', 'NIT', ' name="nit" type="text" inputmode="numeric" autocomplete="off"', null, null, true) + '</div>' +
+            '<div class="dos-campos">' + campoTexto('m-nombre', 'Su nombre y cargo', ' name="nombre" type="text" autocomplete="name" required', 'Escriba su nombre y su cargo.') + campoWA('m-wa') + '</div>' +
+            campoTexto('m-ciudad', 'Ciudad', ' name="ciudad" type="text" list="m-lista-ciudades" autocomplete="address-level2" required', 'Escriba su ciudad.') +
+            '<datalist id="m-lista-ciudades">' + CIUDADES.map(function (c) { return '<option value="' + c + '">'; }).join('') + '</datalist>' +
+            '<fieldset class="campo"><legend>Presentaciones de interés <span class="campo-opcional">(opcional)</span></legend><div class="chips">' + gr.map(function (g) { return '<label class="chip"><input type="checkbox" name="m-pres" value="' + g + '"><span class="chip-cara">' + CHECK + conUnidad(g) + '</span></label>'; }).join('') + '</div></fieldset>' +
+            campoTexto('m-volumen', 'Volumen mensual estimado, en kilos', ' name="volumen" type="text" inputmode="numeric" autocomplete="off"', null, null, true) +
+            campoAcepto('m-acepto', 'responder esta solicitud') +
+            '<div class="acciones acciones-apiladas"><button class="btn btn-primario" type="submit">Pedir muestras</button></div></form></div>' +
+        '<aside class="recuadro" aria-labelledby="h3-mp-wa"><h3 id="h3-mp-wa">¿Prefiere hablar ya?</h3><p>Escríbanos por WhatsApp al ' + TEL + ' o llámenos.</p><div class="acciones" style="margin-top:1rem">' + btnWA(msg, 'Escribir por WhatsApp') + '<a class="btn btn-secundario" href="' + TEL_HREF + '">' + icono('i-tel') + 'Llamar al ' + TEL + '</a></div></aside>' +
+      '</div></section>';
+    return { titulo: 'Con su marca', html: html, montar: function (vista) {
+      var s = $('.cabeza-mp', vista);
+      if (s && !reducido()) { s.classList.add('entra'); window.setTimeout(function () { s.classList.remove('entra'); }, 1200); }
+      var form = $('#form-muestras', vista);
+      montarFormulario(form, {
+        'm-empresa': { nombre: 'Empresa', ok: validaTexto(2) }, 'm-nombre': { nombre: 'Su nombre y cargo', ok: validaTexto(3) },
+        'm-wa': { nombre: 'WhatsApp', ok: validaWA }, 'm-ciudad': { nombre: 'Ciudad', ok: validaTexto(3) },
+        'm-acepto': { nombre: 'Autorización de datos', ok: function (v) { return v === true; } }
+      }, function (v) {
+        var pres = $$('input[name="m-pres"]:checked', form).map(function (i) { return i.value; });
+        confirmar($('#caja-muestras', vista), { id: 'h2-muestras-ok', titulo: 'Solicitud de muestras enviada.', texto: 'Un asesor le escribe por WhatsApp en horario hábil para coordinar las muestras de ' + esc(v('m-empresa')) + '.',
+          msg: 'Hola, Mundilácteos. Envié la solicitud de muestras N.º {n}. Empresa: ' + v('m-empresa') + '. Ciudad: ' + v('m-ciudad') + (pres.length ? '. Presentaciones: ' + pres.join(', ') : '') + '.' });
+      });
+    } };
   };
+
+  /* ---------- Recursos y artículos ---------- */
   var ARTICULOS = {
-    'verificar-registro-invima': ['Cómo verificar un registro sanitario en el INVIMA', 'Copie el número de registro de la bolsa, por ejemplo RSA-006359-2018, ábralo en la consulta pública del INVIMA y compruebe el titular, el producto y la vigencia.'],
-    'leche-o-mezcla-lactea': ['Leche en polvo o mezcla láctea: cómo diferenciarlas en la etiqueta', 'La denominación del frente y el registro sanitario le dicen qué compra: la leche en polvo es leche; la mezcla láctea es una mezcla en polvo a base de leche con otros ingredientes, como endulzantes.'],
-    'preparar-un-litro': ['Cómo preparar un litro con leche en polvo', 'La ficha técnica indica 135 g de leche en polvo por litro de agua; el empaque de 380 g dice que rinde 3 litros. Cifras por unificar con el cliente.'],
-    'guardar-bulto-abierto': ['Cómo guardar un bulto abierto', 'Recomendaciones del equipo de calidad para conservar la leche en polvo después de abrir el saco. Guía en preparación con el cliente.'],
-    'arroz-con-leche': ['Arroz con leche costeño', 'Receta con leche en polvo, probada en cocina antes de publicarse. Receta en preparación.']
+    'preparar-un-litro': { titulo: 'Cómo preparar leche con leche en polvo: rendimiento y reconstitución', tema: 'casa negocio', para: 'Para su casa y su negocio', min: 5, estado: 'Guía completa',
+      entradilla: 'Cuánto polvo lleva un litro, cuánto rinde cada presentación y cómo prepararla bien. Con las cifras de la ficha técnica y de los empaques, lado a lado.' },
+    'verificar-registro-invima': { titulo: 'Cómo verificar un registro sanitario en el INVIMA', tema: 'calidad', para: 'Para todos', min: 3, estado: 'Guía completa',
+      entradilla: 'Cada empaque trae impreso su número de registro sanitario. Con ese número usted comprueba, en la consulta pública del INVIMA, quién está detrás del producto, qué ampara el registro y hasta cuándo está vigente.' },
+    'leche-o-mezcla-lactea': { titulo: 'Leche en polvo o mezcla láctea: cómo diferenciarlas en la etiqueta', tema: 'casa calidad', para: 'Para su casa', min: 4, estado: 'Guía completa',
+      entradilla: 'Se parecen en la bolsa, pero no son lo mismo. La denominación del frente y el registro sanitario le dicen qué está comprando.' },
+    'guia-presentaciones': { titulo: 'Guía de presentaciones: qué bolsa o bulto le conviene', tema: 'negocio', para: 'Para su negocio', min: 4, estado: 'Guía completa',
+      entradilla: 'Del hogar a la industria: qué presentación sirve para cada uso, cuántas bolsas trae cada paca y cuánto pesa.' },
+    'guardar-bulto-abierto': { titulo: 'Cómo guardar un bulto abierto', tema: 'negocio calidad', para: 'Para su negocio', min: 3, estado: 'En preparación',
+      entradilla: 'Recomendaciones del equipo de calidad para conservar la leche en polvo después de abrir el saco.' },
+    'arroz-con-leche': { titulo: 'Arroz con leche costeño', tema: 'casa', para: 'Receta para su casa', min: 6, estado: 'Receta en prueba',
+      entradilla: 'La receta de siempre, preparada con leche en polvo. Se publica cuando esté probada en cocina, con cantidades exactas.' }
   };
+  function mencionadoHTML(slug, key) {
+    var p = producto(slug), pr = key ? presentacion(p, key) : presPorDefecto(p);
+    if (!p || !pr) return '';
+    var im = imagenDe(p, pr), k = presKey(pr.contenido);
+    return '<div class="mencionado" data-con-pack><div class="escena" data-ir="#producto-' + slug + '~' + k + '"><span class="franja" aria-hidden="true"></span><span class="brillo" aria-hidden="true"></span>' +
+      (im ? '<img class="pack" src="' + im.src + '" width="' + im.w + '" height="' + im.h + '" alt="' + esc(im.alt) + '" loading="lazy">' : '<svg class="pictograma" viewBox="0 0 48 64" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><use href="#p-bolsa"/></svg>') +
+      '<span class="sombra" aria-hidden="true"></span></div>' +
+      '<p class="m-nombre"><a href="#producto-' + slug + '~' + k + '">' + esc(referencia(p, pr)) + '</a></p><p class="m-meta">' + esc(ventaDe(pr).texto) + '</p>' +
+      '<button class="btn btn-primario btn-agregar" type="button" data-agregar="' + slug + '" data-pres="' + k + '">' + icono('i-mas', 'ico-mas') + icono('i-hecho', 'ico-hecho') + '<span class="txt">Agregar a mi cotización</span><span class="sr"> ' + esc(referencia(p, pr)) + '</span></button></div>';
+  }
+  function tablaRegistrosClaraHTML() {
+    return '<div class="tabla-marco" tabindex="0" role="region" aria-labelledby="cap-reg-art"><table class="tabla tabla-fija" style="min-width:40rem"><caption id="cap-reg-art">Registros sanitarios de Mundilácteos (última verificación: 25/09/2026)</caption><thead><tr><th scope="col">Registro</th><th scope="col">Ampara</th><th scope="col">Vigente hasta</th><th scope="col"><span class="sr">Copiar</span></th></tr></thead><tbody>' +
+      C.calidad.registros.map(function (r) { return '<tr><th scope="row" class="num nw">' + r.numero + '</th><td>' + esc(r.producto) + '</td><td class="num">' + fechaCO(r.vence) + '</td><td>' + btnCopiar(r.numero, 'Copiar', 'Copiado', r.numero) + '</td></tr>'; }).join('') + '</tbody></table></div>';
+  }
+  function cuerpoArticulo(slug) {
+    var gl = C.calidad.preparacion.g_por_litro;
+    if (slug === 'verificar-registro-invima') {
+      return { cuerpo:
+        '<h2>En cuatro pasos</h2><ol class="pasos-articulo">' +
+          '<li><h3>Busque el número en el empaque</h3><p>Empieza por RSA y termina con el año en que se expidió, por ejemplo RSA-006359-2018. Está impreso en el empaque de cada producto.</p></li>' +
+          '<li><h3>Abra la consulta pública del INVIMA</h3><p>El INVIMA es el Instituto Nacional de Vigilancia de Medicamentos y Alimentos. Su consulta de registros es pública.</p><div class="acciones"><a class="btn btn-secundario" href="' + INVIMA + '" target="_blank" rel="noopener">Abrir la consulta del INVIMA<span class="sr">, abre otra pestaña</span></a></div></li>' +
+          '<li><h3>Busque por el número de registro</h3><p>Escríbalo tal como aparece en el empaque, con los guiones. Si es uno de los nuestros, cópielo de la tabla de abajo.</p></li>' +
+          '<li><h3>Compare tres datos</h3><ul><li>Quién es el titular o el fabricante: en nuestros productos, Inversiones Mundilácteos S.A.S.</li><li>Qué ampara: el tipo de producto, por ejemplo leche en polvo entera.</li><li>El estado y la fecha de vencimiento del registro.</li></ul></li></ol>' +
+        '<h2>Los cinco registros de Mundilácteos</h2>' + tablaRegistrosClaraHTML() +
+        '<h2>También puede verificar la planta</h2><p>El INVIMA publica en datos.gov.co el estado de los establecimientos que vigila. La planta de Mundilácteos aparece activa, con concepto sanitario favorable para la línea «Leches en polvo y crema de leches en polvo».</p><p>' + enlaceExterno(DATOS_GOV, 'Ver el registro del establecimiento en datos.gov.co') + '</p>' +
+        '<div class="recuadro"><h3>¿Algo no coincide?</h3><p>Si el número de un empaque no aparece en la consulta, o sus datos no corresponden, escríbanos con el lote y una foto del empaque.</p><div class="acciones" style="margin-top:1rem"><a class="btn btn-primario" href="#contacto~pqr">Reportar un producto</a></div></div>',
+        mencionados: [['cantaro-entera', '900-g'], ['becerrita-mezcla-bulto', '25-kg']], cierre: [['Calidad y registros', '#calidad'], ['Por qué elegirnos', '#por-que-elegirnos']] };
+    }
+    if (slug === 'preparar-un-litro') {
+      var filas = [];
+      var agregar = function (nombre, gramos, empaque) { filas.push('<tr><th scope="row">' + nombre + '</th><td class="der">' + (empaque ? empaque : '<span aria-hidden="true">—</span><span class="sr">Sin dato en el empaque</span>') + '</td><td class="der">' + fmt(gramos / gl, 1) + NB + 'L</td></tr>'); };
+      agregar('Bolsa de 380' + NB + 'g', 380, '3' + NB + 'L');
+      agregar('Bolsa de 500' + NB + 'g', 500, null);
+      agregar('Bolsa de 900' + NB + 'g', 900, '7' + NB + 'L');
+      agregar('Paca de 30 bolsas de 380' + NB + 'g', 11400, '90' + NB + 'L');
+      agregar('Paca de 12 bolsas de 900' + NB + 'g', 10800, '84' + NB + 'L');
+      agregar('Bulto de 25' + NB + 'kg', 25000, null);
+      return { cuerpo:
+        '<h2>La proporción</h2><p>La ficha técnica publicada indica <strong>' + gl + NB + 'g de leche en polvo por cada litro de agua</strong>. Los empaques dicen algo parecido, pero no igual: la bolsa de 380' + NB + 'g rinde 3 litros (unos 127' + NB + 'g por litro) y la de 900' + NB + 'g, 7 litros (unos 129' + NB + 'g por litro). ' + porConfirmar('cifra por unificar con el cliente') + '</p>' +
+        '<h2>Cómo prepararla</h2><ol class="pasos-articulo">' +
+          '<li><h3>Mida la leche en polvo</h3><p>Para un litro, ' + gl + NB + 'g según la ficha técnica. Una balanza de cocina le da la medida exacta.</p></li>' +
+          '<li><h3>Disuélvala en parte del agua</h3><p>Agregue el polvo a una parte del agua potable y mezcle hasta que no queden grumos.</p></li>' +
+          '<li><h3>Complete el litro</h3><p>Agregue el resto del agua y vuelva a mezclar.</p></li>' +
+          '<li><h3>Guarde lo preparado en frío</h3><p>Una vez preparada, consérvela en la nevera y consúmala pronto, como cualquier leche líquida.</p></li></ol>' +
+        '<p class="nota">Siga siempre las indicaciones del empaque. Las mezclas lácteas tienen su propia preparación: esta guía es para leche en polvo.</p>' +
+        '<h2>Cuánto rinde cada presentación</h2><div class="tabla-marco" tabindex="0" role="region" aria-labelledby="cap-rinde"><table class="tabla tabla-fija" style="min-width:30rem"><caption id="cap-rinde">Litros de leche preparada por presentación de leche en polvo entera</caption><thead><tr><th scope="col">Presentación</th><th scope="col" class="der">Según el empaque</th><th scope="col" class="der">A ' + gl + NB + 'g por litro</th></tr></thead><tbody>' + filas.join('') + '</tbody></table></div>' +
+        '<p class="nota">«Según el empaque»: texto impreso en la bolsa. «A ' + gl + NB + 'g por litro»: cálculo con la ficha técnica, redondeado a un decimal. ' + porConfirmar() + '</p>' +
+        '<h2>Para su negocio</h2><p>Si prepara leche en volumen, calcule con el peso y no con la cuchara: un bulto de 25' + NB + 'kg de leche entera da cerca de ' + fmt(Math.round(25000 / gl)) + ' litros a ' + gl + NB + 'g por litro. Para una panadería o una heladería, pese el polvo en cada tanda y anote el lote que usó.</p>',
+        mencionados: [['cantaro-entera', '380-g'], ['cantaro-entera', '900-g'], ['cantaro-entera-bulto', '25-kg']], cierre: [['Guía de presentaciones', '#articulo-guia-presentaciones'], ['Ver productos', '#productos']] };
+    }
+    if (slug === 'leche-o-mezcla-lactea') {
+      var filasM = PRODS.map(function (p) {
+        var es = p.categoria.indexOf('leche') === 0 ? 'Sí: leche en polvo' : p.categoria === 'mezcla-lactea' ? 'No: mezcla láctea' : 'Es un alimento lácteo en polvo';
+        return '<tr><th scope="row">' + esc(p.nombre) + '</th><td>' + esc(p.denominacion) + '</td><td class="num nw">' + p.registro + '</td><td>' + es + '</td></tr>';
+      }).join('');
+      return { cuerpo:
+        '<h2>Mire la denominación</h2><p>Es el nombre legal del producto y va en el frente del empaque. «Leche en polvo entera» es leche. «Mezcla en polvo a base de leche y endulzante para preparar bebidas» es una mezcla láctea: tiene leche, pero también otros ingredientes, como endulzantes.</p>' +
+        '<h2>Mire el registro sanitario</h2><p>En Mundilácteos, la leche en polvo lleva el registro RSA-006359-2018 y las mezclas en polvo a base de leche, el RSA-003008-2017. Puede verificar ambos en la consulta pública del INVIMA.</p><p><a class="enlace" href="#articulo-verificar-registro-invima">Cómo verificar un registro</a></p>' +
+        '<h2>Mire los ingredientes y los sellos</h2><p>En la leche en polvo, el ingrediente es la leche, con sus vitaminas o minerales si está fortificada. En la mezcla láctea verá además endulzantes. Las mezclas y la leche azucarada pueden llevar el sello de advertencia «Exceso en azúcares». ' + porConfirmar('sellos por confirmar con la etiqueta vigente') + '</p>' +
+        '<h2>Nuestros productos, uno por uno</h2><div class="tabla-marco" tabindex="0" role="region" aria-labelledby="cap-mezcla"><table class="tabla tabla-fija" style="min-width:44rem"><caption id="cap-mezcla">Denominación y registro de cada producto de Mundilácteos</caption><thead><tr><th scope="col">Producto</th><th scope="col">Denominación</th><th scope="col">Registro</th><th scope="col">¿Es leche?</th></tr></thead><tbody>' + filasM + '</tbody></table></div>' +
+        '<h2>¿Cuál elegir?</h2><p>Para tomar como leche, elija leche en polvo. La mezcla láctea está pensada para bebidas calientes y frías, coladas y repostería, y tiene un precio accesible.</p>',
+        mencionados: [['cantaro-entera', '900-g'], ['cantaro-mezcla', '900-g']], cierre: [['Ver productos', '#productos'], ['Calidad y registros', '#calidad']] };
+    }
+    if (slug === 'guia-presentaciones') {
+      var bolsas = {};
+      PRODS.forEach(function (p) { p.presentaciones.forEach(function (x) { if (x.formato === 'bolsa') { var b = bolsas[x.contenido] || (bolsas[x.contenido] = { g: x.gramos, u: x.unidades_por_paca, conf: false }); if (x.estado === 'confirmado') b.conf = true; } }); });
+      var filasB = Object.keys(bolsas).sort(function (a, b) { return bolsas[a].g - bolsas[b].g; }).map(function (k) {
+        var b = bolsas[k];
+        return '<tr><th scope="row">' + conUnidad(k) + (b.conf ? '' : '*') + '</th><td class="der">' + b.u + '</td><td class="der">' + kg(b.u * b.g / 1000) + '</td></tr>';
+      }).join('');
+      return { cuerpo:
+        tablaConvieneHTML() +
+        '<h2>Bolsas por paca</h2><p>Las bolsas se venden por paca. El número de bolsas depende del gramaje:</p><div class="tabla-marco" tabindex="0" role="region" aria-labelledby="cap-bolsas-paca"><table class="tabla tabla-fija" style="min-width:24rem"><caption id="cap-bolsas-paca">Bolsas y peso por paca</caption><thead><tr><th scope="col">Bolsa</th><th scope="col" class="der">Bolsas por paca</th><th scope="col" class="der">Peso de la paca</th></tr></thead><tbody>' + filasB + '</tbody></table></div>' +
+        '<p class="nota">* Presentación por confirmar. Unidades por paca publicadas en el sitio actual, por gramaje; se confirman por referencia. ' + porConfirmar() + '</p>' +
+        '<h2>Bultos</h2><ul><li><strong>25' + NB + 'kg:</strong> The Cántaro Entera y La Becerrita Mezcla Láctea.</li><li><strong>12,5' + NB + 'kg:</strong> The Cántaro Mezcla Láctea. En leche entera, por confirmar.</li><li><strong>5' + NB + 'kg:</strong> leche entera, por confirmar.</li></ul>' +
+        '<p>La mezcla láctea no es leche: úsela para bebidas, coladas y repostería. Para leche, elija The Cántaro Entera.</p>',
+        mencionados: [['cantaro-entera', '900-g'], ['cantaro-entera-bulto', '25-kg'], ['becerrita-mezcla-bulto', '25-kg']], cierre: [['Ver productos', '#productos'], ['Solicitar cotización', '#cotizar']] };
+    }
+    if (slug === 'guardar-bulto-abierto') {
+      return { cuerpo: '<div class="recuadro"><h3>Guía en preparación</h3><p>El equipo de calidad de Mundilácteos prepara estas recomendaciones. Incluirán cómo cerrar el saco después de abrirlo, dónde guardarlo y cuánto tiempo usar el producto abierto. ' + porConfirmar('contenido por entregar') + '</p></div>' +
+        '<h2>Mientras tanto</h2><p>La vida útil de ' + C.calidad.vida_util_meses + ' meses aplica al empaque cerrado. Si tiene una duda sobre un bulto abierto, escríbanos con el lote.</p>',
+        mencionados: [['cantaro-entera-bulto', '25-kg']], cierre: [['Contacto', '#contacto'], ['Ver recursos', '#recursos']] };
+    }
+    if (slug === 'arroz-con-leche') {
+      return { cuerpo: '<div class="recuadro"><h3>Receta en prueba de cocina</h3><p>Publicamos recetas solo después de prepararlas y medirlas en cocina. Esta incluirá ingredientes con cantidades exactas, el paso a paso y cuánta leche en polvo usar. ' + porConfirmar('receta por probar') + '</p></div>' +
+        '<h2>Mientras tanto</h2><p>Para preparar la leche que pide la receta, use la proporción de la guía de rendimiento.</p><p><a class="enlace" href="#articulo-preparar-un-litro">Cómo preparar leche con leche en polvo</a></p>',
+        mencionados: [['cantaro-entera', '900-g']], cierre: [['Ver recursos', '#recursos']] };
+    }
+    return null;
+  }
   VISTAS.recursos = function () {
-    return minima('Recursos', 'Guías, recetas y fichas técnicas para su casa y su negocio.',
-      '<ul class="guias-lista">' + Object.keys(ARTICULOS).map(function (k) { return '<li><a href="#articulo-' + k + '"><span class="g-titulo">' + esc(ARTICULOS[k][0]) + '</span></a></li>'; }).join('') + '</ul>',
-      [['Fichas técnicas en Productos', '#productos']]);
+    var temas = [['', 'Todos'], ['casa', 'Para su casa'], ['negocio', 'Para su negocio'], ['calidad', 'Calidad']];
+    var lista = Object.keys(ARTICULOS).map(function (k) {
+      var a = ARTICULOS[k];
+      return '<li data-tema="' + a.tema + '"><a href="#articulo-' + k + '"><span class="g-titulo">' + esc(a.titulo) + '</span><span class="g-meta">' + esc(a.para) + '</span><span class="g-meta">' + a.min + ' min</span><span class="g-estado">' + esc(a.estado) + '</span></a></li>';
+    }).join('');
+    var fichas = PRODS.map(function (p) {
+      return '<li><span class="f-nombre">' + esc(p.nombre) + '</span><span class="f-reg">' + p.registro + '</span><a href="#producto-' + p.slug + '">Ver en HTML<span class="sr"> la ficha técnica de ' + esc(p.nombre) + '</span></a>' +
+        '<button class="btn-descargar solo-js" type="button" data-descargar-ficha="' + p.slug + '">' + icono('i-abajo') + 'Descargar (HTML, ' + pesoFicha(p) + ')<span class="sr"> ficha técnica de ' + esc(p.nombre) + '</span></button></li>';
+    }).join('');
+    var gl = C.calidad.preparacion.g_por_litro;
+    var html = cabeza({ titulo: 'Recursos', entradilla: 'Guías, recetas y fichas técnicas para su casa y su negocio.' }) +
+      '<section class="bloque" aria-labelledby="h2-destacado" style="padding-top:var(--esp-4)"><div class="contenedor destacado">' +
+        '<div><p class="cifra-guia">' + gl + NB + 'g<span>de leche en polvo por litro de agua, según la ficha técnica ' + porConfirmar() + '</span></p>' +
+          '<h2 id="h2-destacado"><a href="#articulo-preparar-un-litro" style="color:inherit;text-decoration-thickness:2px">Rendimiento y reconstitución: cómo preparar un litro</a></h2>' +
+          '<p>Cuánto rinde cada bolsa, cada paca y cada bulto, con las cifras del empaque y de la ficha técnica lado a lado.</p><div class="acciones" style="margin-top:1.25rem"><a class="btn btn-primario" href="#articulo-preparar-un-litro">Leer la guía</a></div></div>' +
+        '<div class="con-tilt">' + escenaGrupo([itemPack('cantaro-entera-800g.webp', 'The Cántaro Entera, bolsa de 800 g', 'bolsa'), itemPack('cantaro-entera-bulto-25kg.webp', 'The Cántaro Entera, bulto de 25 kg')], 'escena-media') + '</div>' +
+      '</div></section>' +
+      '<section class="bloque" aria-labelledby="h2-guias-r"><div class="contenedor">' + titulo2('h2-guias-r', 'Guías y recetas.', 'bloque-titulo') +
+        '<fieldset class="temas solo-js"><legend>Tema</legend><div class="chips">' + temas.map(function (t, i) { return '<label class="chip"><input type="radio" name="tema-recursos" value="' + t[0] + '"' + (i === 0 ? ' checked' : '') + '><span class="chip-cara">' + CHECK + t[1] + '</span></label>'; }).join('') + '</div></fieldset>' +
+        '<p class="sr" id="conteo-recursos" aria-live="polite"></p><ul class="guias-lista recursos-lista">' + lista + '</ul></div></section>' +
+      '<section class="panel-bruma arco-sup seccion" aria-labelledby="h2-fichas-r"><div class="contenedor">' + titulo2('h2-fichas-r', 'Fichas técnicas.', 'bloque-titulo') +
+        '<p class="bloque-intro">Cada ficha es una página en HTML. La descarga es una copia de la misma tabla; el PDF se publica con el sitio.</p><ul class="fichas-lista">' + fichas + '</ul></div></section>';
+    return { titulo: 'Recursos', html: html, montar: function (vista) {
+      vista.addEventListener('change', function (e) {
+        if (e.target.name !== 'tema-recursos') return;
+        var t = e.target.value, n = 0;
+        $$('.recursos-lista li', vista).forEach(function (li) { var ok = !t || li.getAttribute('data-tema').split(' ').indexOf(t) !== -1; li.hidden = !ok; if (ok) n++; });
+        $('#conteo-recursos', vista).textContent = 'Mostrando ' + n + ' ' + plural(n, 'guía', 'guías') + '.';
+      });
+    } };
   };
   VISTAS.articulo = function (r) {
-    var a = ARTICULOS[r.slug];
-    if (!a) return VISTAS['no-existe'](r);
-    return minima(a[0], esc(a[1]), '', [['Ver recursos', '#recursos'], ['Ver productos', '#productos']], [['Inicio', '#inicio'], ['Recursos', '#recursos'], [a[0], '']]);
+    var a = ARTICULOS[r.slug], c = a && cuerpoArticulo(r.slug);
+    if (!a || !c) return VISTAS['no-existe'](r);
+    var ld = { '@context': 'https://schema.org', '@type': 'Article', headline: a.titulo, dateModified: C.actualizado, author: { '@type': 'Organization', name: C.empresa.razon_social }, publisher: { '@type': 'Organization', name: C.empresa.razon_social } };
+    var html = '<article>' + cabeza({
+      titulo: a.titulo, entradilla: esc(a.entradilla), rastro: [['Inicio', '#inicio'], ['Recursos', '#recursos'], [a.titulo, '']], clase: 'articulo-cabeza',
+      meta: '<p class="meta">' + esc(a.para) + '. Lectura de ' + a.min + ' minutos. Actualizado el ' + fechaCO(C.actualizado) + '. ' + esc(a.estado) + '.</p>'
+    }) + '<div class="contenedor articulo-rejilla"><div class="articulo-cuerpo">' + c.cuerpo +
+      '<div class="articulo-cierre"><div class="interior-enlaces">' + c.cierre.map(function (l) { return '<a class="enlace" href="' + l[1] + '">' + esc(l[0]) + '</a>'; }).join('') + '<a class="enlace" href="#recursos">Todas las guías</a></div></div></div>' +
+      '<aside class="articulo-lado mencionados" aria-labelledby="h2-mencionados"><h2 id="h2-mencionados">Productos mencionados</h2>' + c.mencionados.map(function (m) { return mencionadoHTML(m[0], m[1]); }).join('') + '</aside></div></article>' +
+      (a.estado === 'Guía completa' ? '<script type="application/ld+json">' + JSON.stringify(ld).replace(/</g, '\\u003c') + '<\/script>' : '');
+    return { titulo: a.titulo, html: html, montar: function (vista) { $$('[data-agregar]', vista).forEach(pintarBotonAgregar); } };
   };
-  VISTAS.contacto = function () {
-    var e = C.empresa;
-    var cuerpo = '<div class="datos-contacto">' +
-      '<p><a href="' + esc(waUrl('Hola, Mundilácteos. Quiero cotizar leche en polvo para mi negocio en ____.')) + '" target="_blank" rel="noopener">Escribir por WhatsApp</a>: ' + e.telefono_visible + '</p>' +
-      '<p><a href="tel:' + e.telefono.replace(/\s/g, '') + '">Llamar</a>: ' + e.telefono_visible + '</p>' +
-      '<p><a href="mailto:' + e.correo.valor + '">Correo</a>: ' + e.correo.valor + ' ' + porConfirmar() + '</p>' +
-      '<p>' + esc(e.direccion) + '. ' + esc(e.municipio) + '.</p>' +
-      '<p>' + esc(e.horario.valor) + ' ' + porConfirmar() + '</p></div>';
-    return minima('Contacto', 'Asesores por zona, teléfono y dirección de la planta.', cuerpo, [['Solicitar cotización', '#cotizar'], ['Cómo llegar', 'https://www.google.com/maps/search/?api=1&query=Parque+Industrial+Europark+Turbaco+Bol%C3%ADvar']]);
+
+  /* ---------- Contacto ---------- */
+  var MOTIVOS = [['cotizacion', 'Cotización'], ['marca', 'Con su marca'], ['pqr', 'Petición, queja o reclamo'], ['visita', 'Visita a la planta'], ['proveedores', 'Proveedores'], ['empleo', 'Trabaje con nosotros'], ['otro', 'Otro']];
+  var SUGERENCIAS = {
+    cotizacion: 'Para cotizar más rápido, arme su lista en <a href="#cotizar">Solicitar cotización</a>: el asesor recibe presentaciones y cantidades.',
+    marca: 'Si ya sabe qué presentaciones necesita, use el formulario <a href="#marca-propia">Pedir muestras</a>.',
+    pqr: 'Tenga a mano el lote y la fecha de vencimiento del empaque, y si puede, una foto.',
+    visita: 'Indique en el mensaje la fecha que prefiere y cuántas personas vienen.'
   };
-  VISTAS.privacidad = function () { return minima('Política de tratamiento de datos', 'Cómo tratamos sus datos personales, según la Ley 1581 de 2012. El texto lo entrega el cliente.', '', [['Contacto', '#contacto']]); };
-  VISTAS.terminos = function () { return minima('Términos de uso', 'Condiciones de uso del sitio. El texto lo entrega el cliente.', '', [['Contacto', '#contacto']]); };
-  VISTAS['no-existe'] = function () { return minima('Esta página no existe.', 'Busque un producto o vuelva al inicio.', '', [['Ir al inicio', '#inicio'], ['Ver productos', '#productos']]); };
+  VISTAS.contacto = function (r) {
+    var e = C.empresa, sel = null;
+    (r.params || []).forEach(function (t) { MOTIVOS.forEach(function (m) { if (m[0] === t) sel = t; }); });
+    var msgGeneral = 'Hola, Mundilácteos. Quiero cotizar leche en polvo para mi negocio en ____.';
+    var asesores = [
+      ['Costa Caribe', 'Bolívar, Atlántico, Magdalena, La Guajira, Cesar, Sucre y Córdoba', 'Hola, Mundilácteos. Quiero hablar con el asesor de la Costa Caribe. Estoy en ____.'],
+      ['Interior del país', 'Antioquia, Santander, Bogotá, Valle del Cauca y el resto de Colombia', 'Hola, Mundilácteos. Quiero hablar con el asesor del interior del país. Estoy en ____.'],
+      ['Cadenas y marca propia', 'Supermercados, cadenas y distribuidores que quieren su propia marca', 'Hola, Mundilácteos. Quiero información para empacar leche en polvo con mi marca. Empresa: ____. Ciudad: ____.']
+    ];
+    var html = cabeza({ titulo: 'Contacto', entradilla: 'Escríbanos, llámenos o visítenos en la planta. Le responde una persona del área comercial.' }) +
+      '<section class="bloque" aria-labelledby="h2-linea" style="padding-top:var(--esp-3)"><div class="contenedor dos-col siete-cinco">' +
+        '<div class="linea-directa"><h2 id="h2-linea" class="etiqueta" style="font-size:var(--fs-18);font-stretch:100%;color:var(--c-azul-noche)">Línea comercial, teléfono y WhatsApp</h2>' +
+          '<a class="numero-grande" href="' + TEL_HREF + '">' + TEL + '<span class="sr">, llamar</span></a>' +
+          '<div class="acciones">' + btnWA(msgGeneral, 'Escribir por WhatsApp') + '<a class="btn btn-secundario" href="' + TEL_HREF + '">' + icono('i-tel') + 'Llamar</a>' + btnCopiar(TEL, 'Copiar número', 'Número copiado') + '</div>' +
+          '<p class="texto-sans">WhatsApp: ' + WA_VISIBLE + '. ' + lineaWA(msgGeneral).replace(/^<p class="mensaje-wa">|<\/p>$/g, '') + '</p></div>' +
+        '<dl class="ficha-datos-lista"><dt>Horario</dt><dd>' + esc(e.horario.valor) + ' ' + porConfirmar() + '</dd>' +
+          '<dt>Correo</dt><dd><a href="mailto:' + e.correo.valor + '">' + e.correo.valor + '</a> ' + porConfirmar() + '</dd>' +
+          '<dt>Instagram</dt><dd>' + enlaceExterno(e.instagram, '@mundilacteos') + '</dd><dt>Empresa</dt><dd>' + esc(e.razon_social) + ', NIT ' + e.nit + '</dd></dl>' +
+      '</div></section>' +
+      '<section class="banda azul arco-sup abre oscuro" aria-labelledby="h2-asesores"><div class="contenedor">' + titulo2('h2-asesores', 'Asesores por zona.') +
+        '<div class="asesores-rejilla"><ul class="asesores">' + asesores.map(function (a) {
+          return '<li class="asesor"><div><h3>' + a[0] + '</h3><p class="zona">' + a[1] + '.</p></div><div><p class="texto-sans">Le atiende: ' + porConfirmar('nombre por confirmar') + '</p>' + lineaWA(a[2]) + '</div><div class="acciones">' + btnWA(a[2], 'Escribir por WhatsApp') + '</div></li>';
+        }).join('') + '</ul>' + marcoToma('R04', 'Retratos de los asesores por zona, mirando a cámara, con nombre, cargo y autorización de uso de imagen. Por producir.', 'p-retratos') + '</div>' +
+      '</div></section>' +
+      '<section class="bloque" aria-labelledby="h2-escribanos"><div class="contenedor contacto-rejilla"><div id="caja-contacto">' + titulo2('h2-escribanos', 'Escríbanos.') +
+        '<form class="form-corto" id="form-contacto" novalidate style="margin-top:1.5rem">' + resumenErroresHTML() +
+          '<fieldset class="campo" id="campo-k-motivo" aria-describedby="k-motivo-error"><legend>Motivo</legend><div class="chips">' + MOTIVOS.map(function (m, i) {
+            return '<label class="chip"><input type="radio" name="k-motivo" value="' + m[0] + '" data-regla="k-motivo"' + (i === 0 ? ' id="k-motivo"' : '') + (m[0] === sel ? ' checked' : '') + '><span class="chip-cara">' + CHECK + m[1] + '</span></label>';
+          }).join('') + '</div><p class="error-campo" id="k-motivo-error">' + icono('i-alerta') + '<span>Elija el motivo de su mensaje.</span></p></fieldset>' +
+          '<p class="sugerencia" id="k-sugerencia" aria-live="polite"' + (sel && SUGERENCIAS[sel] ? '' : ' hidden') + '>' + (sel && SUGERENCIAS[sel] ? SUGERENCIAS[sel] : '') + '</p>' +
+          '<div class="dos-campos">' + campoTexto('k-nombre', 'Nombre', ' name="nombre" type="text" autocomplete="name" required', 'Escriba su nombre.') + campoWA('k-wa') + '</div>' +
+          '<div class="dos-campos">' + campoTexto('k-ciudad', 'Ciudad', ' name="ciudad" type="text" list="k-lista-ciudades" autocomplete="address-level2" required', 'Escriba su ciudad.') +
+            campoTexto('k-correo', 'Correo', ' name="correo" type="email" autocomplete="email"', null, null, true) + '</div>' +
+          '<datalist id="k-lista-ciudades">' + CIUDADES.map(function (c) { return '<option value="' + c + '">'; }).join('') + '</datalist>' +
+          '<div id="k-lote-caja"' + (sel === 'pqr' ? '' : ' hidden') + '>' + campoTexto('k-lote', 'Lote y fecha de vencimiento', ' name="lote" type="text" autocomplete="off"', null, 'Están impresos en el empaque.', true) + '</div>' +
+          campoTexto('k-mensaje', 'Mensaje', 'textarea name="mensaje" rows="5" required', 'Escriba su mensaje.') +
+          campoAcepto('k-acepto', 'responder este mensaje') +
+          '<div class="acciones acciones-apiladas"><button class="btn btn-primario" type="submit">Enviar mensaje</button></div>' +
+        '</form></div>' +
+        '<div class="direccion-bloque"><h2 style="font-size:var(--fs-28)">La planta</h2><address><strong>Parque Industrial Europark</strong>' + esc(DIRECCION_TXT) + '</address>' +
+          '<div class="acciones"><a class="btn btn-secundario" href="' + MAPS + '" target="_blank" rel="noopener">' + icono('i-lugar') + 'Cómo llegar<span class="sr">, abre Google Maps</span></a>' + btnCopiar(DIRECCION_TXT, 'Copiar dirección', 'Dirección copiada') + '</div>' +
+          '<p class="nota">Sin mapa incrustado: el enlace abre Google Maps. Coordenadas para transportadores ' + porConfirmar() + '</p>' +
+          marcoToma('P06', 'Fachada de la planta con la señal del parque, por fotografiar.', 'p-bulto', '', '3 / 2') + '</div>' +
+      '</div></section>';
+    return { titulo: 'Contacto', html: html, montar: function (vista) {
+      var form = $('#form-contacto', vista);
+      form.addEventListener('change', function (ev) {
+        if (ev.target.name !== 'k-motivo') return;
+        var v = ev.target.value, s = $('#k-sugerencia', form);
+        s.innerHTML = SUGERENCIAS[v] || ''; s.hidden = !SUGERENCIAS[v];
+        $('#k-lote-caja', form).hidden = v !== 'pqr';
+      });
+      montarFormulario(form, {
+        'k-motivo': { nombre: 'Motivo', grupo: 'k-motivo' }, 'k-nombre': { nombre: 'Nombre', ok: validaTexto(2) }, 'k-wa': { nombre: 'WhatsApp', ok: validaWA },
+        'k-ciudad': { nombre: 'Ciudad', ok: validaTexto(3) }, 'k-mensaje': { nombre: 'Mensaje', ok: validaTexto(5) },
+        'k-acepto': { nombre: 'Autorización de datos', ok: function (v) { return v === true; } }
+      }, function (v) {
+        var m = form.querySelector('input[name="k-motivo"]:checked'), motivo = MOTIVOS.filter(function (x) { return x[0] === m.value; })[0][1];
+        confirmar($('#caja-contacto', vista), { id: 'h2-contacto-ok', titulo: 'Mensaje enviado.', texto: 'Le respondemos por WhatsApp al número que nos dejó, en horario hábil.',
+          msg: 'Hola, Mundilácteos. Envié el mensaje N.º {n}. Motivo: ' + motivo.toLowerCase() + '. Ciudad: ' + v('k-ciudad') + (v('k-lote') ? '. Lote: ' + v('k-lote') : '') + '.' });
+      });
+    } };
+  };
+
+  VISTAS.privacidad = function () { return minima('Política de tratamiento de datos', 'Cómo tratamos sus datos personales, según la Ley 1581 de 2012. El texto lo entrega el cliente.', '<div class="cuerpo-texto"><p>Responsable: ' + esc(C.empresa.razon_social) + ', NIT ' + C.empresa.nit + '. Los datos de los formularios se usan solo para responder su solicitud. ' + porConfirmar('texto legal por entregar') + '</p></div>', [['Contacto', '#contacto']]); };
+  VISTAS.terminos = function () { return minima('Términos de uso', 'Condiciones de uso del sitio. El texto lo entrega el cliente.', '<div class="cuerpo-texto"><p>Los precios se entregan con cada cotización; el sitio no vende en línea. ' + porConfirmar('texto legal por entregar') + '</p></div>', [['Contacto', '#contacto']]); };
+
+  /* ---------- 404: el globo vacío ---------- */
+  VISTAS['no-existe'] = function () {
+    var msg = 'Hola, Mundilácteos. Busco un producto en su sitio y no lo encuentro. Estoy en ____.';
+    var bajo = '<p class="entradilla">Busque un producto o vuelva al inicio.</p>' +
+      '<div class="buscador" role="search" data-buscador><label class="sr" for="buscar-404">Buscar productos</label>' + icono('i-buscar') +
+        '<input class="control" id="buscar-404" type="search" placeholder="Marca, peso o código" autocomplete="off" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="sug-404">' +
+        '<ul class="sugerencias" id="sug-404" role="listbox" aria-label="Sugerencias" hidden></ul></div>' +
+      '<div class="acciones"><a class="btn btn-primario" href="#productos">Ver productos</a>' + btnWA(msg, 'WhatsApp ' + TEL, 'btn-secundario') + '<a class="enlace" href="#inicio">Ir al inicio</a></div>';
+    var html = cabezaGlobo({ rastro: [['Inicio', '#inicio'], ['Página no encontrada', '']], k: 6.48, clase: 'cg-dos-lineas no-existe-bajo', bruma: true,
+      h1: '<span class="frag">Esta página</span><br> <span class="frag">no existe.</span>', bajo: bajo });
+    return { titulo: 'Página no encontrada', html: html, montar: function (vista) {
+      entrarGlobo(vista);
+      montarBuscador($('[data-buscador]', vista), null);
+    } };
+  };
 
   /* ---------------------------------------------------------------------------
      Arranque
