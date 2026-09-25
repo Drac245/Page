@@ -1,0 +1,70 @@
+{
+ "url": "https://mundilacteos.com/nosotros/",
+ "device": "mobile",
+ "testEngine": "4.13.0",
+ "violations": [
+  {
+   "id": "aria-prohibited-attr",
+   "impact": "serious",
+   "help": "Elements must only use permitted ARIA attributes",
+   "tags": [
+    "wcag2a",
+    "wcag412"
+   ],
+   "nodes": 1,
+   "targets": [
+    {
+     "target": ".joinchat__close",
+     "summary": "Fix all of the following:\n  aria-label attribute cannot be used on a div with no valid role attribute.",
+     "html": "<div class=\"joinchat__close\" aria-label=\"Close\"></div>"
+    }
+   ]
+  },
+  {
+   "id": "region",
+   "impact": "moderate",
+   "help": "All page content should be contained by landmarks",
+   "tags": [],
+   "nodes": 7,
+   "targets": [
+    {
+     "target": ".elementor-element-9dd00e3",
+     "summary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+     "html": "<div class=\"elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-9dd00e3\" data-id=\"9dd00e3\" data-element_type=\"column\">"
+    },
+    {
+     "target": ".elementor-social-icons-wrapper",
+     "summary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+     "html": "<div class=\"elementor-social-icons-wrapper elementor-grid\">"
+    },
+    {
+     "target": ".elementor-element-1d5b64d7",
+     "summary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+     "html": "<div class=\"elementor-element elementor-element-1d5b64d7 elementor-widget elementor-widget-heading\" data-id=\"1d5b64d7\" data-element_type=\"widget\" data-widget_ty"
+    },
+    {
+     "target": ".elementor-element-311f857a",
+     "summary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+     "html": "<div class=\"elementor-element elementor-element-311f857a elementor-widget elementor-widget-text-editor\" data-id=\"311f857a\" data-element_type=\"widget\" data-widge"
+    },
+    {
+     "target": ".elementor-element-513da5ef",
+     "summary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+     "html": "<section class=\"elementor-section el...\" data-id=\"513da5ef\" data-element_type=\"section\" data-settings=\"{\"background_backgro...\">"
+    },
+    {
+     "target": ".joinchat__button__sendtext",
+     "summary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+     "html": "<div class=\"joinchat__button__sendtext\">Open chat</div>"
+    }
+   ]
+  }
+ ],
+ "incomplete": [
+  {
+   "id": "color-contrast",
+   "impact": "serious",
+   "nodes": 9
+  }
+ ]
+}

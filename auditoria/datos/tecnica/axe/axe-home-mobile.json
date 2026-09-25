@@ -1,0 +1,87 @@
+{
+ "url": "https://mundilacteos.com/",
+ "device": "mobile",
+ "testEngine": "4.13.0",
+ "violations": [
+  {
+   "id": "aria-prohibited-attr",
+   "impact": "serious",
+   "help": "Elements must only use permitted ARIA attributes",
+   "tags": [
+    "wcag2a",
+    "wcag412"
+   ],
+   "nodes": 1,
+   "targets": [
+    {
+     "target": ".joinchat__close",
+     "summary": "Fix all of the following:\n  aria-label attribute cannot be used on a div with no valid role attribute.",
+     "html": "<div class=\"joinchat__close\" aria-label=\"Close\"></div>"
+    }
+   ]
+  },
+  {
+   "id": "color-contrast",
+   "impact": "serious",
+   "help": "Elements must meet minimum color contrast ratio thresholds",
+   "tags": [
+    "wcag2aa",
+    "wcag143"
+   ],
+   "nodes": 3,
+   "targets": [
+    {
+     "target": "input[placeholder=\"Nombre \"]",
+     "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.29 (foreground color: #7a7a7a, background color: #ffffff, font size: 11.3pt (15px), font weight: normal). Expected contrast ratio of 4.5:1",
+     "html": "<input size=\"1\" type=\"text\" name=\"form_fields[name]\" id=\"form-field-name\" class=\"elementor-field elementor-size-sm  elementor-field-textual\" placeholder=\"Nombre"
+    },
+    {
+     "target": "form[name=\"New Form\"] > .elementor-form-fields-wrapper.elementor-labels-above > .elementor-field-type-email.elementor-field-group-email.elementor-field-required > input[name=\"form_fields[email]\"][placeholder=\"Email\"][type=\"email\"]",
+     "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.29 (foreground color: #7a7a7a, background color: #ffffff, font size: 11.3pt (15px), font weight: normal). Expected contrast ratio of 4.5:1",
+     "html": "<input size=\"1\" type=\"email\" name=\"form_fields[email]\" id=\"form-field-email\" class=\"elementor-field elementor-size-sm  elementor-field-textual\" placeholder=\"Ema"
+    },
+    {
+     "target": "form[name=\"New Form\"] > .elementor-form-fields-wrapper.elementor-labels-above > .elementor-field-type-submit.e-form__buttons.elementor-field-group > button > span > .elementor-button-text",
+     "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.09 (foreground color: #ffffff, background color: #dfab3d, font size: 11.3pt (15px), font weight: normal). Expected contrast ratio of 4.5:1",
+     "html": "<span class=\"elementor-button-text\">Cotizar </span>"
+    }
+   ]
+  },
+  {
+   "id": "region",
+   "impact": "moderate",
+   "help": "All page content should be contained by landmarks",
+   "tags": [],
+   "nodes": 4,
+   "targets": [
+    {
+     "target": ".elementor-element-9dd00e3",
+     "summary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+     "html": "<div class=\"elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-9dd00e3\" data-id=\"9dd00e3\" data-element_type=\"column\">"
+    },
+    {
+     "target": ".elementor-125",
+     "summary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+     "html": "<div data-elementor-type=\"footer\" data-elementor-id=\"125\" class=\"elementor elementor-125 elementor-location-footer\">"
+    },
+    {
+     "target": ".joinchat__button__sendtext",
+     "summary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+     "html": "<div class=\"joinchat__button__sendtext\">Open chat</div>"
+    },
+    {
+     "target": ".joinchat__box",
+     "summary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+     "html": "<div class=\"joinchat__box\">"
+    }
+   ]
+  }
+ ],
+ "incomplete": [
+  {
+   "id": "color-contrast",
+   "impact": "serious",
+   "nodes": 54
+  }
+ ]
+}

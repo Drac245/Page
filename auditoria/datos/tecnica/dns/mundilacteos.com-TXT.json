@@ -1,0 +1,1 @@
+{"Status":0,"TC":false,"RD":true,"RA":true,"AD":false,"CD":false,"Question":[{"name":"mundilacteos.com.","type":16}],"Answer":[{"name":"mundilacteos.com.","type":16,"TTL":3600,"data":"v=spf1 include:_spf.mail.hostinger.com ~all"}],"Comment":"Response from 162.159.24.201."}

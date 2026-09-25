@@ -1,0 +1,2151 @@
+{
+ "home-mobile": {
+  "url": "https://mundilacteos.com/",
+  "fetchTime": "2026-09-25T06:19:23.335Z",
+  "lhVersion": "12.8.2",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36",
+  "warnings": [],
+  "scores": {
+   "performance": 62,
+   "accessibility": 93,
+   "best-practices": 100,
+   "seo": 85
+  },
+  "FCP": "3,9 s",
+  "LCP": "6,5 s",
+  "TBT": "160 ms",
+  "CLS": "0,001",
+  "SI": "6,3 s",
+  "TTFB": "El documento raíz ha tardado 1830 ms",
+  "totalKB": 849.6,
+  "byType": {
+   "total": {
+    "requests": 69,
+    "kb": 849.6
+   },
+   "font": {
+    "requests": 5,
+    "kb": 320.6
+   },
+   "image": {
+    "requests": 18,
+    "kb": 213.9
+   },
+   "script": {
+    "requests": 25,
+    "kb": 170.7
+   },
+   "stylesheet": {
+    "requests": 19,
+    "kb": 94.2
+   },
+   "document": {
+    "requests": 1,
+    "kb": 48.9
+   },
+   "other": {
+    "requests": 1,
+    "kb": 1.4
+   },
+   "media": {
+    "requests": 0,
+    "kb": 0
+   },
+   "third-party": {
+    "requests": 3,
+    "kb": 80.9
+   }
+  },
+  "audits": {
+   "render-blocking-resources": {
+    "score": 0,
+    "dv": "Ahorro estimado de 2580 ms",
+    "savingsMs": 2577
+   },
+   "unused-css-rules": {
+    "score": 0,
+    "dv": "Ahorro estimado de 37 KiB",
+    "savingsMs": 270,
+    "savingsKB": 37
+   },
+   "unused-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "modern-image-formats": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-responsive-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "offscreen-images": {
+    "score": 0,
+    "dv": "Ahorro estimado de 25 KiB",
+    "savingsMs": 140,
+    "savingsKB": 25
+   },
+   "efficient-animated-content": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-optimized-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-text-compression": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-long-cache-ttl": {
+    "score": 0.5,
+    "dv": "Se han encontrado 64 recursos"
+   },
+   "unminified-css": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "unminified-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "legacy-javascript": {
+    "score": 0,
+    "dv": "Ahorro estimado de 18 KiB",
+    "savingsMs": 170,
+    "savingsKB": 18
+   },
+   "duplicated-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "total-byte-weight": {
+    "score": 1,
+    "dv": "Tamaño total: 850 KiB"
+   },
+   "dom-size": {
+    "score": 0.5,
+    "dv": "1029 elementos"
+   },
+   "lcp-lazy-loaded": {
+    "score": 1,
+    "dv": ""
+   },
+   "prioritize-lcp-image": {
+    "score": 0.5,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "font-display": {
+    "score": 0.5,
+    "dv": ""
+   },
+   "third-party-summary": {
+    "score": 1,
+    "dv": "El código de un tercero ha bloqueado el hilo principal durante 0 ms"
+   },
+   "bootup-time": {
+    "score": 1,
+    "dv": "0,6 s"
+   },
+   "mainthread-work-breakdown": {
+    "score": 0,
+    "dv": "3,1 s"
+   },
+   "server-response-time": {
+    "score": 0,
+    "dv": "El documento raíz ha tardado 1830 ms",
+    "savingsMs": 1727.6689999999999
+   },
+   "redirects": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "largest-contentful-paint-element": {
+    "score": 0,
+    "dv": "6520 ms"
+   },
+   "layout-shifts": {
+    "score": 1,
+    "dv": "1 cambio de diseño detectado"
+   },
+   "image-size-responsive": {
+    "score": 1,
+    "dv": ""
+   },
+   "unsized-images": {
+    "score": 0.5,
+    "dv": ""
+   },
+   "uses-rel-preconnect": {
+    "score": 0,
+    "dv": "Ahorro estimado de 300 ms",
+    "savingsMs": 300
+   },
+   "is-crawlable": {
+    "score": 1,
+    "dv": ""
+   },
+   "meta-description": {
+    "score": 0,
+    "dv": ""
+   },
+   "document-title": {
+    "score": 1,
+    "dv": ""
+   },
+   "image-alt": {
+    "score": 1,
+    "dv": ""
+   },
+   "link-text": {
+    "score": 1,
+    "dv": ""
+   },
+   "color-contrast": {
+    "score": 0,
+    "dv": ""
+   },
+   "heading-order": {
+    "score": 1,
+    "dv": ""
+   },
+   "label": {
+    "score": 1,
+    "dv": ""
+   },
+   "target-size": {
+    "score": 1,
+    "dv": ""
+   },
+   "errors-in-console": {
+    "score": 1,
+    "dv": ""
+   },
+   "inspector-issues": {
+    "score": 1,
+    "dv": ""
+   },
+   "valid-source-maps": {
+    "score": 1,
+    "dv": ""
+   },
+   "csp-xss": {
+    "score": 1,
+    "dv": ""
+   },
+   "crawlable-anchors": {
+    "score": 0,
+    "dv": ""
+   },
+   "link-name": {
+    "score": 1,
+    "dv": ""
+   },
+   "button-name": {
+    "score": 1,
+    "dv": ""
+   },
+   "html-has-lang": {
+    "score": 1,
+    "dv": ""
+   },
+   "deprecations": {
+    "score": 1,
+    "dv": ""
+   }
+  },
+  "lcpEl": "{\"type\":\"table\",\"headings\":[{\"key\":\"node\",\"valueType\":\"node\",\"label\":\"Elemento\"}],\"items\":[{\"node\":{\"type\":\"node\",\"lhId\":\"page-0-SECTION\",\"path\":\"1,HTML,1,BODY,1,DIV,1,DIV,0,DIV,0,DIV,0,MAIN,0,ARTICLE,2,DIV,0,DIV,0,SECTION\",\"selector\":\"article#post-7 > div.entry-content > div.elementor > section.elementor-section\",\"boundingRect\":{\"top\":73,\"bottom\":519,\"left\":0,\"right\":412,\"width\":412,\"height\":447},\"snippet\":\"<section class=\\\"elementor-section elementor-top-section elementor-element elementor-elemen…\\\" data-id=\\\"7202392e\\\" data-element_type=\\\"section\\\" data-settings=\\\"{&quot;background_backgrou"
+ },
+ "home-desktop": {
+  "url": "https://mundilacteos.com/",
+  "fetchTime": "2026-09-25T06:19:44.184Z",
+  "lhVersion": "12.8.2",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36",
+  "warnings": [],
+  "scores": {
+   "performance": 84,
+   "accessibility": 92,
+   "best-practices": 100,
+   "seo": 85
+  },
+  "FCP": "1,1 s",
+  "LCP": "1,8 s",
+  "TBT": "0 ms",
+  "CLS": "0,015",
+  "SI": "2,7 s",
+  "TTFB": "El documento raíz ha tardado 1750 ms",
+  "totalKB": 1146.1,
+  "byType": {
+   "total": {
+    "requests": 69,
+    "kb": 1146.1
+   },
+   "image": {
+    "requests": 19,
+    "kb": 602.1
+   },
+   "font": {
+    "requests": 4,
+    "kb": 228.8
+   },
+   "script": {
+    "requests": 25,
+    "kb": 170.6
+   },
+   "stylesheet": {
+    "requests": 19,
+    "kb": 94.3
+   },
+   "document": {
+    "requests": 1,
+    "kb": 48.8
+   },
+   "other": {
+    "requests": 1,
+    "kb": 1.5
+   },
+   "media": {
+    "requests": 0,
+    "kb": 0
+   },
+   "third-party": {
+    "requests": 3,
+    "kb": 80.9
+   }
+  },
+  "audits": {
+   "render-blocking-resources": {
+    "score": 0,
+    "dv": "Ahorro estimado de 620 ms",
+    "savingsMs": 622
+   },
+   "unused-css-rules": {
+    "score": 0.5,
+    "dv": "Ahorro estimado de 37 KiB",
+    "savingsMs": 0,
+    "savingsKB": 37
+   },
+   "unused-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "modern-image-formats": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-responsive-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "offscreen-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "efficient-animated-content": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-optimized-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-text-compression": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-long-cache-ttl": {
+    "score": 0.5,
+    "dv": "Se han encontrado 64 recursos"
+   },
+   "unminified-css": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "unminified-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "legacy-javascript": {
+    "score": 0,
+    "dv": "Ahorro estimado de 18 KiB",
+    "savingsMs": 30,
+    "savingsKB": 18
+   },
+   "duplicated-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "total-byte-weight": {
+    "score": 1,
+    "dv": "Tamaño total: 1146 KiB"
+   },
+   "dom-size": {
+    "score": 0.5,
+    "dv": "1051 elementos"
+   },
+   "lcp-lazy-loaded": {
+    "score": 1,
+    "dv": ""
+   },
+   "prioritize-lcp-image": {
+    "score": 0.5,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "font-display": {
+    "score": 0.5,
+    "dv": ""
+   },
+   "third-party-summary": {
+    "score": 1,
+    "dv": "El código de un tercero ha bloqueado el hilo principal durante 0 ms"
+   },
+   "bootup-time": {
+    "score": 1,
+    "dv": "0,1 s"
+   },
+   "mainthread-work-breakdown": {
+    "score": 1,
+    "dv": "0,6 s"
+   },
+   "server-response-time": {
+    "score": 0,
+    "dv": "El documento raíz ha tardado 1750 ms",
+    "savingsMs": 1651.1970000000001
+   },
+   "redirects": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "largest-contentful-paint-element": {
+    "score": 0,
+    "dv": "1810 ms"
+   },
+   "layout-shifts": {
+    "score": 1,
+    "dv": "1 cambio de diseño detectado"
+   },
+   "image-size-responsive": {
+    "score": 1,
+    "dv": ""
+   },
+   "unsized-images": {
+    "score": 1,
+    "dv": ""
+   },
+   "uses-rel-preconnect": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "is-crawlable": {
+    "score": 1,
+    "dv": ""
+   },
+   "meta-description": {
+    "score": 0,
+    "dv": ""
+   },
+   "document-title": {
+    "score": 1,
+    "dv": ""
+   },
+   "image-alt": {
+    "score": 1,
+    "dv": ""
+   },
+   "link-text": {
+    "score": 1,
+    "dv": ""
+   },
+   "color-contrast": {
+    "score": 0,
+    "dv": ""
+   },
+   "heading-order": {
+    "score": 1,
+    "dv": ""
+   },
+   "label": {
+    "score": 1,
+    "dv": ""
+   },
+   "target-size": {
+    "score": 1,
+    "dv": ""
+   },
+   "errors-in-console": {
+    "score": 1,
+    "dv": ""
+   },
+   "inspector-issues": {
+    "score": 1,
+    "dv": ""
+   },
+   "valid-source-maps": {
+    "score": 1,
+    "dv": ""
+   },
+   "csp-xss": {
+    "score": 1,
+    "dv": ""
+   },
+   "crawlable-anchors": {
+    "score": 0,
+    "dv": ""
+   },
+   "link-name": {
+    "score": 1,
+    "dv": ""
+   },
+   "button-name": {
+    "score": 1,
+    "dv": ""
+   },
+   "html-has-lang": {
+    "score": 1,
+    "dv": ""
+   },
+   "deprecations": {
+    "score": 1,
+    "dv": ""
+   }
+  },
+  "lcpEl": "{\"type\":\"table\",\"headings\":[{\"key\":\"node\",\"valueType\":\"node\",\"label\":\"Elemento\"}],\"items\":[{\"node\":{\"type\":\"node\",\"lhId\":\"page-0-SECTION\",\"path\":\"1,HTML,1,BODY,1,DIV,1,DIV,0,DIV,0,DIV,0,MAIN,0,ARTICLE,2,DIV,0,DIV,0,SECTION\",\"selector\":\"article#post-7 > div.entry-content > div.elementor > section.elementor-section\",\"boundingRect\":{\"top\":43,\"bottom\":649,\"left\":0,\"right\":1335,\"width\":1335,\"height\":606},\"snippet\":\"<section class=\\\"elementor-section elementor-top-section elementor-element elementor-elemen…\\\" data-id=\\\"7202392e\\\" data-element_type=\\\"section\\\" data-settings=\\\"{&quot;background_backgr"
+ },
+ "productos-mobile": {
+  "url": "https://mundilacteos.com/productos/",
+  "fetchTime": "2026-09-25T06:20:04.740Z",
+  "lhVersion": "12.8.2",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36",
+  "warnings": [],
+  "scores": {
+   "performance": 68,
+   "accessibility": 92,
+   "best-practices": 100,
+   "seo": 85
+  },
+  "FCP": "3,3 s",
+  "LCP": "5,7 s",
+  "TBT": "80 ms",
+  "CLS": "0,001",
+  "SI": "5,4 s",
+  "TTFB": "El documento raíz ha tardado 1310 ms",
+  "totalKB": 644.1,
+  "byType": {
+   "total": {
+    "requests": 57,
+    "kb": 644.1
+   },
+   "font": {
+    "requests": 4,
+    "kb": 243.7
+   },
+   "image": {
+    "requests": 10,
+    "kb": 142.3
+   },
+   "script": {
+    "requests": 22,
+    "kb": 126.4
+   },
+   "stylesheet": {
+    "requests": 19,
+    "kb": 91.8
+   },
+   "document": {
+    "requests": 1,
+    "kb": 38.6
+   },
+   "other": {
+    "requests": 1,
+    "kb": 1.4
+   },
+   "media": {
+    "requests": 0,
+    "kb": 0
+   },
+   "third-party": {
+    "requests": 3,
+    "kb": 80.9
+   }
+  },
+  "audits": {
+   "render-blocking-resources": {
+    "score": 0,
+    "dv": "Ahorro estimado de 1930 ms",
+    "savingsMs": 1934
+   },
+   "unused-css-rules": {
+    "score": 0,
+    "dv": "Ahorro estimado de 37 KiB",
+    "savingsMs": 240,
+    "savingsKB": 37
+   },
+   "unused-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "modern-image-formats": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-responsive-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "offscreen-images": {
+    "score": 0,
+    "dv": "Ahorro estimado de 10 KiB",
+    "savingsMs": 70,
+    "savingsKB": 10
+   },
+   "efficient-animated-content": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-optimized-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-text-compression": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-long-cache-ttl": {
+    "score": 0.5,
+    "dv": "Se han encontrado 52 recursos"
+   },
+   "unminified-css": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "unminified-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "legacy-javascript": {
+    "score": 0,
+    "dv": "Ahorro estimado de 9 KiB",
+    "savingsMs": 70,
+    "savingsKB": 9
+   },
+   "duplicated-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "total-byte-weight": {
+    "score": 1,
+    "dv": "Tamaño total: 644 KiB"
+   },
+   "dom-size": {
+    "score": 1,
+    "dv": "515 elementos"
+   },
+   "lcp-lazy-loaded": {
+    "score": 1,
+    "dv": ""
+   },
+   "prioritize-lcp-image": {
+    "score": 0.5,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "font-display": {
+    "score": 0.5,
+    "dv": ""
+   },
+   "third-party-summary": {
+    "score": 1,
+    "dv": "El código de un tercero ha bloqueado el hilo principal durante 0 ms"
+   },
+   "bootup-time": {
+    "score": 1,
+    "dv": "0,4 s"
+   },
+   "mainthread-work-breakdown": {
+    "score": 0,
+    "dv": "2,2 s"
+   },
+   "server-response-time": {
+    "score": 0,
+    "dv": "El documento raíz ha tardado 1310 ms",
+    "savingsMs": 1205.306
+   },
+   "redirects": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "largest-contentful-paint-element": {
+    "score": 0,
+    "dv": "5710 ms"
+   },
+   "layout-shifts": {
+    "score": 1,
+    "dv": "1 cambio de diseño detectado"
+   },
+   "image-size-responsive": {
+    "score": 1,
+    "dv": ""
+   },
+   "unsized-images": {
+    "score": 1,
+    "dv": ""
+   },
+   "uses-rel-preconnect": {
+    "score": 0,
+    "dv": "Ahorro estimado de 300 ms",
+    "savingsMs": 300
+   },
+   "is-crawlable": {
+    "score": 1,
+    "dv": ""
+   },
+   "meta-description": {
+    "score": 0,
+    "dv": ""
+   },
+   "document-title": {
+    "score": 1,
+    "dv": ""
+   },
+   "image-alt": {
+    "score": 1,
+    "dv": ""
+   },
+   "link-text": {
+    "score": 1,
+    "dv": ""
+   },
+   "color-contrast": {
+    "score": 0,
+    "dv": ""
+   },
+   "heading-order": {
+    "score": 1,
+    "dv": ""
+   },
+   "label": {
+    "score": 1,
+    "dv": ""
+   },
+   "target-size": {
+    "score": 1,
+    "dv": ""
+   },
+   "errors-in-console": {
+    "score": 1,
+    "dv": ""
+   },
+   "inspector-issues": {
+    "score": 1,
+    "dv": ""
+   },
+   "valid-source-maps": {
+    "score": 1,
+    "dv": ""
+   },
+   "csp-xss": {
+    "score": 1,
+    "dv": ""
+   },
+   "crawlable-anchors": {
+    "score": 0,
+    "dv": ""
+   },
+   "link-name": {
+    "score": 1,
+    "dv": ""
+   },
+   "button-name": {
+    "score": 1,
+    "dv": ""
+   },
+   "html-has-lang": {
+    "score": 1,
+    "dv": ""
+   },
+   "deprecations": {
+    "score": 1,
+    "dv": ""
+   }
+  },
+  "lcpEl": "{\"type\":\"table\",\"headings\":[{\"key\":\"node\",\"valueType\":\"node\",\"label\":\"Elemento\"}],\"items\":[{\"node\":{\"type\":\"node\",\"lhId\":\"page-2-SECTION\",\"path\":\"1,HTML,1,BODY,1,DIV,1,DIV,0,DIV,0,DIV,0,MAIN,0,ARTICLE,2,DIV,0,DIV,0,SECTION\",\"selector\":\"article#post-175 > div.entry-content > div.elementor > section.elementor-section\",\"boundingRect\":{\"top\":101,\"bottom\":363,\"left\":0,\"right\":412,\"width\":412,\"height\":262},\"snippet\":\"<section class=\\\"elementor-section elementor-top-section elementor-element elementor-elemen…\\\" data-id=\\\"55f4b02\\\" data-element_type=\\\"section\\\" data-settings=\\\"{&quot;stretch_section&q"
+ },
+ "productos-desktop": {
+  "url": "https://mundilacteos.com/productos/",
+  "fetchTime": "2026-09-25T06:20:21.642Z",
+  "lhVersion": "12.8.2",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36",
+  "warnings": [],
+  "scores": {
+   "performance": 88,
+   "accessibility": 96,
+   "best-practices": 100,
+   "seo": 85
+  },
+  "FCP": "1,0 s",
+  "LCP": "1,6 s",
+  "TBT": "0 ms",
+  "CLS": "0",
+  "SI": "2,2 s",
+  "TTFB": "El documento raíz ha tardado 1570 ms",
+  "totalKB": 800.5,
+  "byType": {
+   "total": {
+    "requests": 56,
+    "kb": 800.5
+   },
+   "image": {
+    "requests": 10,
+    "kb": 390.4
+   },
+   "font": {
+    "requests": 3,
+    "kb": 151.9
+   },
+   "script": {
+    "requests": 22,
+    "kb": 126.3
+   },
+   "stylesheet": {
+    "requests": 19,
+    "kb": 91.8
+   },
+   "document": {
+    "requests": 1,
+    "kb": 38.6
+   },
+   "other": {
+    "requests": 1,
+    "kb": 1.5
+   },
+   "media": {
+    "requests": 0,
+    "kb": 0
+   },
+   "third-party": {
+    "requests": 3,
+    "kb": 80.9
+   }
+  },
+  "audits": {
+   "render-blocking-resources": {
+    "score": 0,
+    "dv": "Ahorro estimado de 550 ms",
+    "savingsMs": 549
+   },
+   "unused-css-rules": {
+    "score": 0,
+    "dv": "Ahorro estimado de 47 KiB",
+    "savingsMs": 80,
+    "savingsKB": 47
+   },
+   "unused-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "modern-image-formats": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-responsive-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "offscreen-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "efficient-animated-content": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-optimized-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-text-compression": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-long-cache-ttl": {
+    "score": 0.5,
+    "dv": "Se han encontrado 51 recursos"
+   },
+   "unminified-css": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "unminified-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "legacy-javascript": {
+    "score": 0.5,
+    "dv": "Ahorro estimado de 9 KiB",
+    "savingsMs": 20,
+    "savingsKB": 9
+   },
+   "duplicated-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "total-byte-weight": {
+    "score": 1,
+    "dv": "Tamaño total: 801 KiB"
+   },
+   "dom-size": {
+    "score": 1,
+    "dv": "515 elementos"
+   },
+   "lcp-lazy-loaded": {
+    "score": 1,
+    "dv": ""
+   },
+   "prioritize-lcp-image": {
+    "score": 0.5,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "font-display": {
+    "score": 0.5,
+    "dv": ""
+   },
+   "third-party-summary": {
+    "score": 1,
+    "dv": "El código de un tercero ha bloqueado el hilo principal durante 0 ms"
+   },
+   "bootup-time": {
+    "score": 1,
+    "dv": "0,1 s"
+   },
+   "mainthread-work-breakdown": {
+    "score": 1,
+    "dv": "0,4 s"
+   },
+   "server-response-time": {
+    "score": 0,
+    "dv": "El documento raíz ha tardado 1570 ms",
+    "savingsMs": 1472.7109999999998
+   },
+   "redirects": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "largest-contentful-paint-element": {
+    "score": 0,
+    "dv": "1600 ms"
+   },
+   "layout-shifts": {
+    "score": 1,
+    "dv": "1 cambio de diseño detectado"
+   },
+   "image-size-responsive": {
+    "score": 1,
+    "dv": ""
+   },
+   "unsized-images": {
+    "score": 1,
+    "dv": ""
+   },
+   "uses-rel-preconnect": {
+    "score": 0,
+    "dv": "Ahorro estimado de 80 ms",
+    "savingsMs": 80
+   },
+   "is-crawlable": {
+    "score": 1,
+    "dv": ""
+   },
+   "meta-description": {
+    "score": 0,
+    "dv": ""
+   },
+   "document-title": {
+    "score": 1,
+    "dv": ""
+   },
+   "image-alt": {
+    "score": 1,
+    "dv": ""
+   },
+   "link-text": {
+    "score": 1,
+    "dv": ""
+   },
+   "color-contrast": {
+    "score": 0,
+    "dv": ""
+   },
+   "heading-order": {
+    "score": 1,
+    "dv": ""
+   },
+   "label": {
+    "score": 1,
+    "dv": ""
+   },
+   "target-size": {
+    "score": 1,
+    "dv": ""
+   },
+   "errors-in-console": {
+    "score": 1,
+    "dv": ""
+   },
+   "inspector-issues": {
+    "score": 1,
+    "dv": ""
+   },
+   "valid-source-maps": {
+    "score": 1,
+    "dv": ""
+   },
+   "csp-xss": {
+    "score": 1,
+    "dv": ""
+   },
+   "crawlable-anchors": {
+    "score": 0,
+    "dv": ""
+   },
+   "link-name": {
+    "score": 1,
+    "dv": ""
+   },
+   "button-name": {
+    "score": 1,
+    "dv": ""
+   },
+   "html-has-lang": {
+    "score": 1,
+    "dv": ""
+   },
+   "deprecations": {
+    "score": 1,
+    "dv": ""
+   }
+  },
+  "lcpEl": "{\"type\":\"table\",\"headings\":[{\"key\":\"node\",\"valueType\":\"node\",\"label\":\"Elemento\"}],\"items\":[{\"node\":{\"type\":\"node\",\"lhId\":\"page-0-SECTION\",\"path\":\"1,HTML,1,BODY,1,DIV,1,DIV,0,DIV,0,DIV,0,MAIN,0,ARTICLE,2,DIV,0,DIV,0,SECTION\",\"selector\":\"article#post-175 > div.entry-content > div.elementor > section.elementor-section\",\"boundingRect\":{\"top\":73,\"bottom\":449,\"left\":0,\"right\":1335,\"width\":1335,\"height\":376},\"snippet\":\"<section class=\\\"elementor-section elementor-top-section elementor-element elementor-elemen…\\\" data-id=\\\"55f4b02\\\" data-element_type=\\\"section\\\" data-settings=\\\"{&quot;stretch_section&"
+ },
+ "nosotros-mobile": {
+  "url": "https://mundilacteos.com/nosotros/",
+  "fetchTime": "2026-09-25T06:20:38.585Z",
+  "lhVersion": "12.8.2",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36",
+  "warnings": [],
+  "scores": {
+   "performance": 70,
+   "accessibility": 96,
+   "best-practices": 100,
+   "seo": 85
+  },
+  "FCP": "2,5 s",
+  "LCP": "5,4 s",
+  "TBT": "130 ms",
+  "CLS": "0",
+  "SI": "5,9 s",
+  "TTFB": "El documento raíz ha tardado 1290 ms",
+  "totalKB": 642.5,
+  "byType": {
+   "total": {
+    "requests": 53,
+    "kb": 642.5
+   },
+   "font": {
+    "requests": 4,
+    "kb": 243.7
+   },
+   "image": {
+    "requests": 8,
+    "kb": 155.2
+   },
+   "script": {
+    "requests": 20,
+    "kb": 120.1
+   },
+   "stylesheet": {
+    "requests": 19,
+    "kb": 90.1
+   },
+   "document": {
+    "requests": 1,
+    "kb": 32.1
+   },
+   "other": {
+    "requests": 1,
+    "kb": 1.4
+   },
+   "media": {
+    "requests": 0,
+    "kb": 0
+   },
+   "third-party": {
+    "requests": 3,
+    "kb": 80.9
+   }
+  },
+  "audits": {
+   "render-blocking-resources": {
+    "score": 0,
+    "dv": "Ahorro estimado de 940 ms",
+    "savingsMs": 938
+   },
+   "unused-css-rules": {
+    "score": 0,
+    "dv": "Ahorro estimado de 48 KiB",
+    "savingsMs": 260,
+    "savingsKB": 48
+   },
+   "unused-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "modern-image-formats": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-responsive-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "offscreen-images": {
+    "score": 0,
+    "dv": "Ahorro estimado de 10 KiB",
+    "savingsMs": 30,
+    "savingsKB": 10
+   },
+   "efficient-animated-content": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-optimized-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-text-compression": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-long-cache-ttl": {
+    "score": 0.5,
+    "dv": "Se han encontrado 48 recursos"
+   },
+   "unminified-css": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "unminified-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "legacy-javascript": {
+    "score": 0,
+    "dv": "Ahorro estimado de 9 KiB",
+    "savingsMs": 150,
+    "savingsKB": 9
+   },
+   "duplicated-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "total-byte-weight": {
+    "score": 1,
+    "dv": "Tamaño total: 643 KiB"
+   },
+   "dom-size": {
+    "score": 1,
+    "dv": "266 elementos"
+   },
+   "lcp-lazy-loaded": {
+    "score": 1,
+    "dv": ""
+   },
+   "prioritize-lcp-image": {
+    "score": 0.5,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "font-display": {
+    "score": 0.5,
+    "dv": ""
+   },
+   "third-party-summary": {
+    "score": 1,
+    "dv": "El código de un tercero ha bloqueado el hilo principal durante 0 ms"
+   },
+   "bootup-time": {
+    "score": 1,
+    "dv": "0,3 s"
+   },
+   "mainthread-work-breakdown": {
+    "score": 1,
+    "dv": "1,7 s"
+   },
+   "server-response-time": {
+    "score": 0,
+    "dv": "El documento raíz ha tardado 1290 ms",
+    "savingsMs": 1193.55
+   },
+   "redirects": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "largest-contentful-paint-element": {
+    "score": 0,
+    "dv": "5400 ms"
+   },
+   "layout-shifts": {
+    "score": 1,
+    "dv": "1 cambio de diseño detectado"
+   },
+   "image-size-responsive": {
+    "score": 1,
+    "dv": ""
+   },
+   "unsized-images": {
+    "score": 1,
+    "dv": ""
+   },
+   "uses-rel-preconnect": {
+    "score": 0,
+    "dv": "Ahorro estimado de 310 ms",
+    "savingsMs": 314.892
+   },
+   "is-crawlable": {
+    "score": 1,
+    "dv": ""
+   },
+   "meta-description": {
+    "score": 0,
+    "dv": ""
+   },
+   "document-title": {
+    "score": 1,
+    "dv": ""
+   },
+   "image-alt": {
+    "score": 1,
+    "dv": ""
+   },
+   "link-text": {
+    "score": 1,
+    "dv": ""
+   },
+   "color-contrast": {
+    "score": 1,
+    "dv": ""
+   },
+   "heading-order": {
+    "score": 1,
+    "dv": ""
+   },
+   "label": {
+    "score": null,
+    "dv": ""
+   },
+   "target-size": {
+    "score": 1,
+    "dv": ""
+   },
+   "errors-in-console": {
+    "score": 1,
+    "dv": ""
+   },
+   "inspector-issues": {
+    "score": 1,
+    "dv": ""
+   },
+   "valid-source-maps": {
+    "score": 1,
+    "dv": ""
+   },
+   "csp-xss": {
+    "score": 1,
+    "dv": ""
+   },
+   "crawlable-anchors": {
+    "score": 0,
+    "dv": ""
+   },
+   "link-name": {
+    "score": 1,
+    "dv": ""
+   },
+   "button-name": {
+    "score": null,
+    "dv": ""
+   },
+   "html-has-lang": {
+    "score": 1,
+    "dv": ""
+   },
+   "deprecations": {
+    "score": 1,
+    "dv": ""
+   }
+  },
+  "lcpEl": "{\"type\":\"table\",\"headings\":[{\"key\":\"node\",\"valueType\":\"node\",\"label\":\"Elemento\"}],\"items\":[{\"node\":{\"type\":\"node\",\"lhId\":\"page-0-SECTION\",\"path\":\"1,HTML,1,BODY,1,DIV,1,DIV,0,DIV,0,DIV,0,MAIN,0,ARTICLE,2,DIV,0,DIV,0,SECTION\",\"selector\":\"article#post-87 > div.entry-content > div.elementor > section.elementor-section\",\"boundingRect\":{\"top\":101,\"bottom\":563,\"left\":0,\"right\":412,\"width\":412,\"height\":462},\"snippet\":\"<section class=\\\"elementor-section elementor-top-section elementor-element elementor-elemen…\\\" data-id=\\\"c87b815\\\" data-element_type=\\\"section\\\" data-settings=\\\"{&quot;background_backgro"
+ },
+ "nosotros-desktop": {
+  "url": "https://mundilacteos.com/nosotros/",
+  "fetchTime": "2026-09-25T06:20:55.494Z",
+  "lhVersion": "12.8.2",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36",
+  "warnings": [],
+  "scores": {
+   "performance": 90,
+   "accessibility": 96,
+   "best-practices": 100,
+   "seo": 85
+  },
+  "FCP": "1,0 s",
+  "LCP": "1,5 s",
+  "TBT": "0 ms",
+  "CLS": "0,001",
+  "SI": "2,0 s",
+  "TTFB": "El documento raíz ha tardado 1180 ms",
+  "totalKB": 752.9,
+  "byType": {
+   "total": {
+    "requests": 53,
+    "kb": 752.9
+   },
+   "image": {
+    "requests": 9,
+    "kb": 357.3
+   },
+   "font": {
+    "requests": 3,
+    "kb": 151.9
+   },
+   "script": {
+    "requests": 20,
+    "kb": 120.1
+   },
+   "stylesheet": {
+    "requests": 19,
+    "kb": 90.1
+   },
+   "document": {
+    "requests": 1,
+    "kb": 32.1
+   },
+   "other": {
+    "requests": 1,
+    "kb": 1.5
+   },
+   "media": {
+    "requests": 0,
+    "kb": 0
+   },
+   "third-party": {
+    "requests": 3,
+    "kb": 80.9
+   }
+  },
+  "audits": {
+   "render-blocking-resources": {
+    "score": 0,
+    "dv": "Ahorro estimado de 520 ms",
+    "savingsMs": 523
+   },
+   "unused-css-rules": {
+    "score": 0,
+    "dv": "Ahorro estimado de 48 KiB",
+    "savingsMs": 30,
+    "savingsKB": 48
+   },
+   "unused-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "modern-image-formats": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-responsive-images": {
+    "score": 0.5,
+    "dv": "Ahorro estimado de 13 KiB",
+    "savingsMs": 0,
+    "savingsKB": 13
+   },
+   "offscreen-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "efficient-animated-content": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-optimized-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-text-compression": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-long-cache-ttl": {
+    "score": 0.5,
+    "dv": "Se han encontrado 48 recursos"
+   },
+   "unminified-css": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "unminified-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "legacy-javascript": {
+    "score": 0.5,
+    "dv": "Ahorro estimado de 9 KiB",
+    "savingsMs": 0,
+    "savingsKB": 9
+   },
+   "duplicated-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "total-byte-weight": {
+    "score": 1,
+    "dv": "Tamaño total: 753 KiB"
+   },
+   "dom-size": {
+    "score": 1,
+    "dv": "266 elementos"
+   },
+   "lcp-lazy-loaded": {
+    "score": 1,
+    "dv": ""
+   },
+   "prioritize-lcp-image": {
+    "score": 0.5,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "font-display": {
+    "score": 0.5,
+    "dv": ""
+   },
+   "third-party-summary": {
+    "score": 1,
+    "dv": "El código de un tercero ha bloqueado el hilo principal durante 0 ms"
+   },
+   "bootup-time": {
+    "score": 1,
+    "dv": "0,1 s"
+   },
+   "mainthread-work-breakdown": {
+    "score": 1,
+    "dv": "0,4 s"
+   },
+   "server-response-time": {
+    "score": 0,
+    "dv": "El documento raíz ha tardado 1180 ms",
+    "savingsMs": 1075.095
+   },
+   "redirects": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "largest-contentful-paint-element": {
+    "score": 0,
+    "dv": "1520 ms"
+   },
+   "layout-shifts": {
+    "score": 1,
+    "dv": "1 cambio de diseño detectado"
+   },
+   "image-size-responsive": {
+    "score": 1,
+    "dv": ""
+   },
+   "unsized-images": {
+    "score": 1,
+    "dv": ""
+   },
+   "uses-rel-preconnect": {
+    "score": 0,
+    "dv": "Ahorro estimado de 80 ms",
+    "savingsMs": 80
+   },
+   "is-crawlable": {
+    "score": 1,
+    "dv": ""
+   },
+   "meta-description": {
+    "score": 0,
+    "dv": ""
+   },
+   "document-title": {
+    "score": 1,
+    "dv": ""
+   },
+   "image-alt": {
+    "score": 1,
+    "dv": ""
+   },
+   "link-text": {
+    "score": 1,
+    "dv": ""
+   },
+   "color-contrast": {
+    "score": 1,
+    "dv": ""
+   },
+   "heading-order": {
+    "score": 1,
+    "dv": ""
+   },
+   "label": {
+    "score": null,
+    "dv": ""
+   },
+   "target-size": {
+    "score": 1,
+    "dv": ""
+   },
+   "errors-in-console": {
+    "score": 1,
+    "dv": ""
+   },
+   "inspector-issues": {
+    "score": 1,
+    "dv": ""
+   },
+   "valid-source-maps": {
+    "score": 1,
+    "dv": ""
+   },
+   "csp-xss": {
+    "score": 1,
+    "dv": ""
+   },
+   "crawlable-anchors": {
+    "score": 0,
+    "dv": ""
+   },
+   "link-name": {
+    "score": 1,
+    "dv": ""
+   },
+   "button-name": {
+    "score": null,
+    "dv": ""
+   },
+   "html-has-lang": {
+    "score": 1,
+    "dv": ""
+   },
+   "deprecations": {
+    "score": 1,
+    "dv": ""
+   }
+  },
+  "lcpEl": "{\"type\":\"table\",\"headings\":[{\"key\":\"node\",\"valueType\":\"node\",\"label\":\"Elemento\"}],\"items\":[{\"node\":{\"type\":\"node\",\"lhId\":\"page-0-SECTION\",\"path\":\"1,HTML,1,BODY,1,DIV,1,DIV,0,DIV,0,DIV,0,MAIN,0,ARTICLE,2,DIV,0,DIV,0,SECTION\",\"selector\":\"article#post-87 > div.entry-content > div.elementor > section.elementor-section\",\"boundingRect\":{\"top\":73,\"bottom\":549,\"left\":0,\"right\":1335,\"width\":1335,\"height\":476},\"snippet\":\"<section class=\\\"elementor-section elementor-top-section elementor-element elementor-elemen…\\\" data-id=\\\"c87b815\\\" data-element_type=\\\"section\\\" data-settings=\\\"{&quot;background_backgr"
+ },
+ "contacto-mobile": {
+  "url": "https://mundilacteos.com/contacto/",
+  "fetchTime": "2026-09-25T06:21:11.030Z",
+  "lhVersion": "12.8.2",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36",
+  "warnings": [],
+  "scores": {
+   "performance": 71,
+   "accessibility": 96,
+   "best-practices": 100,
+   "seo": 85
+  },
+  "FCP": "2,5 s",
+  "LCP": "5,3 s",
+  "TBT": "100 ms",
+  "CLS": "0,001",
+  "SI": "5,7 s",
+  "TTFB": "El documento raíz ha tardado 1250 ms",
+  "totalKB": 585.2,
+  "byType": {
+   "total": {
+    "requests": 53,
+    "kb": 585.2
+   },
+   "font": {
+    "requests": 4,
+    "kb": 243.7
+   },
+   "script": {
+    "requests": 22,
+    "kb": 126.4
+   },
+   "stylesheet": {
+    "requests": 19,
+    "kb": 90.5
+   },
+   "image": {
+    "requests": 6,
+    "kb": 89.8
+   },
+   "document": {
+    "requests": 1,
+    "kb": 33.4
+   },
+   "other": {
+    "requests": 1,
+    "kb": 1.4
+   },
+   "media": {
+    "requests": 0,
+    "kb": 0
+   },
+   "third-party": {
+    "requests": 3,
+    "kb": 80.9
+   }
+  },
+  "audits": {
+   "render-blocking-resources": {
+    "score": 0,
+    "dv": "Ahorro estimado de 950 ms",
+    "savingsMs": 946
+   },
+   "unused-css-rules": {
+    "score": 0,
+    "dv": "Ahorro estimado de 48 KiB",
+    "savingsMs": 100,
+    "savingsKB": 48
+   },
+   "unused-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "modern-image-formats": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-responsive-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "offscreen-images": {
+    "score": 0,
+    "dv": "Ahorro estimado de 10 KiB",
+    "savingsMs": 100,
+    "savingsKB": 10
+   },
+   "efficient-animated-content": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-optimized-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-text-compression": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-long-cache-ttl": {
+    "score": 0.5,
+    "dv": "Se han encontrado 48 recursos"
+   },
+   "unminified-css": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "unminified-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "legacy-javascript": {
+    "score": 0,
+    "dv": "Ahorro estimado de 9 KiB",
+    "savingsMs": 90,
+    "savingsKB": 9
+   },
+   "duplicated-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "total-byte-weight": {
+    "score": 1,
+    "dv": "Tamaño total: 585 KiB"
+   },
+   "dom-size": {
+    "score": 1,
+    "dv": "252 elementos"
+   },
+   "lcp-lazy-loaded": {
+    "score": 1,
+    "dv": ""
+   },
+   "prioritize-lcp-image": {
+    "score": 0.5,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "font-display": {
+    "score": 0.5,
+    "dv": ""
+   },
+   "third-party-summary": {
+    "score": 1,
+    "dv": "El código de un tercero ha bloqueado el hilo principal durante 0 ms"
+   },
+   "bootup-time": {
+    "score": 1,
+    "dv": "0,2 s"
+   },
+   "mainthread-work-breakdown": {
+    "score": 1,
+    "dv": "1,6 s"
+   },
+   "server-response-time": {
+    "score": 0,
+    "dv": "El documento raíz ha tardado 1250 ms",
+    "savingsMs": 1147.3010000000002
+   },
+   "redirects": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "largest-contentful-paint-element": {
+    "score": 0,
+    "dv": "5320 ms"
+   },
+   "layout-shifts": {
+    "score": 1,
+    "dv": "2 cambios de diseño detectados"
+   },
+   "image-size-responsive": {
+    "score": 1,
+    "dv": ""
+   },
+   "unsized-images": {
+    "score": 1,
+    "dv": ""
+   },
+   "uses-rel-preconnect": {
+    "score": 0,
+    "dv": "Ahorro estimado de 320 ms",
+    "savingsMs": 320.942
+   },
+   "is-crawlable": {
+    "score": 1,
+    "dv": ""
+   },
+   "meta-description": {
+    "score": 0,
+    "dv": ""
+   },
+   "document-title": {
+    "score": 1,
+    "dv": ""
+   },
+   "image-alt": {
+    "score": 1,
+    "dv": ""
+   },
+   "link-text": {
+    "score": 1,
+    "dv": ""
+   },
+   "color-contrast": {
+    "score": 0,
+    "dv": ""
+   },
+   "heading-order": {
+    "score": 1,
+    "dv": ""
+   },
+   "label": {
+    "score": 1,
+    "dv": ""
+   },
+   "target-size": {
+    "score": 1,
+    "dv": ""
+   },
+   "errors-in-console": {
+    "score": 1,
+    "dv": ""
+   },
+   "inspector-issues": {
+    "score": 1,
+    "dv": ""
+   },
+   "valid-source-maps": {
+    "score": 1,
+    "dv": ""
+   },
+   "csp-xss": {
+    "score": 1,
+    "dv": ""
+   },
+   "crawlable-anchors": {
+    "score": 0,
+    "dv": ""
+   },
+   "link-name": {
+    "score": 1,
+    "dv": ""
+   },
+   "button-name": {
+    "score": 1,
+    "dv": ""
+   },
+   "html-has-lang": {
+    "score": 1,
+    "dv": ""
+   },
+   "deprecations": {
+    "score": 1,
+    "dv": ""
+   }
+  },
+  "lcpEl": "{\"type\":\"table\",\"headings\":[{\"key\":\"node\",\"valueType\":\"node\",\"label\":\"Elemento\"}],\"items\":[{\"node\":{\"type\":\"node\",\"lhId\":\"page-0-DIV\",\"path\":\"1,HTML,1,BODY,1,DIV,1,DIV,0,DIV,0,DIV,0,MAIN,0,ARTICLE,2,DIV,0,DIV,1,SECTION,0,DIV,0,DIV,0,DIV\",\"selector\":\"section.elementor-section > div.elementor-container > div.elementor-column > div.elementor-widget-wrap\",\"boundingRect\":{\"top\":463,\"bottom\":878,\"left\":0,\"right\":412,\"width\":412,\"height\":416},\"snippet\":\"<div class=\\\"elementor-widget-wrap elementor-element-populated\\\">\",\"nodeLabel\":\"Inversiones Mundilacteos S.A.S\\n\\nKm. 1 Vía Turbaco, Lot 2A – 2B Parq"
+ },
+ "contacto-desktop": {
+  "url": "https://mundilacteos.com/contacto/",
+  "fetchTime": "2026-09-25T06:21:27.627Z",
+  "lhVersion": "12.8.2",
+  "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36",
+  "warnings": [],
+  "scores": {
+   "performance": 86,
+   "accessibility": 92,
+   "best-practices": 100,
+   "seo": 85
+  },
+  "FCP": "1,3 s",
+  "LCP": "1,7 s",
+  "TBT": "0 ms",
+  "CLS": "0,001",
+  "SI": "2,2 s",
+  "TTFB": "El documento raíz ha tardado 1340 ms",
+  "totalKB": 706.9,
+  "byType": {
+   "total": {
+    "requests": 52,
+    "kb": 706.9
+   },
+   "image": {
+    "requests": 6,
+    "kb": 303.3
+   },
+   "font": {
+    "requests": 3,
+    "kb": 151.9
+   },
+   "script": {
+    "requests": 22,
+    "kb": 126.3
+   },
+   "stylesheet": {
+    "requests": 19,
+    "kb": 90.5
+   },
+   "document": {
+    "requests": 1,
+    "kb": 33.4
+   },
+   "other": {
+    "requests": 1,
+    "kb": 1.5
+   },
+   "media": {
+    "requests": 0,
+    "kb": 0
+   },
+   "third-party": {
+    "requests": 3,
+    "kb": 80.9
+   }
+  },
+  "audits": {
+   "render-blocking-resources": {
+    "score": 0,
+    "dv": "Ahorro estimado de 820 ms",
+    "savingsMs": 816
+   },
+   "unused-css-rules": {
+    "score": 0.5,
+    "dv": "Ahorro estimado de 48 KiB",
+    "savingsMs": 20,
+    "savingsKB": 48
+   },
+   "unused-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "modern-image-formats": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-responsive-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "offscreen-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "efficient-animated-content": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-optimized-images": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-text-compression": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "uses-long-cache-ttl": {
+    "score": 0.5,
+    "dv": "Se han encontrado 47 recursos"
+   },
+   "unminified-css": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "unminified-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "legacy-javascript": {
+    "score": 0.5,
+    "dv": "Ahorro estimado de 9 KiB",
+    "savingsMs": 0,
+    "savingsKB": 9
+   },
+   "duplicated-javascript": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "total-byte-weight": {
+    "score": 1,
+    "dv": "Tamaño total: 707 KiB"
+   },
+   "dom-size": {
+    "score": 1,
+    "dv": "252 elementos"
+   },
+   "lcp-lazy-loaded": {
+    "score": 1,
+    "dv": ""
+   },
+   "prioritize-lcp-image": {
+    "score": 0.5,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "font-display": {
+    "score": 0.5,
+    "dv": ""
+   },
+   "third-party-summary": {
+    "score": 1,
+    "dv": "El código de un tercero ha bloqueado el hilo principal durante 0 ms"
+   },
+   "bootup-time": {
+    "score": 1,
+    "dv": "0,0 s"
+   },
+   "mainthread-work-breakdown": {
+    "score": 1,
+    "dv": "0,4 s"
+   },
+   "server-response-time": {
+    "score": 0,
+    "dv": "El documento raíz ha tardado 1340 ms",
+    "savingsMs": 1241.1399999999999
+   },
+   "redirects": {
+    "score": 1,
+    "dv": "",
+    "savingsMs": 0
+   },
+   "largest-contentful-paint-element": {
+    "score": 0,
+    "dv": "1720 ms"
+   },
+   "layout-shifts": {
+    "score": 1,
+    "dv": "1 cambio de diseño detectado"
+   },
+   "image-size-responsive": {
+    "score": 1,
+    "dv": ""
+   },
+   "unsized-images": {
+    "score": 1,
+    "dv": ""
+   },
+   "uses-rel-preconnect": {
+    "score": 0,
+    "dv": "Ahorro estimado de 80 ms",
+    "savingsMs": 80
+   },
+   "is-crawlable": {
+    "score": 1,
+    "dv": ""
+   },
+   "meta-description": {
+    "score": 0,
+    "dv": ""
+   },
+   "document-title": {
+    "score": 1,
+    "dv": ""
+   },
+   "image-alt": {
+    "score": 1,
+    "dv": ""
+   },
+   "link-text": {
+    "score": 1,
+    "dv": ""
+   },
+   "color-contrast": {
+    "score": 0,
+    "dv": ""
+   },
+   "heading-order": {
+    "score": 1,
+    "dv": ""
+   },
+   "label": {
+    "score": 1,
+    "dv": ""
+   },
+   "target-size": {
+    "score": 1,
+    "dv": ""
+   },
+   "errors-in-console": {
+    "score": 1,
+    "dv": ""
+   },
+   "inspector-issues": {
+    "score": 1,
+    "dv": ""
+   },
+   "valid-source-maps": {
+    "score": 1,
+    "dv": ""
+   },
+   "csp-xss": {
+    "score": 1,
+    "dv": ""
+   },
+   "crawlable-anchors": {
+    "score": 0,
+    "dv": ""
+   },
+   "link-name": {
+    "score": 1,
+    "dv": ""
+   },
+   "button-name": {
+    "score": 1,
+    "dv": ""
+   },
+   "html-has-lang": {
+    "score": 1,
+    "dv": ""
+   },
+   "deprecations": {
+    "score": 1,
+    "dv": ""
+   }
+  },
+  "lcpEl": "{\"type\":\"table\",\"headings\":[{\"key\":\"node\",\"valueType\":\"node\",\"label\":\"Elemento\"}],\"items\":[{\"node\":{\"type\":\"node\",\"lhId\":\"page-0-SECTION\",\"path\":\"1,HTML,1,BODY,1,DIV,1,DIV,0,DIV,0,DIV,0,MAIN,0,ARTICLE,2,DIV,0,DIV,0,SECTION\",\"selector\":\"article#post-159 > div.entry-content > div.elementor > section.elementor-section\",\"boundingRect\":{\"top\":73,\"bottom\":349,\"left\":0,\"right\":1335,\"width\":1335,\"height\":276},\"snippet\":\"<section class=\\\"elementor-section elementor-top-section elementor-element elementor-elemen…\\\" data-id=\\\"b7b8245\\\" data-element_type=\\\"section\\\" data-settings=\\\"{&quot;background_backg"
+ }
+}

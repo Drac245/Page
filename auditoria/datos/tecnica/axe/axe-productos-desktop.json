@@ -1,0 +1,112 @@
+{
+ "url": "https://mundilacteos.com/productos/",
+ "device": "desktop",
+ "testEngine": "4.13.0",
+ "violations": [
+  {
+   "id": "aria-prohibited-attr",
+   "impact": "serious",
+   "help": "Elements must only use permitted ARIA attributes",
+   "tags": [
+    "wcag2a",
+    "wcag412"
+   ],
+   "nodes": 1,
+   "targets": [
+    {
+     "target": ".joinchat__close",
+     "summary": "Fix all of the following:\n  aria-label attribute cannot be used on a div with no valid role attribute.",
+     "html": "<div class=\"joinchat__close\" aria-label=\"Close\"></div>"
+    }
+   ]
+  },
+  {
+   "id": "color-contrast",
+   "impact": "serious",
+   "help": "Elements must meet minimum color contrast ratio thresholds",
+   "tags": [
+    "wcag2aa",
+    "wcag143"
+   ],
+   "nodes": 37,
+   "targets": [
+    {
+     "target": ".elementor-element-b8453c5 > .elementor-widget-container > p > span",
+     "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.29 (foreground color: #7a7a7a, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1",
+     "html": "<span style=\"color: var( --e-global-color-text ); background-color: var(--ast-global-color-5);\">5kg, 12.5kg y 25kg</span>"
+    },
+    {
+     "target": ".elementor-element-caef9e4 > .elementor-widget-container > p > span",
+     "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.29 (foreground color: #7a7a7a, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1",
+     "html": "<span style=\"color: var( --e-global-color-text ); background-color: var(--ast-global-color-5);\">5kg, 12.5kg y 25kg</span>"
+    },
+    {
+     "target": ".elementor-element-1bea2a4 > .elementor-widget-container > form > .elementor-form-fields-wrapper.elementor-labels-above > .elementor-field-type-text.elementor-field-group-name.elementor-field-required > input[type=\"text\"][name=\"form_fields[name]\"][placeholder=\"Nombre \"]",
+     "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.29 (foreground color: #7a7a7a, background color: #ffffff, font size: 11.3pt (15px), font weight: normal). Expected contrast ratio of 4.5:1",
+     "html": "<input size=\"1\" type=\"text\" name=\"form_fields[name]\" id=\"form-field-name\" class=\"elementor-field elementor-size-sm  elementor-field-textual\" placeholder=\"Nombre"
+    },
+    {
+     "target": ".elementor-element-1bea2a4 > .elementor-widget-container > form > .elementor-form-fields-wrapper.elementor-labels-above > .elementor-field-type-email.elementor-field-group-email.elementor-field-required > input[type=\"email\"][name=\"form_fields[email]\"][placeholder=\"Email\"]",
+     "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.29 (foreground color: #7a7a7a, background color: #ffffff, font size: 11.3pt (15px), font weight: normal). Expected contrast ratio of 4.5:1",
+     "html": "<input size=\"1\" type=\"email\" name=\"form_fields[email]\" id=\"form-field-email\" class=\"elementor-field elementor-size-sm  elementor-field-textual\" placeholder=\"Ema"
+    },
+    {
+     "target": ".elementor-element-1bea2a4 > .elementor-widget-container > form > .elementor-form-fields-wrapper.elementor-labels-above > .elementor-field-type-submit.e-form__buttons.elementor-field-group > button > span > .elementor-button-text",
+     "summary": "Fix any of the following:\n  Element has insufficient color contrast of 2.09 (foreground color: #ffffff, background color: #dfab3d, font size: 11.3pt (15px), font weight: normal). Expected contrast ratio of 4.5:1",
+     "html": "<span class=\"elementor-button-text\">Cotizar </span>"
+    },
+    {
+     "target": ".elementor-element-52766d8 > .elementor-widget-container > p",
+     "summary": "Fix any of the following:\n  Element has insufficient color contrast of 4.29 (foreground color: #7a7a7a, background color: #ffffff, font size: 12.0pt (16px), font weight: normal). Expected contrast ratio of 4.5:1",
+     "html": "<p>Leche en polvo azucarada The Cántaro presentaciones: 380gr, 400gr, 500gr, 900gr.</p>"
+    }
+   ]
+  },
+  {
+   "id": "region",
+   "impact": "moderate",
+   "help": "All page content should be contained by landmarks",
+   "tags": [],
+   "nodes": 7,
+   "targets": [
+    {
+     "target": ".elementor-element-9dd00e3",
+     "summary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+     "html": "<div class=\"elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-9dd00e3\" data-id=\"9dd00e3\" data-element_type=\"column\">"
+    },
+    {
+     "target": ".elementor-social-icons-wrapper",
+     "summary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+     "html": "<div class=\"elementor-social-icons-wrapper elementor-grid\">"
+    },
+    {
+     "target": ".elementor-element-1d5b64d7",
+     "summary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+     "html": "<div class=\"elementor-element elementor-element-1d5b64d7 elementor-widget elementor-widget-heading\" data-id=\"1d5b64d7\" data-element_type=\"widget\" data-widget_ty"
+    },
+    {
+     "target": ".elementor-element-311f857a",
+     "summary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+     "html": "<div class=\"elementor-element elementor-element-311f857a elementor-widget elementor-widget-text-editor\" data-id=\"311f857a\" data-element_type=\"widget\" data-widge"
+    },
+    {
+     "target": ".elementor-element-513da5ef",
+     "summary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+     "html": "<section class=\"elementor-section el...\" data-id=\"513da5ef\" data-element_type=\"section\" data-settings=\"{\"background_backgro...\">"
+    },
+    {
+     "target": ".joinchat__button__sendtext",
+     "summary": "Fix any of the following:\n  Some page content is not contained by landmarks",
+     "html": "<div class=\"joinchat__button__sendtext\">Open chat</div>"
+    }
+   ]
+  }
+ ],
+ "incomplete": [
+  {
+   "id": "color-contrast",
+   "impact": "serious",
+   "nodes": 19
+  }
+ ]
+}

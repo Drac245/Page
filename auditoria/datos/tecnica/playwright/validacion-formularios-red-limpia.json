@@ -1,0 +1,712 @@
+{
+ "validation": {
+  "contacto-desktop": [
+   {
+    "formName": "New Form",
+    "formIdHidden": "d7a3ba4",
+    "formValidEmpty": false,
+    "fields": [
+     {
+      "name": "form_fields[name]",
+      "type": "text",
+      "required": false,
+      "valid": true,
+      "msg": ""
+     },
+     {
+      "name": "form_fields[email]",
+      "type": "email",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     },
+     {
+      "name": "form_fields[field_feb8b00]",
+      "type": "tel",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     },
+     {
+      "name": "form_fields[message]",
+      "type": "textarea",
+      "required": false,
+      "valid": true,
+      "msg": ""
+     }
+    ],
+    "tests": [
+     {
+      "field": "email",
+      "value": "correo-invalido",
+      "valid": false,
+      "msg": "Please include an '@' in the email address. 'correo-invalido' is missing an '@'."
+     },
+     {
+      "field": "tel",
+      "value": "abc",
+      "valid": true,
+      "msg": "",
+      "pattern": "[0-9()#&+*-=.]+"
+     },
+     {
+      "field": "name",
+      "value": "x",
+      "valid": true,
+      "minlength": null,
+      "maxlength": null
+     }
+    ]
+   }
+  ],
+  "home-desktop": [
+   {
+    "formName": "Header",
+    "formIdHidden": "3fc384b",
+    "formValidEmpty": false,
+    "fields": [
+     {
+      "name": "form_fields[name]",
+      "type": "text",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     },
+     {
+      "name": "form_fields[email]",
+      "type": "email",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     },
+     {
+      "name": "form_fields[message]",
+      "type": "textarea",
+      "required": false,
+      "valid": true,
+      "msg": ""
+     }
+    ],
+    "tests": [
+     {
+      "field": "email",
+      "value": "correo-invalido",
+      "valid": false,
+      "msg": "Please include an '@' in the email address. 'correo-invalido' is missing an '@'."
+     },
+     {
+      "field": "name",
+      "value": "x",
+      "valid": true,
+      "minlength": null,
+      "maxlength": null
+     }
+    ]
+   },
+   {
+    "formName": "New Form",
+    "formIdHidden": "6a9a97b",
+    "formValidEmpty": false,
+    "fields": [
+     {
+      "name": "form_fields[name]",
+      "type": "text",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     },
+     {
+      "name": "form_fields[email]",
+      "type": "email",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     }
+    ],
+    "tests": [
+     {
+      "field": "email",
+      "value": "correo-invalido",
+      "valid": false,
+      "msg": "Please include an '@' in the email address. 'correo-invalido' is missing an '@'."
+     },
+     {
+      "field": "name",
+      "value": "x",
+      "valid": true,
+      "minlength": null,
+      "maxlength": null
+     }
+    ]
+   }
+  ],
+  "productos-desktop": [
+   {
+    "formName": "New Form",
+    "formIdHidden": "1bea2a4",
+    "formValidEmpty": false,
+    "fields": [
+     {
+      "name": "form_fields[name]",
+      "type": "text",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     },
+     {
+      "name": "form_fields[email]",
+      "type": "email",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     }
+    ],
+    "tests": [
+     {
+      "field": "email",
+      "value": "correo-invalido",
+      "valid": false,
+      "msg": "Please include an '@' in the email address. 'correo-invalido' is missing an '@'."
+     },
+     {
+      "field": "name",
+      "value": "x",
+      "valid": true,
+      "minlength": null,
+      "maxlength": null
+     }
+    ]
+   },
+   {
+    "formName": "New Form",
+    "formIdHidden": "989bfff",
+    "formValidEmpty": false,
+    "fields": [
+     {
+      "name": "form_fields[name]",
+      "type": "text",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     },
+     {
+      "name": "form_fields[email]",
+      "type": "email",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     }
+    ],
+    "tests": [
+     {
+      "field": "email",
+      "value": "correo-invalido",
+      "valid": false,
+      "msg": "Please include an '@' in the email address. 'correo-invalido' is missing an '@'."
+     },
+     {
+      "field": "name",
+      "value": "x",
+      "valid": true,
+      "minlength": null,
+      "maxlength": null
+     }
+    ]
+   }
+  ],
+  "contacto-mobile": [
+   {
+    "formName": "New Form",
+    "formIdHidden": "d7a3ba4",
+    "formValidEmpty": false,
+    "fields": [
+     {
+      "name": "form_fields[name]",
+      "type": "text",
+      "required": false,
+      "valid": true,
+      "msg": ""
+     },
+     {
+      "name": "form_fields[email]",
+      "type": "email",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     },
+     {
+      "name": "form_fields[field_feb8b00]",
+      "type": "tel",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     },
+     {
+      "name": "form_fields[message]",
+      "type": "textarea",
+      "required": false,
+      "valid": true,
+      "msg": ""
+     }
+    ],
+    "tests": [
+     {
+      "field": "email",
+      "value": "correo-invalido",
+      "valid": false,
+      "msg": "Please include an '@' in the email address. 'correo-invalido' is missing an '@'."
+     },
+     {
+      "field": "tel",
+      "value": "abc",
+      "valid": true,
+      "msg": "",
+      "pattern": "[0-9()#&+*-=.]+"
+     },
+     {
+      "field": "name",
+      "value": "x",
+      "valid": true,
+      "minlength": null,
+      "maxlength": null
+     }
+    ]
+   }
+  ],
+  "home-mobile": [
+   {
+    "formName": "New Form",
+    "formIdHidden": "6a9a97b",
+    "formValidEmpty": false,
+    "fields": [
+     {
+      "name": "form_fields[name]",
+      "type": "text",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     },
+     {
+      "name": "form_fields[email]",
+      "type": "email",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     }
+    ],
+    "tests": [
+     {
+      "field": "email",
+      "value": "correo-invalido",
+      "valid": false,
+      "msg": "Please include an '@' in the email address. 'correo-invalido' is missing an '@'."
+     },
+     {
+      "field": "name",
+      "value": "x",
+      "valid": true,
+      "minlength": null,
+      "maxlength": null
+     }
+    ]
+   }
+  ],
+  "productos-mobile": [
+   {
+    "formName": "New Form",
+    "formIdHidden": "1bea2a4",
+    "formValidEmpty": false,
+    "fields": [
+     {
+      "name": "form_fields[name]",
+      "type": "text",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     },
+     {
+      "name": "form_fields[email]",
+      "type": "email",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     }
+    ],
+    "tests": [
+     {
+      "field": "email",
+      "value": "correo-invalido",
+      "valid": false,
+      "msg": "Please include an '@' in the email address. 'correo-invalido' is missing an '@'."
+     },
+     {
+      "field": "name",
+      "value": "x",
+      "valid": true,
+      "minlength": null,
+      "maxlength": null
+     }
+    ]
+   },
+   {
+    "formName": "New Form",
+    "formIdHidden": "989bfff",
+    "formValidEmpty": false,
+    "fields": [
+     {
+      "name": "form_fields[name]",
+      "type": "text",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     },
+     {
+      "name": "form_fields[email]",
+      "type": "email",
+      "required": true,
+      "valid": false,
+      "msg": "Please fill out this field."
+     }
+    ],
+    "tests": [
+     {
+      "field": "email",
+      "value": "correo-invalido",
+      "valid": false,
+      "msg": "Please include an '@' in the email address. 'correo-invalido' is missing an '@'."
+     },
+     {
+      "field": "name",
+      "value": "x",
+      "valid": true,
+      "minlength": null,
+      "maxlength": null
+     }
+    ]
+   }
+  ]
+ },
+ "netDesktop": {
+  "home-desktop": {
+   "mode": "networkidle",
+   "beforeScroll": {
+    "n": 72,
+    "kb": 1213.9
+   },
+   "afterScroll": {
+    "n": 72,
+    "kb": 1213.9
+   },
+   "byType": {
+    "document": {
+     "n": 1,
+     "kb": 48.8
+    },
+    "script": {
+     "n": 26,
+     "kb": 170.7
+    },
+    "stylesheet": {
+     "n": 19,
+     "kb": 94.2
+    },
+    "image": {
+     "n": 22,
+     "kb": 665.9
+    },
+    "font": {
+     "n": 4,
+     "kb": 234.3
+    }
+   },
+   "errors": []
+  },
+  "productos-desktop": {
+   "mode": "networkidle",
+   "beforeScroll": {
+    "n": 59,
+    "kb": 885.3
+   },
+   "afterScroll": {
+    "n": 59,
+    "kb": 885.3
+   },
+   "byType": {
+    "document": {
+     "n": 1,
+     "kb": 38.6
+    },
+    "script": {
+     "n": 23,
+     "kb": 126.3
+    },
+    "stylesheet": {
+     "n": 19,
+     "kb": 91.6
+    },
+    "image": {
+     "n": 13,
+     "kb": 471.5
+    },
+    "font": {
+     "n": 3,
+     "kb": 157.4
+    }
+   },
+   "errors": []
+  },
+  "nosotros-desktop": {
+   "mode": "networkidle",
+   "beforeScroll": {
+    "n": 52,
+    "kb": 746.5
+   },
+   "afterScroll": {
+    "n": 52,
+    "kb": 746.5
+   },
+   "byType": {
+    "document": {
+     "n": 1,
+     "kb": 32.1
+    },
+    "script": {
+     "n": 21,
+     "kb": 120
+    },
+    "stylesheet": {
+     "n": 19,
+     "kb": 89.9
+    },
+    "image": {
+     "n": 8,
+     "kb": 347.1
+    },
+    "font": {
+     "n": 3,
+     "kb": 157.4
+    }
+   },
+   "errors": []
+  },
+  "contacto-desktop": {
+   "mode": "networkidle",
+   "beforeScroll": {
+    "n": 52,
+    "kb": 710.6
+   },
+   "afterScroll": {
+    "n": 52,
+    "kb": 710.6
+   },
+   "byType": {
+    "document": {
+     "n": 1,
+     "kb": 33.4
+    },
+    "script": {
+     "n": 23,
+     "kb": 126.3
+    },
+    "stylesheet": {
+     "n": 19,
+     "kb": 90.3
+    },
+    "image": {
+     "n": 6,
+     "kb": 303.3
+    },
+    "font": {
+     "n": 3,
+     "kb": 157.4
+    }
+   },
+   "errors": []
+  },
+  "home-mobile": {
+   "mode": "networkidle",
+   "beforeScroll": {
+    "n": 69,
+    "kb": 847.8
+   },
+   "afterScroll": {
+    "n": 72,
+    "kb": 913
+   },
+   "byType": {
+    "document": {
+     "n": 1,
+     "kb": 48.8
+    },
+    "script": {
+     "n": 26,
+     "kb": 170.6
+    },
+    "stylesheet": {
+     "n": 19,
+     "kb": 94.1
+    },
+    "image": {
+     "n": 21,
+     "kb": 278.9
+    },
+    "font": {
+     "n": 5,
+     "kb": 320.6
+    }
+   },
+   "errors": []
+  },
+  "productos-mobile": {
+   "mode": "networkidle",
+   "beforeScroll": {
+    "n": 59,
+    "kb": 682.4
+   },
+   "afterScroll": {
+    "n": 60,
+    "kb": 701.1
+   },
+   "byType": {
+    "document": {
+     "n": 1,
+     "kb": 38.6
+    },
+    "script": {
+     "n": 23,
+     "kb": 126.3
+    },
+    "stylesheet": {
+     "n": 19,
+     "kb": 91.5
+    },
+    "image": {
+     "n": 13,
+     "kb": 201
+    },
+    "font": {
+     "n": 4,
+     "kb": 243.7
+    }
+   },
+   "errors": []
+  },
+  "nosotros-mobile": {
+   "mode": "networkidle",
+   "beforeScroll": {
+    "n": 53,
+    "kb": 640.8
+   },
+   "afterScroll": {
+    "n": 53,
+    "kb": 640.8
+   },
+   "byType": {
+    "document": {
+     "n": 1,
+     "kb": 32.1
+    },
+    "script": {
+     "n": 21,
+     "kb": 120.1
+    },
+    "stylesheet": {
+     "n": 19,
+     "kb": 89.9
+    },
+    "image": {
+     "n": 8,
+     "kb": 155.1
+    },
+    "font": {
+     "n": 4,
+     "kb": 243.7
+    }
+   },
+   "errors": []
+  },
+  "contacto-mobile": {
+   "mode": "networkidle",
+   "beforeScroll": {
+    "n": 53,
+    "kb": 583.3
+   },
+   "afterScroll": {
+    "n": 53,
+    "kb": 583.3
+   },
+   "byType": {
+    "document": {
+     "n": 1,
+     "kb": 33.4
+    },
+    "script": {
+     "n": 23,
+     "kb": 126.2
+    },
+    "stylesheet": {
+     "n": 19,
+     "kb": 90.3
+    },
+    "image": {
+     "n": 6,
+     "kb": 89.8
+    },
+    "font": {
+     "n": 4,
+     "kb": 243.7
+    }
+   },
+   "errors": []
+  }
+ },
+ "overflow": {
+  "home-desktop": {
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "wide": []
+  },
+  "productos-desktop": {
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "wide": []
+  },
+  "nosotros-desktop": {
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "wide": []
+  },
+  "contacto-desktop": {
+   "scrollWidth": 1440,
+   "innerWidth": 1440,
+   "wide": []
+  },
+  "home-mobile": {
+   "scrollWidth": 390,
+   "innerWidth": 390,
+   "wide": [
+    "DIV.swiper-slide right=565",
+    "FIGURE.swiper-slide-inner right=565",
+    "IMG.swiper-slide-image right=565",
+    "DIV.swiper-slide right=750",
+    "FIGURE.swiper-slide-inner right=750"
+   ]
+  },
+  "productos-mobile": {
+   "scrollWidth": 390,
+   "innerWidth": 390,
+   "wide": []
+  },
+  "nosotros-mobile": {
+   "scrollWidth": 390,
+   "innerWidth": 390,
+   "wide": []
+  },
+  "contacto-mobile": {
+   "scrollWidth": 390,
+   "innerWidth": 390,
+   "wide": []
+  }
+ },
+ "blockedNonGet": []
+}
