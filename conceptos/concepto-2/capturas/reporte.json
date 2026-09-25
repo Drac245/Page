@@ -1,0 +1,386 @@
+[
+ {
+  "ruta": "inicio",
+  "dispositivo": "desktop",
+  "desborde": false,
+  "scrollWidth": 1440,
+  "clientWidth": 1440,
+  "alto": 7779,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "productos",
+  "dispositivo": "desktop",
+  "desborde": false,
+  "scrollWidth": 1440,
+  "clientWidth": 1440,
+  "alto": 6051,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "producto-cantaro-entera",
+  "dispositivo": "desktop",
+  "desborde": false,
+  "scrollWidth": 1440,
+  "clientWidth": 1440,
+  "alto": 3585,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "nosotros",
+  "dispositivo": "desktop",
+  "desborde": false,
+  "scrollWidth": 1440,
+  "clientWidth": 1440,
+  "alto": 5140,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "calidad",
+  "dispositivo": "desktop",
+  "desborde": false,
+  "scrollWidth": 1440,
+  "clientWidth": 1440,
+  "alto": 6400,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "por-que-elegirnos",
+  "dispositivo": "desktop",
+  "desborde": false,
+  "scrollWidth": 1440,
+  "clientWidth": 1440,
+  "alto": 3111,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "distribucion",
+  "dispositivo": "desktop",
+  "desborde": false,
+  "scrollWidth": 1440,
+  "clientWidth": 1440,
+  "alto": 3641,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "donde-comprar",
+  "dispositivo": "desktop",
+  "desborde": false,
+  "scrollWidth": 1440,
+  "clientWidth": 1440,
+  "alto": 2869,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "cotizar",
+  "dispositivo": "desktop",
+  "desborde": false,
+  "scrollWidth": 1440,
+  "clientWidth": 1440,
+  "alto": 1608,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "marca-propia",
+  "dispositivo": "desktop",
+  "desborde": false,
+  "scrollWidth": 1440,
+  "clientWidth": 1440,
+  "alto": 4299,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "recursos",
+  "dispositivo": "desktop",
+  "desborde": false,
+  "scrollWidth": 1440,
+  "clientWidth": 1440,
+  "alto": 2837,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "contacto",
+  "dispositivo": "desktop",
+  "desborde": false,
+  "scrollWidth": 1440,
+  "clientWidth": 1440,
+  "alto": 3097,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "inicio",
+  "dispositivo": "movil",
+  "desborde": false,
+  "scrollWidth": 390,
+  "clientWidth": 390,
+  "alto": 11798,
+  "recortado": true,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "productos",
+  "dispositivo": "movil",
+  "desborde": false,
+  "scrollWidth": 390,
+  "clientWidth": 390,
+  "alto": 8613,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "producto-cantaro-entera",
+  "dispositivo": "movil",
+  "desborde": false,
+  "scrollWidth": 390,
+  "clientWidth": 390,
+  "alto": 3782,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "nosotros",
+  "dispositivo": "movil",
+  "desborde": false,
+  "scrollWidth": 390,
+  "clientWidth": 390,
+  "alto": 8076,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "calidad",
+  "dispositivo": "movil",
+  "desborde": false,
+  "scrollWidth": 390,
+  "clientWidth": 390,
+  "alto": 9935,
+  "recortado": true,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "por-que-elegirnos",
+  "dispositivo": "movil",
+  "desborde": false,
+  "scrollWidth": 390,
+  "clientWidth": 390,
+  "alto": 4522,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "distribucion",
+  "dispositivo": "movil",
+  "desborde": false,
+  "scrollWidth": 390,
+  "clientWidth": 390,
+  "alto": 5491,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "donde-comprar",
+  "dispositivo": "movil",
+  "desborde": false,
+  "scrollWidth": 390,
+  "clientWidth": 390,
+  "alto": 4184,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "cotizar",
+  "dispositivo": "movil",
+  "desborde": false,
+  "scrollWidth": 390,
+  "clientWidth": 390,
+  "alto": 2519,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "marca-propia",
+  "dispositivo": "movil",
+  "desborde": false,
+  "scrollWidth": 390,
+  "clientWidth": 390,
+  "alto": 6853,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "recursos",
+  "dispositivo": "movil",
+  "desborde": false,
+  "scrollWidth": 390,
+  "clientWidth": 390,
+  "alto": 4739,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ },
+ {
+  "ruta": "contacto",
+  "dispositivo": "movil",
+  "desborde": false,
+  "scrollWidth": 390,
+  "clientWidth": 390,
+  "alto": 4480,
+  "recortado": false,
+  "errores": [],
+  "erroresHerramienta": [
+   "Access to XMLHttpRequest at 'file:///home/user/Page/conceptos/concepto-2/estilos.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+   "requestfailed file:///home/user/Page/conceptos/concepto-2/estilos.css",
+   "Failed to load resource: net::ERR_FAILED"
+  ],
+  "axe": []
+ }
+]

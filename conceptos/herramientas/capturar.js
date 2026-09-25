@@ -51,6 +51,9 @@ const devices = {
       await page.screenshot({ path: base + '-fold.jpg', type: 'jpeg', quality: 70 });
       const h = Math.min(m.height, MAXH);
       await page.screenshot({ path: base + '.jpg', type: 'jpeg', quality: 62, fullPage: true, clip: { x: 0, y: 0, width: opts.viewport.width, height: h } });
+      // Los errores de la página se cuentan antes de inyectar axe: sobre file:// axe intenta leer estilos.css por XHR
+      // (origen null) y ese aviso de CORS es de la herramienta, no del prototipo. Se reporta aparte.
+      const erroresPagina = [...errors];
       let axe = null;
       try {
         await page.addScriptTag({ path: AXE });
@@ -59,8 +62,8 @@ const devices = {
           return res.violations.map(v => ({ id: v.id, impact: v.impact, nodes: v.nodes.length, ejemplo: v.nodes[0] && v.nodes[0].target.join(' ') }));
         });
       } catch (e) { axe = [{ id: 'axe-error', impact: 'n/a', nodes: 0, ejemplo: String(e) }]; }
-      report.push({ ruta: r, dispositivo: dev, desborde: m.scrollWidth > m.clientWidth, scrollWidth: m.scrollWidth, clientWidth: m.clientWidth, alto: m.height, recortado: m.height > MAXH, errores: [...errors], axe });
-      console.log(`${r} ${dev} alto=${m.height} desborde=${m.scrollWidth > m.clientWidth} errores=${errors.length} axe=${axe.length}`);
+      report.push({ ruta: r, dispositivo: dev, desborde: m.scrollWidth > m.clientWidth, scrollWidth: m.scrollWidth, clientWidth: m.clientWidth, alto: m.height, recortado: m.height > MAXH, errores: erroresPagina, erroresHerramienta: errors.slice(erroresPagina.length), axe });
+      console.log(`${r} ${dev} alto=${m.height} desborde=${m.scrollWidth > m.clientWidth} errores=${erroresPagina.length} axe=${axe.length}`);
     }
     await ctx.close();
   }

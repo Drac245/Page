@@ -4,6 +4,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;display=swap">
 <link rel="stylesheet" href="estilos.css">
+<noscript><style>
+/* Sin JavaScript: se ocultan los botones que no harían nada y el menú del sitio queda como lista estática en móvil */
+.boton-menu, .boton-buscar, .buscador--cabecera, .barra-inferior [data-accion-buscar], .fila-ver { display: none !important; }
+.fila-enviar { display: block !important; }
+.menu-movil[hidden] { display: block !important; position: static; overflow: visible; animation: none; border-bottom: 1px solid rgb(11 31 79 / 0.16); }
+.menu-movil .menu-cab, .menu-movil .buscador { display: none; }
+.menu-movil .menu-cuerpo { padding-block: 8px 16px; gap: 8px; }
+.menu-movil .menu-destinos { display: flex; flex-wrap: wrap; column-gap: 20px; }
+.menu-movil .menu-destinos a { font-size: 1.125rem; min-height: 44px; font-stretch: 85%; }
+@media (min-width: 1024px) { .menu-movil[hidden] { display: none !important; } }
+</style></noscript>
 
 
 <svg class="sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
@@ -11,7 +22,7 @@
        de Mundilácteos y la onda azul de su logo. Contorno en currentColor (Azul Mundilácteos, o blanco sobre Azul noche). -->
   <symbol id="sello" viewBox="0 0 24 24">
     <path d="M5 13C7.6 11.5 9.6 14.1 12.1 12.9 14.6 11.7 16.6 11.6 19 12.5V20.2A.8.8 0 0 1 18.2 21H5.8A.8.8 0 0 1 5 20.2Z" style="fill:var(--sello-lleno,#4AA603)"/>
-    <path d="M5 17.6C8.4 15.7 11.6 18.9 19 16.6" fill="none" style="stroke:var(--sello-onda,#1090E0)" stroke-width="1.4"/>
+    <path d="M5 16.9C8.4 15 11.6 18.2 19 15.9" fill="none" style="stroke:var(--sello-onda,#1090E0)" stroke-width="1.9"/>
     <path d="M4 2 12 11 20 2V20A2 2 0 0 1 18 22H6A2 2 0 0 1 4 20Z" fill="none" stroke="currentColor" stroke-width="2" stroke-miterlimit="10"/>
   </symbol>
   <symbol id="i-buscar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="miter"><circle cx="10.5" cy="10.5" r="7"/><path d="M15.5 15.5 21 21"/></g></symbol>
@@ -27,6 +38,7 @@
   <symbol id="i-ubicacion" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="12" cy="12" r="6"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/></g></symbol>
   <symbol id="p-bolsa" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="miter"><path d="M5 21V5.5L6.75 3.5 8.5 5.5 10.25 3.5 12 5.5 13.75 3.5 15.5 5.5 17.25 3.5 19 5.5V21Z"/><path d="M5 8.5h14M5 18.5h14"/></g></symbol>
   <symbol id="p-bulto" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="miter"><path d="M3.5 5 5 3.5h14L20.5 5v15l-1 1h-15l-1-1Z"/><path d="M5 7h14" stroke-dasharray="2 1.5"/></g></symbol>
+  <symbol id="p-paca" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="miter"><path d="M3 8.5h18V20H3Z"/><path d="M9 8.5V20M15 8.5V20"/><path d="M4.5 8.5 6.5 5h11l2 3.5"/></g></symbol>
   <symbol id="p-cuchara" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="miter"><path d="M1.5 11h8"/><path d="M9.5 9h13v1.5a5 5 0 0 1-5 5h-3a5 5 0 0 1-5-5Z"/></g></symbol>
   <symbol id="p-vaso" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linejoin="miter"><path d="M5.5 3h13l-1.6 18H7.1Z"/><path d="M6.4 9h11.2"/></g></symbol>
   <symbol id="p-planta" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="miter"><path d="M2.5 21V10.5L8 14v-3.5l5.5 3.5V4h3v5h3V4h2V21Z"/><path d="M6 17.5h2.5M11 17.5h2.5M16 17.5h2.5"/></g></symbol>
@@ -47,32 +59,33 @@
 
 <header class="cabecera" id="cabecera">
   <div class="envoltura cabecera-in">
-    <a class="marca" href="#inicio"><svg class="marca-sello" aria-hidden="true"><use href="#sello"/></svg><span class="marca-texto">Mundilácteos</span></a>
+    <a class="marca" href="#inicio" aria-label="Mundilácteos, inicio"><svg class="marca-sello" aria-hidden="true"><use href="#sello"/></svg><span class="marca-texto" aria-hidden="true">Mundil<span class="marca-a">a</span><span class="marca-c">c</span>teos</span></a>
     <nav class="nav-principal" aria-label="Principal">
       <ul>
-        <li><a href="#productos" data-nav="productos">Productos</a></li>
-        <li><a href="#marca-propia" data-nav="marca-propia">Marca propia</a></li>
-        <li><a href="#calidad" data-nav="calidad">Calidad</a></li>
-        <li><a href="#distribucion" data-nav="distribucion">Distribución</a></li>
-        <li><a href="#nosotros" data-nav="nosotros">Nosotros</a></li>
-        <li><a href="#recursos" data-nav="recursos">Recursos</a></li>
+        <li><a href="#productos" data-nav="productos" data-texto="Productos">Productos</a></li>
+        <li><a href="#marca-propia" data-nav="marca-propia" data-texto="Marca propia">Marca propia</a></li>
+        <li><a href="#calidad" data-nav="calidad" data-texto="Calidad">Calidad</a></li>
+        <li><a href="#distribucion" data-nav="distribucion" data-texto="Distribución">Distribución</a></li>
+        <li><a href="#nosotros" data-nav="nosotros" data-texto="Nosotros">Nosotros</a></li>
+        <li><a href="#recursos" data-nav="recursos" data-texto="Recursos">Recursos</a></li>
       </ul>
     </nav>
     <div class="buscador buscador--cabecera" data-buscador="cabecera">
-      <label class="buscador-rotulo" for="busca-cabecera"><svg class="icono" aria-hidden="true"><use href="#i-buscar"/></svg>Buscar<span class="sr"> productos</span></label>
-      <input id="busca-cabecera" type="search" placeholder="Marca, gramos o código" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="sugerencias-cabecera">
+      <label class="sr" for="busca-cabecera">Buscar productos</label>
+      <svg class="icono buscador-icono" aria-hidden="true"><use href="#i-buscar"/></svg>
+      <input id="busca-cabecera" type="search" placeholder="Marca o gramos" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="sugerencias-cabecera">
       <ul class="sugerencias" id="sugerencias-cabecera" role="listbox" aria-label="Sugerencias" hidden></ul>
     </div>
     <button class="boton-buscar" type="button" aria-expanded="false" aria-controls="busca-cabecera" data-abrir-buscador><svg class="icono" aria-hidden="true"><use href="#i-buscar"/></svg><span>Buscar</span></button>
     <a class="boton boton-cotizar" href="#cotizar" data-boton-cotizar data-destino-cot><span>Cotizar</span><span class="conteo" data-conteo hidden></span></a>
-    <a class="cab-cot" href="#cotizar" data-accion-cotizar data-destino-cot><svg class="icono" aria-hidden="true"><use href="#i-lista"/></svg><span>Cotizar</span><span class="conteo" data-conteo hidden></span></a>
-    <button class="boton-menu" type="button" aria-expanded="false" aria-controls="menu-movil" data-abrir-menu><svg class="icono" aria-hidden="true"><use href="#i-menu"/></svg>Menú</button>
+    <a class="cab-cot" href="#cotizar" data-accion-cotizar data-destino-cot><svg class="icono" aria-hidden="true"><use href="#i-lista"/></svg><span class="cab-cot-txt">Cotizar</span><span class="conteo" data-conteo hidden></span></a>
+    <button class="boton-menu" type="button" aria-expanded="false" aria-controls="menu-movil" data-abrir-menu><svg class="icono" aria-hidden="true"><use href="#i-menu"/></svg><span class="boton-menu-txt">Menú</span></button>
   </div>
 </header>
 
 <div class="menu-movil" id="menu-movil" role="dialog" aria-modal="true" aria-label="Menú" hidden>
   <div class="menu-cab">
-    <a class="marca" href="#inicio"><svg class="marca-sello" aria-hidden="true"><use href="#sello"/></svg><span class="marca-texto">Mundilácteos</span></a>
+    <a class="marca" href="#inicio" aria-label="Mundilácteos, inicio"><svg class="marca-sello" aria-hidden="true"><use href="#sello"/></svg><span class="marca-texto" aria-hidden="true">Mundil<span class="marca-a">a</span><span class="marca-c">c</span>teos</span></a>
     <button class="boton-menu" type="button" data-cerrar-menu><svg class="icono" aria-hidden="true"><use href="#i-cerrar"/></svg>Cerrar</button>
   </div>
   <div class="menu-cuerpo">
@@ -130,7 +143,7 @@
                 <input type="radio" name="presentacion-inicio" id="fila-27-g" value="27-g">
                 <label for="fila-27-g">
                   <span class="fila-figura fila-figura--silueta"><svg class="silueta silueta--maquila" viewBox="-0.6 -0.6 9.2 12.2" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false"><path class="contorno" d="M0 11V0.55L0.8 0L1.6 0.55L2.4 0L3.2 0.55L4 0L4.8 0.55L5.6 0L6.4 0.55L7.2 0L8 0.55V11Z"/><path class="sello-linea" d="M0 1.45H8M0 10.2H8"/></svg></span>
-                  <span class="fila-cifra">27&#8239;g</span>
+                  <span class="fila-cifra">27&#160;g</span>
                   <span class="sr">, bolsa, solo para marca propia (maquila)</span>
                 </label>
               </li>
@@ -138,7 +151,7 @@
                 <input type="radio" name="presentacion-inicio" id="fila-104-g" value="104-g">
                 <label for="fila-104-g">
                   <span class="fila-figura fila-figura--silueta"><svg class="silueta silueta--maquila" viewBox="-0.6 -0.6 12.2 16.2" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false"><path class="contorno" d="M0 15V0.7L0.79 0L1.57 0.7L2.36 0L3.14 0.7L3.93 0L4.71 0.7L5.5 0L6.29 0.7L7.07 0L7.86 0.7L8.64 0L9.43 0.7L10.21 0L11 0.7V15Z"/><path class="sello-linea" d="M0 1.75H11M0 14.1H11"/></svg></span>
-                  <span class="fila-cifra">104&#8239;g</span>
+                  <span class="fila-cifra">104&#160;g</span>
                   <span class="sr">, bolsa, solo para marca propia (maquila)</span>
                 </label>
               </li>
@@ -146,15 +159,15 @@
                 <input type="radio" name="presentacion-inicio" id="fila-200-g" value="200-g">
                 <label for="fila-200-g">
                   <span class="fila-figura fila-figura--silueta"><svg class="silueta silueta--maquila" viewBox="-0.6 -0.6 14.2 19.2" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false"><path class="contorno" d="M0 18V0.7L0.81 0L1.63 0.7L2.44 0L3.25 0.7L4.06 0L4.88 0.7L5.69 0L6.5 0.7L7.31 0L8.13 0.7L8.94 0L9.75 0.7L10.56 0L11.38 0.7L12.19 0L13 0.7V18Z"/><path class="sello-linea" d="M0 1.96H13M0 16.92H13"/></svg></span>
-                  <span class="fila-cifra">200&#8239;g</span>
+                  <span class="fila-cifra">200&#160;g</span>
                   <span class="sr">, bolsa, solo para marca propia (maquila)</span>
                 </label>
               </li>
               <li class="fila-pieza fila-pieza--extra" data-estado="casa" style="--alto-cm:22;--ancho-cm:16;--t:0.39;--i:3">
                 <input type="radio" name="presentacion-inicio" id="fila-380-g" value="380-g">
                 <label for="fila-380-g">
-                  <span class="fila-figura fila-figura--foto"><img src="img/r-cantaro-azucarada-380g.webp" alt="" width="262" height="360" decoding="async" loading="lazy"></span>
-                  <span class="fila-cifra">380&#8239;g</span>
+                  <span class="fila-figura fila-figura--foto"><img src="img/r-cantaro-azucarada-380g.webp" alt="" width="262" height="360" decoding="async"></span>
+                  <span class="fila-cifra">380&#160;g</span>
                   <span class="sr">, bolsa, hoy en marcas de la casa. Foto: The Cántaro Azucarada de 380 g</span>
                 </label>
               </li>
@@ -162,15 +175,15 @@
                 <input type="radio" name="presentacion-inicio" id="fila-400-g" value="400-g">
                 <label for="fila-400-g">
                   <span class="fila-figura fila-figura--silueta"><svg class="silueta" viewBox="-0.6 -0.6 17.2 23.2" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false"><path class="contorno" d="M0 22V0.7L0.8 0L1.6 0.7L2.4 0L3.2 0.7L4 0L4.8 0.7L5.6 0L6.4 0.7L7.2 0L8 0.7L8.8 0L9.6 0.7L10.4 0L11.2 0.7L12 0L12.8 0.7L13.6 0L14.4 0.7L15.2 0L16 0.7V22Z"/><path class="sello-linea" d="M0 2.24H16M0 20.68H16"/></svg></span>
-                  <span class="fila-cifra">400&#8239;g<span class="fila-ast" aria-hidden="true">*</span></span>
+                  <span class="fila-cifra">400&#160;g<span class="fila-ast" aria-hidden="true">*</span></span>
                   <span class="sr">, bolsa, en marcas de la casa, dato a confirmar</span>
                 </label>
               </li>
               <li class="fila-pieza fila-pieza--extra" data-estado="casa" style="--alto-cm:24;--ancho-cm:17;--t:0.43;--i:5">
                 <input type="radio" name="presentacion-inicio" id="fila-500-g" value="500-g">
                 <label for="fila-500-g">
-                  <span class="fila-figura fila-figura--foto"><img src="img/r-cantaro-entera-500g.webp" alt="" width="254" height="360" decoding="async" loading="lazy"></span>
-                  <span class="fila-cifra">500&#8239;g</span>
+                  <span class="fila-figura fila-figura--foto"><img src="img/r-cantaro-entera-500g.webp" alt="" width="254" height="360" decoding="async"></span>
+                  <span class="fila-cifra">500&#160;g</span>
                   <span class="sr">, bolsa, hoy en marcas de la casa. Foto: The Cántaro Entera de 500 g</span>
                 </label>
               </li>
@@ -178,7 +191,7 @@
                 <input type="radio" name="presentacion-inicio" id="fila-750-g" value="750-g">
                 <label for="fila-750-g">
                   <span class="fila-figura fila-figura--silueta"><svg class="silueta silueta--maquila" viewBox="-0.6 -0.6 20.2 28.2" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false"><path class="contorno" d="M0 27V0.7L0.79 0L1.58 0.7L2.38 0L3.17 0.7L3.96 0L4.75 0.7L5.54 0L6.33 0.7L7.13 0L7.92 0.7L8.71 0L9.5 0.7L10.29 0L11.08 0.7L11.87 0L12.67 0.7L13.46 0L14.25 0.7L15.04 0L15.83 0.7L16.63 0L17.42 0.7L18.21 0L19 0.7V27Z"/><path class="sello-linea" d="M0 2.59H19M0 25.38H19"/></svg></span>
-                  <span class="fila-cifra">750&#8239;g</span>
+                  <span class="fila-cifra">750&#160;g</span>
                   <span class="sr">, bolsa, solo para marca propia (maquila)</span>
                 </label>
               </li>
@@ -186,7 +199,7 @@
                 <input type="radio" name="presentacion-inicio" id="fila-900-g" value="900-g" checked>
                 <label for="fila-900-g">
                   <span class="fila-figura fila-figura--foto"><img src="img/r-becerrita-entera-900g.webp" alt="" width="236" height="360" decoding="async"></span>
-                  <span class="fila-cifra">900&#8239;g</span>
+                  <span class="fila-cifra">900&#160;g</span>
                   <span class="sr">, bolsa, hoy en marcas de la casa. Foto: La Becerrita Entera de 900 g</span>
                 </label>
               </li>
@@ -194,7 +207,7 @@
                 <input type="radio" name="presentacion-inicio" id="fila-1000-g" value="1000-g">
                 <label for="fila-1000-g">
                   <span class="fila-figura fila-figura--silueta"><svg class="silueta silueta--maquila" viewBox="-0.6 -0.6 22.2 31.2" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false"><path class="contorno" d="M0 30V0.7L0.81 0L1.62 0.7L2.42 0L3.23 0.7L4.04 0L4.85 0.7L5.65 0L6.46 0.7L7.27 0L8.08 0.7L8.88 0L9.69 0.7L10.5 0L11.31 0.7L12.12 0L12.92 0.7L13.73 0L14.54 0.7L15.35 0L16.15 0.7L16.96 0L17.77 0.7L18.58 0L19.38 0.7L20.19 0L21 0.7V30Z"/><path class="sello-linea" d="M0 2.8H21M0 28.2H21"/></svg></span>
-                  <span class="fila-cifra">1000&#8239;g</span>
+                  <span class="fila-cifra">1000&#160;g</span>
                   <span class="sr">, bolsa, solo para marca propia (maquila)</span>
                 </label>
               </li>
@@ -202,23 +215,23 @@
                 <input type="radio" name="presentacion-inicio" id="fila-5-kg" value="5-kg">
                 <label for="fila-5-kg">
                   <span class="fila-figura fila-figura--silueta"><svg class="silueta" viewBox="-0.6 -0.6 31.2 46.2" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false"><path class="contorno" d="M0 1.5L1.5 0H28.5L30 1.5V44.25L29.25 45H0.75L0 44.25Z"/><path class="costura" d="M1.5 2.25H28.5"/></svg></span>
-                  <span class="fila-cifra">5&#8239;kg<span class="fila-ast" aria-hidden="true">*</span></span>
+                  <span class="fila-cifra">5&#160;kg<span class="fila-ast" aria-hidden="true">*</span></span>
                   <span class="sr">, bulto, en marcas de la casa, dato a confirmar</span>
                 </label>
               </li>
               <li class="fila-pieza fila-pieza--extra" data-estado="casa" style="--alto-cm:65;--ancho-cm:46;--t:0.9;--i:10">
                 <input type="radio" name="presentacion-inicio" id="fila-12.5-kg" value="12.5-kg">
                 <label for="fila-12.5-kg">
-                  <span class="fila-figura fila-figura--foto"><img src="img/r-cantaro-mezcla-bulto-12-5kg.webp" alt="" width="314" height="439" decoding="async" loading="lazy"></span>
-                  <span class="fila-cifra">12,5&#8239;kg</span>
+                  <span class="fila-figura fila-figura--foto"><img src="img/r-cantaro-mezcla-bulto-12-5kg.webp" alt="" width="314" height="439" decoding="async"></span>
+                  <span class="fila-cifra">12,5&#160;kg</span>
                   <span class="sr">, bulto, hoy en marcas de la casa. Foto: bulto de The Cántaro Mezcla Láctea de 12,5 kg</span>
                 </label>
               </li>
               <li class="fila-pieza" data-estado="casa" style="--alto-cm:90;--ancho-cm:52;--t:1;--i:11">
                 <input type="radio" name="presentacion-inicio" id="fila-25-kg" value="25-kg">
                 <label for="fila-25-kg">
-                  <span class="fila-figura fila-figura--foto"><img src="img/r-cantaro-entera-bulto-25kg.webp" alt="" width="262" height="457" decoding="async"></span>
-                  <span class="fila-cifra">25&#8239;kg</span>
+                  <span class="fila-figura fila-figura--foto"><img src="img/r-cantaro-entera-bulto-25kg.webp" alt="" width="262" height="457" decoding="async" fetchpriority="high"></span>
+                  <span class="fila-cifra">25&#160;kg</span>
                   <span class="sr">, bulto, hoy en marcas de la casa. Foto: bulto de The Cántaro Entera de 25 kg</span>
                 </label>
               </li>
@@ -226,24 +239,26 @@
               <span class="fila-base" aria-hidden="true"></span>
             </div>
           </fieldset>
+          <p class="fila-enviar"><button class="boton boton-sec" type="submit">Ver en Productos</button></p>
         </form>
-        <div class="fila-pie">
-          <ul class="fila-leyenda" aria-label="Cómo leer la fila">
+        <p class="fila-ver"><button class="enlace-boton fila-ver-todas" type="button" aria-expanded="false" aria-controls="fila-inicio" data-ver-todas>Ver las 12 presentaciones</button></p>
+        <div class="minificha" id="minificha" aria-live="polite">
+          <div class="minificha-datos">
+            <p class="minificha-cifra" style="--n:5">900&#8239;g</p>
+            <p>Paca de 12 bolsas, 10,8&#160;kg. En leche en polvo rinde cerca de 6,7&#160;L por bolsa.</p>
+            <p>Hoy en The Cántaro Entera, Azucarada y Mezcla Láctea; La Becerrita Entera.</p>
+          </div>
+          <p class="minificha-accion"><a class="enlace" href="#productos~peso-900-g">Ver 900&#160;g en Productos</a></p>
+        </div>
+        <details class="fila-leyenda-plegable" data-leyenda>
+          <summary>¿Cómo leer la fila?</summary>
+          <ul class="fila-leyenda">
             <li><span class="leyenda-muestra leyenda-muestra--foto" aria-hidden="true"></span>Foto: empaque real de la casa</li>
             <li><span class="leyenda-muestra leyenda-muestra--casa" aria-hidden="true"></span>Silueta continua: en The Cántaro o La Becerrita, foto por producir</li>
             <li><span class="leyenda-muestra leyenda-muestra--maquila" aria-hidden="true"></span>Silueta punteada: solo con la marca de su cadena</li>
             <li><span class="leyenda-ast" aria-hidden="true">*</span>Dato a confirmar</li>
           </ul>
-          <button class="enlace-boton fila-ver-todas" type="button" aria-expanded="false" aria-controls="fila-inicio" data-ver-todas>Ver las 12 presentaciones</button>
-        </div>
-        <div class="minificha" id="minificha" aria-live="polite">
-          <div class="minificha-datos">
-            <p class="minificha-cifra" style="--n:5">900&#8239;g</p>
-            <p>Paca de 12 bolsas, 10,8&#8239;kg. En leche en polvo rinde cerca de 6,7&#8239;L por bolsa.</p>
-            <p>Hoy en The Cántaro Entera, Azucarada y Mezcla Láctea; La Becerrita Entera.</p>
-          </div>
-          <p class="minificha-accion"><a class="enlace" href="#productos~peso-900-g">Ver 900&#8239;g en Productos</a></p>
-        </div>
+        </details>
         </div>
         <noscript><p class="aviso-sin-js">Para filtrar el catálogo y armar su cotización active JavaScript, o escríbanos por WhatsApp al <a href="https://wa.me/573197690990">319&#160;769&#160;0990</a> o llame al <a href="tel:+573197690990">319&#160;769&#160;0990</a>.</p></noscript>
       </div>
@@ -253,8 +268,8 @@
       <div class="envoltura">
         <h2 id="t-necesita">¿Qué necesita?</h2>
         <div class="necesita-cols">
-          <div class="zona-negocio necesita-negocio dentado-arriba">
-            <div class="necesita-bultos"><img src="img/r-bultos-trio.webp" alt="Tres bultos en saco de papel: The Cántaro Entera de 25 kg, La Becerrita Mezcla Láctea de 25 kg y The Cántaro Mezcla Láctea de 12,5 kg" width="879" height="363" loading="lazy" decoding="async"></div>
+          <div class="zona-negocio necesita-negocio">
+            <div class="necesita-img necesita-bultos"><img src="img/r-bultos-trio.webp" alt="Tres bultos en saco de papel: The Cántaro Entera de 25 kg, La Becerrita Mezcla Láctea de 25 kg y The Cántaro Mezcla Láctea de 12,5 kg" width="879" height="363" loading="lazy" decoding="async"></div>
             <h3>Para su negocio</h3>
             <ul class="rutas">
               <li><p><strong>Supermercados y cadenas</strong><span>Surtido o marca propia</span></p><a href="#marca-propia">Ver marca propia</a></li>
@@ -264,7 +279,7 @@
             <p><a class="boton" href="#cotizar">Cotizar por volumen</a></p>
           </div>
           <div class="necesita-casa">
-            <div class="casa-bolsas" aria-hidden="true"><img src="img/r-cantaro-entera-500g.webp" alt="" width="254" height="360" loading="lazy" decoding="async"><img src="img/r-becerrita-entera-380g.webp" alt="" width="237" height="346" loading="lazy" decoding="async"></div>
+            <div class="necesita-img casa-bolsas" aria-hidden="true"><img src="img/r-cantaro-entera-500g.webp" alt="" width="254" height="360" loading="lazy" decoding="async"><img src="img/r-becerrita-entera-380g.webp" alt="" width="237" height="346" loading="lazy" decoding="async"></div>
             <h3>Para su casa</h3>
             <p>Encuéntrela en Megatiendas, Éxito, Carulla y Rappi. También en Olímpica, Mr. Bono, La Garosa y Rapimercar, en la Costa Caribe <span class="aconf">dato a confirmar</span></p>
             <p><a class="enlace" href="#donde-comprar">Ver dónde comprar</a></p>
@@ -276,6 +291,7 @@
     <section class="seccion rinde banda banda--verde dentado-arriba dentado-abajo" aria-labelledby="t-rinde">
       <div class="envoltura rinde-cols">
         <div class="rinde-texto">
+          <div class="rinde-bulto desborda" aria-hidden="true"><img src="img/r-cantaro-entera-bulto-25kg.webp" alt="" width="262" height="457" loading="lazy" decoding="async"></div>
           <h2 id="t-rinde">Cuánto rinde</h2>
           <p class="cifra-gigante"><span class="cifra-gigante-num">7,4&#8239;L</span><span class="cifra-gigante-u">de leche por cada kilo de polvo</span></p>
           <p class="rinde-cifras">135&#8239;g de leche en polvo preparan un litro. La bolsa de 27&#8239;g prepara un vaso de 200&#8239;ml.</p>
@@ -314,7 +330,7 @@
         <div class="calor-texto">
           <h2 id="t-calor">Hecha para el calor</h2>
           <p class="cifra-gigante"><span class="cifra-gigante-num">12</span><span class="cifra-gigante-u">meses de vida útil</span></p>
-          <p class="entradilla">No necesita nevera. Cerrada, en un lugar seco y a la sombra, dura 12 meses: aguanta la ruta, la bodega y la tienda de barrio.</p>
+          <p class="entradilla">No necesita nevera <span class="aconf">dato a confirmar</span>. Cerrada, en un lugar seco y a la sombra, dura 12 meses: aguanta la ruta, la bodega y la tienda de barrio.</p>
           <table class="tabla tabla-calor">
             <caption class="sr">Datos de conservación del empaque</caption>
             <tbody>
@@ -347,7 +363,7 @@
             <tr><th scope="row">Planta en el Parque Industrial Europark, Km 1 vía a Turbaco</th><td><a href="#nosotros~planta">Ver la planta</a></td></tr>
             <tr><th scope="row">Lote y vencimiento impresos en cada bolsa</th><td><a href="#calidad~lote">Cómo leer el lote</a></td></tr>
             <tr><th scope="row">12 presentaciones, de 27&#8239;g a 25&#8239;kg, y pacas de 12 a 300 unidades</th><td><a href="#productos">Ver productos</a></td></tr>
-            <tr><th scope="row">Despacho desde Turbaco a toda Colombia</th><td><a href="#distribucion">Ver tiempos por ciudad</a></td></tr>
+            <tr><th scope="row">Despacho desde Cartagena a toda Colombia</th><td><a href="#distribucion">Ver tiempos por ciudad</a></td></tr>
             <tr><th scope="row">ISO 9001:2015, declarada en el sitio actual</th><td><span class="aconf">certificado, alcance y vigencia: dato a confirmar</span></td></tr>
           </tbody>
         </table>
@@ -396,19 +412,21 @@
           <a class="enlace" href="#calidad">Ver calidad y certificaciones</a>
         </div>
         <div class="empaque-cols">
+          <div class="empaque-pasos">
           <ol class="pasos-empaque">
             <li><h3>Recepción</h3><p>Cada ingreso de materia prima queda registrado con su lote.</p></li>
             <li><h3>Análisis</h3><p>Se verifica antes de empacar.</p></li>
             <li><h3>Empaque y pesaje</h3><p>Cada bolsa se pesa contra lo que dice la etiqueta.</p></li>
             <li><h3>Sellado, lote y vencimiento</h3><p>Bolsa laminada, termosellada en atmósfera controlada de CO₂, con lote y vencimiento impresos.</p></li>
-            <li><h3>Despacho</h3><p>Pacas y bultos salen de Turbaco hacia toda Colombia.</p></li>
+            <li><h3>Despacho</h3><p>Pacas y bultos salen de Europark hacia toda Colombia.</p></li>
           </ol>
+          <p class="meta empaque-nota">Controles de cada paso por validar con la planta <span class="aconf">dato a confirmar</span></p>
+          </div>
           <figure class="foto foto--marco">
             <img src="img/equipo-planta.webp" alt="El equipo de Mundilácteos, con camisetas verdes de La Becerrita, frente a la planta del Parque Industrial Europark" width="900" height="466" loading="lazy" decoding="async">
             <figcaption>Quienes reciben, pesan, sellan y despachan cada bolsa, frente a la planta de Europark. Foto del cliente.</figcaption>
           </figure>
         </div>
-        <p class="meta">Controles de cada paso por validar con la planta <span class="aconf">dato a confirmar</span></p>
       </div>
     </section>
 
@@ -416,11 +434,14 @@
       <div class="envoltura dist-cols">
         <div>
           <h2 id="t-distribucion">Distribución</h2>
-          <p>Despachamos desde el Parque Industrial Europark, a 1&#8239;km de Cartagena, a toda Colombia.</p>
+          <p>Despachamos a toda Colombia desde nuestra planta en Europark, Km 1 de la vía a Turbaco (área metropolitana de Cartagena).</p>
           <svg class="mapa" viewBox="0 0 204 277" role="img" aria-labelledby="t-mapa-inicio" focusable="false">
-            <title id="t-mapa-inicio">Mapa lineal de Colombia con Cartagena y tres ciudades de despacho: Barranquilla, Montería y Medellín.</title>
-            <path class="mapa-contorno" d="M122.08 5.44L127.68 15.2L114.72 23.04L111.2 29.6L102.4 37.6L100.48 48L95.2 56.8L101.6 60L110.4 67.2L109.28 78.4L109.6 87.2L120 92L132.8 92L147.2 93.6L159.2 100L161.6 105.6L189.12 105.76L183.68 116.8L183.2 132.8L187.2 142.4L191.2 152L194.4 161.6L196 171.2L198.88 185.28L182.4 176.8L177.6 172.8L158.4 177.6L151.2 187.68L148 195.2L148 203.2L155.2 208L157.6 222.4L149.6 272.48L143.2 266.4L137.6 252.8L133.6 240.8L123.2 243.2L113.6 235.2L97.6 225.6L84.8 217.6L72 208L64 203.2L48 200L35.2 197.6L26.4 191.52L17.6 187.2L7.2 181.92L8 176L15.2 164.8L22.4 163.2L28 155.2L35.2 142.72L30.4 136L30.4 124.8L29.6 115.2L29.6 105.6L25.6 96L22.56 89.44L32 78.4L30.88 65.92L35.2 70.4L37.6 77.6L41.12 75.2L40.32 69.92L45.92 63.2L53.6 54.4L59.2 53.6L59.52 46.4L60 38.4L65.6 32L71.2 27.2L79.2 28.8L81.6 24.8L92.8 24L102.4 20L108.8 16L114.4 9.6Z"/>
-            <g class="mapa-punto mapa-punto--planta"><circle cx="60.64" cy="38.56" r="3.5"/><text x="54.64" y="42.06" text-anchor="end">Cartagena</text></g><g class="mapa-punto"><circle cx="73" cy="28.5" r="3"/><text x="77" y="24">Barranquilla</text></g><g class="mapa-punto"><circle cx="52" cy="68.5" r="3"/><text x="58" y="72">Montería</text></g><g class="mapa-punto"><circle cx="59.52" cy="104.96" r="3"/><text x="65.5" y="108.46">Medellín</text></g>
+            <title id="t-mapa-inicio">Mapa lineal de Colombia con la planta en Cartagena y tres ciudades de despacho: Barranquilla, Montería y Medellín.</title>
+            <path class="mapa-contorno" d="M127.7 15L117.5 18.1L112.8 25.7L109.7 27L105.8 31.4L102.9 36.9L100.7 48.2L94.9 57.7L99.9 56.7L101.4 58.6L104 59L106.2 66.8L110.1 70.7L111 74.4L109.3 84.4L113.5 86.9L116.7 92.3L130.8 93L137 91.4L146.7 93.5L157.9 106.8L165.8 105.6L173.3 106.3L183.1 104.2L189.1 105.9L189.2 109.9L183.6 120.5L183.1 132.7L186.2 143L191.8 150.2L183.1 160.1L186.9 160.1L193.4 166.6L198.8 185.2L195.5 185.8L195.4 179L190.4 170.9L181.8 176.8L177.7 173L176.7 175.3L178 177.3L156.1 176.4L151.2 177.5L151.1 187.8L159.8 188L162.2 191L162.3 194.5L157.3 193.1L147.9 195.5L147.7 207L154.7 213L155 217L158.4 223.9L149.4 272.6L143.4 265.8L140.3 266.7L137 265.3L147.7 248L134.2 240.3L131 240.7L126.4 242.1L120.7 239.2L113.3 243.2L101.7 243.1L98.3 241.3L97.6 234.1L92.9 231.9L92.5 228L90.1 224.8L80.9 220.3L78.1 214.1L71.9 208L56.4 203.4L48.4 197.8L44.9 201L30.5 198.5L29.3 194.6L25.6 191.4L15.8 188.1L4.4 178.8L8.1 175.2L11.6 176.4L11.4 167.1L14.1 165.1L19.8 164.7L23.8 161.3L26.1 158.7L25.7 156.2L27.9 155.6L31.1 151.2L35.5 142.2L32.6 142.5L32.4 139.9L31.1 141.7L30.2 136.8L28.5 137.4L31.2 134.4L32.2 129.2L30.8 119.6L28.2 116.2L32.8 112.3L29.3 106L30.9 99.6L22.4 89.1L24.9 84.2L24.6 81.6L28.2 83.7L33.6 77.2L29.1 68.8L30.5 66.5L39.2 75.4L38 77.2L40.2 77.9L40.4 71.8L38.1 67.6L48.4 61L52.4 54.9L58.6 53.6L57.9 49.1L60.2 41.5L57.5 42.5L61.6 35L71.3 27.1L79.5 28.9L76.6 31L78.4 32.6L82.5 23.7L95.8 24.1L105.2 17.4L112.4 14.6L114.6 9.8L121.4 6.1L128.6 7.4L130.6 12.1Z"/>
+            <path class="mapa-guia" d="M71 26.4 67.6 20"/>
+            <g class="mapa-punto"><circle cx="73" cy="28.5" r="2.6"/></g><g class="mapa-punto"><circle cx="52" cy="68.5" r="2.6"/></g><g class="mapa-punto"><circle cx="59.52" cy="104.96" r="2.6"/></g>
+            <g class="mapa-punto mapa-punto--planta"><circle cx="60.64" cy="38.56" r="3.2"/></g>
+            <text x="54.5" y="41.8" text-anchor="end">Cartagena</text><text x="67.4" y="18" text-anchor="end">Barranquilla</text><text x="57" y="71.4">Montería</text><text x="65" y="108">Medellín</text>
           </svg>
         </div>
         <div>
@@ -493,7 +514,7 @@
       </nav>
       <div class="pie-datos">
         <h2>Datos</h2>
-        <p>Inversiones Mundilácteos S.A.S.<br>NIT 900.514.916-2</p>
+        <p>Inversiones Mundilácteos S.A.S.<br>NIT <span class="nowrap">900.514.916-2</span></p>
         <p>Km 1 Vía a Turbaco, Lote 2A–2B, Parque Industrial Europark, Bodega 28. Turbaco, Bolívar (área metropolitana de Cartagena).</p>
         <p>Lunes a viernes, 7:00&#160;a.&#160;m. a 5:00&#160;p.&#160;m.; sábados, 7:00&#160;a.&#160;m. a 12:00&#160;m. <span class="aconf">dato a confirmar</span></p>
         <p><a href="#privacidad">Política de datos (Ley 1581 de 2012)</a><br><a href="#terminos">Términos de uso</a></p>

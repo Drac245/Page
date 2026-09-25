@@ -108,7 +108,21 @@ Escala dramática, implementada con `clamp()` (valores medidos a 1440 y 390 px):
 | Meta (migas, notas, pie de foto) | `--fs-14` | 14/20 px | 14/20 px | 100 | 400 o 500 | mínimo absoluto |
 | Cifras de la fila a escala | `--fila-cifra-fs` | 24 px | 18 px | 62 a 125 (móvil 75 a 125) | 300 a 900 (móvil 500 a 900) | ver sección 12 |
 
-**Cifras gigantes, en uno o dos lugares por página y nunca como hero:** Home, "7,4 L" de leche por kilo en la banda de Cuánto rinde y "12" meses de vida útil en Hecha para el calor; ficha, la presentación elegida ("500 g") en Verde Mundilácteos detrás del empaque, ajustada al ancho de la galería; Solicitar cotización, el total en kilos; Calidad, "FAVORABLE"; Nosotros, los años de la historia en expandida verde. Todas acompañan un dato, no lo sustituyen.
+**Cifras gigantes, en uno o dos lugares por página y nunca como hero** (implementado el 25/09/2026, tercera ronda). Todas acompañan un dato, no lo sustituyen, y se ajustan al ancho disponible con `min()` y unidades de contenedor (`cqi`) para no desbordar a 320 px:
+
+| Página | Gesto tipográfico | Tamaño |
+|---|---|---|
+| Home | "7,4 L" de leche por kilo (banda de Cuánto rinde) y "12" meses de vida útil (Hecha para el calor) | `--cifra-fs` |
+| Productos | "27 g" y "25 kg" unidos por una regla verde con marcas de centímetro | `clamp(2.25rem, 1rem + 3.4vw, 5rem)`, wdth 125, wght 900 |
+| Ficha | La presentación elegida ("500 g") en Verde Mundilácteos detrás del empaque o de su silueta | hasta 144 px, ajustada a la galería |
+| Solicitar cotización | El total en kilos, que gira como contador | `clamp(3rem, 1.8rem + 3.2vw, 4.75rem)` |
+| Calidad | "FAVORABLE" en Verde Mundilácteos que cruza el borde dentado de la banda Azul noche (titular que cruza una banda) | `min(--cifra-fs, 11.4vw)` |
+| Nosotros | "2011" en Verde hoja abre la Historia; los años de la línea de tiempo en expandida 48 px | `--cifra-fs` |
+| Por qué elegirnos | "5" registros Invima vigentes en el encabezado; FAVORABLE, 12 y +15 en la banda Azul noche | `--cifra-fs`; banda `min(5.5rem, 12.5cqi)` |
+| Distribución | El tiempo de entrega de la ciudad elegida ("24–72 h") en el panel | `min(--cifra-fs, 15.5cqi)` |
+| Marca propia | "12" presentaciones | `--cifra-fs` |
+| Recursos | "7,4 L" en la tarjeta del artículo destacado | `clamp(3.5rem, 24cqi, 7.5rem)` |
+| Contacto | El número 319 769 0990 en display expandido sobre Azul noche | `clamp(2.5rem, 1rem + 4.6vw, 5.5rem)` |
 
 Reglas:
 
@@ -116,9 +130,9 @@ Reglas:
 - Tracking 0 en todos los tamaños (sin tracking negativo en la condensada).
 - **`text-rendering: geometricPrecision` en `body` y heredado por los controles de formulario** (el navegador les pone `auto`). Corrige los huecos irregulares entre letras que se veían en móvil ("Produc tos", "Ent era", "Regist ro"): el archivo que Google Fonts entrega a iOS no trae tabla `prep` y, con el redondeo del hinting, los avances de t, f y el guion salían enteros e irregulares. Con `geometricPrecision` los avances no se redondean. Verificado midiendo el ancho de cada glifo en Chromium con el agente de iPhone.
 - Todo alineado a la izquierda. Nunca justificado; nada centrado salvo los iconos de la barra inferior.
-- Formato colombiano: coma decimal, punto de miles y espacio fino no separable antes de la unidad (12,5 kg; 1.250 kg; 27 g). El nombre de la presentación se escribe como en el empaque (1000 g).
+- Formato colombiano: coma decimal, punto de miles y espacio no separable antes de la unidad (12,5 kg; 1.250 kg; 27 g). El nombre de la presentación se escribe como en el empaque (1000 g). **Corrección del 25/09/2026:** en tablas, chips, cifras de la fila y textos se usa el espacio no separable normal (U+00A0); el fino (U+202F) casi desaparecía en Archivo condensada y las unidades se leían pegadas ("27g", "11,4kg"). El fino queda solo en las cifras de display (mini-ficha).
 - Ancho y peso se fijan con `font-stretch` y `font-weight`, no con `font-variation-settings`, para que la cascada funcione.
-- **Ejes animados solo en cifras**: la cifra de la fila y la de la mini-ficha o la ficha "se imprimen" (el ancho pasa de 62 % a su valor mientras se revelan de izquierda a derecha); el menú activo gana peso. Nunca en texto corrido y sin cambiar el ancho del contenedor.
+- **Ejes animados solo en cifras**: la cifra de la fila y la de la mini-ficha o la ficha "se imprimen" (el ancho pasa de 62 % a su valor mientras se revelan de izquierda a derecha). El menú activo pasa a peso 700 sin mover a sus vecinos: cada enlace reserva el ancho de su versión en negrita con un duplicado invisible (`::after { content: attr(data-texto) }`). Nunca en texto corrido y sin cambiar el ancho del contenedor.
 - Respaldo métrico: `@font-face` "Archivo Fallback" sobre Arial con `size-adjust` y `ascent-override` calculados contra Archivo para reducir el salto de diseño (CLS) mientras carga la fuente.
 - Se revisaron las sugerencias de ui-ux-pro-max (Playfair Display SC con Karla, Plus Jakarta Sans, Barlow Condensed) y se descartaron: responden a registros de restaurante, SaaS o deporte. Tampoco se adoptó Atkinson Hyperlegible: el cuerpo a 18 px con Archivo resuelve la legibilidad sin sumar peso de carga.
 
@@ -164,7 +178,9 @@ Reglas de producción y uso:
 - Autorización firmada de cada persona fotografiada (la imagen es dato personal según la Ley 1581 de 2012).
 - Formatos AVIF con respaldo WebP; `srcset` de 480, 960, 1440 y 1920 px; `width` y `height` declarados para reservar el espacio; carga diferida debajo del primer pantallazo. El hero no depende de una foto: su contenido principal es texto y SVG, lo que acelera la primera carga.
 - Mientras llega la sesión, el prototipo usa las fotos reales de `conceptos/compartido/img-cliente/`. Los packshots se recortan al borde de la bolsa (fondo transparente, sin margen) y se guardan como `img/r-*.webp` para apoyarlos sobre la línea base con su sombra de contacto: The Cántaro Azucarada 380 g, The Cántaro Entera 500 g, 800 g y bulto de 25 kg, La Becerrita Entera 380 g y 900 g, The Cántaro Mezcla Láctea 900 g y bulto de 12,5 kg, La Becerrita Mezcla Láctea en bulto de 25 kg y los tres bultos juntos (`r-bultos-trio.webp`, en Para su negocio). `equipo-planta.webp` va en la Home (Así empacamos) y en Nosotros; `equipo-evento-a.webp` y `equipo-evento-b.webp` en Nosotros (tienen decoración de temporada). Las bolsas de marca propia (`marca-propia-*.webp`) solo en Marca propia, con el aviso "se muestran con autorización del cliente". No se usan `foto-actual-vacas.webp` ni el logo actual, salvo como "antes" en la presentación al cliente.
-- Las tomas que aún no existen se muestran como **marcos de dirección fotográfica**, no como huecos: fondo Verde tenue con brillo radial, marcas de encuadre en Verde Mundilácteos, el pictograma de su familia (Ficha: bolsa; Materia: cuchara; Oficio: planta; Clientes: tienda), el código pequeño y un pie de foto breve. **Máximo un marco por sección**, nunca dominante (360 px de ancho como máximo); si una sección necesita otra toma, se nombra en una línea de texto ("También por producir, toma O01: ...").
+- Las tomas que aún no existen se muestran como **marcos de dirección fotográfica**, no como huecos: fondo Verde tenue con brillo radial (blanco cuando el marco está sobre una banda de color), marcas de encuadre en Verde Mundilácteos, el pictograma de su familia (Ficha: bolsa; Materia: cuchara; Oficio: planta; Clientes: tienda), el código pequeño y un pie de foto breve. **Máximo un marco por sección**, nunca dominante: un solo token de tamaño, 360 px de ancho como máximo (3:2 da 360 × 240; 4:5 da 288 × 360). Por debajo de 600 px todos pasan a 3:2 con 200 px de alto como máximo y el pictograma a 32 px. Si una sección necesita otra toma, se nombra en una línea de texto ("También por producir, toma O01: ..."). Donde hay una foto real del cliente, va la foto y la toma se nombra en texto (Nosotros usa `equipo-evento-a.webp` en La familia y el equipo; Contacto nombra O06 en texto).
+- **Presentación sin foto propia en la ficha** (p. ej. The Cántaro Entera 380 g): la galería muestra su silueta a escala, rellena de blanco, con la cifra detrás y la etiqueta "F01 Foto por producir", más el enlace a la presentación que sí tiene foto. Nunca otra bolsa con otro peso impreso bajo una cifra distinta.
+- El packshot de la galería se muestra a su tamaño de origen (360 px de alto como máximo): ampliado se veía blando.
 - Home: sin marcos en el primer pantallazo. Para su casa usa los packshots, Cuánto rinde usa la cifra "7,4 L" en lugar de la toma M01 y Así empacamos usa la foto real del equipo en lugar de O02 (que pasa a Calidad). Queda un solo marco en la Home: C01 en Hecha para el calor.
 - La estatua de vaca de la planta es real y puede aparecer en Nosotros, nunca como hero ni como símbolo de la marca.
 
@@ -184,37 +200,43 @@ La interfaz no tiene texturas: nada de ruido de papel, grano ni perforaciones. L
 - **Bandas por capas.** Verde Mundilácteos (Cuánto rinde, con la calculadora como tarjeta blanca con sombra), Azul noche (Nuestras marcas y el pie), Verde tinte (zonas B2B) y Verde tenue (encabezados interiores, Distribución). Los empaques desbordan las bandas: los bultos rompen el borde del panel Para su negocio y las bolsas de Nuestras marcas quedan mitad sobre el blanco y mitad sobre el Azul noche.
 - **Brillo radial** de Verde Mundilácteos (26 % al centro, 0 en el borde) detrás de la fila a escala, de los packshots de la planilla, de la galería de la ficha y de los encabezados.
 - **Sombras de contacto** en Azul noche translúcido bajo cada empaque recortado, y una sombra ambiente que crece cuando el empaque se eleva. Una sola sombra de tarjeta (`--sombra-tarjeta`) para la calculadora, la mini-ficha flotante, el resumen de Cotizar y el aviso.
-- **Foto con respaldo verde**: la foto real del equipo en la Home lleva un bloque Verde Mundilácteos desplazado 18 px detrás.
+- **Foto con respaldo verde**: la foto real del equipo en la Home lleva un bloque Verde Mundilácteos desplazado 18 px detrás (8 px por debajo de 600 px, restados del ancho de la foto para no pasar el margen).
+- **Encabezados interiores con banda y objeto propio** (tercera ronda, 25/09/2026). Cada página tiene su color de banda y un objeto de marca que rompe el borde dentado inferior (`--sale`: 28 px en móvil, 44 px en escritorio): Productos, Verde tenue con la regla "27 g — 25 kg" y tres empaques reales a escala (380 g, 900 g, 25 kg) sobre su línea base verde; Marca propia, Verde Mundilácteos con las tres bolsas de marca propia y el aviso de autorización; Distribución, Verde Mundilácteos con el trío de bultos; Calidad, Azul noche con FAVORABLE cruzando el borde; Nosotros, Verde tinte con la foto del equipo y su bloque verde; Por qué elegirnos, Verde tinte con la cifra "5"; Dónde comprar, Verde tinte con tres bolsas de pie en su góndola; Recursos, Verde tenue con la tarjeta del artículo destacado (7,4 L); Contacto, Verde tenue con el esquema de la vía en una tarjeta blanca. Sobre Verde Mundilácteos el botón primario pasa a Azul noche.
+- **Secciones interiores por bandas alternas** (blanco, Verde tenue, Verde tinte, Verde Mundilácteos y Azul noche), a sangre con `border-image` (sin desplazamiento horizontal) y el borde dentado arriba y abajo. Se retiraron los guiones verdes de 64 px entre secciones. Aire entre secciones: 96 px en escritorio. Bandas destacadas: Registros y Qué controlamos (Verde tenue), Lote y Valores (Verde tinte), PQR y ¿Tiene una tienda? (Verde Mundilácteos), Las pruebas en cifras, Nuestras marcas y Canales (Azul noche).
+- **Empaques que desbordan bandas**: bultos del panel Para su negocio y de la banda de Por qué elegirnos, bulto de 25 kg sobre el dentado de Cuánto rinde, bolsas de Nuestras marcas (la misma banda Azul noche en la Home y en Nosotros).
+- **Brillo radial**: Verde Mundilácteos sobre fondos claros; sobre Azul noche es Azul Mundilácteos (el verde se volvía oliva) y va centrado en la figura, solo sobre la parte de la banda.
 
 ### 4.7 Movimiento
 
 Actualizado el 25/09/2026 con EXPERIENCIA.md, que tiene prioridad sobre el criterio 7 del checklist de tendencias. **Personalidad: precisión de planta.** Nada rebota ni flota porque sí: los empaques suben a la línea base como en la empacadora, las cifras se imprimen y el pedido suma kilos. Solo se animan `transform`, `opacity`, `clip-path` y los ejes de la fuente. Curvas: `cubic-bezier(.2,.7,.2,1)` para entradas (`--curva-entra`) y `cubic-bezier(.4,0,1,1)` para salidas (`--curva-sale`).
 
-**Momento orquestado 1: carga del hero** (una vez por sesión, recordada en `sessionStorage`, y solo si se entra por la Home; total ≤ 900 ms). Si no hay JavaScript o hay movimiento reducido, todo está en su estado final.
+**Momento orquestado 1: carga del hero** (una vez por sesión, recordada en `sessionStorage`, y solo si se entra por la Home; total medido: 880 ms). Si no hay JavaScript o hay movimiento reducido, todo está en su estado final.
 
 | Paso | Qué pasa | Tiempo |
 |---|---|---|
 | 1 | El titular sube 32 px y aparece | 0 a 520 ms |
 | 2 | Bajada y botones suben 16 px | 140 a 600 ms |
 | 3 | La línea base Verde Mundilácteos se traza de izquierda a derecha y aparece la regla | 160 a 480 ms |
-| 4 | Los 12 empaques suben uno a uno desde detrás de la línea base, recortados en ella con `clip-path`, como en la línea de empaque | desde 200 ms, 300 ms cada uno, 36 ms de escalón |
+| 4 | Los 12 empaques suben uno a uno desde detrás de la línea base, recortados en ella con `clip-path`, como en la línea de empaque; su sombra de contacto aparece (240 ms) | desde 200 ms, 300 ms cada uno, 30 ms de escalón (`--escalon-fila`) |
 | 5 | Cada cifra "se imprime": se revela de izquierda a derecha y su ancho pasa de 62 % a su valor final | 260 ms, 40 ms después de su empaque |
-| 6 | La mini-ficha sube a su sitio | 540 a 880 ms |
+| 6 | La mini-ficha sube a su sitio; la barra de selección Cielo profundo aparece bajo "900 g" ya impresa, sin deslizarse desde otro lugar | 540 a 880 ms; barra de 720 a 880 ms |
 
-**Momento orquestado 2: entrada a la ficha.** Cambio de ruta con View Transitions (`document.startViewTransition`, solo si existe): la vista vieja sale en 180 ms, la nueva entra en 420 ms y el packshot es elemento compartido (`view-transition-name: packshot`) desde la planilla de Productos o Nuestras marcas hasta la galería de la ficha, y de vuelta (480 ms). La cabecera y la barra inferior tienen nombre propio y no parpadean. En la ficha, la cifra de la presentación se imprime detrás del empaque (420 ms) y los datos suben escalonados 40 ms. Sin soporte, el cambio es directo.
+**Momento orquestado 2: entrada a la ficha.** Cambio de ruta con View Transitions (`document.startViewTransition`, solo si existe). Sin fundido cruzado ni doble exposición: la vista nueva entra con un **barrido de izquierda a derecha con `clip-path: inset()`, como la mordaza de la selladora** (380 ms, `--dur-vista`), sobre la vista vieja quieta. El packshot es elemento compartido (`view-transition-name: packshot`) desde la planilla de Productos o Nuestras marcas hasta la galería de la ficha, y de vuelta (480 ms). La franja de utilidad, la cabecera y la barra inferior tienen nombre propio (`utilidad`, `cabecera`, `barra`), sin animación y sin su captura vieja: no se duplican ni parpadean. El estado compacto de la cabecera se fija en la misma actualización que hace `scrollTo(0, 0)`. En la ficha, la cifra de la presentación se imprime detrás del empaque (420 ms) y los datos suben escalonados 40 ms. Sin soporte, el cambio es directo.
 
 El resto del movimiento responde a acciones de la persona:
 
 | Acción | Respuesta | Duración |
 |---|---|---|
 | Pasar el cursor o enfocar un empaque (fila, planilla, Nuestras marcas, galería, marca propia) | Se eleva 6 a 10 px y gira de −2 a −3°; la sombra de contacto se encoge y una sombra ambiente crece debajo. También con `:focus-visible` | 240 ms |
-| Elegir una presentación en la fila | El empaque queda 3 px arriba, el subrayado Cielo profundo se desliza a la cifra elegida, la cifra de la mini-ficha se imprime y sus líneas suben escalonadas | 240 ms |
-| Agregar a la cotización (planilla, ficha, barra de la ficha, calculadora) | FLIP: una copia del packshot (o el pictograma de bolsa o bulto si no está a la vista) vuela en arco hasta Mi cotización: la columna desde 1440 px, la franja entre 1024 y 1439 px o el botón Cotizar de la cabecera o de la barra inferior. Al llegar, el destino late (1 → 1,08 → 1) y el conteo salta. Los kilos totales giran como un contador de cifras (odómetro), escalonado 40 ms por cifra. La fila agregada se resalta en Verde tinte. `aria-live` anuncia el total en texto | 560 ms y 620 ms |
+| Elegir una presentación en la fila | El empaque queda 3 px arriba, la barra Cielo profundo (1 px de ancho escalada con `scaleX`, nunca `width`) se desliza a la cifra elegida, la cifra de la mini-ficha se imprime y sus líneas suben escalonadas. En móvil la mini-ficha, que va justo debajo de las cifras, se trae a la vista | 240 ms |
+| Agregar a la cotización (planilla, ficha, tarjeta resumen de la ficha, barra de la ficha, calculadora) | FLIP: una copia del packshot (o el pictograma de bolsa o bulto si no está a la vista) vuela en arco hasta Mi cotización: la columna desde 1440 px, la franja entre 1024 y 1439 px o el botón Cotizar de la cabecera o de la barra inferior. Al llegar, el destino late (1 → 1,08 → 1) y el conteo salta. Los kilos totales giran como un contador de cifras (odómetro), escalonado 40 ms por cifra. La fila agregada se resalta con una capa Verde tinte que se desvanece (opacidad, no `background-color`). El aviso no tapa la columna Agregar: desde 1440 px va abajo a la izquierda, sobre los filtros; en móvil es una línea de 48 px ("Agregado: 380 g, 2 pacas. Ver") y el texto completo queda para el lector de pantalla. `aria-live` anuncia el total en texto | 560 ms y 620 ms |
 | Presionar un botón | Escala 0,97 | 120 ms |
 | Hacer scroll | Titulares, bloques, filas de listas, tablas, fotos y tarjetas se desplazan 22 px hasta su sitio (`animation-timeline: view()` dentro de `@supports`). Los empaques que desbordan bandas se desplazan ±16 px a otra velocidad que su banda. Sin cambio de opacidad: el texto nunca pierde contraste y todo está visible en reposo. Sin scroll-jacking ni parallax de fondos | ligado al scroll |
 | Abrir hoja inferior, panel o menú | Sube o entra desde la derecha; en el menú móvil los destinos entran escalonados 40 ms | 220 a 320 ms |
 | Filtrar o buscar en Productos | Fundido de resultados | 150 ms |
 | Elegir ciudad en Distribución | Resalta el punto y la fila de la tabla | 160 ms |
+
+Propiedades animadas, verificadas con `document.getAnimations()`: solo `transform`, `opacity`, `clip-path` y `font-stretch`. Se retiraron las transiciones de `width` (barra de la fila y progreso de Cotizar, ahora `scaleX`), `background-color` (resaltado de filas, botones, planilla), `box-shadow` (botones, buscador, mapa), `filter` (marcas) y `font-weight` (menú). Los cambios de color de hover son instantáneos.
 
 Con `prefers-reduced-motion: reduce` los tokens de duración valen 0, toda animación y transición dura 0,01 ms, no se inicia ninguna View Transition (y el CSS anula sus pseudo-elementos), no hay vuelo (solo cambia el número) y el contador muestra el valor final. Sin carruseles automáticos y nada que se mueva solo más de 5 segundos.
 
@@ -1102,6 +1124,8 @@ Cada columna mide como mínimo 48 px aunque la silueta sea más angosta: la bols
 | Solicitar cotización | La acción de pedir precio | Enviar pedido, checkout |
 | Asesor | La persona que responde | Agente, bot |
 | Rinde cerca de | Litros preparados con la dosis de la etiqueta | Rinde hasta |
+| Origen del despacho | Larga: "desde nuestra planta en Europark, Km 1 de la vía a Turbaco (área metropolitana de Cartagena)". Corta: "desde Cartagena" | "Desde Turbaco", "a 1 km de Cartagena" |
+| Mezcla láctea | La denominación de su registro; si el nombre de catálogo dice "leche" (p. ej. el de café con panela), se muestra "Mezcla láctea con café y panela" hasta que el cliente confirme el nombre comercial | Leche (para una mezcla) |
 
 ### Textos por lugar
 
@@ -1318,11 +1342,11 @@ Tokens implementados en `concepto-2/estilos.css` (25/09/2026). Todo color sale d
   --dur-hover: 240ms;
   --dur-hoja: 220ms;
   --dur-panel: 240ms;
-  --dur-vista: 420ms;
+  --dur-vista: 380ms;             /* barrido de la vista nueva (selladora) */
   --dur-vuelo: 560ms;
   --dur-contador: 620ms;
   --dur-resaltado: 600ms;
-  --escalon-fila: 36ms;
+  --escalon-fila: 30ms;           /* carga del hero: cierra en 880 ms */
   --curva-entra: cubic-bezier(0.2, 0.7, 0.2, 1);
   --curva-sale: cubic-bezier(0.4, 0, 1, 1);
   --curva-estandar: cubic-bezier(0.4, 0, 0.2, 1);
@@ -1396,6 +1420,25 @@ button, input, select, textarea { font: inherit; text-rendering: inherit; }
 }
 ```
 
+Tokens y utilidades sumados en la tercera ronda (25/09/2026):
+
+```css
+/* Encabezados interiores */
+.pagina-banda--tenue | --tinte | --verde | --noche   /* color de banda por página */
+.pagina-banda--objeto { --sale: 28px; }              /* 44px desde 1024: lo que el objeto rompe el dentado */
+/* Bandas de sección a sangre, sin desplazamiento horizontal */
+.bloque--tenue | --tinte | --verde | --noche {
+  background: var(--banda);
+  border-image: conic-gradient(var(--banda) 0 0) fill 0 / / 0 100vmax;
+}
+.sangre { border-image: conic-gradient(var(--banda) 0 0) fill 0 / / 0 100vmax; }
+/* Marcos de toma: un solo tamaño */
+.toma { max-width: 360px; }  .toma--vertical { max-width: 288px; }  /* < 600 px: 3:2, alto máx. 200 px */
+--toma-fondo: var(--c-verde-tenue);   /* blanco sobre bandas de color */
+/* Controles nativos con la paleta: casillas y radios de 24 px, borde Pizarra, marcados en Azul noche con el check blanco;
+   icono de calendario y botón de borrar búsqueda en Azul noche; scrollbar-color Pizarra sobre Verde tenue */
+```
+
 Componentes base con estos tokens:
 
 - **Botón primario:** fondo `--color-accion` (Verde hoja), texto Blanco 16/24 wght 650, alto mínimo 48 px, relleno de 12 por 22 px, `--radio-control`. Hover y presionado: Verde bosque; al presionar, escala 0,97.
@@ -1407,7 +1450,10 @@ Componentes base con estos tokens:
 - **Campo:** fondo Blanco, `--borde-control`, alto de 48 px, etiqueta visible arriba en 16/24 wght 500; con foco suma un halo de 4 px en Verde tinte; error con borde de 2 px en Rojo error, icono y mensaje debajo.
 - **Chip de filtro:** borde Pizarra, `--radio-control`, alto de 40 px dentro de un área táctil de 48 px; activo con fondo Azul noche y texto Blanco.
 - **Zona B2B:** fondo Verde tinte con texto Azul noche (filas de bultos, cabecera de Mi cotización, Para su negocio, marca propia).
-- **Marco de toma por producir:** fondo Verde tenue con brillo radial, marcas de encuadre en Verde Mundilácteos, pictograma de la familia (bolsa, cuchara, planta o tienda) en Verde hoja, código pequeño sobre Blanco y pie de foto breve debajo; máximo uno por sección y 360 px de ancho.
+- **Marco de toma por producir:** fondo Verde tenue con brillo radial (blanco sobre bandas de color), marcas de encuadre en Verde Mundilácteos, pictograma de la familia (bolsa, cuchara, planta o tienda) en Verde hoja, código pequeño sobre Blanco y pie de foto breve debajo; máximo uno por sección, 360 px de ancho como máximo y 3:2 de 200 px de alto como máximo en móvil.
+- **Casilla y radio:** 24 × 24 px, `appearance: none`, borde de 2 px en Pizarra, fondo Blanco; marcados en Azul noche con el check (o el punto) en Blanco. Nada del gris del navegador.
+- **Tablas de etiqueta y valor:** la columna de etiquetas mide `clamp(10rem, 22%, 15rem)`, así el valor queda junto a su etiqueta.
+- **Planilla de Productos:** `table-layout: fixed` con un `colgroup` común (17 %, 10 %, 13 %, 11 %, 13,75 rem y el resto), encabezados cortos con `abbr` ("Paca", "Peso", "Rinde") y cifras alineadas a la derecha bajo su encabezado.
 
 ---
 
@@ -1441,7 +1487,7 @@ Objetivo: WCAG 2.2 nivel AA en todo el sitio, AAA en el contraste del texto prin
 - Sitio generado como HTML estático (por ejemplo con Eleventy) a partir de `datos/catalogo.json` (productos, presentaciones, medidas, paca, rinde, registros), `datos/cobertura.json` (ciudades, tiempos, mínimos) y `datos/atencion.json` (horario, festivos, asesores). Cada ficha y cada presentación salen prerenderizadas para buscadores.
 - Despliegue en `public_html` por Git o FTP. `.htaccess` con URL limpias, redirecciones 301 desde WordPress, caché larga para fuentes e imágenes y compresión.
 - Formularios: script PHP con SMTP de Hostinger, campo trampa, límite por IP y validación en el servidor. Alternativa: servicio de formularios. Respaldo: WhatsApp con mensaje prellenado.
-- Presupuesto de carga: fuente de 88 KB, CSS de 25 KB o menos y JavaScript de 35 KB o menos por página (comprimidos), sin jQuery ni librerías de animación: el movimiento es CSS nativo (View Transitions, `animation-timeline`) y unas 120 líneas de JavaScript propio (vuelo FLIP y contador). Medido en el prototipo el 25/09/2026: CSS de 23 KB y JavaScript de 56 KB con gzip, sin minificar y con todas las vistas en un solo archivo; en producción cada página prerenderizada carga solo su parte. Packshots recortados de 10 a 40 KB en WebP. Objetivo: LCP por debajo de 2,5 s en 4G y Lighthouse de 95 o más en rendimiento y accesibilidad.
+- Presupuesto de carga: fuente de 88 KB, CSS de 25 KB o menos y JavaScript de 35 KB o menos por página (comprimidos), sin jQuery ni librerías de animación: el movimiento es CSS nativo (View Transitions, `animation-timeline`) y unas 120 líneas de JavaScript propio (vuelo FLIP y contador). Medido en el prototipo el 25/09/2026 (tercera ronda): CSS de 30 KB y JavaScript de 59 KB (app.js) más 4,4 KB (catálogo) con gzip, sin minificar y con todas las vistas en un solo archivo; supera el presupuesto por página y se acepta en el prototipo: en producción cada página prerenderizada carga solo su parte. Packshots recortados de 10 a 40 KB en WebP. Objetivo: LCP por debajo de 2,5 s en 4G y Lighthouse de 95 o más en rendimiento y accesibilidad.
 - Datos estructurados: `Organization`, `LocalBusiness` y `Product` en JSON-LD; `sitemap.xml`; imagen para compartir por ficha.
 - `localStorage` y `sessionStorage` siempre dentro de `try/catch`; el sitio funciona completo si están bloqueados.
 

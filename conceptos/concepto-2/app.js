@@ -2,6 +2,7 @@
    Enrutamiento por hash, catálogo desde window.CATALOGO, Mi cotización persistente (localStorage con try/catch). */
 (function () {
   'use strict';
+  document.documentElement.classList.add('js');
 
   var C = window.CATALOGO;
   if (!C) return;
@@ -12,7 +13,8 @@
      ========================================================= */
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
-  var NB = ' '; // espacio fino no separable antes de la unidad
+  // Espacio no separable antes de la unidad. El fino (U+202F) casi desaparece en Archivo condensada: "27g"
+  var NB = ' ';
   var NBSP = ' ';
   var esc = function (s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -77,8 +79,15 @@
     });
   });
   var REF = {}; REFS.forEach(function (r) { REF[r.id] = r; });
-  var nombreRef = function (r) { return r.p.nombre + ' ' + r.pr.contenido; };
-  var nombreRefNB = function (r) { return r.p.nombre + ' ' + fmtPres(r.pr.contenido); };
+  // Una mezcla láctea nunca se rotula como leche (DIRECCION §17.14). Si el nombre de catálogo lo hace,
+  // se muestra un nombre seguro hasta que el cliente confirme el nombre comercial.
+  var NOMBRE_SEGURO = { 'cafe-con-leche-panela': 'Mezcla láctea con café y panela' };
+  function nombreVisible(p) {
+    if (p.categoria === 'mezcla-lactea' && /leche/i.test(p.nombre)) return NOMBRE_SEGURO[p.slug] || p.denominacion;
+    return p.nombre;
+  }
+  var nombreRef = function (r) { return nombreVisible(r.p) + ' ' + r.pr.contenido; };
+  var nombreRefNB = function (r) { return nombreVisible(r.p) + ' ' + fmtPres(r.pr.contenido); };
   var porPeso = function (a, b) { return a.pr.gramos - b.pr.gramos || a.p._i - b.p._i; };
   var PESOS = []; REFS.slice().sort(porPeso).forEach(function (r) { if (PESOS.indexOf(r.pr.contenido) === -1) PESOS.push(r.pr.contenido); });
 
@@ -194,10 +203,10 @@
       var r = REF[l.id]; var kg = kgUnidad(r.pr);
       return nombreRef(r) + ', ' + l.cant + ' ' + unidad(r.pr, l.cant) + (kg != null ? ' (' + fmtNum(kg * l.cant, 1) + ' kg)' : '');
     });
-    var t = 'Hola, quiero cotizar: ' + (partes.length ? partes.join('; ') : 'leche en polvo para mi negocio') + '.';
+    var t = partes.length ? 'Hola, quiero cotizar: ' + partes.join('; ') + '.' : 'Hola, quiero cotizar leche en polvo para mi negocio.';
     if (extra && extra.otros) t += ' También necesito: ' + extra.otros + '.';
-    t += ' Ciudad: ' + (extra && extra.ciudad ? extra.ciudad : '') + '.';
     if (extra && extra.negocio) t += ' Negocio: ' + extra.negocio.toLowerCase() + '.';
+    t += extra && extra.ciudad ? ' Ciudad: ' + extra.ciudad + '.' : ' Mi ciudad es: ';
     return t;
   }
 
@@ -262,6 +271,10 @@
      ========================================================= */
   var avisoT = null;
   function ocultarAviso() { clearTimeout(avisoT); $('#aviso').classList.remove('visible'); }
+  function avisoAgregado(largo, corto) {
+    return '<p class="aviso-linea"><span class="aviso-largo">' + largo + '</span><span class="aviso-corto" aria-hidden="true">' + corto + '</span>' +
+      '<button type="button" class="enlace-boton" data-abrir-panel>Ver<span class="aviso-cot"> cotización</span></button></p>';
+  }
   function avisar(html, ms) {
     var a = $('#aviso');
     a.innerHTML = html;
@@ -274,10 +287,10 @@
   /* =========================================================
      Componentes HTML
      ========================================================= */
-  function migas(items) {
-    return '<nav class="migas" aria-label="Migas de pan"><ol>' + items.map(function (it) {
+  function migas(items, volver) {
+    return '<nav class="migas' + (volver ? ' migas--volver' : '') + '" aria-label="Migas de pan"><ol>' + items.map(function (it) {
       return '<li>' + (it[0] ? '<a href="' + it[0] + '">' + esc(it[1]) + '</a>' : '<span aria-current="page">' + esc(it[1]) + '</span>') + '</li>';
-    }).join('') + '</ol></nav>';
+    }).join('') + '</ol>' + (volver ? '<a class="migas-corta" href="' + volver[0] + '"><span aria-hidden="true">‹</span>' + esc(volver[1]) + '</a>' : '') + '</nav>';
   }
   function htmlCantidad(r, cant, ctx) {
     var u = esBulto(r.pr) ? 'bulto' : 'paca';
@@ -413,10 +426,18 @@
   function vistaProductos(tokens) {
     estadoCat = estadoDeTokens(tokens);
     var e = estadoCat;
+    var activo = !!(e.q.trim() || nFiltros(e));
+    // Encabezado: la escala del surtido (27 g a 25 kg) y tres empaques reales a escala que rompen el dentado de la banda
+    var trio = [['r-cantaro-azucarada-380g', 262, 360, 22, '380 g'], ['r-becerrita-entera-900g', 236, 360, 29, '900 g'], ['r-cantaro-entera-bulto-25kg', 262, 457, 90, '25 kg']];
+    var objeto = '<div class="pagina-objeto escala-trio desborda" aria-hidden="true">' + trio.map(function (t) {
+      return '<span class="escala-pieza" style="--alto-cm:' + t[3] + '"><img src="img/' + t[0] + '.webp" alt="" width="' + t[1] + '" height="' + t[2] + '" decoding="async"><span class="escala-cifra">' + fmtPres(t[4]) + '</span></span>';
+    }).join('') + '<span class="escala-base"></span></div>';
     var html = '<div class="envoltura">' + migas([['#inicio', 'Inicio'], [null, 'Productos']]) +
-      '<div class="pagina-cab pagina-cab--productos"><div><h1>Productos</h1><p class="entradilla">Leche en polvo y mezclas lácteas, en bolsa y bulto. El precio por volumen llega con la cotización.</p></div>' +
+      '<div class="pagina-cab pagina-cab--productos pagina-cab--objeto' + (activo ? ' pagina-cab--compacta' : '') + '" data-banda="tenue"><div class="pagina-cab-texto"><h1>Productos</h1>' +
+      '<p class="rango"><span class="rango-cifra">27' + NB + 'g</span><span class="rango-regla" aria-hidden="true"></span><span class="rango-cifra">25' + NB + 'kg</span><span class="sr">: 12 presentaciones</span></p>' +
+      '<p class="entradilla">Leche en polvo y mezclas lácteas, en bolsa y bulto. El precio por volumen llega con la cotización.</p>' +
       '<div class="buscador buscador--pagina"><label for="busca-productos">Buscar productos</label><div class="buscador-campo">' + icono('i-buscar', 'icono buscador-icono') +
-      '<input id="busca-productos" type="search" placeholder="Marca, gramos o código" autocomplete="off" spellcheck="false" value="' + esc(e.q) + '"></div></div></div>' +
+      '<input id="busca-productos" type="search" placeholder="Marca, gramos o código" autocomplete="off" spellcheck="false" value="' + esc(e.q) + '"></div></div></div>' + objeto + '</div>' +
       '<div class="catalogo">' +
       '<div class="filtros" id="filtros" role="group" aria-labelledby="t-filtros">' +
       '<div class="filtros-cab"><h2 id="t-filtros">Filtrar</h2><button type="button" class="boton-menu" data-cerrar-filtros>' + icono('i-cerrar') + 'Cerrar</button></div>' +
@@ -426,7 +447,7 @@
       '<section class="planilla" aria-labelledby="conteo-res">' +
       '<div class="planilla-barra"><button type="button" class="boton boton-sec boton-filtrar" data-abrir-filtros aria-expanded="false" aria-controls="filtros">Filtrar<span data-n-filtros></span></button>' +
       '<p class="conteo-res" id="conteo-res" aria-live="polite"></p>' +
-      '<div class="orden"><label for="orden">Ordenar</label><select id="orden"><option value="peso"' + (e.orden === 'peso' ? ' selected' : '') + '>Peso, de menor a mayor</option><option value="marca"' + (e.orden === 'marca' ? ' selected' : '') + '>Marca</option></select></div></div>' +
+      '<div class="orden"><label for="orden"><span class="orden-rotulo">Ordenar</span><span class="sr"> resultados</span></label><select id="orden"><option value="peso"' + (e.orden === 'peso' ? ' selected' : '') + '>Peso, de menor a mayor</option><option value="marca"' + (e.orden === 'marca' ? ' selected' : '') + '>Marca</option></select></div></div>' +
       '<div class="aplicados" id="aplicados"></div>' +
       '<div class="resultados" id="resultados"></div>' +
       '<div class="fila-marca-propia zona-negocio"><p><strong>Su marca:</strong> empacamos con la de su cadena en 12 presentaciones, de 27' + NB + 'g a 25' + NB + 'kg. Las de 27, 104, 200, 750 y 1000' + NB + 'g hoy son solo para marca propia.</p><a class="enlace" href="#marca-propia">Ver marca propia</a></div>' +
@@ -483,6 +504,8 @@
         if (sp) sp.textContent = '(' + n + ')';
       });
     });
+    var cabP = $('.pagina-cab--productos');
+    if (cabP && document.activeElement !== $('#busca-productos')) cabP.classList.toggle('pagina-cab--compacta', !!(e.q.trim() || nFiltros(e)));
     var res = resultados(e);
     var prods = [];
     res.forEach(function (r) { if (prods.indexOf(r.p) === -1) prods.push(r.p); });
@@ -524,24 +547,25 @@
   function htmlBloqueProducto(p, refs) {
     var img = imagenDe(p, null);
     var foto = img ? '<img src="' + img.src + '" alt="' + esc(altDe(p, img)) + '" width="' + img.w + '" height="' + img.h + '" loading="lazy" decoding="async" data-vt="' + p.slug + '">'
-      : '<span class="toma"><span class="toma-cuadro" role="img" aria-label="Foto por producir, toma F01 de ' + esc(p.nombre) + '">' + icono('p-bolsa', 'toma-picto') + '</span></span>';
+      : '<span class="toma"><span class="toma-cuadro" role="img" aria-label="Foto por producir, toma F01 de ' + esc(nombreVisible(p)) + '">' + icono('p-bolsa', 'toma-picto') + '</span></span>';
     var id = 'p-' + p.slug;
     return '<article class="producto" aria-labelledby="' + id + '">' +
       '<div class="producto-cab"><a class="producto-foto" href="#producto-' + p.slug + '" tabindex="-1" aria-hidden="true">' + foto + '</a><div>' +
       '<p class="producto-marca">' + esc(MARCA[p.marca].nombre) + '</p>' +
-      '<h2 id="' + id + '"><a href="#producto-' + p.slug + '">' + esc(p.nombre) + '</a></h2>' +
-      '<p class="producto-denominacion">' + esc(p.denominacion) + '</p>' +
+      '<h2 id="' + id + '"><a href="#producto-' + p.slug + '">' + esc(nombreVisible(p)) + '</a></h2>' +
+      '<p class="producto-denominacion">' + esc(p.denominacion).replace(' %', NB + '%') + '</p>' +
       '<p class="meta producto-registro">Registro Invima ' + p.registro + '</p></div></div>' +
-      '<table class="tabla-pres"><caption class="sr">Presentaciones de ' + esc(p.nombre) + '. Unidades por paca publicadas por gramaje, dato a confirmar por referencia. Rinde por bolsa o por bulto con 135 g por litro.</caption>' +
-      '<thead><tr><th scope="col">Presentación</th><th scope="col" class="num">Paca</th><th scope="col" class="num">Peso de paca o bulto</th><th scope="col" class="num">Rinde aprox.</th><th scope="col">Cantidad</th><th scope="col"><span class="sr">Acción</span></th></tr></thead><tbody>' +
+      '<table class="tabla-pres"><caption class="sr">Presentaciones de ' + esc(nombreVisible(p)) + '. Unidades por paca publicadas por gramaje, dato a confirmar por referencia. Rinde por bolsa o por bulto con 135 g por litro.</caption>' +
+      '<colgroup><col class="c-pres"><col class="c-paca"><col class="c-peso"><col class="c-rinde"><col class="c-cant"><col class="c-acc"></colgroup>' +
+      '<thead><tr><th scope="col">Presentación</th><th scope="col" class="num"><abbr title="Unidades por paca">Paca</abbr></th><th scope="col" class="num"><abbr title="Peso de la paca o del bulto">Peso</abbr></th><th scope="col" class="num"><abbr title="Rinde aproximado, en leche">Rinde</abbr></th><th scope="col">Cantidad</th><th scope="col"><span class="sr">Acción</span></th></tr></thead><tbody>' +
       refs.map(htmlFilaPres).join('') + '</tbody></table>' +
-      '<p class="producto-pie"><a class="enlace" href="#producto-' + p.slug + '">Ver ficha técnica<span class="sr"> de ' + esc(p.nombre) + '</span></a></p></article>';
+      '<p class="producto-pie"><a class="enlace" href="#producto-' + p.slug + '">Ver ficha técnica<span class="sr"> de ' + esc(nombreVisible(p)) + '</span></a></p></article>';
   }
   function htmlFilaPres(r) {
     var p = r.p, pr = r.pr, l = linea(r.id), cant = cantDe(r.id), bulto = esBulto(pr);
     var kg = kgUnidad(pr), ren = rinde(p, pr);
     return '<tr class="' + (bulto ? 'es-bulto' : 'es-bolsa') + '" data-ref="' + r.id + '" data-modo="fila">' +
-      '<th scope="row"><a href="#producto-' + p.slug + '~' + presSlug(pr.contenido) + '">' + fmtPres(pr.contenido) + '<span class="sr"> de ' + esc(p.nombre) + '</span></a>' + (pr.estado !== 'confirmado' ? ' ' + aconf() : '') + '</th>' +
+      '<th scope="row"><a href="#producto-' + p.slug + '~' + presSlug(pr.contenido) + '">' + fmtPres(pr.contenido) + '<span class="sr"> de ' + esc(nombreVisible(p)) + '</span></a>' + (pr.estado !== 'confirmado' ? ' ' + aconf() : '') + '</th>' +
       '<td class="num" data-etiqueta="Paca">' + (bulto ? 'Bulto' : (pr.unidades_por_paca ? pr.unidades_por_paca + NB + 'u.' : 'Consultar')) + '</td>' +
       '<td class="num" data-etiqueta="' + (bulto ? 'Peso del bulto' : 'Peso de paca') + '">' + (kg != null ? fmtKg(kg) : 'Consultar') + '</td>' +
       '<td class="num" data-etiqueta="Rinde aprox.">' + (ren != null ? fmtL(ren) : aconf()) + '</td>' +
@@ -578,7 +602,15 @@
       if (alt.length) { prop = { k: k, alt: alt }; break; }
     }
     out += '<p>' + describirSinResultados(e) + '</p>';
-    if (prop) {
+    if (prop && prop.k === 'peso') {
+      var gObj = REFS.filter(function (r) { return e.peso.indexOf(presSlug(r.pr.contenido)) !== -1; }).map(function (r) { return r.pr.gramos; })[0] || 1000;
+      var cerca = prop.alt.slice().sort(function (a, c) { return Math.abs(Math.log(a.pr.gramos / gObj)) - Math.abs(Math.log(c.pr.gramos / gObj)) || porPeso(a, c); });
+      var m0 = cerca[0];
+      var otrosP = [];
+      prop.alt.forEach(function (r) { var t = fmtPres(r.pr.contenido); if (r.pr.contenido !== m0.pr.contenido && otrosP.indexOf(t) === -1) otrosP.push(t); });
+      out += '<p>La presentación más cercana es ' + fmtPres(m0.pr.contenido) + ', en ' + esc(nombreVisible(m0.p)) + '.' + (otrosP.length ? ' También hay ' + lista(otrosP) + '.' : '') + '</p>' +
+        '<div class="acciones-linea"><a class="boton" href="#producto-' + m0.p.slug + '~' + presSlug(m0.pr.contenido) + '">Ver ' + esc(nombreRefNB(m0)) + '</a>';
+    } else if (prop) {
       var vals = [];
       prop.alt.forEach(function (r) { var v = FACETA[prop.k].de(r)[0]; if (vals.indexOf(v) === -1) vals.push(v); });
       var textoVals = vals.map(function (v) { return FACETA[prop.k].opciones().filter(function (o) { return o.v === v; })[0].t; });
@@ -634,7 +666,10 @@
     var reg = REG[p.registro];
     var selector = '';
     if (p.presentaciones.length) {
-      selector = '<fieldset class="selector-pres"><legend>Presentación</legend><ul class="fila-lista">' + p.presentaciones.map(function (x, i) {
+      var altoMax = Math.max.apply(null, p.presentaciones.map(function (x) { return (FILA_DE[x.contenido] || { alto: 20 }).alto; }));
+      var tope = Math.ceil(altoMax / 10) * 10, marcas = '';
+      for (var cm = 0; cm <= tope; cm += 10) marcas += '<span class="regla-marca' + (cm === 0 || cm === tope ? ' regla-marca--rotulo' : '') + '" style="--cm:' + cm + '">' + (cm === 0 || cm === tope ? '<span>' + cm + '</span>' : '') + '</span>';
+      selector = '<fieldset class="selector-pres"><legend>Presentación</legend><div class="fila-marco selector-marco" style="--regla-max:' + tope + '"><div class="fila-regla" aria-hidden="true"><span class="regla-unidad">cm</span>' + marcas + '</div><ul class="fila-lista">' + p.presentaciones.map(function (x, i) {
         var f = FILA_DE[x.contenido] || { alto: 20, ancho: 15, t: 0.5 };
         if (x.imagen) { var rr = recorte(x.imagen); f = { alto: f.alto, ancho: Math.round(f.alto * rr.w / rr.h), t: f.t }; }
         var id = 'pres-' + presSlug(x.contenido);
@@ -643,19 +678,19 @@
           '<label for="' + id + '">' + figuraFicha(x, f) +
           '<span class="fila-cifra">' + fmtPres(x.contenido) + (x.estado !== 'confirmado' ? '<span class="fila-ast" aria-hidden="true">*</span>' : '') + '</span>' +
           '<span class="sr">, ' + x.formato + (x.estado !== 'confirmado' ? ', presentación por confirmar' : '') + '</span></label></li>';
-      }).join('') + '</ul></fieldset>';
+      }).join('') + '</ul><span class="fila-base" aria-hidden="true"></span></div></fieldset>';
       if (p.presentaciones.some(function (x) { return x.estado !== 'confirmado'; })) selector += '<p class="meta">* Presentación por confirmar con el cliente.</p>';
     } else {
       selector = '<p>Presentaciones ' + aconf() + '</p>';
     }
     var octo = p.sello_advertencia ? '<p class="sello-advertencia"><svg class="octogono" viewBox="0 0 36 36" aria-hidden="true"><path class="octogono-fondo" d="M11 1h14l10 10v14L25 35H11L1 25V11Z"/><path class="octogono-borde" d="M11.8 3h12.4L33 11.8v12.4L24.2 33H11.8L3 24.2V11.8Z" fill="none" stroke-width="1.2"/></svg><span>Sello frontal de advertencia: «' + esc(p.sello_advertencia.valor) + '» ' + (p.sello_advertencia.estado !== 'confirmado' ? aconf() : '') + '</span></p>' : '';
-    var html = '<div class="envoltura">' + migas([['#inicio', 'Inicio'], ['#productos', 'Productos'], ['#productos~marca-' + p.marca, marca], [null, p.nombre]]) +
+    var html = '<div class="envoltura">' + migas([['#inicio', 'Inicio'], ['#productos', 'Productos'], ['#productos~marca-' + p.marca, marca], [null, nombreVisible(p)]], ['#productos', 'Productos']) +
       '<div class="ficha">' +
       '<div class="ficha-galeria" data-dep="galeria"></div>' +
       '<div class="ficha-info">' +
       '<p class="ficha-marca">' + esc(marca) + (p.estado === 'por_confirmar' ? ' ' + aconf('marca por confirmar') : '') + '</p>' +
       '<h1>' + esc(p.denominacion) + '</h1>' +
-      '<p class="ficha-nombre">Nombre comercial: ' + esc(p.nombre) + (p.nuevo ? ' ' + aconf('registro nuevo') : '') + '</p>' +
+      '<p class="ficha-nombre">Nombre comercial: ' + (nombreVisible(p) === p.nombre ? esc(nombreVisible(p)) : aconf('por confirmar con el cliente')) + (p.nuevo ? ' ' + aconf('registro nuevo') : '') + '</p>' +
       '<p class="ficha-registro">Registro Invima ' + p.registro + (reg ? ', ' + reg.estado.toLowerCase() + ' hasta el ' + fechaLarga(reg.vence) : '') + '. <a href="' + C.calidad.verificar_registro_url + '" target="_blank" rel="noopener">Consultar<span class="sr"> el registro ' + p.registro + ' en el sitio del Invima (abre otro sitio)</span></a></p>' +
       octo + selector +
       '<div data-dep="venta"></div>' +
@@ -674,17 +709,26 @@
     var r = pr ? REF[p.slug + '_' + presSlug(pr.contenido)] : null;
     // Galería
     var img = imagenDe(p, pr);
+    var propia = img && img.propia;
+    var fs = pr ? (FILA_DE[pr.contenido] || { alto: 20, ancho: 15 }) : null;
+    var cifraG = pr ? '<span class="galeria-cifra" aria-hidden="true" style="--n:' + pr.contenido.length + '">' + fmtPres(pr.contenido) + '</span>' : '';
+    var frente = propia ? cifraG + '<span class="galeria-sombra" aria-hidden="true"></span><img src="' + img.src + '" alt="' + esc(altDe(p, img)) + ', frente" width="' + img.w + '" height="' + img.h + '" data-vt="' + p.slug + '">'
+      : pr ? cifraG + '<span class="galeria-sombra" aria-hidden="true"></span><span class="galeria-silueta" role="img" aria-label="Silueta a escala ' + (esBulto(pr) ? 'del bulto' : 'de la bolsa') + ' de ' + esc(pr.contenido) + '. Foto por producir, toma F01">' + silueta(pr.formato, fs.ancho, fs.alto, false) + '</span><span class="galeria-toma" aria-hidden="true"><b>F01</b> Foto por producir</span>'
+      : htmlToma('F01', '4 / 5', 'Frente de ' + nombreVisible(p) + ' sobre fondo blanco, con regla física en el cuadro.');
     var fotos = [
-      { k: 'frente', rot: 'Frente', cod: 'F01', foto: !!img, html: img ? '<span class="galeria-cifra" aria-hidden="true" style="--n:' + (pr ? pr.contenido.length : 4) + '">' + (pr ? fmtPres(pr.contenido) : '') + '</span><span class="galeria-sombra" aria-hidden="true"></span><img src="' + img.src + '" alt="' + esc(altDe(p, img)) + ', frente" width="' + img.w + '" height="' + img.h + '" data-vt="' + p.slug + '">' : htmlToma('F01', '4 / 5', 'Frente de ' + p.nombre + (pr ? ' ' + pr.contenido : '') + ' sobre fondo blanco, con regla física en el cuadro.') },
+      { k: 'frente', rot: 'Frente', cod: 'F01', foto: !!(propia || pr), html: frente },
       { k: 'reverso', rot: 'Reverso', cod: 'F02', html: htmlToma('F02', '4 / 5') },
       { k: 'paca', rot: pr && esBulto(pr) ? 'Costura' : 'Paca', cod: pr && esBulto(pr) ? 'M04' : 'F03', html: pr && esBulto(pr) ? htmlToma('M04', '4 / 5') : htmlToma('F03', '4 / 5') },
       { k: 'uso', rot: 'En uso', cod: pr && esBulto(pr) ? (p.usos.indexOf('industria') !== -1 ? 'C05' : 'C01') : (p.categoria === 'mezcla-lactea' ? 'M02' : 'C04'), html: pr && esBulto(pr) ? htmlToma(p.usos.indexOf('industria') !== -1 ? 'C05' : 'C01', '4 / 5') : htmlToma(p.categoria === 'mezcla-lactea' ? 'M02' : 'C04', '4 / 5') },
     ];
     var actual = fotos.filter(function (f) { return f.k === ficha.foto; })[0] || fotos[0];
-    var nota = img && !img.propia && actual.k === 'frente' ? '<p class="galeria-nota">Foto de referencia de la presentación de ' + fmtPres(img.de) + '. La toma F01 de ' + fmtPres(pr.contenido) + ' está por producir.</p>' : '';
+    var nota = pr && !propia && actual.k === 'frente' ? '<p class="galeria-nota">Silueta a escala: la foto de ' + (esBulto(pr) ? 'este bulto' : 'esta bolsa') + ' está por producir (toma F01).' +
+      (img && img.de ? ' <a href="#producto-' + p.slug + '~' + presSlug(img.de) + '">Ver la foto de ' + fmtPres(img.de) + '</a>' : '') + '</p>' : '';
     $('[data-dep="galeria"]').innerHTML = '<div class="galeria-principal' + (actual.foto ? ' galeria-principal--foto' : '') + '" aria-live="polite">' + actual.html + '</div>' + nota +
       '<ul class="miniaturas" aria-label="Fotos del producto">' + fotos.map(function (f) {
-        var mini = f.k === 'frente' && img ? '<img src="' + img.src + '" alt="" width="' + img.w + '" height="' + img.h + '">' : '<span class="toma"><span class="toma-cuadro"><span class="toma-codigo">' + f.cod + '</span></span></span>';
+        var mini = f.k === 'frente' && propia ? '<img src="' + img.src + '" alt="" width="' + img.w + '" height="' + img.h + '">'
+          : f.k === 'frente' && pr ? '<span class="mini-silueta">' + silueta(pr.formato, fs.ancho, fs.alto, false) + '</span>'
+          : '<span class="toma"><span class="toma-cuadro"><span class="toma-codigo">' + f.cod + '</span></span></span>';
         return '<li><button type="button" class="miniatura" data-foto="' + f.k + '" aria-pressed="' + (f.k === actual.k) + '" aria-label="Ver foto: ' + f.rot + '">' + mini + '</button><span class="miniatura-rotulo" aria-hidden="true">' + f.rot + '</span></li>';
       }).join('') + '</ul>';
 
@@ -703,7 +747,7 @@
         waEnlace(msjFicha(r), 'Preguntar por WhatsApp al') + '</div>' +
         (l ? '<p class="meta" data-en-cot>En su cotización: ' + l.cant + ' ' + unidad(pr, l.cant) + '. <button type="button" class="enlace-boton" data-quitar>Quitar</button></p>' : '') + '</div>';
     } else {
-      venta = '<div class="ficha-acciones">' + waEnlace('Hola, quiero información de ' + p.nombre + ' (' + p.denominacion + '). Mi ciudad es: ', 'Preguntar por WhatsApp al') + '</div>';
+      venta = '<div class="ficha-acciones">' + waEnlace('Hola, quiero información de ' + p.denominacion + '. Mi ciudad es: ', 'Preguntar por WhatsApp al') + '</div>';
     }
     var donde = pr && pr.donde && pr.donde.length ? ' En línea: ' + pr.donde.map(function (d) { return '<a href="' + d.url + '" target="_blank" rel="noopener">' + esc(d.canal) + '<span class="sr"> (abre otro sitio)</span></a>'; }).join(', ') + '.' : '';
     venta += '<p class="ficha-consumidor">¿Es para su casa? <a href="#donde-comprar">Vea dónde comprar.</a>' + donde + '</p>';
@@ -719,7 +763,7 @@
       bf.hidden = false; document.body.classList.add('con-barra-ficha');
     } else { bf.hidden = true; bf.innerHTML = ''; document.body.classList.remove('con-barra-ficha'); }
 
-    document.title = (r ? nombreRef(r) : p.nombre) + ' | Mundilácteos';
+    document.title = (r ? nombreRef(r) : nombreVisible(p)) + ' | Mundilácteos';
     ldProducto(p, pr);
   }
   function htmlSeccionesFicha(p, pr, r) {
@@ -746,16 +790,11 @@
     if (p.sello_advertencia) filas.push(['Sello de advertencia', '«' + esc(p.sello_advertencia.valor) + '» ' + aconf()]);
     filas.push(['Registro sanitario', 'Invima ' + p.registro + (reg ? '. ' + esc(reg.modalidad) + '. ' + reg.estado + ' hasta el ' + fechaLarga(reg.vence) + '.' : '') + ' <a href="' + C.calidad.verificar_registro_url + '" target="_blank" rel="noopener">Consultar en el Invima<span class="sr"> (abre otro sitio)</span></a>']);
     if (pr && pr.evidencia) filas.push(['Evidencia de la presentación', esc(pr.evidencia)]);
-    var tecnica = '<table class="tabla tabla-ficha"><caption class="sr">Ficha técnica de ' + esc(p.nombre) + (pr ? ' ' + esc(pr.contenido) : '') + '</caption><tbody>' +
+    var tecnica = '<table class="tabla tabla-ficha"><caption class="sr">Ficha técnica de ' + esc(nombreVisible(p)) + (pr ? ' ' + esc(pr.contenido) : '') + '</caption><tbody>' +
       filas.map(function (f) { return '<tr><th scope="row">' + f[0] + '</th><td>' + f[1] + '</td></tr>'; }).join('') + '</tbody></table>' +
       '<p class="seccion-pie meta">La ficha técnica en PDF se publica como copia de esta tabla cuando el cliente la entregue. <a href="#contacto">Solicitar ficha técnica</a></p>';
 
-    var nut = ['Energía (kcal)', 'Grasa total (g)', 'Grasa saturada (g)', 'Grasas trans (mg)', 'Carbohidratos totales (g)', 'Azúcares totales (g)', 'Azúcares añadidos (g)', 'Proteína (g)', 'Sodio (mg)'];
-    if (p.fortificacion === 'Hierro') nut.push('Hierro (mg)');
-    var nutri = '<table class="tabla tabla-nutri"><caption class="meta" style="text-align:left;padding-bottom:8px">Valores del laboratorio del cliente ' + aconf() + '</caption>' +
-      '<thead><tr><th scope="col">Nutriente</th><th scope="col" class="num">Por 100' + NB + 'g</th><th scope="col" class="num">Por porción</th></tr></thead><tbody>' +
-      nut.map(function (n) { return '<tr><th scope="row">' + n + '</th><td class="num"><span aria-hidden="true">—</span><span class="sr">por confirmar</span></td><td class="num"><span aria-hidden="true">—</span><span class="sr">por confirmar</span></td></tr>'; }).join('') +
-      '</tbody></table>';
+    var nutri = '<section class="ficha-nutri" aria-labelledby="h-nutricional"><h2 id="h-nutricional">Información nutricional</h2><p>Tabla por 100' + NB + 'g y por porción ' + aconf() + ' Se publica con los valores del laboratorio de Mundilácteos.</p></section>';
 
     var log = [];
     if (pr) {
@@ -776,8 +815,8 @@
     var similares = C.productos.filter(function (x) { return x !== p && x.presentaciones.length && x.usos.some(function (u) { return p.usos.indexOf(u) !== -1; }); })
       .sort(function (a, b) { return (b.categoria === p.categoria) - (a.categoria === p.categoria); }).slice(0, 4);
     var relac = '<div class="relacionados">' +
-      (otras.length ? '<div><h3>Otras presentaciones de este producto</h3><ul class="lista-pres">' + otras.map(function (x) { return '<li><a href="#producto-' + p.slug + '~' + presSlug(x.contenido) + '">' + fmtPres(x.contenido) + '<span class="sr"> de ' + esc(p.nombre) + '</span></a></li>'; }).join('') + '</ul></div>' : '') +
-      '<div><h3>Productos de uso similar</h3><ul class="lista-texto">' + similares.map(function (x) { return '<li><a href="#producto-' + x.slug + '">' + esc(x.nombre) + '</a></li>'; }).join('') + '</ul></div></div>';
+      (otras.length ? '<div><h3>Otras presentaciones de este producto</h3><ul class="lista-pres">' + otras.map(function (x) { return '<li><a href="#producto-' + p.slug + '~' + presSlug(x.contenido) + '">' + fmtPres(x.contenido) + '<span class="sr"> de ' + esc(nombreVisible(p)) + '</span></a></li>'; }).join('') + '</ul></div>' : '') +
+      '<div><h3>Productos de uso similar</h3><ul class="lista-texto">' + similares.map(function (x) { return '<li><a href="#producto-' + x.slug + '">' + esc(nombreVisible(x)) + '</a></li>'; }).join('') + '</ul></div></div>';
 
     var acc = function (id, titulo, cuerpo) {
       var cab = abiertas ? '<h2 id="h-' + id + '" class="ficha-seccion-titulo">' + titulo + '</h2>'
@@ -785,13 +824,22 @@
       return '<section class="ficha-seccion" aria-labelledby="h-' + id + '">' + cab +
         '<div class="acordeon-cuerpo" id="c-' + id + '"' + (abiertas ? '' : ' hidden') + '>' + cuerpo + '</div></section>';
     };
-    return acc('tecnica', 'Ficha técnica', tecnica) + acc('nutricional', 'Información nutricional', nutri) + acc('logistica', 'Empaque y datos logísticos', logistica) +
-      '<section class="ficha-seccion" aria-labelledby="h-relacionados"><h2 id="h-relacionados" class="sr">Relacionados</h2>' + relac + '</section>';
+    var resumen = '';
+    if (r) {
+      var kgR = kgUnidad(pr), imgR = imagenDe(p, pr);
+      resumen = '<aside class="ficha-resumen" aria-label="Resumen: ' + esc(nombreRef(r)) + '"><div class="resumen-cab">' +
+        (imgR && imgR.propia ? '<img src="' + imgR.src + '" alt="" width="' + imgR.w + '" height="' + imgR.h + '" loading="lazy">' : '<span class="mini-silueta">' + silueta(pr.formato, (FILA_DE[pr.contenido] || { ancho: 15 }).ancho, (FILA_DE[pr.contenido] || { alto: 20 }).alto, false) + '</span>') +
+        '<div><p class="resumen-nombre">' + esc(nombreRefNB(r)) + '</p><p class="meta">' + (esBulto(pr) ? 'Bulto de ' + fmtPres(pr.contenido) : (pr.unidades_por_paca ? 'Paca de ' + pr.unidades_por_paca + ' bolsas, ' + fmtKg(kgR) : 'Paca: consultar')) + '</p></div></div>' +
+        '<div class="resumen-cant" data-ref="' + r.id + '" data-modo="resumen">' + htmlCantidad(r, cantDe(r.id)) + '<p class="calc-linea" data-calc>' + calcTexto(r, cantDe(r.id)) + '</p>' +
+        '<button type="button" class="boton" data-agregar-ficha>' + (linea(r.id) ? 'Actualizar la cotización' : 'Agregar a la cotización') + '</button></div></aside>';
+    }
+    return '<div class="ficha-cuerpo"><div class="ficha-principal">' + acc('tecnica', 'Ficha técnica', tecnica) + acc('logistica', 'Empaque y datos logísticos', logistica) + nutri + '</div>' + resumen + '</div>' +
+      '<section class="ficha-relacionados banda--tenue sangre" aria-labelledby="h-relacionados"><h2 id="h-relacionados" class="sr">Relacionados</h2>' + relac + '</section>';
   }
   function ldProducto(p, pr) {
     var s = document.getElementById('ld-producto');
     if (!s) { s = document.createElement('script'); s.type = 'application/ld+json'; s.id = 'ld-producto'; document.body.appendChild(s); }
-    var o = { '@context': 'https://schema.org', '@type': 'Product', name: p.nombre + (pr ? ' ' + pr.contenido : ''), description: p.denominacion, brand: { '@type': 'Brand', name: MARCA[p.marca].nombre } };
+    var o = { '@context': 'https://schema.org', '@type': 'Product', name: nombreVisible(p) + (pr ? ' ' + pr.contenido : ''), description: p.denominacion, brand: { '@type': 'Brand', name: MARCA[p.marca].nombre } };
     if (pr && pr.ean) o.gtin13 = pr.ean;
     if (pr) o.size = pr.contenido;
     s.textContent = JSON.stringify(o);
@@ -1088,7 +1136,7 @@
       '<fieldset class="paso" data-paso="1"><legend class="sr">Paso 1 de 3: Productos</legend><h2>Productos</h2>' + htmlAvisoAlmacen() +
       '<div data-paso1-lineas></div>' +
       '<p><a class="enlace" href="#productos">Agregar más productos</a></p>' +
-      '<div class="campo" data-campo="otros"><label for="c-otros">¿Necesita algo que no está en el catálogo? Escríbalo aquí. <span class="opcional">(opcional)</span></label><textarea id="c-otros" name="otros" rows="3" aria-describedby="c-otros-error"></textarea><p class="error-campo" id="c-otros-error" hidden></p></div>' +
+      '<div class="campo" data-campo="otros"><label for="c-otros" id="c-otros-rotulo"></label><p class="ayuda" id="c-otros-ayuda" hidden></p><textarea id="c-otros" name="otros" rows="3" aria-describedby="c-otros-ayuda c-otros-error"></textarea><p class="error-campo" id="c-otros-error" hidden></p></div>' +
       '<div class="paso-acciones"><button type="button" class="boton" data-continuar="2">Continuar con entrega</button><span data-wa-form></span></div></fieldset>' +
       '<fieldset class="paso" data-paso="2" hidden><legend class="sr">Paso 2 de 3: Entrega</legend><h2>Entrega</h2>' +
       '<div class="campo" data-campo="ciudad"><label for="c-ciudad">Ciudad de entrega</label><input type="text" id="c-ciudad" name="ciudad" autocomplete="address-level2" list="ciudades" aria-describedby="c-ciudad-ayuda c-ciudad-error"><p class="ayuda" id="c-ciudad-ayuda">Con su ciudad calculamos el despacho desde Cartagena.</p><p class="error-campo" id="c-ciudad-error" hidden></p>' +
@@ -1123,6 +1171,10 @@
   function renderPaso1Lineas() {
     var c = $('[data-paso1-lineas]'); if (!c) return;
     var t = totales(cot.lineas);
+    // Con la lista vacía el campo libre deja de ser opcional: la etiqueta no puede decir lo contrario que el error
+    var rot = $('#c-otros-rotulo'), ay = $('#c-otros-ayuda');
+    if (rot) rot.innerHTML = t.refs ? '¿Necesita algo que no está en el catálogo? Escríbalo aquí. <span class="opcional">(opcional)</span>' : '¿Qué necesita? Escríbalo aquí.';
+    if (ay) { ay.hidden = !!t.refs; ay.textContent = 'Su cotización está vacía: escriba aquí qué necesita o agregue productos.'; }
     if (!t.refs) {
       c.innerHTML = '<div class="cot-vacia" style="padding:0"><p>Su cotización está vacía. Elija presentaciones en <a href="#productos">Productos</a> o escriba abajo qué necesita.</p>' + htmlRepetir() + '</div>';
     } else {
@@ -1160,7 +1212,7 @@
     });
     var nombres = ['Productos', 'Entrega', 'Contacto'];
     $('[data-paso-txt]').textContent = 'Paso ' + n + ' de 3: ' + nombres[n - 1];
-    $('[data-progreso]').style.setProperty('--avance', Math.round(n / 3 * 100) + '%');
+    $('[data-progreso]').style.setProperty('--avance', Math.round(n / 3 * 100));
     ocultarResumen();
     renderResumenCotizar();
     if (enfocar) { var h = $('.paso[data-paso="' + n + '"] h2'); h.setAttribute('tabindex', '-1'); h.focus(); var cab = $('.pasos'); (cab && cab.offsetParent ? cab : h).scrollIntoView({ block: 'start' }); }
@@ -1252,10 +1304,15 @@
   var INV = C.calidad.invima_establecimiento;
   var URL_INVIMA = C.calidad.verificar_registro_url;
   function ext(url, txt, sr) { return '<a href="' + url + '" target="_blank" rel="noopener">' + txt + '<span class="sr"> ' + (sr || '(abre otro sitio)') + '</span></a>'; }
-  function cabecera(titulo, entradilla, extra, items, clase) {
+  function cabecera(titulo, entradilla, extra, items, clase, opc) {
+    opc = opc || {};
     return migas(items || [['#inicio', 'Inicio'], [null, titulo]]) +
-      '<div class="pagina-cab' + (clase ? ' ' + clase : '') + '"><div class="pagina-cab-texto"><h1>' + esc(titulo) + '</h1>' +
-      (entradilla ? '<p class="entradilla">' + entradilla + '</p>' : '') + '</div>' + (extra || '') + '</div>';
+      '<div class="pagina-cab' + (clase ? ' ' + clase : '') + (opc.objeto ? ' pagina-cab--objeto' : '') + '" data-banda="' + (opc.banda || 'tenue') + '"><div class="pagina-cab-texto"><h1>' + esc(titulo) + '</h1>' +
+      (entradilla ? '<p class="entradilla">' + entradilla + '</p>' : '') + (extra || '') + '</div>' + (opc.objeto || '') + '</div>';
+  }
+  // Notas para el cliente: fuera de la voz de la marca, en un bloque plegable
+  function notasPrototipo(titulo, html) {
+    return '<details class="notas-prototipo"><summary>Notas del prototipo: ' + titulo + '</summary><div class="notas-cuerpo">' + html + '</div></details>';
   }
   function bloque(id, titulo, cuerpo, clase, cabExtra) {
     var h = '<h2 id="t-' + id + '">' + titulo + '</h2>';
@@ -1279,7 +1336,7 @@
   }
   var acciones = function (html) { return '<div class="acciones-linea">' + html + '</div>'; };
   var prodsDe = function (num) { return C.productos.filter(function (p) { return p.registro === num; }); };
-  var enlaceProd = function (p) { return '<a href="#producto-' + p.slug + '">' + esc(p.nombre) + '</a>'; };
+  var enlaceProd = function (p) { return '<a href="#producto-' + p.slug + '">' + esc(nombreVisible(p)) + '</a>'; };
   var fechaNum = function (iso) { var p = iso.split('-'); return p[2] + '/' + p[1] + '/' + p[0]; };
   function numeroSolicitud() { return 'MDL-' + String(Math.floor(Date.now() / 1000) % 10000).padStart(4, '0'); }
 
@@ -1287,30 +1344,32 @@
   var DONDE = {};
   C.productos.forEach(function (p) {
     p.presentaciones.forEach(function (pr) {
-      (pr.donde || []).forEach(function (d) { (DONDE[d.canal] = DONDE[d.canal] || []).push({ t: p.nombre + ' ' + fmtPres(pr.contenido), url: d.url }); });
+      (pr.donde || []).forEach(function (d) { (DONDE[d.canal] = DONDE[d.canal] || []).push({ t: nombreVisible(p) + ' ' + fmtPres(pr.contenido), url: d.url }); });
     });
   });
 
   // Ciudades de ejemplo para Distribución y Dónde comprar. x, y: posición esquemática en el mapa (viewBox 204 × 277),
   // ajustada unos milímetros para que ningún punto quede a menos de 24 px de otro en móvil.
+  // lx, ly: rótulo en el mapa (a: 'end' si va a la izquierda); g: línea guía para los rótulos costeros que salen al mar.
   var CIUDADES = [
-    { s: 'cartagena', n: 'Cartagena', lat: 10.39, lon: -75.51, x: 60.64, y: 38.56, lado: 'izq', costa: true, planta: true },
-    { s: 'barranquilla', n: 'Barranquilla', lat: 10.96, lon: -74.8, x: 73, y: 28.5, lado: 'arriba', costa: true },
-    { s: 'santa-marta', n: 'Santa Marta', lat: 11.24, lon: -74.2, x: 88, y: 25, lado: 'der', costa: true },
-    { s: 'valledupar', n: 'Valledupar', lat: 10.46, lon: -73.25, x: 98, y: 39, lado: 'der', costa: true },
-    { s: 'sincelejo', n: 'Sincelejo', lat: 9.3, lon: -75.4, x: 62.4, y: 56, lado: 'der', costa: true },
-    { s: 'monteria', n: 'Montería', lat: 8.75, lon: -75.88, x: 52, y: 68.5, lado: 'izq', costa: true },
-    { s: 'medellin', n: 'Medellín', lat: 6.24, lon: -75.58, x: 59.5, y: 105, lado: 'der' },
-    { s: 'bucaramanga', n: 'Bucaramanga', lat: 7.12, lon: -73.12, x: 98.9, y: 90.9, lado: 'der' },
-    { s: 'bogota', n: 'Bogotá', lat: 4.71, lon: -74.07, x: 83.7, y: 129.4, lado: 'der' },
-    { s: 'cali', n: 'Cali', lat: 3.45, lon: -76.53, x: 44.3, y: 149.6, lado: 'izq' },
+    { s: 'cartagena', n: 'Cartagena', lat: 10.39, lon: -75.51, x: 60.64, y: 38.56, lx: 54.5, ly: 41.8, a: 'end', costa: true, planta: true },
+    { s: 'barranquilla', n: 'Barranquilla', lat: 10.96, lon: -74.8, x: 73, y: 28.5, lx: 67.4, ly: 18, a: 'end', g: 'M71 26.4 67.8 20', costa: true },
+    { s: 'santa-marta', n: 'Santa Marta', lat: 11.24, lon: -74.2, x: 88, y: 25, lx: 90.5, ly: 9.5, a: 'end', g: 'M87.9 22.2 88.6 11.6', costa: true },
+    { s: 'valledupar', n: 'Valledupar', lat: 10.46, lon: -73.25, x: 98, y: 39, lx: 103, ly: 41.8, costa: true },
+    { s: 'sincelejo', n: 'Sincelejo', lat: 9.3, lon: -75.4, x: 62.4, y: 56, lx: 67, ly: 58.8, costa: true },
+    { s: 'monteria', n: 'Montería', lat: 8.75, lon: -75.88, x: 52, y: 68.5, lx: 57, ly: 71.3, costa: true },
+    { s: 'medellin', n: 'Medellín', lat: 6.24, lon: -75.58, x: 59.5, y: 105, lx: 65, ly: 107.8 },
+    { s: 'bucaramanga', n: 'Bucaramanga', lat: 7.12, lon: -73.12, x: 98.9, y: 90.9, lx: 93.8, ly: 93.7, a: 'end' },
+    { s: 'bogota', n: 'Bogotá', lat: 4.71, lon: -74.07, x: 83.7, y: 129.4, lx: 89, ly: 132.2 },
+    { s: 'cali', n: 'Cali', lat: 3.45, lon: -76.53, x: 44.3, y: 149.6, lx: 49.5, ly: 152.4 },
   ];
   var CIUDAD = {}; CIUDADES.forEach(function (c) { CIUDAD[c.s] = c; });
   var TIEMPOS = {};
   C.cobertura.tiempos.valor.split('.').forEach(function (s) { var m = s.split(':'); if (m[1]) TIEMPOS[m[0].trim()] = m[1].trim().replace(/ (h|días)/, NB + '$1'); });
   var regionDe = function (c) { return c.costa ? 'Costa Caribe' : 'Resto del país'; };
   var tiempoDe = function (c) { return TIEMPOS[regionDe(c)] || 'por confirmar'; };
-  var MAPA_D = 'M122.08 5.44L127.68 15.2L114.72 23.04L111.2 29.6L102.4 37.6L100.48 48L95.2 56.8L101.6 60L110.4 67.2L109.28 78.4L109.6 87.2L120 92L132.8 92L147.2 93.6L159.2 100L161.6 105.6L189.12 105.76L183.68 116.8L183.2 132.8L187.2 142.4L191.2 152L194.4 161.6L196 171.2L198.88 185.28L182.4 176.8L177.6 172.8L158.4 177.6L151.2 187.68L148 195.2L148 203.2L155.2 208L157.6 222.4L149.6 272.48L143.2 266.4L137.6 252.8L133.6 240.8L123.2 243.2L113.6 235.2L97.6 225.6L84.8 217.6L72 208L64 203.2L48 200L35.2 197.6L26.4 191.52L17.6 187.2L7.2 181.92L8 176L15.2 164.8L22.4 163.2L28 155.2L35.2 142.72L30.4 136L30.4 124.8L29.6 115.2L29.6 105.6L25.6 96L22.56 89.44L32 78.4L30.88 65.92L35.2 70.4L37.6 77.6L41.12 75.2L40.32 69.92L45.92 63.2L53.6 54.4L59.2 53.6L59.52 46.4L60 38.4L65.6 32L71.2 27.2L79.2 28.8L81.6 24.8L92.8 24L102.4 20L108.8 16L114.4 9.6Z';
+  // Contorno de Colombia: Natural Earth 1:50m (world-atlas), proyección equirrectangular de 16 px por grado, 134 vértices
+  var MAPA_D = 'M127.7 15L117.5 18.1L112.8 25.7L109.7 27L105.8 31.4L102.9 36.9L100.7 48.2L94.9 57.7L99.9 56.7L101.4 58.6L104 59L106.2 66.8L110.1 70.7L111 74.4L109.3 84.4L113.5 86.9L116.7 92.3L130.8 93L137 91.4L146.7 93.5L157.9 106.8L165.8 105.6L173.3 106.3L183.1 104.2L189.1 105.9L189.2 109.9L183.6 120.5L183.1 132.7L186.2 143L191.8 150.2L183.1 160.1L186.9 160.1L193.4 166.6L198.8 185.2L195.5 185.8L195.4 179L190.4 170.9L181.8 176.8L177.7 173L176.7 175.3L178 177.3L156.1 176.4L151.2 177.5L151.1 187.8L159.8 188L162.2 191L162.3 194.5L157.3 193.1L147.9 195.5L147.7 207L154.7 213L155 217L158.4 223.9L149.4 272.6L143.4 265.8L140.3 266.7L137 265.3L147.7 248L134.2 240.3L131 240.7L126.4 242.1L120.7 239.2L113.3 243.2L101.7 243.1L98.3 241.3L97.6 234.1L92.9 231.9L92.5 228L90.1 224.8L80.9 220.3L78.1 214.1L71.9 208L56.4 203.4L48.4 197.8L44.9 201L30.5 198.5L29.3 194.6L25.6 191.4L15.8 188.1L4.4 178.8L8.1 175.2L11.6 176.4L11.4 167.1L14.1 165.1L19.8 164.7L23.8 161.3L26.1 158.7L25.7 156.2L27.9 155.6L31.1 151.2L35.5 142.2L32.6 142.5L32.4 139.9L31.1 141.7L30.2 136.8L28.5 137.4L31.2 134.4L32.2 129.2L30.8 119.6L28.2 116.2L32.8 112.3L29.3 106L30.9 99.6L22.4 89.1L24.9 84.2L24.6 81.6L28.2 83.7L33.6 77.2L29.1 68.8L30.5 66.5L39.2 75.4L38 77.2L40.2 77.9L40.4 71.8L38.1 67.6L48.4 61L52.4 54.9L58.6 53.6L57.9 49.1L60.2 41.5L57.5 42.5L61.6 35L71.3 27.1L79.5 28.9L76.6 31L78.4 32.6L82.5 23.7L95.8 24.1L105.2 17.4L112.4 14.6L114.6 9.8L121.4 6.1L128.6 7.4L130.6 12.1Z';
 
   /* ---------- Nosotros ---------- */
   var MARCAS_HTML = '<ul class="marcas-lista">' +
@@ -1321,29 +1380,31 @@
   function vistaNosotros() {
     var r18 = REG['RSA-006359-2018'];
     var datos = '<dl class="datos-empresa">' + [
-      ['Razón social', esc(E.razon_social)], ['NIT', E.nit], ['Planta', 'Parque Industrial Europark, Km 1 vía a Turbaco'],
+      ['Razón social', esc(E.razon_social)], ['NIT', '<span class="nowrap">' + E.nit + '</span>'], ['Planta', 'Parque Industrial Europark, Km 1 de la vía a Turbaco'],
       ['Personas', E.empleados.valor + ' ' + aconf()],
     ].map(function (d) { return '<div><dt>' + d[0] + '</dt><dd>' + d[1] + '</dd></div>'; }).join('') + '</dl>';
+    var objeto = '<figure class="pagina-objeto objeto-foto desborda"><img src="img/equipo-planta.webp" alt="El equipo de Mundilácteos, con camisetas verdes de La Becerrita, frente a la planta del Parque Industrial Europark" width="900" height="466" decoding="async"><figcaption>El equipo frente a la planta de Europark.</figcaption></figure>';
     var hitos = [
-      ['2011', 'Se constituye Inversiones Mundilácteos S.A.S. en el área metropolitana de Cartagena.', 'Fuentes: EMIS, 30/12/2011; LinkedIn, 2010. ' + aconf()],
       ['2017', 'Registro Invima RSA-003008-2017 para mezclas en polvo a base de leche y endulzantes para preparar bebidas.', ''],
       ['2018', 'Registro Invima RSA-006359-2018 para leche en polvo entera, descremada, fortificada y azucarada. Hoy ampara más de 15 marcas, entre ellas The Cántaro, La Becerrita y marcas propias de cadenas.', 'Vigente hasta el ' + fechaLarga(r18.vence) + '.'],
       ['2022', 'The Cántaro y La Becerrita en bolsas de 380 a 900' + NB + 'g, y marcas propias para cadenas del país.', 'Según las fotos de empaque de ese año.'],
       ['2023', 'Registro Invima RSA-0027065-2023 para empacar leche en polvo entera y descremada.', ''],
       ['2025', 'Dos registros nuevos: alimento lácteo en polvo y mezcla láctea en polvo con café instantáneo, endulzada con panela.', 'RSA-0036572-2025 y RSA-0037312-2025.'],
     ];
-    var sinAnio = ['Planta en el Parque Industrial Europark', 'Lanzamiento de The Cántaro', 'Lanzamiento de La Becerrita', 'Certificación ISO 9001:2015'];
-    var historia = '<ol class="linea-tiempo">' + hitos.map(function (h) {
-      return '<li><span class="lt-anio">' + h[0] + '</span><div><p>' + h[1] + '</p>' + (h[2] ? '<p class="meta">' + h[2] + '</p>' : '') + '</div></li>';
-    }).join('') + '</ol>' +
-      '<h3 class="lt-sub">Hitos sin año confirmado</h3><ul class="linea-tiempo linea-tiempo--pend">' + sinAnio.map(function (t) {
-        return '<li><span class="lt-anio lt-anio--pend" aria-hidden="true">20__</span><div><p>' + t + '<span class="sr">, año por confirmar</span></p></div></li>';
-      }).join('') + '</ul><p class="meta lt-nota">Los años de 2017 a 2025 salen del número de cada registro en el Invima. Años sin fecha ' + aconf() + '</p>';
+    // La historia abre con el año de fundación como cifra gigante, junto a su dato
+    var historia = '<div class="historia-apertura"><p class="cifra-gigante cifra-gigante--hoja"><span class="cifra-gigante-num">2011</span><span class="cifra-gigante-u">Se constituye Inversiones Mundilácteos S.A.S. en el área metropolitana de Cartagena.</span></p>' +
+      '<p class="meta">Fuentes: EMIS, 30/12/2011; LinkedIn, 2010. ' + aconf() + '</p></div>' +
+      '<ol class="linea-tiempo">' + hitos.map(function (h) {
+        return '<li><span class="lt-anio">' + h[0] + '</span><div><p>' + h[1] + '</p>' + (h[2] ? '<p class="meta">' + h[2] + '</p>' : '') + '</div></li>';
+      }).join('') + '</ol>' +
+      '<p class="lt-pendientes"><strong>Por fechar:</strong> planta en Europark, lanzamiento de The Cántaro, lanzamiento de La Becerrita y certificación ISO 9001:2015. ' + aconf() + '</p>' +
+      '<p class="meta lt-nota">Los años de 2017 a 2025 salen del número de cada registro en el Invima.</p>';
 
-    var familia = '<div class="dos-cols"><div class="texto"><p>Mundilácteos es una empresa familiar de Cartagena. Esta sección presenta a la familia fundadora con su nombre, una foto real y una cita firmada: cuándo empezó y por qué eligió empacar leche en polvo.</p>' +
-      '<p>' + aconf('fundadores, año y motivo: dato a confirmar') + '</p>' +
-      '<figure class="cita-pend"><blockquote><p>Cita por recoger: una frase de la familia fundadora sobre por qué empezó a empacar leche en polvo en Cartagena.</p></blockquote><figcaption>Nombre y cargo de quien firma ' + aconf() + '</figcaption></figure></div>' +
-      htmlToma('O06', '4 / 5', 'Retrato de la familia fundadora en la planta, a la altura de los ojos.') + '</div>';
+    var familia = '<div class="dos-cols"><div class="texto"><p class="entradilla">Mundilácteos es una empresa familiar de Cartagena. ' + aconf('fundadores y año de inicio: dato a confirmar') + '</p>' +
+      '<p class="cita-linea"><span aria-hidden="true">«</span>Una frase firmada de la familia fundadora: por qué empezó a empacar leche en polvo en Cartagena. ' + aconf('cita por recoger') + '</p>' +
+      '<p>' + E.empleados.valor + ' personas trabajan en Mundilácteos ' + aconf('fuente secundaria, La República, 2025: dato a confirmar') + '. Son quienes reciben, empacan, sellan y despachan cada bolsa desde Europark.</p>' +
+      '<p class="toma-extra">También por producir, toma O06: retrato de la familia fundadora y de los asesores comerciales, cada uno con su nombre. Los asesores se publican también en <a href="#contacto">Contacto</a>.</p></div>' +
+      foto('equipo-evento-a.webp', 'Parte del equipo de Mundilácteos, con camisetas de La Becerrita, en una celebración de diciembre', 606, 404, 'Parte del equipo en la celebración de diciembre.', 'foto--marco') + '</div>';
 
     var planta = '<div class="dos-cols"><div class="texto">' + tablaDatos([
       ['Dirección', esc(E.direccion)],
@@ -1355,12 +1416,6 @@
       acciones('<a class="enlace" href="' + MAPS_PLANTA + '" target="_blank" rel="noopener">Cómo llegar<span class="sr"> (abre Google Maps)</span></a><a class="enlace" href="#calidad">Ver calidad y certificaciones</a>') + '</div>' +
       '<div class="tomas-par">' + htmlToma('O07', '3 / 2') + tomaExtra('O01') + '</div></div>';
 
-    var equipo = '<div class="texto"><p>' + E.empleados.valor + ' personas trabajan en Mundilácteos ' + aconf('fuente secundaria, La República, 2025: dato a confirmar') + '. Son quienes reciben, empacan, sellan y despachan cada bolsa desde Europark.</p>' +
-      '<p>Los retratos de los asesores comerciales, con su nombre, llegan con la toma O06 y se publican también en <a href="#contacto">Contacto</a>.</p></div>' +
-      '<div class="fotos-par">' +
-      foto('equipo-evento-a.webp', 'Parte del equipo de Mundilácteos, con camisetas de La Becerrita, en una celebración de diciembre', 606, 404, 'Parte del equipo en la celebración de diciembre. Foto del cliente.') +
-      foto('equipo-evento-b.webp', 'Siete personas del equipo de Mundilácteos, con camisetas de La Becerrita, en la misma celebración', 622, 415, 'En la misma celebración. Foto del cliente.') + '</div>';
-
     var valores = '<table class="planilla-razones"><caption class="sr">Valores de Mundilácteos y la evidencia de cada uno</caption><thead class="sr"><tr><th scope="col">Valor</th><th scope="col">Evidencia</th></tr></thead><tbody>' + [
       ['Pesamos lo que dice la etiqueta', 'Cada bolsa se pesa en la línea de empaque contra el peso neto impreso. ' + aconf('registro de pesaje por lote: dato a confirmar')],
       ['Cada bolsa lleva su lote', 'Lote y fecha de vencimiento impresos en cada bolsa. <a href="#calidad~lote">Cómo leer el lote</a>'],
@@ -1369,15 +1424,13 @@
     ].map(function (f) { return '<tr><th scope="row">' + f[0] + '</th><td>' + f[1] + '</td></tr>'; }).join('') + '</tbody></table>';
 
     montar('<div class="envoltura pagina">' +
-      cabecera('Nosotros', 'Somos una empresa familiar de Cartagena que empaca leche en polvo desde 2011. ' + aconf(), datos, null, 'pagina-cab--dos') +
-      foto('equipo-planta.webp', 'El equipo de Mundilácteos, con camisetas verdes de La Becerrita, frente a la planta y a la estatua de una vaca', 900, 466,
-        'El equipo frente a la planta del Parque Industrial Europark. Foto del cliente, de baja resolución: la reemplaza la toma O06.', 'foto--equipo') +
-      bloque('historia', 'Historia', historia) +
-      bloque('familia', 'La familia', familia) +
+      cabecera('Nosotros', 'Somos una empresa familiar de Cartagena que empaca leche en polvo desde 2011. ' + aconf(), datos, null, '', { banda: 'tinte', objeto: objeto }) +
+      bloque('historia', 'Historia', historia, 'bloque--primero') +
+      bloque('familia', 'La familia y el equipo', familia, 'bloque--tenue') +
       bloque('planta', 'La planta', planta) +
-      bloque('equipo', 'El equipo', equipo) +
-      bloque('valores', 'Valores en la práctica', '<p class="bloque-intro">Cada valor, con lo que lo demuestra.</p>' + valores) +
-      bloque('marcas', 'Nuestras marcas', MARCAS_HTML + '<p class="bloque-pie"><a class="enlace" href="#por-que-elegirnos">Ver por qué elegirnos</a></p>') +
+      bloque('valores', 'Valores en la práctica', '<p class="bloque-intro">Cada valor, con lo que lo demuestra.</p>' + valores, 'bloque--tinte') +
+      '<section class="bloque bloque--marcas" id="s-nuestras-marcas" aria-labelledby="n-t-marcas"><h2 id="n-t-marcas">Nuestras marcas</h2><p class="entradilla">Dos marcas de la casa y la de su cadena, empacadas en la misma planta de Europark.</p>' +
+      '<div class="banda banda--noche marcas-banda sangre">' + MARCAS_HTML + '<p class="bloque-pie"><a class="enlace" href="#por-que-elegirnos">Ver por qué elegirnos</a></p></div></section>' +
       '</div>');
     return 'Nosotros';
   }
@@ -1395,9 +1448,11 @@
       '<span class="toma-marca" style="--mx:62%;--my:30%">1</span><span class="toma-marca" style="--mx:62%;--my:46%">2</span>');
   }
   function vistaCalidad() {
+    // Gesto tipográfico de la página: FAVORABLE cruza la banda Azul noche del encabezado
+    var objeto = '<div class="pagina-objeto objeto-favorable"><p class="favorable"><span class="favorable-u">Concepto sanitario del INVIMA, verificado en datos.gov.co el ' + FECHA_DATOS + '</span><span class="favorable-num">FAVORABLE</span></p></div>';
     var fav = '<div class="prueba"><h3>Concepto sanitario del INVIMA</h3>' + estado('ok', 'Verificado en datos.gov.co el ' + FECHA_DATOS) +
       '<p class="prueba-valor">FAVORABLE</p>' +
-      tablaDatos([['Establecimiento', esc(E.razon_social) + ', NIT ' + E.nit], ['Línea', 'Leches en polvo y crema de leches en polvo'], ['Estado', 'Activo']], 'Concepto sanitario del establecimiento') +
+      tablaDatos([['Establecimiento', esc(E.razon_social) + ', NIT <span class="nowrap">' + E.nit + '</span>'], ['Línea', 'Leches en polvo y crema de leches en polvo'], ['Estado', 'Activo']], 'Concepto sanitario del establecimiento') +
       '<p>' + ext(INV.fuente, 'Ver el concepto en datos.gov.co') + '</p></div>';
     var iso = '<div class="prueba prueba--pend"><h3>ISO 9001:2015</h3>' + estado('pend', 'Por confirmar: no se muestra como sello') +
       '<p>Declarada en el sitio actual de Mundilácteos. Se publica como certificación cuando el certificado esté a la vista.</p>' +
@@ -1412,8 +1467,7 @@
       }).join('') + '</tbody></table>' +
       '<p class="meta bloque-pie">Datos tomados de los registros del Invima publicados en datos.gov.co el ' + FECHA_DATOS + '.</p>' +
       acciones(ext(URL_INVIMA, 'Consultar un registro en el Invima', '(abre el sitio del Invima)'));
-    var empaque = '<div class="dos-cols">' + pasos(PASOS_EMPAQUE) + '<div class="tomas-par">' + htmlToma('O02', '3 / 2') + tomaExtra('O03') + '</div></div>' +
-      '<p class="meta bloque-pie">Controles de cada paso por validar con la planta ' + aconf() + '</p>';
+    var empaque = '<div class="dos-cols"><div>' + pasos(PASOS_EMPAQUE) + '<p class="meta bloque-pie">Controles de cada paso por validar con la planta ' + aconf() + '</p></div><div class="tomas-par">' + htmlToma('O02', '3 / 2') + tomaExtra('O03') + '</div></div>';
     var lote = '<div class="dos-cols"><div class="texto"><p class="entradilla">Cada bolsa lleva impresos el lote y la fecha de vencimiento. La vida útil es de ' + C.calidad.vida_util_meses + ' meses, según la ficha técnica.</p>' +
       '<ol class="lista-num"><li><p><strong>Lote.</strong> Identifica la tanda de empaque. Téngalo a mano si va a escribirnos por un reclamo.</p></li>' +
       '<li><p><strong>Fecha de vencimiento.</strong> Consuma el producto antes de esa fecha y guarde la bolsa cerrada, en un lugar seco y a la sombra. ' + aconf() + '</p></li></ol>' +
@@ -1422,7 +1476,7 @@
       '<p><a class="enlace" href="#contacto~motivo-pqr">Escribir un reclamo con el lote</a></p></div>' + tomaAnotada() + '</div>';
     var materiales = tablaDatos([
       [icono('p-bolsa', 'picto') + '<span>Bolsa</span>', esc(C.calidad.empaque.bolsa)],
-      [icono('p-bolsa', 'picto') + '<span>Paca</span>', esc(C.calidad.empaque.caja.valor) + ' ' + aconf()],
+      [icono('p-paca', 'picto') + '<span>Paca</span>', esc(C.calidad.empaque.caja.valor) + ' ' + aconf()],
       [icono('p-bulto', 'picto') + '<span>Bulto</span>', esc(C.calidad.empaque.bulto)],
       ['<span>Vida útil</span>', C.calidad.vida_util_meses + ' meses, según la ficha técnica'],
       ['<span>Almacenamiento</span>', 'Cerrada, en un lugar seco y a la sombra ' + aconf()],
@@ -1431,18 +1485,18 @@
       '<ul class="lista-controles">' + ['Humedad', 'Grasa', 'Proteína', 'Análisis microbiológicos'].map(function (t) { return '<li><span>' + t + '</span>' + estado('pend') + '</li>'; }).join('') + '</ul></div>' +
       htmlToma('M03', '1 / 1') + '</div>';
     var fichas = '<ul class="lista-articulos lista-docs">' + C.productos.map(function (p) {
-      return '<li><a href="#producto-' + p.slug + '">' + esc(p.nombre) + '<span class="sr">: ficha técnica</span></a><span class="art-datos">Ficha técnica en HTML. ' + aconf('PDF por publicar') + '</span></li>';
+      return '<li><a href="#producto-' + p.slug + '">' + esc(nombreVisible(p)) + '<span class="sr">: ficha técnica</span></a><span class="art-datos">Ficha técnica en HTML. ' + aconf('PDF por publicar') + '</span></li>';
     }).join('') + '</ul>';
-    var pqr = '<section class="bloque" aria-labelledby="t-pqr"><div class="panel-film"><h2 id="t-pqr">¿Encontró un problema con un producto?</h2><p>Tenga a mano el lote y escríbanos. Respondemos en horario de atención.</p>' +
-      acciones('<a class="boton" href="#contacto~motivo-pqr">Escribir una petición, queja o reclamo</a>' + waEnlace('Hola, quiero reportar un problema con un producto. Lote: ', 'WhatsApp:')) + '</div></section>';
+    var pqr = '<section class="bloque bloque--verde" aria-labelledby="t-pqr"><div class="pqr"><h2 id="t-pqr">¿Encontró un problema con un producto?</h2><p class="entradilla">Tenga a mano el lote y escríbanos. Respondemos en horario de atención.</p>' +
+      acciones('<a class="boton boton--noche" href="#contacto~motivo-pqr">Escribir una petición, queja o reclamo</a>' + waEnlace('Hola, quiero reportar un problema con un producto. Lote: ', 'WhatsApp:')) + '</div></section>';
     montar('<div class="envoltura pagina">' +
-      cabecera('Calidad y certificaciones', 'Cada bolsa lleva impresos el lote y la fecha de vencimiento. Aquí están los certificados y registros que lo respaldan.', LEYENDA_ESTADOS) +
-      bloque('certificaciones', 'Certificaciones', '<div class="pruebas">' + fav + iso + '</div>') +
-      bloque('registros', 'Registros sanitarios Invima', regs) +
-      bloque('empaque', 'Así empacamos cada bolsa', empaque) +
-      bloque('lote', 'Lote, vencimiento y trazabilidad', lote) +
+      cabecera('Calidad y certificaciones', 'Cada bolsa lleva impresos el lote y la fecha de vencimiento. Aquí están los certificados y registros que lo respaldan.', LEYENDA_ESTADOS, null, '', { banda: 'noche', objeto: objeto }) +
+      bloque('certificaciones', 'Certificaciones', '<div class="pruebas">' + fav + iso + '</div>', 'bloque--primero') +
+      bloque('registros', 'Registros sanitarios Invima', regs, 'bloque--tenue') +
+      bloque('empacamos', 'Así empacamos cada bolsa', empaque) +
+      bloque('lote', 'Lote, vencimiento y trazabilidad', lote, 'bloque--tinte') +
       bloque('materiales', 'Empaque y conservación', materiales) +
-      bloque('controles', 'Qué controlamos', controles) +
+      bloque('controles', 'Qué controlamos', controles, 'bloque--tenue') +
       bloque('fichas', 'Fichas técnicas', '<p class="bloque-intro">La ficha técnica de cada producto está en HTML, dentro de su página. El PDF será una copia de esa tabla.</p>' + fichas) +
       pqr + '</div>');
     return 'Calidad y certificaciones';
@@ -1462,7 +1516,7 @@
       [C.calidad.registros.length + ' registros sanitarios Invima vigentes, hasta ' + Math.min.apply(null, vence) + ' y ' + Math.max.apply(null, vence), ext(URL_INVIMA, 'Consultar en el Invima') + '<a href="#calidad~registros">Ver la tabla de registros</a>'],
       ['The Cántaro publicado en línea en ' + lista(enLinea), enLinea.map(function (c) { return ext(DONDE[c][0].url, 'Ver en ' + c); }).join('')],
       ['El registro RSA-006359-2018 ampara más de 15 marcas, entre ellas marcas propias de cadenas del país', '<a href="#marca-propia">Ver marca propia</a>'],
-      ['Planta en el Parque Industrial Europark, Km 1 vía a Turbaco', '<a href="#nosotros~planta">Ver la planta</a>'],
+      ['Planta en el Parque Industrial Europark, Km 1 de la vía a Turbaco', '<a href="#nosotros~planta">Ver la planta</a>'],
       ['Lote y vencimiento impresos en cada bolsa', '<a href="#calidad~lote">Cómo leer el lote</a>'],
       ['12 presentaciones empacadas en planta, de 27' + NB + 'g a 25' + NB + 'kg', '<a href="#articulo-guia-presentaciones">Ver la guía de presentaciones</a>'],
       ['Bultos de 12,5 y 25' + NB + 'kg con bolsa interna y saco kraft de triple capa', '<a href="#productos~formato-bulto">Ver bultos</a>'],
@@ -1480,28 +1534,43 @@
       ['Testimonio 2', 'Panadería de Barranquilla que compre bultos.'],
       ['Testimonio 3', 'Cadena con marca propia, solo con su autorización escrita.'],
     ].map(function (t) { return '<li class="pendiente"><p class="pendiente-cod">' + t[0] + '</p><p>' + t[1] + '</p><p class="meta">Nombre, negocio, ciudad y autorización firmada.</p></li>'; }).join('') + '</ul>';
+    // Banda Azul noche entre los dos bloques: las pruebas en cifras y los bultos reales que la desbordan
+    var banda = '<section class="bloque bloque--noche bloque--pruebas" aria-labelledby="t-cifras"><div class="pruebas-bultos desborda" aria-hidden="true"><img src="img/r-bultos-trio.webp" alt="" width="879" height="363" loading="lazy" decoding="async"></div>' +
+      '<h2 id="t-cifras">Las pruebas, en cifras</h2><ul class="pruebas-cifras">' +
+      '<li><span class="pc-num">FAVORABLE</span><span class="pc-u">Concepto sanitario del INVIMA para la línea de leches en polvo</span></li>' +
+      '<li><span class="pc-num">12</span><span class="pc-u">presentaciones empacadas en planta, de 27' + NB + 'g a 25' + NB + 'kg</span></li>' +
+      '<li><span class="pc-num">+15</span><span class="pc-u">marcas amparadas por el registro RSA-006359-2018, entre ellas marcas propias de cadenas</span></li></ul></section>';
+    var objeto = '<div class="pagina-objeto objeto-cifra"><p class="cifra-gigante"><span class="cifra-gigante-num">' + C.calidad.registros.length + '</span><span class="cifra-gigante-u">registros sanitarios Invima vigentes, hasta ' + Math.max.apply(null, vence) + '</span></p><p><a class="enlace" href="#calidad~registros">Ver los registros</a></p></div>';
     montar('<div class="envoltura pagina">' +
-      cabecera('Por qué elegirnos', 'Cada razón viene con su prueba. Si algo no se puede verificar, no lo decimos.', LEYENDA_ESTADOS) +
-      bloque('comprobable', 'Lo que puede comprobar hoy', tabla(ok, 'Razones con prueba verificable', false)) +
-      bloque('por-confirmar', 'Por confirmar antes de publicar', '<p class="bloque-intro">El prototipo las muestra para que Mundilácteos las valide. En el sitio publicado solo quedan las que tengan prueba.</p>' + tabla(pend, 'Razones que falta confirmar', true)) +
-      bloque('testimonios', 'Testimonios', '<p class="bloque-intro">Solo publicaremos testimonios reales, con nombre, negocio, ciudad y autorización firmada. Ninguno es inventado.</p>' + testimonios) +
-      '<div class="cierre">' + acciones('<a class="boton" href="#cotizar">Cotizar por volumen</a>' + waEnlace(MSJ_GENERAL, 'Escribir a un asesor al')) + '</div></div>');
+      cabecera('Por qué elegirnos', 'Cada razón viene con su prueba. Si algo no se puede verificar, no lo decimos.', LEYENDA_ESTADOS, null, '', { banda: 'tinte', objeto: objeto }) +
+      bloque('comprobable', 'Lo que puede comprobar hoy', tabla(ok, 'Razones con prueba verificable', false), 'bloque--primero') +
+      banda +
+      '<section class="bloque" aria-labelledby="t-cierre"><h2 id="t-cierre">Pida su cotización</h2><p class="bloque-intro">Un asesor de la planta le confirma precio y fecha de entrega.</p>' +
+      acciones('<a class="boton" href="#cotizar">Cotizar por volumen</a>' + waEnlace(MSJ_GENERAL, 'Escribir a un asesor al')) +
+      notasPrototipo('razones por confirmar y testimonios', '<p>Estas razones se publican cuando tengan su prueba.</p>' + tabla(pend, 'Razones que falta confirmar', true) +
+        '<h3>Testimonios</h3><p>Solo testimonios reales, con nombre, negocio, ciudad y autorización firmada. Ninguno es inventado.</p>' + testimonios) + '</section></div>');
     return 'Por qué elegirnos';
   }
 
   /* ---------- Distribución ---------- */
   function htmlPanelCiudad(c) {
-    if (!c) return '<p class="panel-ciudad-titulo">Elija su ciudad</p><p>Toque un punto del mapa o una ciudad de la tabla.</p>';
+    if (!c) return '<p class="panel-ciudad-titulo">Elija su ciudad</p><p>Toque una ciudad de la tabla o un punto del mapa.</p>';
+    // El tiempo de entrega es la cifra gigante de la página, junto a su dato
+    var t = tiempoDe(c), m = /^(\d+) a (\d+)\s(h|días)(.*)$/.exec(t.replace(NB, ' '));
+    var cifra = m ? m[1] + '–' + m[2] + NB + m[3] : t;
+    var u = 'de entrega en ' + c.n + (m && /hábiles/.test(m[4]) ? ', en días hábiles,' : '') + ' desde la confirmación';
     return '<p class="panel-ciudad-titulo">' + c.n + (c.planta ? ': aquí está la planta' : '') + '</p>' +
-      '<p>' + (c.planta ? 'Parque Industrial Europark, a 1' + NB + 'km de Cartagena. ' : '') + 'Entrega en ' + tiempoDe(c) + ' desde la confirmación. ' + aconf() + '</p>' +
-      '<p>Pedido mínimo: ' + esc(C.cobertura.pedido_minimo.valor.replace(/\.$/, '').toLowerCase()) + '. Días de despacho ' + aconf() + '</p>' +
+      '<p class="cifra-gigante cifra-gigante--panel"><span class="cifra-gigante-num">' + cifra + '</span><span class="cifra-gigante-u">' + u + ' ' + aconf() + '</span></p>' +
+      (c.planta ? '<p>Planta en Europark, Km 1 de la vía a Turbaco (área metropolitana de Cartagena).</p>' : '') +
+      '<p>Pedido mínimo: ' + esc(C.cobertura.pedido_minimo.valor.replace(/\.$/, '').toLowerCase()) + '.</p>' +
+      '<p>Días de despacho: ' + aconf() + '</p>' +
       '<p><a class="boton" href="#cotizar~ciudad-' + c.s + '">Cotizar para ' + c.n + '</a></p>';
   }
   function elegirCiudad(s, desdeUsuario) {
     var c = CIUDAD[s]; if (!c) return;
     $$('[data-ciudad]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-ciudad') === s)); });
     $$('[data-fila-ciudad]').forEach(function (tr) { tr.classList.toggle('es-elegida', tr.getAttribute('data-fila-ciudad') === s); });
-    $$('[data-ciudad-rotulo]').forEach(function (r) { r.classList.toggle('es-elegida', r.getAttribute('data-ciudad-rotulo') === s); });
+    $$('[data-ciudad-rotulo], [data-ciudad-punto]').forEach(function (r) { r.classList.toggle('es-elegida', (r.getAttribute('data-ciudad-rotulo') || r.getAttribute('data-ciudad-punto')) === s); });
     var p = $('#panel-ciudad');
     if (p) {
       p.innerHTML = htmlPanelCiudad(c);
@@ -1513,18 +1582,21 @@
     var sel = 'monteria';
     tokens.forEach(function (t) { if (t.indexOf('ciudad-') === 0 && CIUDAD[t.slice(7)]) sel = t.slice(7); });
     var pc = function (v, tot) { return Math.round(v / tot * 10000) / 100; };
+    // En el mapa, los rótulos van en el SVG con halo blanco; los costeros salen al mar con línea guía.
+    // Desde 768 px los puntos son botones; en móvil el mapa es ilustración y la tabla es el control.
     var mapa = '<div class="mapa-col"><div class="mapa-dist" role="group" aria-labelledby="t-mapa-dist"><p class="sr" id="t-mapa-dist">Mapa lineal de Colombia con Cartagena y las ciudades de despacho. Elija una ciudad para ver el tiempo de entrega.</p>' +
-      '<svg viewBox="0 0 204 277" aria-hidden="true" focusable="false"><path class="mapa-contorno" d="' + MAPA_D + '"/></svg>' +
+      '<svg class="mapa" viewBox="0 0 204 277" aria-hidden="true" focusable="false"><path class="mapa-contorno" d="' + MAPA_D + '"/>' +
+      CIUDADES.map(function (c) { return c.g ? '<path class="mapa-guia" d="' + c.g + '"/>' : ''; }).join('') +
+      CIUDADES.map(function (c) { return '<g class="mapa-punto' + (c.planta ? ' mapa-punto--planta' : '') + '" data-ciudad-punto="' + c.s + '"><circle cx="' + c.x + '" cy="' + c.y + '" r="' + (c.planta ? 3.2 : 2.6) + '"/></g>'; }).join('') +
+      CIUDADES.map(function (c) { return '<text x="' + c.lx + '" y="' + c.ly + '"' + (c.a ? ' text-anchor="end"' : '') + ' data-ciudad-rotulo="' + c.s + '">' + c.n + '</text>'; }).join('') + '</svg>' +
       CIUDADES.map(function (c) {
-        var st = ' style="--x:' + pc(c.x, 204) + ';--y:' + pc(c.y, 277) + '"';
-        return '<button type="button" class="mapa-boton' + (c.planta ? ' mapa-boton--planta' : '') + '"' + st + ' data-ciudad="' + c.s + '" aria-pressed="false" aria-label="' + c.n + (c.planta ? ', planta' : '') + ': ver tiempo de entrega"></button>' +
-          '<span class="mapa-rotulo mapa-rotulo--' + c.lado + '"' + st + ' data-ciudad-rotulo="' + c.s + '" aria-hidden="true">' + c.n + '</span>';
+        return '<button type="button" class="mapa-boton" style="--x:' + pc(c.x, 204) + ';--y:' + pc(c.y, 277) + '" data-ciudad="' + c.s + '" aria-pressed="false" aria-label="' + c.n + (c.planta ? ', planta' : '') + ': ver tiempo de entrega"></button>';
       }).join('') + '</div><ul class="mapa-leyenda" aria-hidden="true"><li><span class="mapa-muestra mapa-muestra--planta"></span>Planta en Cartagena</li><li><span class="mapa-muestra"></span>Ciudad de despacho</li></ul></div>';
     var tabla = '<table class="tabla tabla-dist"><caption class="sr">Tiempo de entrega desde la confirmación y pedido mínimo, por ciudad. Es la alternativa al mapa.</caption>' +
       '<thead><tr><th scope="col">Ciudad</th><th scope="col" class="col-region">Región</th><th scope="col">Entrega</th><th scope="col">Pedido mínimo</th></tr></thead><tbody>' +
       CIUDADES.map(function (c) {
         return '<tr data-fila-ciudad="' + c.s + '"><th scope="row"><button type="button" class="ciudad-boton" data-ciudad="' + c.s + '" aria-pressed="false">' + c.n + '</button></th>' +
-          '<td class="col-region">' + regionDe(c) + '</td><td>' + tiempoDe(c) + '</td><td class="tenue">Por confirmar</td></tr>';
+          '<td class="col-region">' + regionDe(c) + '</td><td class="nowrap">' + tiempoDe(c) + '</td><td class="tenue nowrap">Por confirmar</td></tr>';
       }).join('') + '</tbody></table><p class="meta">Ciudades de ejemplo. Tiempos por región, pedido mínimo y días de despacho ' + aconf() + '</p>';
     var llega = pasos([
       ['Solicitud', 'Usted arma su cotización en pacas y bultos y la envía por el sitio o por WhatsApp.'],
@@ -1532,17 +1604,18 @@
       ['Despacho', 'El pedido sale del Parque Industrial Europark hacia su ciudad.'],
       ['Entrega con factura', 'Recibe sus pacas y bultos con la factura.'],
     ]);
-    var distribuidor = '<section class="bloque" id="s-distribuidor" aria-labelledby="t-distribuidor"><div class="zona-negocio bloque-negocio"><div class="dos-cols"><div class="texto">' +
-      '<h2 id="t-distribuidor">Sea distribuidor</h2><p>¿Tiene una distribuidora o un depósito y quiere llevar The Cántaro y La Becerrita a su zona? Escríbanos y le contamos las condiciones.</p>' +
+    var distribuidor = '<section class="bloque bloque--tinte" id="s-distribuidor" aria-labelledby="t-distribuidor"><div class="texto">' +
+      '<h2 id="t-distribuidor">Sea distribuidor</h2><p class="entradilla">¿Tiene una distribuidora o un depósito y quiere llevar The Cántaro y La Becerrita a su zona? Escríbanos y le contamos las condiciones.</p>' +
       '<p>Zonas disponibles, volumen mínimo y condiciones comerciales ' + aconf() + '</p>' +
       acciones('<a class="boton" href="#contacto~motivo-distribuidor">Quiero ser distribuidor</a>' + waEnlace('Hola, quiero ser distribuidor de The Cántaro y La Becerrita. Mi ciudad es: ', 'WhatsApp:')) +
-      '</div>' + htmlToma('O04', '3 / 2') + '</div></div></section>';
+      tomaExtra('O04') + '</div></section>';
+    var objeto = '<div class="pagina-objeto objeto-bultos desborda" aria-hidden="true"><img src="img/r-bultos-trio.webp" alt="" width="879" height="363" decoding="async"></div>';
     montar('<div class="envoltura pagina">' +
-      cabecera('Distribución', 'Despachamos desde Cartagena a toda Colombia. Elija su ciudad para ver el tiempo de entrega y el pedido mínimo.') +
+      cabecera('Distribución', 'Despachamos desde Cartagena a toda Colombia. Elija su ciudad para ver el tiempo de entrega y el pedido mínimo.', '', null, '', { banda: 'verde', objeto: objeto }) +
       '<section class="bloque bloque--primero" aria-labelledby="t-cobertura"><h2 id="t-cobertura" class="sr">Cobertura por ciudad</h2><div class="dist-grid">' +
       mapa + '<div class="panel-ciudad" id="panel-ciudad" aria-live="polite"></div><div class="dist-tabla">' + tabla + '</div></div>' +
       '<p class="dist-falta">¿Su ciudad no está? Escríbanos y le decimos cómo llegar. ' + waEnlace('Hola, quiero saber si despachan a mi ciudad: ', 'WhatsApp:') + '</p></section>' +
-      bloque('llega', 'Cómo llega su pedido', '<div class="dos-cols">' + llega + htmlToma('O05', '3 / 2') + '</div>') +
+      bloque('llega', 'Cómo llega su pedido', '<div class="dos-cols">' + llega + htmlToma('O05', '3 / 2') + '</div>', 'bloque--tenue') +
       distribuidor +
       '<p class="linea-casa">¿Es para su casa? <a href="#donde-comprar">Dónde comprar</a></p></div>');
     elegirCiudad(sel, false);
@@ -1555,8 +1628,12 @@
     var c = k.c, enl = [];
     if (c.url) enl.push(ext(c.url, 'Ir a ' + c.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')));
     if (c.url && c.tipo !== 'Domicilios') enl.push(ext('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(c.nombre + ' ' + (ciudad ? ciudad.n : 'Costa Caribe')), 'Buscar tiendas en el mapa', '(abre Google Maps)'));
+    // Voz de la marca: qué puede hacer el consumidor en cada cadena (el estado de la investigación no se publica)
+    var txt = k.prods.length ? 'The Cántaro en línea: ' + k.prods.map(function (p) { return ext(p.url, esc(p.t)); }).join(', ') + '.'
+      : k.pend ? 'Consulte disponibilidad en su tienda. ' + aconf()
+      : c.tipo === 'Domicilios' ? 'Pídala a domicilio en las ciudades principales.' : 'Disponible en su tienda en línea.';
     return '<li class="tienda' + (k.pend ? ' tienda--pend' : '') + '"><div class="tienda-cab"><h3>' + esc(c.nombre) + '</h3><p class="meta">' + esc(c.tipo) + '. ' + esc(c.region) + '.</p></div>' +
-      '<p>' + (k.prods.length ? 'The Cántaro en línea: ' + k.prods.map(function (p) { return ext(p.url, esc(p.t)); }).join(', ') + '.' : esc(c.estado.replace(/;?\s*por confirmar$/, '')) + (k.pend ? ' ' + aconf() : '.')) + '</p>' +
+      '<p>' + txt + '</p>' +
       (enl.length ? '<p class="tienda-enlaces">' + enl.join('') + '</p>' : '') + '</li>';
   }
   var SIN_COBERTURA = '<p class="sin-cobertura">¿Quiere llevar The Cántaro y La Becerrita a su zona? <a href="#distribucion~distribuidor">Sea distribuidor</a></p>';
@@ -1613,14 +1690,19 @@
       '<div class="buscar-ciudad-fila"><input id="donde-ciudad" type="text" list="donde-ciudades" autocomplete="address-level2" value="' + (c ? c.n : '') + '"><button type="submit" class="boton">Buscar</button></div>' +
       '<datalist id="donde-ciudades">' + CIUDADES.map(function (x) { return '<option value="' + x.n + '"></option>'; }).join('') + '</datalist>' +
       '<button type="button" class="enlace-boton" data-ubicacion>' + icono('i-ubicacion') + 'Usar mi ubicación</button><p class="meta" id="donde-estado" aria-live="polite"></p></form>';
+    // Lo que el consumidor busca en la góndola: tres bolsas reales de pie sobre su línea base, que rompen el dentado
+    var gondola = [['r-cantaro-entera-500g', 254, 360, 24], ['r-cantaro-azucarada-380g', 262, 360, 22], ['r-becerrita-entera-900g', 236, 360, 29]];
+    var objeto = '<div class="pagina-objeto escala-trio escala-trio--gondola desborda" aria-hidden="true">' + gondola.map(function (t) {
+      return '<span class="escala-pieza" style="--alto-cm:' + t[3] + '"><img src="img/' + t[0] + '.webp" alt="" width="' + t[1] + '" height="' + t[2] + '" decoding="async"></span>';
+    }).join('') + '<span class="escala-base"></span></div>';
     montar('<div class="envoltura pagina">' +
-      cabecera('Dónde comprar', 'Encontramos The Cántaro publicado en Megatiendas, Éxito, Carulla y Rappi. Busque su ciudad para ver dónde comprar.') +
+      cabecera('Dónde comprar', 'The Cántaro está en Megatiendas, Éxito, Carulla y Rappi. Busque su ciudad para ver dónde comprar.', '', null, '', { banda: 'tinte', objeto: objeto }) +
       '<section class="bloque bloque--primero" aria-labelledby="t-donde"><h2 id="t-donde" class="sr">Buscar por ciudad</h2><div class="dos-cols dos-cols--ancha"><div class="donde-col">' + form +
       '<div class="donde-res" id="donde-res"></div><p class="meta">Cobertura de cada cadena por ciudad y puntos de venta de La Becerrita ' + aconf() + '</p>' +
       '<p class="donde-ayuda">¿No la encuentra? Escríbanos y le decimos dónde. ' + waEnlace('Hola, no encuentro The Cántaro en mi ciudad. Mi ciudad es: ', 'WhatsApp:') + '</p></div>' +
       '<div class="tomas-par">' + htmlToma('C03', '3 / 2') + tomaExtra('C04') + '</div></div></section>' +
-      '<section class="bloque" aria-labelledby="t-tienda"><div class="zona-negocio bloque-negocio bloque-negocio--linea"><div><h2 id="t-tienda">¿Tiene una tienda?</h2><p>Cotice por pacas de 12 a 30 bolsas, o por bultos si tiene panadería.</p></div>' +
-      acciones('<a class="boton" href="#cotizar">Cotizar por volumen</a><a class="enlace" href="#productos~formato-bolsa">Ver pacas</a>') + '</div></section></div>');
+      '<section class="bloque bloque--verde" aria-labelledby="t-tienda"><div class="bloque-negocio--linea"><div><h2 id="t-tienda">¿Tiene una tienda?</h2><p class="entradilla">Cotice por pacas de 12 a 30 bolsas, o por bultos si tiene panadería.</p></div>' +
+      acciones('<a class="boton boton--noche" href="#cotizar">Cotizar por volumen</a><a class="enlace" href="#productos~formato-bolsa">Ver pacas</a>') + '</div></section></div>');
     pintarDonde(c, c ? c.n : '');
     return 'Dónde comprar';
   }
@@ -1729,19 +1811,23 @@
     var bolsas = gr.filter(function (c) { return FILA_DE[c].g < 5000; }).map(function (c) { return c.replace(/\s*g$/, ''); });
     var bultos = gr.filter(function (c) { return FILA_DE[c].g >= 5000; }).map(function (c) { return c.replace(/\s*kg$/, ''); });
     var rL = REG['RSA-006359-2018'], rM = REG['RSA-003008-2017'];
-    var oferta = '<section class="bloque bloque--primero" id="s-oferta" aria-labelledby="t-oferta"><div class="zona-negocio bloque-negocio"><h2 id="t-oferta">Qué ofrecemos</h2>' + tablaDatos([
+    var oferta = '<section class="bloque bloque--primero" id="s-oferta" aria-labelledby="t-oferta"><h2 id="t-oferta">Qué ofrecemos</h2>' + tablaDatos([
       ['Presentaciones', 'Bolsas de ' + lista(bolsas) + NB + 'g. Bultos de ' + lista(bultos) + NB + 'kg.'],
       ['Leche en polvo', esc(rL.producto.replace(/^Leche en polvo:\s*/, '').replace(/^./, function (x) { return x.toUpperCase(); })) + '. Registro ' + rL.numero + '.'],
       ['Mezclas lácteas', esc(rM.producto) + ' (registro ' + rM.numero + '). Se rotulan como mezcla, nunca como leche.'],
       ['Empaque', 'Bolsa laminada de tres capas, termosellada en atmósfera controlada de CO₂, en pacas. Bulto con bolsa interna de polietileno y saco kraft de triple capa.'],
       ['Registro sanitario', esc(C.maquila.resumen) + ' ' + esc(C.maquila.evidencia)],
       ['Titular del registro en su etiqueta', aconf()],
-    ], 'Qué ofrecemos en marca propia', 'tabla-negocio') + '</div></section>';
+    ], 'Qué ofrecemos en marca propia', 'tabla-negocio') + '</section>';
     var tamanos = [[292, 439], [350, 525], [314, 471]];
-    var fotos = '<ul class="mp-fotos">' + C.maquila.imagenes.map(function (src, i) {
+    // Encabezado: las bolsas de marca propia que ya salen de la planta, con el aviso de autorización
+    var objeto = '<figure class="pagina-objeto objeto-mp desborda"><ul class="mp-fila">' + C.maquila.imagenes.map(function (src, i) {
       var t = tamanos[i] || [300, 450];
-      return '<li class="mp-foto"><img src="img/' + src + '" alt="Bolsa de leche en polvo de marca propia empacada por Mundilácteos para una cadena (' + (i + 1) + ' de ' + C.maquila.imagenes.length + ')" width="' + t[0] + '" height="' + t[1] + '" loading="lazy" decoding="async"></li>';
-    }).join('') + '</ul><p class="meta mp-aviso">' + esc(C.maquila.nota_imagenes.replace(/ Mostrar.*$/, '')) + ' Se muestran con autorización del cliente. Autorización escrita de cada cadena ' + aconf() + '</p>';
+      return '<li><img src="img/' + src + '" alt="Bolsa de leche en polvo de marca propia empacada por Mundilácteos para una cadena (' + (i + 1) + ' de ' + C.maquila.imagenes.length + ')" width="' + t[0] + '" height="' + t[1] + '" decoding="async"></li>';
+    }).join('') + '</ul><figcaption>' + esc(C.maquila.nota_imagenes.replace(/ Mostrar.*$/, '')) + ' Se muestran con autorización del cliente. ' + aconf('autorización escrita de cada cadena: dato a confirmar') + '</figcaption></figure>';
+    var presentaciones = '<div class="dos-cols"><div class="texto"><p class="cifra-gigante"><span class="cifra-gigante-num">' + gr.length + '</span><span class="cifra-gigante-u">presentaciones, de ' + fmtPres(gr[0]) + ' a ' + fmtPres(gr[gr.length - 1]) + '</span></p>' +
+      '<ul class="chips-lista" aria-label="Presentaciones posibles">' + gr.map(function (c) { return '<li>' + fmtPres(c) + '</li>'; }).join('') + '</ul>' +
+      '<p>Bolsas de ' + lista(bolsas) + NB + 'g, en pacas. Bultos de ' + lista(bultos) + NB + 'kg. Su cadena elige la presentación; nosotros la empacamos con su marca.</p></div>' + htmlToma('C05', '3 / 2') + '</div>';
     var trabajo = pasos([
       ['Muestras y especificación', 'Nos cuenta presentaciones, tipo de leche y volumen. Le enviamos muestras.'],
       ['Diseño del empaque', 'Su cadena aporta el arte de la marca; lo ajustamos a la bolsa o al saco.'],
@@ -1767,11 +1853,11 @@
       '<div class="paso-acciones"><button type="submit" class="boton">Pedir muestras y costos</button></div><p class="cot-nota">Esto no es un pedido: es una solicitud de muestras y costos.</p></form>';
     montar('<div class="envoltura pagina">' +
       cabecera('Marca propia para cadenas', 'Empacamos leche en polvo con la marca de su cadena, en la presentación que necesite.',
-        acciones('<a class="boton" href="#marca-propia~muestras">Pedir muestras y costos</a>' + waEnlace('Hola, quiero información sobre marca propia (maquila). Mi cadena es: ', 'WhatsApp:'))) +
+        acciones('<a class="boton" href="#marca-propia~muestras">Pedir muestras y costos</a>' + waEnlace('Hola, quiero información sobre marca propia (maquila). Mi cadena es: ', 'WhatsApp:')), null, '', { banda: 'verde', objeto: objeto }) +
       oferta +
-      bloque('empaques', 'Empaques que ya hacemos', '<div class="dos-cols"><div>' + fotos + '</div>' + htmlToma('C05', '3 / 2') + '</div>') +
+      bloque('presentaciones', 'Presentaciones posibles', presentaciones, 'bloque--tinte') +
       bloque('como', 'Cómo trabajamos', trabajo) +
-      bloque('requisitos', 'Requisitos', requisitos) +
+      bloque('requisitos', 'Requisitos', requisitos, 'bloque--tenue') +
       bloque('muestras', 'Pedir muestras y costos', '<div class="dos-cols dos-cols--ancha">' + form +
         '<div class="form-lado"><p>Le respondemos con muestras, costos por presentación y los pasos para arrancar.</p><p>¿Prefiere hablar ya? ' + waEnlace('Hola, quiero información sobre marca propia (maquila). Mi cadena es: ', 'WhatsApp:') + '</p><p class="meta">Tiempo de respuesta ' + aconf() + '</p></div></div>') +
       '</div>');
@@ -1817,7 +1903,7 @@
     var filasG = C.maquila.gramajes.map(function (c) {
       var f = FILA_DE[c], e = estadoGramaje(c), bulto = f.g >= 5000;
       var marcas = e.estado === 'maquila' ? '<span class="tenue">Solo marca propia</span>' : e.refs.map(function (r) {
-        return '<a href="#producto-' + r.p.slug + '~' + presSlug(c) + '">' + esc(r.p.nombre) + '</a>' + (r.pr.estado !== 'confirmado' ? ' ' + aconf() : '');
+        return '<a href="#producto-' + r.p.slug + '~' + presSlug(c) + '">' + esc(nombreVisible(r.p)) + '</a>' + (r.pr.estado !== 'confirmado' ? ' ' + aconf() : '');
       }).join('<br>');
       return '<tr><th scope="row">' + fmtPres(c) + '</th><td data-etiqueta="Formato">' + (bulto ? 'Bulto' : 'Bolsa') + '</td><td data-etiqueta="Se vende">' + (bulto ? 'Por bulto' : 'Paca de ' + C.unidades_por_paca[c] + ' bolsas') + '</td>' +
         '<td data-etiqueta="Rinde en leche">' + fmtL(f.g / G_POR_L) + '</td><td data-etiqueta="Marcas de la casa">' + marcas + '</td></tr>';
@@ -1881,16 +1967,20 @@
       '<p class="conteo-res" id="conteo-art" aria-live="polite"></p>';
     var docs = '<table class="tabla tabla-docs tabla-apila"><caption class="sr">Documentos para compradores y su estado</caption><thead><tr><th scope="col">Documento</th><th scope="col">Dónde está</th><th scope="col">Estado</th></tr></thead><tbody>' +
       C.productos.filter(function (p) { return p.presentaciones.length; }).map(function (p) {
-        return '<tr><th scope="row">Ficha técnica de ' + esc(p.nombre) + '</th><td data-etiqueta="Dónde está"><a href="#producto-' + p.slug + '">Ver en HTML<span class="sr">: ficha técnica de ' + esc(p.nombre) + '</span></a></td><td data-etiqueta="Estado">' + estado('pend', 'PDF por publicar') + '</td></tr>';
+        return '<tr><th scope="row">Ficha técnica de ' + esc(nombreVisible(p)) + '</th><td data-etiqueta="Dónde está"><a href="#producto-' + p.slug + '">Ver en HTML<span class="sr">: ficha técnica de ' + esc(nombreVisible(p)) + '</span></a></td><td data-etiqueta="Estado">' + estado('pend', 'PDF por publicar') + '</td></tr>';
       }).join('') +
       '<tr><th scope="row">Registros sanitarios Invima</th><td data-etiqueta="Dónde está">' + ext(URL_INVIMA, 'Consulta pública del Invima') + '</td><td data-etiqueta="Estado">' + estado('ok', 'Consultable') + '</td></tr>' +
       '<tr><th scope="row">Concepto sanitario del establecimiento</th><td data-etiqueta="Dónde está">' + ext(INV.fuente, 'Datos abiertos, datos.gov.co') + '</td><td data-etiqueta="Estado">' + estado('ok', 'FAVORABLE') + '</td></tr>' +
       '<tr><th scope="row">Certificado ISO 9001:2015</th><td data-etiqueta="Dónde está"><span class="tenue">Aún no disponible</span></td><td data-etiqueta="Estado">' + estado('pend') + '</td></tr>' +
       '<tr><th scope="row">Catálogo en PDF</th><td data-etiqueta="Dónde está"><span class="tenue">Aún no disponible</span></td><td data-etiqueta="Estado">' + estado('pend', 'Por publicar') + '</td></tr></tbody></table>';
+    // Artículo destacado: la cifra 7,4 L en expandida sobre Verde tinte, que rompe el dentado del encabezado
+    var dest = ART['cuanto-rinde-un-kilo'];
+    var objeto = '<a class="pagina-objeto destacado desborda" href="#articulo-' + dest.slug + '"><span class="destacado-cifra">' + fmtNum(1000 / G_POR_L, 1) + NB + 'L</span>' +
+      '<span class="destacado-u">de leche por cada kilo de polvo</span><span class="destacado-titulo">' + esc(dest.t) + '</span><span class="destacado-meta">' + TEMAS[dest.tema] + '. ' + minutosDe(dest) + ' min de lectura</span></a>';
     montar('<div class="envoltura pagina">' +
-      cabecera('Recursos', 'Guías, recetas y documentos sobre la leche en polvo, para su negocio y para su cocina.') +
+      cabecera('Recursos', 'Guías, recetas y documentos sobre la leche en polvo, para su negocio y para su cocina.', '', null, '', { banda: 'tenue', objeto: objeto }) +
       '<section class="bloque bloque--primero" aria-labelledby="t-articulos"><h2 id="t-articulos">Artículos</h2>' + filtros + '<ul class="lista-articulos lista-articulos--recursos" id="lista-art"></ul></section>' +
-      bloque('documentos', 'Documentos para compradores', '<p class="bloque-intro">Cada ficha técnica existe en HTML dentro de la página del producto. El PDF será una copia, nunca el único lugar del dato.</p>' + docs) +
+      bloque('documentos', 'Documentos para compradores', '<p class="bloque-intro">Cada ficha técnica existe en HTML dentro de la página del producto. El PDF será una copia, nunca el único lugar del dato.</p>' + docs, 'bloque--tenue') +
       '</div>');
     pintarRecursos(tema);
     return 'Recursos';
@@ -1903,7 +1993,7 @@
       html += '<article class="articulo" aria-labelledby="t-art"><header class="articulo-cab"><h1 id="t-art">' + esc(a.t) + '</h1><p class="entradilla">' + a.e + '</p>' +
         '<p class="articulo-meta">' + TEMAS[a.tema] + '. ' + minutosDe(a) + ' min de lectura. Actualizado el ' + FECHA_DATOS + '.</p></header>' +
         '<div class="articulo-cuerpo">' + a.cuerpo() + '</div>' +
-        '<div class="articulo-lado"><h2>Productos mencionados</h2><ul class="lista-texto">' + a.productos.map(function (s) { return '<li><a href="#producto-' + s + '">' + esc(PROD[s].nombre) + '</a></li>'; }).join('') + '</ul>' + a.cierre + '</div></article>';
+        '<div class="articulo-lado"><h2>Productos mencionados</h2><ul class="lista-texto">' + a.productos.map(function (s) { return '<li><a href="#producto-' + s + '">' + esc(nombreVisible(PROD[s])) + '</a></li>'; }).join('') + '</ul>' + a.cierre + '</div></article>';
     } else {
       html += '<article class="articulo articulo--pend" aria-labelledby="t-art"><header class="articulo-cab"><h1 id="t-art">' + esc(a.t) + '</h1><p class="entradilla">' + a.e + '</p>' +
         '<p class="articulo-meta">' + TEMAS[a.tema] + '. ' + estado('pend', a.estado) + '</p></header>' +
@@ -1946,12 +2036,14 @@
       campo('contacto', 'mensaje', 'Mensaje', { area: true }) +
       trampaGen('contacto') + casillaDatos('contacto') +
       '<div class="paso-acciones"><button type="submit" class="boton">Enviar mensaje</button></div><p>¿Prefiere WhatsApp? ' + waEnlace(MSJ_GENERAL, 'Escribir al') + '</p></form>';
+    var objeto = '<figure class="pagina-objeto objeto-via desborda">' + SVG_UBICACION + '<figcaption>Esquema sin escala. <a href="' + MAPS_PLANTA + '" target="_blank" rel="noopener">Ver en Google Maps<span class="sr"> (abre otro sitio)</span></a></figcaption></figure>';
     montar('<div class="envoltura pagina">' +
-      cabecera('Contacto', 'Escríbanos, llámenos o visítenos en la planta. Respondemos en horario de atención.') +
-      '<section class="bloque bloque--primero" aria-labelledby="t-canales"><h2 id="t-canales">Canales</h2><div class="dos-cols dos-cols--ancha">' + canales +
-      '<div class="contacto-lado">' + SVG_UBICACION + '<p class="meta">Esquema sin escala. <a href="' + MAPS_PLANTA + '" target="_blank" rel="noopener">Ver en Google Maps<span class="sr"> (abre otro sitio)</span></a></p>' + htmlToma('O07', '3 / 2') + '</div></div></section>' +
+      cabecera('Contacto', 'Escríbanos, llámenos o visítenos en la planta. Respondemos en horario de atención.', '', null, '', { banda: 'tenue', objeto: objeto }) +
+      '<section class="bloque bloque--primero bloque--noche bloque--canales" aria-labelledby="t-canales"><div class="dos-cols dos-cols--ancha"><div class="texto">' +
+      '<h2 id="t-canales">Canales</h2><p class="tel-grande"><a href="' + TEL_HREF + '"><span class="sr">Llamar al </span>' + TEL_VISIBLE + '</a></p><p class="tel-u">Teléfono y WhatsApp del equipo comercial.</p>' + canales + '</div>' +
+      htmlToma('O07', '3 / 2') + '</div></section>' +
       bloque('escribanos', 'Escríbanos', '<div class="dos-cols dos-cols--ancha">' + form +
-        '<div class="form-lado"><h3>Asesores comerciales</h3><p>Nombres y retratos de los asesores ' + aconf() + '</p>' + htmlToma('O06', '4 / 5', 'Retratos de los asesores comerciales, cada uno con su nombre.') + '</div></div>') +
+        '<div class="form-lado"><h3>Asesores comerciales</h3><p>Nombres y retratos de los asesores ' + aconf() + '</p><p class="toma-extra">También por producir, toma O06: retratos de los asesores comerciales, cada uno con su nombre.</p></div></div>') +
       '</div>');
     return 'Contacto';
   }
@@ -1998,7 +2090,9 @@
     var e = estadoGramaje(f.c), bulto = f.g >= 5000;
     var l1 = bulto ? 'Bulto de ' + fmtPres(f.c) + ': bolsa de polietileno y saco kraft de triple capa.'
       : (C.unidades_por_paca[f.c] ? 'Paca de ' + C.unidades_por_paca[f.c] + ' bolsas, ' + fmtKg(C.unidades_por_paca[f.c] * f.g / 1000) + '.' : 'Paca: consultar.');
-    var l2 = 'En leche en polvo rinde cerca de ' + (f.g < 100 ? fmtNum(f.g / G_POR_L * 1000, 0) + NB + 'ml' : fmtL(f.g / G_POR_L)) + ' por ' + (bulto ? 'bulto' : 'bolsa') + '.';
+    var soloMezcla = e.refs.some(function (r) { return r.pr.estado === 'confirmado'; }) && !e.refs.some(function (r) { return r.pr.estado === 'confirmado' && esLeche(r.p); });
+    var l2 = soloMezcla ? 'Rinde de la mezcla láctea ' + aconf() + ' En leche en polvo, cerca de ' + fmtL(f.g / G_POR_L) + ' por bulto.'
+      : 'En leche en polvo rinde cerca de ' + (f.g < 100 ? fmtNum(f.g / G_POR_L * 1000, 0) + NB + 'ml' : fmtL(f.g / G_POR_L)) + ' por ' + (bulto ? 'bulto' : 'bolsa') + '.';
     var l3;
     // Agrupa por marca para que la línea sea corta: "The Cántaro Entera, Azucarada y Mezcla Láctea; La Becerrita Entera"
     var agrupar = function (refs) {
@@ -2006,7 +2100,8 @@
       refs.forEach(function (r) {
         var m = MARCA[r.p.marca].nombre;
         if (!por[m]) { por[m] = []; orden.push(m); }
-        por[m].push(r.p.nombre.indexOf(m + ' ') === 0 ? r.p.nombre.slice(m.length + 1) : r.p.nombre);
+        var nv = nombreVisible(r.p);
+        por[m].push(nv.indexOf(m + ' ') === 0 ? nv.slice(m.length + 1) : nv);
       });
       return orden.map(function (m) { return m + ' ' + lista(por[m]); }).join('; ');
     };
@@ -2023,16 +2118,18 @@
     var form = $('#fila-inicio'); if (!form) return;
     form.classList.add('fila--js');
     var lista = $('.fila-lista', form);
-    var ind = document.createElement('span'); ind.className = 'fila-indicador'; ind.setAttribute('aria-hidden', 'true');
+    var ind = document.createElement('span'); ind.className = 'fila-indicador sin-transicion'; ind.setAttribute('aria-hidden', 'true');
     lista.appendChild(ind);
     var mf = $('#minificha');
+    var soltarInd = function () { requestAnimationFrame(function () { requestAnimationFrame(function () { ind.classList.remove('sin-transicion'); }); }); };
+    // La barra de selección mide 1 px y se escala: solo se anima transform
     var mover = function () {
       var inp = $('input:checked', form); if (!inp) return;
       var cifra = $('label[for="' + inp.id + '"] .fila-cifra', form);
       var lr = lista.getBoundingClientRect(), cr = cifra.getBoundingClientRect();
-      if (!cr.width) { ind.style.width = '0px'; return; }
-      ind.style.setProperty('--x', (cr.left - lr.left) + 'px');
-      ind.style.setProperty('--w', cr.width + 'px');
+      if (!cr.width) { ind.style.setProperty('--w', 0); return; }
+      ind.style.setProperty('--x', (cr.left - lr.left + lista.scrollLeft) + 'px');
+      ind.style.setProperty('--w', cr.width.toFixed(1));
     };
     var pintar = function (animar) {
       var inp = $('input:checked', form); if (!inp) return;
@@ -2041,23 +2138,38 @@
       if (animar && !reducido()) { mf.classList.remove('cambia'); void mf.offsetWidth; mf.classList.add('cambia'); }
       mover();
     };
-    form.addEventListener('change', function () { pintar(true); });
+    form.addEventListener('change', function () {
+      pintar(true);
+      // En móvil la mini-ficha queda a la vista para que la persona vea el efecto de su elección
+      if (!esEscritorio()) {
+        var r = mf.getBoundingClientRect();
+        if (r.bottom > window.innerHeight - 72 || r.top < 60) mf.scrollIntoView({ block: 'nearest', behavior: reducido() ? 'auto' : 'smooth' });
+      }
+    });
+    var det = $('[data-leyenda]');
+    if (det && esEscritorio()) det.open = true;
     form.addEventListener('submit', function (e) { e.preventDefault(); });
     window.addEventListener('resize', mover);
     // Carga orquestada del hero, una vez por sesión y solo si se entra por la Home (EXPERIENCIA.md §2).
     // En móvil el estado inicial es 900 g, que está entre las 5 visibles.
     var hero = form.closest('.hero');
+    var anima = false;
     try {
       if (!sessionStorage.getItem('mundi.fila.vista') && parsear().base === 'inicio') {
         if (!reducido() && hero) {
+          anima = true;
           hero.classList.add('hero--anima');
-          setTimeout(function () { hero.classList.remove('hero--anima'); mover(); }, 1000);
+          // La barra de selección aparece cuando la cifra de 900 g ya se imprimió, sin deslizarse desde otro sitio
+          setTimeout(function () { mover(); soltarInd(); }, 720);
+          setTimeout(function () { hero.classList.remove('hero--anima'); }, 900);
         }
         sessionStorage.setItem('mundi.fila.vista', '1');
       }
     } catch (e) { /* sin sessionStorage: no se anima */ }
     pintar(false);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(mover);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { mover(); if (!anima) soltarInd(); });
+    else if (!anima) soltarInd();
+    lista.addEventListener('scroll', function () { form.classList.toggle('fila--al-final', lista.scrollLeft + lista.clientWidth >= lista.scrollWidth - 4); }, { passive: true });
     var ver = $('[data-ver-todas]');
     if (ver) ver.addEventListener('click', function () {
       var abierto = form.classList.toggle('fila--completa');
@@ -2066,8 +2178,11 @@
       if (!abierto) {
         var inp = $('input:checked', form);
         if (inp && inp.closest('.fila-pieza--extra')) { $('#fila-900-g').checked = true; pintar(true); }
+      } else {
+        // Una sola línea base que se desplaza de lado: la pieza elegida queda a la vista
+        var el = $('input:checked', form); if (el) { var li = el.closest('.fila-pieza'); lista.scrollLeft = Math.max(0, li.offsetLeft - lista.clientWidth / 2 + li.offsetWidth / 2); }
       }
-      mover();
+      ind.classList.add('sin-transicion'); mover(); soltarInd();
     });
   }
 
@@ -2137,7 +2252,7 @@
         partes.push(it.n + ' ' + plural(it.n, 'bulto', 'bultos') + ' de ' + fmtPres(it.pr.contenido));
       });
       volarACotizacion($('button[type="submit"]', f), 'p-bulto');
-      avisar('<p>Agregado a la cotización: ' + esc(calcCombo.p.nombre) + ', ' + lista(partes) + '.</p><p class="aviso-acciones"><button type="button" class="enlace-boton" data-abrir-panel>Ver cotización</button></p>');
+      avisar(avisoAgregado('Agregado a la cotización: ' + esc(nombreVisible(calcCombo.p)) + ', ' + lista(partes) + '.', 'Agregado: ' + lista(partes) + '.'));
     });
     calcular();
   }
@@ -2165,7 +2280,7 @@
       var b = compilarBusqueda(q);
       var ops = REFS.filter(function (r) { return coincideBusqueda(r, b); }).sort(porPeso).slice(0, 6);
       var html = ops.map(function (r, i) {
-        return '<li role="option" id="' + lista.id + '-' + i + '" aria-selected="false" data-href="#producto-' + r.p.slug + '~' + presSlug(r.pr.contenido) + '"><span>' + esc(r.p.nombre) + '</span><span class="sug-pres">' + fmtPres(r.pr.contenido) + '</span></li>';
+        return '<li role="option" id="' + lista.id + '-' + i + '" aria-selected="false" data-href="#producto-' + r.p.slug + '~' + presSlug(r.pr.contenido) + '"><span>' + esc(nombreVisible(r.p)) + '</span><span class="sug-pres">' + fmtPres(r.pr.contenido) + '</span></li>';
       }).join('');
       if (!ops.length) html = '<li role="option" aria-disabled="true" class="sug-vacia" id="' + lista.id + '-vacia">Sin coincidencias en el catálogo</li>';
       html += '<li role="option" aria-selected="false" id="' + lista.id + '-todos" class="sug-todos" data-q="1">Buscar «' + esc(q) + '» en Productos</li>';
@@ -2203,7 +2318,8 @@
     var cab = $('.pagina-cab', v);
     if (cab) {
       var env = cab.parentNode, banda = document.createElement('div'), dentro = document.createElement('div');
-      banda.className = 'pagina-banda dentado-abajo'; dentro.className = 'envoltura';
+      banda.className = 'pagina-banda dentado-abajo pagina-banda--' + (cab.getAttribute('data-banda') || 'tenue') + (cab.classList.contains('pagina-cab--objeto') ? ' pagina-banda--objeto' : '');
+      dentro.className = 'envoltura';
       var mig = $('.migas', env);
       if (mig && mig.parentNode === env) dentro.appendChild(mig);
       dentro.appendChild(cab); banda.appendChild(dentro);
@@ -2275,6 +2391,7 @@
     $$('[data-nav]').forEach(function (a) { if (a.getAttribute('data-nav') === grupo) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
     actualizarConteos(false);
     window.scrollTo(0, 0);
+    document.body.classList.toggle('compacta', window.scrollY > 40);
     var h1 = $(r.base === 'inicio' ? '#vista-inicio h1' : '#vista h1');
     if (h1) {
       h1.setAttribute('tabindex', '-1');
@@ -2307,7 +2424,7 @@
       actualizarNumerosCot(); actualizarConteos(false);
       sincronizarRef(id, nueva, origen);
       if (document.body.getAttribute('data-ruta') === 'cotizar') renderResumenCotizar();
-      if (modo === 'ficha' || modo === 'barra') refrescarAccionesFicha();
+      if (modo === 'ficha' || modo === 'barra' || modo === 'resumen') refrescarAccionesFicha();
     } else { pend[id] = nueva; sincronizarRef(id, nueva, origen); }
   }
   function destinoCot() {
@@ -2356,7 +2473,7 @@
   }
   function origenVuelo(cont, boton) {
     var modo = cont.getAttribute('data-modo');
-    var img = modo === 'fila' ? $('.producto-foto img', cont.closest('.producto') || document) : $('.galeria-principal img');
+    var img = modo === 'fila' ? $('.producto-foto img', cont.closest('.producto') || document) : modo === 'resumen' ? $('.ficha-resumen img') : $('.galeria-principal img');
     if (img) { var r = img.getBoundingClientRect(); if (r.width && r.bottom > 0 && r.top < window.innerHeight) return img; }
     return boton || cont;
   }
@@ -2370,7 +2487,8 @@
     volarACotizacion(origen, esBulto(r.pr) ? 'p-bulto' : 'p-bolsa');
     var fila = cont.closest('tr');
     if (fila && !reducido()) { fila.classList.remove('resaltada'); void fila.offsetWidth; fila.classList.add('resaltada'); }
-    avisar('<p>' + (ya ? 'Cotización actualizada: ' : 'Agregado a la cotización: ') + esc(nombreRefNB(r)) + ', ' + cant + ' ' + unidad(r.pr, cant) + '.</p><p class="aviso-acciones"><button type="button" class="enlace-boton" data-abrir-panel>Ver cotización</button></p>');
+    avisar(avisoAgregado((ya ? 'Cotización actualizada: ' : 'Agregado a la cotización: ') + esc(nombreRefNB(r)) + ', ' + cant + ' ' + unidad(r.pr, cant) + '.',
+      (ya ? 'Actualizado: ' : 'Agregado: ') + fmtPres(r.pr.contenido) + ', ' + cant + ' ' + unidad(r.pr, cant) + '.'));
     if (boton && cont.getAttribute('data-modo') === 'fila') { var q = $('[data-quitar]', cont); if (q) q.focus(); }
   }
 
@@ -2391,7 +2509,7 @@
     }
     if ((el = t.closest('[data-agregar]'))) { agregarDesde(el.closest('[data-ref]'), el); return; }
     if ((el = t.closest('[data-agregar-ficha]'))) {
-      var c2 = el.closest('#barra-ficha') ? $('#barra-ficha [data-ref]') : $('.ficha-cantidad');
+      var c2 = el.closest('#barra-ficha') ? $('#barra-ficha [data-ref]') : (el.closest('[data-ref]') || $('.ficha-cantidad'));
       agregarDesde(c2, el); return;
     }
     if ((el = t.closest('[data-quitar]'))) {
