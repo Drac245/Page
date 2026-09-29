@@ -478,5 +478,12 @@
   }, { rootMargin: '1200px 0px' });
   document.querySelectorAll('main > section, main > div').forEach(function (s) { io.observe(s); });
   window.addEventListener('load', function () { setTimeout(function () { cargar(document); }, 2000); });
+  // Si el servidor falla con una imagen (p. ej. un 503 pasajero), se vuelve a pedir una vez.
+  document.addEventListener('error', function (e) {
+    var im = e.target;
+    if (!im || im.tagName !== 'IMG' || im.dataset.reintento || im.src.indexOf('data:') === 0) return;
+    im.dataset.reintento = '1';
+    setTimeout(function () { im.src = im.src.split('?')[0] + '?r=' + Date.now(); }, 1500);
+  }, true);
 })();
 

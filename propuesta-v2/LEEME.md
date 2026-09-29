@@ -20,7 +20,7 @@ Las clases CSS (`.c1`, `.c2`), las variables de JavaScript y las claves de almac
 
 Ajuste de carga (29/09/2026), porque las capturas aparecían tarde o en blanco:
 
-- Script de precarga al final de `index.html`: pide las imágenes diferidas de cada sección cuando está a unos 1.200 px y el resto 2 s después de cargar la página.
+- Script de precarga al final de `index.html`: pide las imágenes diferidas de cada sección cuando está a unos 1.200 px y el resto 2 s después de cargar la página; si una imagen falla, se vuelve a pedir una vez.
 - Fondo de los marcos de captura (portátil, celular, comparador y tarjetas) en Celeste leche `#E9F8FF` en lugar de blanco mientras la imagen llega.
 - 5 capturas largas de `shots/` recomprimidas en WebP calidad 62: de 1.179 KB a 848 KB en total. Los originales siguen en el ZIP.
 
