@@ -462,3 +462,21 @@
     else if (mqPleg.addListener) mqPleg.addListener(alCambiar);
   }
 })();
+
+/* Precarga de capturas. Las imágenes diferidas (loading="lazy") de cada sección se piden cuando la sección
+   está a unos 1.200 px, incluidas las que quedan fuera de vista dentro de galerías horizontales; así no aparecen
+   tarde al pulsar las flechas. Con la página ya cargada, las restantes se piden en segundo plano. */
+(function () {
+  function cargar(raiz) {
+    raiz.querySelectorAll('img[loading="lazy"]').forEach(function (im) { im.loading = 'eager'; });
+  }
+  if (!('IntersectionObserver' in window)) { cargar(document); return; }
+  var io = new IntersectionObserver(function (entradas) {
+    entradas.forEach(function (e) {
+      if (e.isIntersecting) { cargar(e.target); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '1200px 0px' });
+  document.querySelectorAll('main > section, main > div').forEach(function (s) { io.observe(s); });
+  window.addEventListener('load', function () { setTimeout(function () { cargar(document); }, 2000); });
+})();
+
