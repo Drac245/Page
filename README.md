@@ -16,6 +16,18 @@ Auditoría del sitio actual, análisis de competidores y dos conceptos de sitio 
 - `conceptos/herramientas/`: `preview.js` (vista local idéntica a la publicada) y `capturar.js` (capturas, desborde, errores y axe).
 - `presentacion/`: página web que reúne todo.
 
+## Publicación gratuita fuera de claude.ai
+
+`docs/` contiene la presentación y los dos prototipos como sitio estático estándar (se regenera con `node conceptos/herramientas/exportar-sitio.js` después de cualquier cambio):
+
+- `docs/index.html`: presentación
+- `docs/concepto-1/`: prototipo «Paralelo 10»
+- `docs/concepto-2/`: prototipo «Peso neto»
+
+Con GitHub Pages (gratis en repositorios públicos): Settings → Pages → Build and deployment → Source: *Deploy from a branch* → rama `claude/mundilacteos-redesign-n9v8wx`, carpeta `/docs` → Save. Quedará en `https://drac245.github.io/Page/`, `…/Page/concepto-1/` y `…/Page/concepto-2/`.
+
+Las páginas llevan `noindex` para que los buscadores no las indexen.
+
 ## Ver un prototipo en local
 
 ```
