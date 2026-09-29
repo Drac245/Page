@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Catálogo · Mundilácteos · Concepto 3</title>
+<meta name="description" content="Catálogo de leche en polvo The Cántaro y La Becerrita: 26 referencias en bolsa y bulto, con ficha técnica y cotización por volumen.">
+<meta name="theme-color" content="#07476F">
+<script>try{var t=JSON.parse(localStorage.getItem('ml-c1-theme'));if(t)document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Public+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="c1.css">
+<style>
+.cat-head{padding-block:36px 24px;border-bottom:1px solid var(--line)}
+.crumbs{font-size:.85rem;color:var(--muted);margin-bottom:10px}
+.crumbs a{color:var(--muted)}
+.cat-head .row{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px}
+.cat-head h1{font-size:clamp(1.9rem,4vw,2.8rem)}
+.count{color:var(--muted);font-variant-numeric:tabular-nums}
+.search{display:flex;gap:8px;flex:1;max-width:460px}
+.search .field{flex:1}
+.cat{display:grid;grid-template-columns:250px 1fr;gap:36px;padding-block:28px 80px}
+.filters{position:sticky;top:90px;align-self:start;display:grid;gap:24px}
+.filters fieldset{border:0;margin:0;padding:0;display:grid;gap:8px}
+.filters legend{font:800 .95rem var(--disp);font-variation-settings:"wdth" 110;margin-bottom:8px}
+.filters label{display:flex;align-items:center;gap:10px;cursor:pointer;min-height:32px}
+.filters input{width:18px;height:18px;accent-color:var(--bahia)}
+.filters .n{margin-left:auto;color:var(--muted);font-size:.85rem;font-variant-numeric:tabular-nums}
+.clear{background:none;border:0;color:var(--link);font:700 .9rem var(--body);text-align:left;padding:0;cursor:pointer;text-decoration:underline}
+.filt-btn{display:none}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;min-height:8px}
+.chip{background:var(--mist);border:0;border-radius:999px;padding:6px 12px;font:600 .85rem var(--body);cursor:pointer;color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+/* Cada tarjeta decide su diseño por su propio ancho (container queries) */
+.cardw{container-type:inline-size}
+.card{border:1px solid var(--line);border-radius:var(--r);display:flex;flex-direction:column;overflow:hidden;background:var(--surface);height:100%}
+.card-img{background:var(--mist);height:190px;display:flex;align-items:center;justify-content:center;padding:14px;cursor:pointer;border:0;width:100%}
+.card-img img{max-height:100%;width:auto;transition:transform .25s}
+.card-img:hover img{transform:scale(1.04)}
+.card.sack .card-img{background:var(--kraft-l)}
+.card-b{padding:16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card-brand{font-size:.8rem;font-weight:700;color:var(--link)}
+.card h3{font-size:1.05rem}
+.tag{display:grid;grid-template-columns:1fr 1fr;border:1.5px solid var(--kraft);border-radius:6px;margin-top:8px}
+.tag div{padding:6px 10px}
+.tag div+div{border-left:1.5px solid var(--kraft)}
+.tag small{display:block;font:600 .64rem/1.2 var(--disp);font-variation-settings:"wdth" 125;letter-spacing:.05em;color:var(--kraft-t)}
+.tag b{white-space:nowrap;font:900 1.2rem/1.2 var(--disp);font-variation-settings:"wdth" 118;font-variant-numeric:tabular-nums}
+.card-f{display:flex;gap:8px;padding:0 16px 16px}
+.qty{width:64px;min-height:44px;border:1px solid var(--field);border-radius:8px;text-align:center;font:600 1rem var(--body);background:var(--surface);color:var(--text)}
+.card-f .btn{flex:1;min-height:44px;padding:0 12px;font-size:.92rem}
+.added{background:var(--potrero)!important;border-color:var(--potrero)!important;color:#fff}
+@container (max-width:200px){
+  .card-img{height:140px}
+  .card-f{flex-direction:column}
+  .qty{width:100%}
+  .tag div{padding:6px 8px}
+  .tag b{font-size:1rem}
+  .tag small{letter-spacing:.02em}
+}
+.empty{grid-column:1/-1;padding:40px;border:2px dashed var(--line);border-radius:var(--r);text-align:center;color:var(--muted)}
+.tray{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:30;background:var(--ink);color:#fff;border:1px solid rgba(255,255,255,.15);border-radius:999px;padding:12px 22px;font:700 1rem var(--body);box-shadow:0 10px 30px rgba(0,0,0,.25);cursor:pointer}
+.tray b{background:var(--lima);color:#0B2A40;border-radius:999px;padding:1px 9px;margin-left:8px;display:inline-block}
+.bump{animation:bump .4s ease}
+.fly{position:fixed;z-index:60;pointer-events:none;height:70px;width:auto}
+dialog.pd,dialog.drawer{border:1px solid var(--line);border-radius:14px;padding:0;max-width:min(760px,calc(100vw - 32px));width:100%;color:var(--text);background:var(--surface)}
+dialog.pd::backdrop,dialog.drawer::backdrop{background:rgba(8,17,26,.55)}
+.dlg{display:grid;grid-template-columns:240px 1fr;gap:0;position:relative}
+.dlg-img{background:var(--mist);display:flex;align-items:center;justify-content:center;padding:24px}
+.dlg-img img{max-height:280px;width:auto}
+.dlg-b{padding:24px;display:grid;gap:12px;align-content:start}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line)}
+.tabs button{background:none;border:0;border-bottom:3px solid transparent;padding:10px 12px;font:700 .9rem var(--body);cursor:pointer;color:var(--muted)}
+.tabs button[aria-selected=true]{color:var(--text);border-color:var(--bahia)}
+.kv{display:grid;grid-template-columns:1fr auto;gap:0;font-size:.93rem;margin:0}
+.kv div{display:contents}
+.kv dt,.kv dd{padding:8px 0;border-bottom:1px solid var(--mist);margin:0}
+.kv dd{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.x{position:absolute;right:12px;top:12px;background:var(--surface);color:var(--text);border:1px solid var(--line);border-radius:999px;width:40px;height:40px;cursor:pointer;font-size:1.1rem}
+.note{font-size:.82rem;color:var(--muted)}
+.drawer .list{display:grid;gap:10px;margin:8px 0 16px}
+.drawer .li{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:center;border-bottom:1px solid var(--mist);padding-bottom:10px}
+.drawer .li img{height:48px;width:auto}
+.drawer .rm{background:none;border:0;color:var(--muted);cursor:pointer;text-decoration:underline;font:600 .85rem var(--body)}
+@media (max-width:860px){
+  .cat{grid-template-columns:1fr}
+  .filters{position:fixed;inset:auto 0 0 0;top:auto;background:var(--surface);z-index:50;padding:20px var(--gut) calc(24px + env(safe-area-inset-bottom,0px));max-height:80vh;overflow:auto;box-shadow:0 -10px 30px rgba(0,0,0,.25);border-radius:16px 16px 0 0;display:none}
+  .filters.open{display:grid}
+  .filt-btn{display:inline-flex}
+  .dlg{grid-template-columns:1fr}
+  .dlg-img img{max-height:180px}
+  .grid{grid-template-columns:1fr 1fr;gap:12px}
+}
+@media (max-width:760px){.tray{display:none}}
+@media (max-width:360px){.grid{grid-template-columns:1fr}}
+</style>
+<script type="application/ld+json" id="ld"></script>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<div class="util"><div class="wrap util-in"><span>Ventas a distribuidores e industria: <strong>319 769 0990</strong></span><span class="util-links"><a href="index.html#cotizar">Soy distribuidor</a><a href="#">Trabaje con nosotros</a></span></div></div>
+
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a class="brand" href="index.html" aria-label="Mundilácteos, inicio">
+      <svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="mg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#67C100"/><stop offset=".55" stop-color="#1F7F02"/><stop offset=".56" stop-color="#0377BF"/><stop offset="1" stop-color="#07476F"/></linearGradient></defs><path fill="url(#mg)" d="M20 3c7 9 13 15.5 13 22.5A13 13 0 0 1 7 25.5C7 18.5 13 12 20 3z"/><path d="M9 24.5h22" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <span class="word">mundilácteos</span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a href="catalogo.html" aria-current="page">Productos</a>
+      <a href="index.html#calidad">Calidad</a>
+      <a href="index.html#cobertura">Distribución</a>
+      <a href="index.html#nosotros">Nosotros</a>
+      <a href="index.html#recursos">Recursos</a>
+    </nav>
+    <div class="tools">
+      <button class="ib" type="button" data-cmd aria-label="Buscar productos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="lbl">Buscar</span><span class="kbd">Ctrl K</span></button>
+      <button class="ib" type="button" data-theme-btn aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span class="lbl">Oscuro</span></button>
+      <a class="btn btn-sm" href="index.html#cotizar">Cotizar</a>
+    </div>
+  </div>
+</header>
+
+<div class="cat-hero"><div class="bp" aria-hidden="true"></div><span class="ghost-n" aria-hidden="true">26</span></div>
+<main id="main" class="wrap">
+  <div class="cat-head">
+    <p class="crumbs"><a href="index.html">Inicio</a> / Productos</p>
+    <div class="row">
+      <div>
+        <h1>Catálogo de productos</h1>
+        <p class="count" id="count" aria-live="polite"></p>
+      </div>
+      <div class="search">
+        <label for="q" class="sr">Filtrar el catálogo</label>
+        <input id="q" class="field" type="search" placeholder="Filtrar por marca, tipo o peso (ej. 900 g)">
+        <button class="btn btn-line filt-btn" id="fbtn" type="button" aria-controls="filters">Filtros</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cat">
+    <aside class="filters" id="filters" aria-label="Filtros">
+      <fieldset><legend>Formato</legend><div id="f-format"></div></fieldset>
+      <fieldset><legend>Marca</legend><div id="f-brand"></div></fieldset>
+      <fieldset><legend>Tipo de leche</legend><div id="f-type"></div></fieldset>
+      <fieldset><legend>Peso</legend><div id="f-size"></div></fieldset>
+      <button class="clear" id="clear" type="button">Quitar filtros</button>
+      <button class="btn filt-btn" id="fclose" type="button">Ver resultados</button>
+    </aside>
+    <section aria-labelledby="t-res">
+      <h2 id="t-res" class="sr">Resultados</h2>
+      <div class="chips" id="chips"></div>
+      <div class="grid" id="grid"></div>
+    </section>
+  </div>
+</main>
+
+<button class="tray" id="tray" type="button" data-drawer hidden>Mi cotización <b data-qcount>0</b></button>
+
+<dialog id="dlg" class="pd" aria-labelledby="d-title"></dialog>
+<dialog id="drawer" class="drawer" aria-labelledby="dr-title"></dialog>
+
+<footer class="ftr">
+  <div class="wrap ftr-in">
+    <div><p class="word">mundilácteos</p><p>Inversiones Mundilácteos S.A.S.<br>Parque Industrial Europark, bodega 28<br>Cartagena, Bolívar</p></div>
+    <div><p><b>Ventas</b><br>319 769 0990</p></div>
+    <nav aria-label="Pie de página"><a href="index.html#calidad">Calidad</a><a href="#">Política de datos</a></nav>
+  </div>
+  <p class="wrap legal">Prototipo de diseño. Catálogo armado con los datos publicados hoy en mundilacteos.com, por validar.</p>
+</footer>
+
+<nav class="bnav" aria-label="Navegación rápida">
+  <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11 12 4l9 7v9H3z"/></svg>Inicio</a>
+  <a href="catalogo.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>Catálogo</a>
+  <button type="button" data-cmd><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Buscar</button>
+  <button type="button" data-drawer id="bnq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 3h9l3 3v15H6z"/><path d="M9 11h6M9 15h6"/></svg>Cotización<span class="badge" data-qcount hidden>0</span></button>
+  <a class="wa-i" href="https://wa.me/573197690990" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>WhatsApp</a>
+</nav>
+
+<dialog id="cmd" class="cmd" aria-label="Buscar en el sitio">
+  <div class="cmd-in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><label class="sr" for="cmdq">Buscar productos y páginas</label><input id="cmdq" role="combobox" aria-controls="cmdl" aria-expanded="true" autocomplete="off" placeholder="Busque por marca, tipo o peso"></div>
+  <ul id="cmdl" role="listbox" aria-label="Resultados"></ul>
+  <div class="cmd-f"><span>↑ ↓ para moverse</span><span>Enter para abrir</span><span>Esc para cerrar</span></div>
+</dialog>
+
+<script src="../assets/catalog.js"></script>
+<script src="c1.js"></script>
+<script>
+(function(){
+  var S=ML.skus, img=function(n){return '../assets/img/'+n+'.webp'};
+  /* Datos estructurados: lista de productos para buscadores y asistentes de IA */
+  document.getElementById('ld').textContent=JSON.stringify({"@context":"https://schema.org","@type":"ItemList","itemListElement":S.map(function(x,i){return {"@type":"ListItem","position":i+1,"item":{"@type":"Product","name":x.brand+' '+x.name.toLowerCase()+' '+x.label,"brand":{"@type":"Brand","name":x.brand},"weight":{"@type":"QuantitativeValue","value":x.grams,"unitCode":"GRM"},"category":"Leche en polvo"}}})});
+  var sizes=[['s','Hasta 200 g',function(x){return x.format==='Bolsa'&&x.grams<=200}],['m','380 g a 1 kg',function(x){return x.format==='Bolsa'&&x.grams>200}],['k','Bultos de 5 a 25 kg',function(x){return x.format==='Bulto'}]];
+  var groups={format:['Bolsa','Bulto'],brand:['The Cántaro','La Becerrita'],type:['Entera','Azucarada']};
+  var st={format:[],brand:[],type:[],size:[],q:''};
+  function box(g,v,l){return '<label><input type="checkbox" data-g="'+g+'" value="'+v+'"> '+l+' <span class="n" data-n="'+g+':'+v+'"></span></label>';}
+  ['format','brand','type'].forEach(function(g){document.getElementById('f-'+g).innerHTML=groups[g].map(function(v){return box(g,v,v==='Bolsa'?'Bolsa (paca)':v)}).join('');});
+  document.getElementById('f-size').innerHTML=sizes.map(function(s){return box('size',s[0],s[1])}).join('');
+  function norm(s){return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/(\d)\s*(g|kg)\b/g,'$1 $2')}
+  function match(x,skip){
+    if(skip!=='format'&&st.format.length&&st.format.indexOf(x.format)<0)return false;
+    if(skip!=='brand'&&st.brand.length&&st.brand.indexOf(x.brand)<0)return false;
+    if(skip!=='type'&&st.type.length&&st.type.indexOf(x.type)<0)return false;
+    if(skip!=='size'&&st.size.length&&!sizes.some(function(s){return st.size.indexOf(s[0])>=0&&s[2](x)}))return false;
+    if(st.q){var h=norm(x.brand+' '+x.type+' '+x.name+' '+x.label+' '+x.format);if(!norm(st.q).split(/\s+/).filter(Boolean).every(function(t){return h.indexOf(t)>=0}))return false;}
+    return true;
+  }
+  function card(x){
+    var inQ=C1.quote()[x.id];
+    return '<div class="cardw"><article data-spot class="card'+(x.format==='Bulto'?' sack':'')+'"><button class="card-img" data-open="'+x.id+'" aria-label="Ver ficha de '+x.brand+' '+x.type+' '+x.label+'"><img src="'+img(x.img)+'" alt="" loading="lazy"></button>'+
+      '<div class="card-b"><span class="card-brand">'+x.brand+'</span><h3>'+x.name.replace('Leche en polvo ','Leche en polvo<br>')+'</h3>'+
+      '<div class="tag"><div><small>PESO</small><b>'+x.label+'</b></div><div><small>'+(x.pack?'POR PACA':'EMPAQUE')+'</small><b>'+(x.pack||'Kraft')+'</b></div></div></div>'+
+      '<div class="card-f"><input class="qty" id="q-'+x.id+'" type="number" min="1" value="'+(inQ||1)+'" aria-label="Cantidad de '+(x.pack?'pacas':'bultos')+'">'+
+      '<button class="btn'+(inQ?' added':'')+'" data-add="'+x.id+'">'+(inQ?'En cotización':'Agregar')+'</button></div></article></div>';
+  }
+  function render(){
+    var r=S.filter(function(x){return match(x)});
+    document.getElementById('count').textContent=r.length+' de '+S.length+' referencias';
+    document.getElementById('grid').innerHTML=r.length?r.map(card).join(''):'<p class="empty">Ninguna referencia cumple esos filtros. Quite uno o escríbanos: fabricamos gramajes a pedido.</p>';
+    document.querySelectorAll('[data-n]').forEach(function(el){var p=el.dataset.n.split(':'),g=p[0],v=p[1];el.textContent=S.filter(function(x){if(!match(x,g))return false;return g==='size'?sizes.filter(function(s){return s[0]===v})[0][2](x):x[g]===v}).length;});
+    document.querySelectorAll('.filters input').forEach(function(i){i.checked=st[i.dataset.g].indexOf(i.value)>=0});
+    var chips=[];['format','brand','type'].forEach(function(g){st[g].forEach(function(v){chips.push([g,v,v])})});st.size.forEach(function(v){chips.push(['size',v,sizes.filter(function(s){return s[0]===v})[0][1]])});
+    document.getElementById('chips').innerHTML=chips.map(function(c){return '<button class="chip" data-g="'+c[0]+'" data-v="'+c[1]+'" aria-label="Quitar filtro '+c[2]+'">'+c[2]+' ✕</button>'}).join('');
+    var n=Object.keys(C1.quote()).length;document.getElementById('tray').hidden=!n;C1.paintBadge();
+  }
+  function update(){if(document.startViewTransition&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.startViewTransition(render);else render();}
+  document.getElementById('filters').addEventListener('change',function(e){var i=e.target;if(!i.dataset.g)return;var a=st[i.dataset.g];if(i.checked)a.push(i.value);else a.splice(a.indexOf(i.value),1);update();});
+  document.getElementById('chips').addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;var a=st[b.dataset.g];a.splice(a.indexOf(b.dataset.v),1);update();});
+  document.getElementById('q').addEventListener('input',function(e){st.q=e.target.value;render();});
+  document.getElementById('clear').onclick=function(){st={format:[],brand:[],type:[],size:[],q:st.q};update();};
+  var F=document.getElementById('filters');
+  document.getElementById('fbtn').onclick=function(){F.classList.add('open')};document.getElementById('fclose').onclick=function(){F.classList.remove('open')};
+  var dlg=document.getElementById('dlg'),dr=document.getElementById('drawer');
+  function open(id){var x=S.filter(function(s){return s.id===id})[0];if(!x)return;
+    var tabs={p:'<dl class="kv"><div><dt>Marca</dt><dd>'+x.brand+'</dd></div><div><dt>Tipo</dt><dd>'+x.type+'</dd></div><div><dt>Peso neto</dt><dd>'+x.label+'</dd></div>'+(x.pack?'<div><dt>Unidades por paca</dt><dd>'+x.pack+'</dd></div>':'')+'<div><dt>Rinde aprox.</dt><dd>'+ML.fmt(ML.liters(x.grams),x.grams<1000?1:0)+' litros</dd></div><div><dt>Vida útil</dt><dd>'+x.life+'</dd></div><div><dt>Uso recomendado</dt><dd>'+x.use+'</dd></div></dl><p class="note">'+x.note+'</p>',
+      f:'<dl class="kv">'+ML.spec.map(function(s){return '<div><dt>'+s[0]+'</dt><dd>'+s[1]+'</dd></div>'}).join('')+'</dl><p class="note">Valores de referencia de la ficha técnica pública. <a class="lnk" href="#">Descargar ficha técnica (PDF)</a></p>',
+      e:'<p>'+ML.packaging[x.format]+'</p>'};
+    dlg.innerHTML='<div class="dlg"><div class="dlg-img"><img src="'+img(x.img)+'" alt="'+x.brand+' '+x.type+' '+x.label+'"></div><div class="dlg-b"><span class="card-brand">'+x.brand+', '+x.format.toLowerCase()+'</span><h2 id="d-title" style="font-size:1.6rem">'+x.name+' '+x.label+'</h2>'+
+      '<div class="tabs" role="tablist"><button role="tab" aria-selected="true" data-t="p">Presentación</button><button role="tab" aria-selected="false" data-t="f">Ficha técnica</button><button role="tab" aria-selected="false" data-t="e">Empaque</button></div><div id="tabp" role="tabpanel">'+tabs.p+'</div>'+
+      '<button class="btn'+(C1.quote()[x.id]?' added':'')+'" data-add="'+x.id+'">'+(C1.quote()[x.id]?'En cotización':'Agregar a cotización')+'</button></div><button class="x" aria-label="Cerrar">✕</button></div>';
+    dlg.querySelector('.tabs').onclick=function(e){var b=e.target.closest('button');if(!b)return;dlg.querySelectorAll('.tabs button').forEach(function(t){t.setAttribute('aria-selected',t===b)});dlg.querySelector('#tabp').innerHTML=tabs[b.dataset.t];};
+    if(!dlg.open)dlg.showModal();}
+  function openDrawer(){var q=C1.quote(),ids=Object.keys(q);
+    dr.innerHTML='<div style="padding:24px;position:relative"><h2 id="dr-title" style="font-size:1.5rem">Mi cotización</h2><p class="note">Revise las cantidades y envíe. Un asesor responde con precio por volumen.</p><div class="list">'+
+      (ids.length?ids.map(function(id){var x=S.filter(function(s){return s.id===id})[0];return '<div class="li"><img src="'+img(x.img)+'" alt=""><div><b>'+x.brand+' '+x.type.toLowerCase()+' '+x.label+'</b><br><span class="note">'+q[id]+' '+(x.pack?'pacas de '+x.pack+' u.':'bultos')+'</span></div><button class="rm" data-rm="'+id+'">Quitar</button></div>'}).join(''):'<p class="note">Aún no hay productos.</p>')+
+      '</div><form class="form" style="box-shadow:none;padding:0" id="dform"><div class="row2"><label for="d-n">Nombre<input id="d-n" required value="Laura Pérez"></label><label for="d-t">Celular<input id="d-t" type="tel" required value="300 000 0000"></label></div><label for="d-c">Ciudad de entrega<input id="d-c" value="Barranquilla"></label><button class="btn" type="submit">Enviar cotización</button><p class="ok" id="dok" hidden role="status">Cotización enviada. Un asesor le escribirá hoy.</p></form><button class="x" aria-label="Cerrar">✕</button></div>';
+    dr.querySelector('#dform').onsubmit=function(e){e.preventDefault();dr.querySelector('#dok').hidden=false;};
+    if(!dr.open)dr.showModal();}
+  /* Microinteracción: el empaque vuela hasta la cotización */
+  function fly(fromEl){
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    var tgt=[document.getElementById('tray'),document.getElementById('bnq')].filter(function(t){return t&&t.offsetParent})[0];if(!fromEl||!tgt)return;
+    var a=fromEl.getBoundingClientRect(),b=tgt.getBoundingClientRect(),im=fromEl.cloneNode();im.className='fly';im.style.left=a.left+'px';im.style.top=a.top+'px';document.body.appendChild(im);
+    im.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:'translate('+(b.left+b.width/2-a.left-20)+'px,'+(b.top-a.top-20)+'px) scale(.3)',opacity:.4}],{duration:550,easing:'cubic-bezier(.5,0,.3,1)'}).onfinish=function(){im.remove();tgt.classList.remove('bump');void tgt.offsetWidth;tgt.classList.add('bump')};
+  }
+  document.addEventListener('click',function(e){
+    var o=e.target.closest('[data-open]');if(o){open(o.dataset.open);return;}
+    var a=e.target.closest('[data-add]');if(a){var id=a.dataset.add,q=document.getElementById('q-'+id),Q=C1.quote();Q[id]=+(q&&q.value)||Q[id]||1;C1.quote(Q);a.textContent='En cotización';a.classList.add('added');var card=a.closest('.card');document.getElementById('tray').hidden=false;fly(card?card.querySelector('.card-img img'):dlg.querySelector('.dlg-img img'));C1.paintBadge();return;}
+    var r=e.target.closest('[data-rm]');if(r){var Q2=C1.quote();delete Q2[r.dataset.rm];C1.quote(Q2);render();openDrawer();return;}
+    if(e.target.closest('[data-drawer]')){openDrawer();return;}
+    if(e.target.closest('.x')){e.target.closest('dialog').close();}
+  });
+  [dlg,dr].forEach(function(d){d.addEventListener('click',function(e){if(e.target===d)d.close()})});
+  function fromHash(){var h=location.hash.slice(1);
+    if(h.indexOf('p-')===0){render();open(h.slice(2));return;}
+    st={format:[],brand:[],type:[],size:[],q:''};
+    if(h==='bolsa-hogar'){st.format=['Bolsa'];st.size=['m'];}else if(h==='bolsa')st.format=['Bolsa'];else if(h==='bulto')st.format=['Bulto'];else if(h==='cantaro')st.brand=['The Cántaro'];else if(h==='becerrita')st.brand=['La Becerrita'];
+    render();}
+  addEventListener('hashchange',fromHash);
+  /* Estado de ejemplo si el visitante aún no tiene cotización */
+  if(!Object.keys(C1.quote()).length)C1.quote({'cantaro-entera-25kg':40,'becerrita-entera-400g':15});
+  fromHash();
+})();
+</script>
+</body>
+</html>

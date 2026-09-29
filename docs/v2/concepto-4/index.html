@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mundilácteos · Concepto 4 Rinde</title>
+<meta name="description" content="Leche en polvo hecha en Cartagena. Calcule cuánto rinde cada presentación, de la bolsa de 27 g al bulto de 25 kg, y pida precio por WhatsApp.">
+<meta name="theme-color" content="#1F7F02">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Big+Shoulders+Stencil+Display:wght@700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="c2.css">
+<style>
+.calc-thumb{display:none;height:84px;width:48px;object-fit:contain}
+@media (max-width:980px){.hero-prod{display:none}.calc-thumb{display:block}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Inversiones Mundilácteos S.A.S.","alternateName":"Mundilácteos","url":"https://mundilacteos.com/","telephone":"+57 319 769 0990","address":{"@type":"PostalAddress","streetAddress":"Parque Industrial Europark, bodega 28","addressLocality":"Cartagena","addressRegion":"Bolívar","addressCountry":"CO"},"brand":[{"@type":"Brand","name":"The Cántaro"},{"@type":"Brand","name":"La Becerrita"}]}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a class="logo" href="index.html" aria-label="Mundilácteos, inicio">mundi<i>lácteos</i></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menú</button>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="catalogo.html#casa">Para la casa</a>
+      <a href="catalogo.html#negocio">Para su negocio</a>
+      <a href="catalogo.html#industria">Para la industria</a>
+      <a href="#origen">Nosotros</a>
+      <a class="cta" href="#contacto">Pedir precio</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="t-hero">
+    <span class="bgword" aria-hidden="true">RINDE</span>
+    <svg class="splash" viewBox="0 0 600 600" aria-hidden="true"><path d="M421 94c56 38 104 102 99 170-6 69-65 142-139 180-73 37-161 39-225 2S47 334 62 262c15-73 74-141 142-176 67-35 161-30 217 8z"/><circle cx="520" cy="80" r="26"/><circle cx="90" cy="520" r="14"/><circle cx="560" cy="440" r="9"/></svg>
+    <div class="wrap hero-in">
+      <div>
+        <h1 id="t-hero" class="h-w"><span class="w1">¿Cuánta leche</span> <span class="w2">necesita?</span></h1>
+        <p class="lede" id="lede">Mueva la regla y vea cuánto rinde cada presentación de nuestra leche en polvo, de la bolsa de 27&nbsp;g al bulto de 25&nbsp;kg.</p>
+        <div class="aud" role="group" aria-label="Soy">
+          <button type="button" data-aud="casa" aria-pressed="false">Compro para mi casa</button>
+          <button type="button" data-aud="negocio" aria-pressed="false">Tengo una tienda</button>
+          <button type="button" data-aud="industria" aria-pressed="true">Tengo panadería o industria</button>
+        </div>
+        <div class="calc" role="group" aria-labelledby="calcL">
+          <div class="calc-top">
+            <label id="calcL" for="size">Presentación</label>
+            <span class="sel" id="sel" aria-live="polite">25 kg</span>
+            <img class="calc-thumb" id="thumb" src="../assets/img/cantaro-entera-bulto.webp" alt="" width="48" height="84">
+          </div>
+          <div class="ruler">
+            <input type="range" id="size" min="0" max="11" step="1" value="11" aria-describedby="out">
+            <div class="ticks" aria-hidden="true"><span>27 g</span><span>104 g</span><span>200 g</span><span>380 g</span><span>400 g</span><span>500 g</span><span>750 g</span><span>900 g</span><span>1 kg</span><span>5 kg</span><span>12,5 kg</span><span>25 kg</span></div>
+          </div>
+          <div class="out" id="out" aria-live="polite">
+            <span class="big odo" id="liters" aria-label="192">192</span>
+            <small><b>litros de leche</b><br><span id="glasses">961 vasos de 200 ml</span><br><span id="packline">Bulto de papel kraft para panadería e industria</span></small>
+          </div>
+          <div class="dots" aria-hidden="true"><canvas id="dots" width="600" height="240"></canvas><p>Cada punto es un vaso de 200 ml.</p></div>
+          <div class="calc-f">
+            <button class="cta" type="button" id="addBtn">Agregar al pedido</button>
+            <a class="lnk2" id="calcLink" href="catalogo.html#industria">Ver todas las presentaciones</a>
+          </div>
+          <p style="font-size:.8rem;color:var(--muted);margin-top:10px">Cálculo con 130 g de leche en polvo por litro de agua. La proporción exacta está en la ficha técnica.</p>
+        </div>
+      </div>
+      <div class="hero-prod" aria-hidden="true"><span class="dot"></span><img id="heroImg" src="../assets/img/cantaro-entera-bulto.webp" alt="" width="262" height="457"></div>
+    </div>
+    <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 48c160-40 320-40 480-6s320 44 480 10 320-50 480-14V90H0z"/></svg>
+  </section>
+
+  <div class="band" role="marquee" aria-label="Presentaciones de 27 g a 25 kg">
+    <div class="band-t" aria-hidden="true">
+      <span>27 g</span><i>✦</i><span>104 g</span><i>✦</i><span>200 g</span><i>✦</i><span>380 g</span><i>✦</i><span>400 g</span><i>✦</i><span>500 g</span><i>✦</i><span>750 g</span><i>✦</i><span>900 g</span><i>✦</i><span>1 kg</span><i>✦</i><span>5 kg</span><i>✦</i><span>12,5 kg</span><i>✦</i><span>25 kg</span><i>✦</i>
+      <span>27 g</span><i>✦</i><span>104 g</span><i>✦</i><span>200 g</span><i>✦</i><span>380 g</span><i>✦</i><span>400 g</span><i>✦</i><span>500 g</span><i>✦</i><span>750 g</span><i>✦</i><span>900 g</span><i>✦</i><span>1 kg</span><i>✦</i><span>5 kg</span><i>✦</i><span>12,5 kg</span><i>✦</i><span>25 kg</span><i>✦</i>
+    </div>
+  </div>
+
+  <section class="origin" id="origen" aria-labelledby="t-origen">
+    <div class="wrap origin-in">
+      <div>
+        <h2 id="t-origen">Hecha en Cartagena, servida en todo el país</h2>
+        <p>Somos una empresa familiar costeña. Empezamos llevando leche en polvo a las tiendas del Caribe y hoy despachamos desde el Parque Industrial Europark a supermercados, distribuidores y panaderías de toda Colombia.</p>
+      </div>
+      <dl class="facts">
+        <div><dt data-count="12">12</dt><dd>años en el mercado colombiano</dd></div>
+        <div><dt data-count="26">26</dt><dd>presentaciones entre bolsas y bultos</dd></div>
+        <div><dt>2</dt><dd>marcas propias: The Cántaro y La Becerrita</dd></div>
+        <div><dt>ISO</dt><dd>9001:2015 y registro sanitario Invima</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="needs" aria-labelledby="t-needs">
+    <div class="wrap">
+      <h2 id="t-needs">Empiece por lo que va a hacer con ella</h2>
+      <ul class="stackc">
+        <li class="n-casa" style="--i:0"><a href="catalogo.html#casa"><div class="sc-t"><h3>En la casa</h3><p>Bolsas de 380 g a 1 kg de leche entera y azucarada para el desayuno, el café con leche y la cocina diaria.</p><span class="go">Ver bolsas</span></div><div class="sc-i"><img src="../assets/img/cantaro-entera-bolsa-b.webp" alt="" width="280" height="393" loading="lazy"><img src="../assets/img/cantaro-azucarada-bolsa.webp" alt="" width="372" height="400" loading="lazy"></div></a></li>
+        <li class="n-tienda" style="--i:1"><a href="catalogo.html#negocio"><div class="sc-t"><h3>En la tienda</h3><p>Pacas de 12 a 300 unidades. Desde la bolsa de 27 g que se vende al menudeo hasta la de 1 kg para góndola.</p><span class="go">Ver pacas</span></div><div class="sc-i"><img src="../assets/img/becerrita-entera-bolsa.webp" alt="" width="243" height="370" loading="lazy"><img src="../assets/img/cantaro-entera-bolsa.webp" alt="" width="269" height="382" loading="lazy"></div></a></li>
+        <li class="n-pan" style="--i:2"><a href="catalogo.html#industria"><div class="sc-t"><h3>En la panadería</h3><p>Bultos de 5, 12,5 y 25 kg para panadería, heladería, confitería y cocinas institucionales.</p><span class="go">Ver bultos</span></div><div class="sc-i"><img src="../assets/img/cantaro-entera-bulto.webp" alt="" width="262" height="457" loading="lazy"><img src="../assets/img/becerrita-entera-bulto.webp" alt="" width="275" height="393" loading="lazy"></div></a></li>
+        <li class="n-marca" style="--i:3"><a href="#contacto"><div class="sc-t"><h3>Con su marca</h3><p>Empacamos leche en polvo con la marca de su cadena o distribuidora, con nuestro mismo control de calidad.</p><span class="go">Hablar de marca propia</span></div><div class="sc-i sc-pl"><span>Su<br>marca<br>aquí</span></div></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="backing" aria-labelledby="t-back">
+    <div class="wrap backing-in">
+      <div>
+        <h2 id="t-back">Lo que respalda cada bolsa</h2>
+        <p>Así como el empaque trae su tabla nutricional, nuestra empresa trae la suya. Todo lo que aquí aparece se puede verificar: certificado, registro sanitario y ficha técnica descargables.</p>
+        <p><a class="cta cta-o" href="#">Descargar ficha técnica</a></p>
+      </div>
+      <div class="label" aria-label="Tabla de respaldo de Mundilácteos">
+        <h3>Tabla de respaldo</h3>
+        <div class="r"><span>Sistema de gestión ISO 9001:2015</span><span class="ok">Sí</span></div>
+        <div class="r"><span>Registro sanitario Invima</span><span class="ok">Sí</span></div>
+        <div class="r thick"><span>Años en el mercado</span><b>12</b></div>
+        <div class="r"><span>Proteína</span><b>24,5–33 %</b></div>
+        <div class="r"><span>Grasa</span><b>26–34 %</b></div>
+        <div class="r"><span>Humedad</span><b>máx. 4 %</b></div>
+        <div class="r thick"><span>Vida útil</span><b>12 meses</b></div>
+        <div class="r"><span>Empaque en atmósfera de CO₂</span><span class="ok">Sí</span></div>
+        <small>Parámetros de la leche en polvo entera The Cántaro según ficha técnica pública. Valores de referencia para el prototipo.</small>
+      </div>
+    </div>
+  </section>
+
+  <section class="uses" aria-labelledby="t-uses">
+    <div class="wrap">
+      <h2 id="t-uses">Recetas de la costa con leche en polvo</h2>
+      <div class="uses-g">
+        <a class="use" href="#"><div class="ph ph1"><img src="../assets/img/cantaro-azucarada-bolsa.webp" alt="" width="372" height="400" loading="lazy"><span>Foto cenital, olla de barro, luz de mañana</span></div><h3>Arroz con leche costeño</h3><p>Con leche azucarada The Cántaro y coco rallado.</p></a>
+        <a class="use" href="#"><div class="ph ph2"><img src="../assets/img/cantaro-entera-bulto.webp" alt="" width="262" height="457" loading="lazy"><span>Foto de producto en mesa de panadería</span></div><h3>Pan de leche para 100 unidades</h3><p>Receta y proporciones con el bulto de 25 kg.</p></a>
+        <a class="use" href="#"><div class="ph ph3"><img src="../assets/img/becerrita-entera-bolsa.webp" alt="" width="243" height="370" loading="lazy"><span>Foto de vaso en mano, fondo de fachada colonial</span></div><h3>Kumis casero</h3><p>Paso a paso con leche entera La Becerrita.</p></a>
+      </div>
+    </div>
+    <svg class="wave wave-c" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true"><path d="M0 48c160-40 320-40 480-6s320 44 480 10 320-50 480-14V90H0z"/></svg>
+  </section>
+
+  <section class="contact" id="contacto" aria-labelledby="t-contact">
+    <div class="wrap contact-in">
+      <div>
+        <h2 id="t-contact">Pida su precio por WhatsApp</h2>
+        <p>Díganos qué presentación y cuánta cantidad necesita. Un asesor en Cartagena le responde con precio y fecha de entrega.</p>
+        <div class="wa-big"><span class="num" id="num">319 769 0990</span><button class="copy" id="copy" type="button">Copiar número</button></div>
+      </div>
+      <form class="mini" id="mini" novalidate>
+        <label for="c-need">Necesito leche en polvo para<select id="c-need"><option>Mi tienda o minimercado</option><option>Mi supermercado o cadena</option><option>Mi panadería o industria</option><option>Crear mi marca propia</option></select></label>
+        <label for="c-name">Nombre<input id="c-name" autocomplete="name" value="Carlos Julio Arrieta"></label>
+        <label for="c-tel">Celular<input id="c-tel" type="tel" autocomplete="tel" value="300 000 0000"></label>
+        <button class="cta" type="submit">Quiero que me llamen</button>
+        <p class="ok" id="mok" role="status" hidden>Listo. Un asesor lo llamará hoy al celular registrado.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap ftr-in">
+    <div><a class="logo" href="index.html">mundi<i>lácteos</i></a><p style="margin-top:10px">Inversiones Mundilácteos S.A.S.<br>Parque Industrial Europark, bodega 28, Cartagena</p></div>
+    <nav aria-label="Pie de página"><a href="catalogo.html">Presentaciones</a><a href="#origen">Nosotros</a><a href="#">Política de datos</a><a href="#">Trabaje con nosotros</a></nav>
+  </div>
+</footer>
+
+<nav class="bnav" aria-label="Navegación rápida">
+  <a href="index.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11 12 4l9 7v9H3z"/></svg>Inicio</a>
+  <a href="catalogo.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Presentaciones</a>
+  <a href="catalogo.html#pedido"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 3h9l3 3v15H6z"/><path d="M9 11h6M9 15h6"/></svg>Pedido<span class="badge" data-ocount hidden>0</span></a>
+  <a class="wa-i" href="https://wa.me/573197690990" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>WhatsApp</a>
+</nav>
+
+<script src="../assets/catalog.js"></script>
+<script src="c2.js"></script>
+<script>
+(function(){
+  var steps=[[27,'cantaro-entera-bolsa','Bolsa para venta al menudeo','negocio'],[104,'cantaro-entera-bolsa','Bolsa para venta al menudeo','negocio'],[200,'cantaro-entera-bolsa-b','Bolsa para tienda y hogar','negocio'],[380,'becerrita-entera-bolsa','Bolsa para el hogar','casa'],[400,'becerrita-entera-bolsa','Bolsa para el hogar','casa'],[500,'cantaro-azucarada-bolsa','Bolsa para el hogar','casa'],[750,'cantaro-entera-bolsa-b','Bolsa familiar','casa'],[900,'cantaro-entera-bolsa-b','Bolsa familiar','casa'],[1000,'cantaro-entera-bolsa','Bolsa familiar','casa'],[5000,'becerrita-entera-bulto','Bulto para negocio','industria'],[12500,'cantaro-azucarada-bulto','Bulto para panadería','industria'],[25000,'cantaro-entera-bulto','Bulto de papel kraft para panadería e industria','industria']];
+  var AUD={casa:{i:7,l:'Una bolsa de 900 g rinde para casi una semana de desayunos en familia. Mueva la regla para comparar.'},negocio:{i:0,l:'La bolsa de 27 g se vende al menudeo y viene en pacas de 300. Mueva la regla para ver todas las presentaciones.'},industria:{i:11,l:'Un bulto de 25 kg rinde 192 litros de leche. Mueva la regla para comparar con los bultos de 5 y 12,5 kg.'}};
+  var r=document.getElementById('size'),cv=document.getElementById('dots'),ctx=cv.getContext('2d'),shown=0,raf;
+  function setOdo(el,str){el.setAttribute('aria-label',str);var calm=matchMedia('(prefers-reduced-motion: reduce)').matches,h='';
+    for(var i=0;i<str.length;i++){var c=str[i];if(/\d/.test(c)){var col='';for(var d=0;d<10;d++)col+='<b>'+d+'</b>';h+='<span class="dg"><span class="col" data-d="'+c+'">'+col+'</span></span>';}else h+='<span class="sep">'+c+'</span>';}
+    el.innerHTML=h;var cols=el.querySelectorAll('.col');
+    cols.forEach(function(k){var m=document.createElement('span');m.textContent=k.dataset.d;m.style.cssText='position:absolute;visibility:hidden';el.appendChild(m);k.parentNode.style.width=m.getBoundingClientRect().width+'px';m.remove();});
+    function go(){cols.forEach(function(k){k.style.transform='translateY(-'+(+k.dataset.d*10)+'%)'})}
+    if(calm)go();else requestAnimationFrame(function(){requestAnimationFrame(go)});}
+  function lbl(g){return g>=1000?String(g/1000).replace('.',',')+' kg':g+' g'}
+  function skuId(g){return 'cantaro-entera-'+(g>=5000?String(g/1000)+'kg':g+'g')}
+  /* Puntos: 50 × 20 = 1.000 vasos */
+  function draw(n){var W=cv.clientWidth||600,dpr=window.devicePixelRatio||1,cols=50,rows=20,gap=W/cols,rad=Math.max(1.4,gap*.3),H=rows*gap;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);
+    for(var i=0;i<cols*rows;i++){var x=(i%cols)*gap+gap/2,y=Math.floor(i/cols)*gap+gap/2;ctx.beginPath();ctx.arc(x,y,rad,0,Math.PI*2);ctx.fillStyle=i<n?'#0377BF':'#DDEAF2';ctx.fill();}}
+  function animateTo(n){cancelAnimationFrame(raf);var from=shown,t0=performance.now(),d=matchMedia('(prefers-reduced-motion: reduce)').matches?0:380;
+    (function step(t){var p=d?Math.min(1,(t-t0)/d):1;shown=Math.round(from+(n-from)*(1-Math.pow(1-p,3)));draw(shown);if(p<1)raf=requestAnimationFrame(step)})(t0);}
+  function upd(){var s=steps[+r.value],g=s[0],L=ML.liters(g),v=Math.floor(g/(ML.G_PER_L/5));
+    document.getElementById('sel').textContent=lbl(g);
+    setOdo(document.getElementById('liters'),L<10?ML.fmt(L,1):ML.fmt(L));
+    document.getElementById('glasses').textContent=ML.fmt(v)+(v===1?' vaso':' vasos')+' de 200 ml';
+    var pk=ML.PACK[g];document.getElementById('packline').textContent=s[2]+(pk?', paca de '+pk+' unidades':'');
+    var src='../assets/img/'+s[1]+'.webp';document.getElementById('heroImg').src=src;document.getElementById('thumb').src=src;
+    document.getElementById('calcLink').href='catalogo.html#'+s[3];
+    var b=document.getElementById('addBtn'),inO=C2.order()[skuId(g)];b.textContent=inO?'En su pedido ('+inO+')':'Agregar al pedido';b.classList.toggle('added',!!inO);
+    animateTo(Math.min(v,1000));
+  }
+  r.addEventListener('input',upd);
+  document.getElementById('addBtn').onclick=function(){var g=steps[+r.value][0],id=skuId(g),o=C2.order();o[id]=(o[id]||0)+1;C2.order(o);C2.paint(true);upd();};
+  function setAud(a,move){document.querySelectorAll('[data-aud]').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.aud===a)});document.getElementById('lede').textContent=AUD[a].l;if(move){r.value=AUD[a].i;}C2.aud(a);upd();}
+  document.querySelector('.aud').addEventListener('click',function(e){var b=e.target.closest('[data-aud]');if(b)setAud(b.dataset.aud,true)});
+  var saved=C2.aud();if(saved&&AUD[saved])setAud(saved,true);else upd();
+  addEventListener('resize',function(){draw(shown)});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(function(){setOdo(document.getElementById('liters'),document.getElementById('liters').getAttribute('aria-label'))});
+  document.getElementById('mini').onsubmit=function(e){e.preventDefault();document.getElementById('mok').hidden=false};
+  document.getElementById('copy').onclick=function(){var t='3197690990',btn=this;var done=function(){btn.textContent='Número copiado'};try{navigator.clipboard.writeText(t).then(done,function(){sel()})}catch(e){sel()}function sel(){var rg=document.createRange();rg.selectNodeContents(document.getElementById('num'));var s=getSelection();s.removeAllRanges();s.addRange(rg);btn.textContent='Número seleccionado'}};
+})();
+</script>
+</body>
+</html>

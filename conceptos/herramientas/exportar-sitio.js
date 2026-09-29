@@ -5,6 +5,7 @@
 //   docs/index.html            presentación
 //   docs/concepto-1/index.html prototipo «Paralelo 10»
 //   docs/concepto-2/index.html prototipo «Peso neto»
+//   docs/v2/                   propuesta v2 (presentación y conceptos 3 y 4, ya en HTML completo)
 const fs = require('fs');
 const path = require('path');
 
@@ -16,9 +17,10 @@ const ENLACES = {
   'https://claude.ai/artifact/Pan1b9ivWkdXo7Uo1jpcSY': './',
   'https://claude.ai/artifact/XF3krJWmpdwKERm255EeWu': 'concepto-1/',
   'https://claude.ai/artifact/BHcz4tfZatisdjrVbzYmoS': 'concepto-2/',
+  'https://drac245.github.io/Page/v2/': 'v2/',
 };
 
-const OMITIR = new Set(['_preview.html', 'capturas', 'verificacion-hero']);
+const OMITIR = new Set(['_preview.html', 'capturas', 'verificacion-hero', 'original']);
 
 function envolver(cuerpo) {
   return `<!doctype html>
@@ -78,5 +80,8 @@ fs.mkdirSync(SALIDA, { recursive: true });
 exportar('presentacion', '', '');
 exportar('conceptos/concepto-1', 'concepto-1', '../');
 exportar('conceptos/concepto-2', 'concepto-2', '../');
+// La propuesta v2 ya viene con doctype: se copia sin envolver.
+fs.mkdirSync(path.join(SALIDA, 'v2'), { recursive: true });
+copiar(path.join(RAIZ, 'propuesta-v2'), path.join(SALIDA, 'v2'), '../');
 fs.writeFileSync(path.join(SALIDA, '.nojekyll'), '');
 console.log('Sitio exportado en ' + SALIDA);

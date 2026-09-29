@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Presentaciones · Mundilácteos · Concepto 4</title>
+<meta name="description" content="Todas las presentaciones de leche en polvo Mundilácteos, de 27 g a 25 kg. Arme su pedido y pida precio por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100..900&family=Big+Shoulders+Stencil+Display:wght@700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="c2.css">
+<script type="application/ld+json" id="ld"></script>
+<style>
+.top{background:radial-gradient(120% 120% at 90% 0,#43A513 0,transparent 55%),var(--verde);padding-block:36px 0}
+.top h1{font-size:clamp(3rem,8vw,5.4rem);color:#fff}
+.top p{max-width:56ch;margin-top:10px;color:#E6F6DA}
+.for{display:flex;gap:0;margin-top:26px;overflow-x:auto}
+.for button{flex:0 0 auto;background:transparent;border:0;border-radius:14px 14px 0 0;padding:14px 20px;font:800 1.5rem var(--disp);color:#fff;cursor:pointer}
+.for button[aria-selected=true]{background:#fff;color:var(--verde)}
+.body{display:grid;grid-template-columns:1fr 360px;gap:40px;padding-block:28px 100px}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.brands{display:flex;gap:8px;flex-wrap:wrap}
+.brands label{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--line);border-radius:999px;padding:6px 14px;font-weight:700;cursor:pointer}
+.brands input{accent-color:var(--anil);width:18px;height:18px}
+.n{color:var(--muted);font-variant-numeric:tabular-nums}
+.scale{position:relative;height:40px;margin:8px 0 6px;border-bottom:2px solid var(--ink)}
+.scale i{position:absolute;bottom:0;width:2px;background:var(--ink);transform:translateX(-1px)}
+.scale span{position:absolute;bottom:14px;font-size:.7rem;color:var(--muted);transform:translateX(-50%);white-space:nowrap;font-variant-numeric:tabular-nums}
+.scale i.on{background:var(--verde-m);width:4px}
+.list{border-top:2px solid var(--ink)}
+.row{display:grid;grid-template-columns:64px 1.4fr .8fr .8fr .8fr 150px;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.row.h{font-size:.8rem;font-weight:700;color:var(--muted);padding:8px 0;border-bottom:2px solid var(--ink)}
+.row img{height:60px;width:auto;margin:0 auto}
+.row .nm b{display:block;font-family:var(--disp);font-size:1.45rem;font-weight:800;line-height:1;color:var(--verde)}
+.row .nm span{font-size:.88rem;color:var(--muted)}
+.row .w{font-family:var(--disp);font-size:1.7rem;font-weight:800;font-variant-numeric:tabular-nums}
+.row .c{font-variant-numeric:tabular-nums}
+.row .c small{display:none}
+.row .w .sr{display:none}
+.step{display:flex;align-items:center;border:2px solid var(--anil);border-radius:999px;overflow:hidden;justify-self:end}
+.step button{background:#fff;border:0;width:40px;height:40px;font:800 1.2rem var(--body);color:var(--anil);cursor:pointer}
+.step button:hover{background:var(--bruma)}
+.step output{min-width:40px;text-align:center;font-weight:800;font-variant-numeric:tabular-nums}
+.row.picked{background:linear-gradient(90deg,var(--ocre-l),transparent 70%)}
+.order{position:sticky;top:84px;align-self:start;background:var(--anil);color:#fff;border-radius:18px;padding:22px}
+.order h2{font-size:2.4rem}
+.order .empty{color:#C8CCE0;margin-top:10px}
+.olist{list-style:none;padding:0;margin:14px 0;display:grid;gap:8px;font-size:.95rem}
+.olist li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid rgba(255,255,255,.18);padding-bottom:8px}
+.tot{display:flex;justify-content:space-between;font-weight:700;margin:6px 0 14px}
+.msg{background:#fff;color:var(--ink);border-radius:10px;padding:12px;font-size:.88rem;white-space:pre-wrap;max-height:160px;overflow:auto}
+.order .cta{width:100%;justify-content:center;margin-top:10px}
+.order .copy{width:100%;margin-top:8px}
+.hint{font-size:.78rem;color:#C8CCE0;margin-top:10px}
+.mob-order{display:none}
+@media (max-width:980px){
+  .body{grid-template-columns:1fr}
+  .order{position:fixed;left:0;right:0;bottom:var(--bnav);top:auto;border-radius:18px 18px 0 0;z-index:40;max-height:78vh;overflow:auto;padding-bottom:calc(22px + env(safe-area-inset-bottom,0px));display:none}
+  .order.open{display:block}
+  .row{grid-template-columns:56px 1fr auto;grid-template-areas:"i n s" "i w w";row-gap:4px}
+  .row.h{display:none}
+  .row img{grid-area:i;height:56px}
+  .row .nm{grid-area:n}
+  .row .step{grid-area:s}
+  .row .w{grid-area:w;font-size:1rem;font-family:var(--body);font-weight:600;color:var(--muted)}
+  .row .c{display:none}
+  .row .w .sr{display:inline}
+  .scale span:nth-child(4n+2),.scale span:nth-child(4n+3){display:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a class="logo" href="index.html" aria-label="Mundilácteos, inicio">mundi<i>lácteos</i></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav">Menú</button>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="#casa" data-go="casa">Para la casa</a>
+      <a href="#negocio" data-go="negocio">Para su negocio</a>
+      <a href="#industria" data-go="industria">Para la industria</a>
+      <a href="index.html#origen">Nosotros</a>
+      <a class="cta" href="index.html#contacto">Pedir precio</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="top">
+    <span class="bgword bgn" aria-hidden="true">26</span>
+    <div class="wrap">
+      <h1>Todas las presentaciones</h1>
+      <p>Arme su pedido aquí y envíelo por WhatsApp. Le respondemos con precio y fecha de entrega.</p>
+      <div class="for" role="tablist" aria-label="Para qué la necesita">
+        <button role="tab" data-for="todas" aria-selected="true">Todas</button>
+        <button role="tab" data-for="casa" aria-selected="false">Para la casa</button>
+        <button role="tab" data-for="negocio" aria-selected="false">Para su negocio</button>
+        <button role="tab" data-for="industria" aria-selected="false">Para la industria</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap body">
+    <section aria-label="Lista de presentaciones">
+      <div class="bar">
+        <div class="brands" id="brands">
+          <label><input type="checkbox" value="The Cántaro" checked> The Cántaro</label>
+          <label><input type="checkbox" value="La Becerrita" checked> La Becerrita</label>
+          <label><input type="checkbox" value="Azucarada" checked data-type> Incluir azucarada</label>
+        </div>
+        <span class="n" id="count" aria-live="polite"></span>
+      </div>
+      <div class="scale" id="scale" aria-hidden="true"></div>
+      <div class="list" id="list"></div>
+    </section>
+    <aside class="order" id="order" aria-labelledby="o-t">
+      <h2 id="o-t">Su pedido</h2>
+      <div id="obody"></div>
+    </aside>
+  </div>
+</main>
+<nav class="bnav" aria-label="Navegación rápida">
+  <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 11 12 4l9 7v9H3z"/></svg>Inicio</a>
+  <a href="catalogo.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Presentaciones</a>
+  <button type="button" id="mob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 3h9l3 3v15H6z"/><path d="M9 11h6M9 15h6"/></svg>Pedido<span class="badge" data-ocount hidden>0</span></button>
+  <a class="wa-i" href="https://wa.me/573197690990" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>WhatsApp</a>
+</nav>
+
+<script src="../assets/catalog.js"></script>
+<script src="c2.js"></script>
+<script>
+(function(){
+  var S=ML.skus.slice().sort(function(a,b){return a.grams-b.grams||a.brand.localeCompare(b.brand)}), qty=C2.order(), mode='todas';
+  document.getElementById('ld').textContent=JSON.stringify({'@context':'https://schema.org','@type':'ItemList','itemListElement':S.map(function(x,i){return {'@type':'ListItem','position':i+1,'item':{'@type':'Product','name':x.brand+' '+x.name.toLowerCase()+' '+x.label,'brand':{'@type':'Brand','name':x.brand},'weight':{'@type':'QuantitativeValue','value':x.grams,'unitCode':'GRM'}}}})});
+  var need={casa:function(x){return x.format==='Bolsa'&&x.grams>=380},negocio:function(x){return x.format==='Bolsa'},industria:function(x){return x.format==='Bulto'},todas:function(){return true}};
+  function on(){var b=[],az=true;document.querySelectorAll('#brands input').forEach(function(i){if(i.hasAttribute('data-type'))az=i.checked;else if(i.checked)b.push(i.value)});return {b:b,az:az}}
+  function vis(){var f=on();return S.filter(function(x){return need[mode](x)&&f.b.indexOf(x.brand)>=0&&(f.az||x.type!=='Azucarada')})}
+  var sizes=[27,104,200,380,400,500,750,900,1000,5000,12500,25000];
+  function pos(g){return (sizes.indexOf(g)/(sizes.length-1))*96+2}
+  function lbl(g){return g>=1000?String(g/1000).replace('.',',')+' kg':g+' g'}
+  function render(){
+    var r=vis(), present={};r.forEach(function(x){present[x.grams]=1});
+    document.getElementById('count').textContent=r.length+' presentaciones';
+    document.getElementById('scale').innerHTML=sizes.map(function(g){return '<i class="'+(present[g]?'on':'')+'" style="left:'+pos(g)+'%;height:'+(present[g]?16:8)+'px"></i><span style="left:'+pos(g)+'%">'+lbl(g)+'</span>'}).join('');
+    document.getElementById('list').innerHTML='<div class="row h"><span></span><span>Producto</span><span>Peso</span><span>Paca</span><span>Rinde</span><span style="justify-self:end">Cantidad</span></div>'+r.map(function(x){var q=qty[x.id]||0,L=ML.liters(x.grams);
+      return '<div class="row'+(q?' picked':'')+'"><img src="../assets/img/'+x.img+'.webp" alt="" loading="lazy"><div class="nm"><b>'+x.brand+'</b><span>'+x.name.replace('Leche en polvo ','Leche en polvo ')+'</span></div><span class="w">'+x.label+'<span class="sr" style="font-size:.85rem"> '+(x.pack?'· paca de '+x.pack:'· bulto')+'</span></span><span class="c">'+(x.pack?x.pack+' u.':'1 bulto')+'</span><span class="c">'+(L<10?ML.fmt(L,1):ML.fmt(L))+' L</span>'+
+        '<div class="step" role="group" aria-label="Cantidad de '+x.brand+' '+x.type+' '+x.label+'"><button data-d="-1" data-id="'+x.id+'" aria-label="Quitar uno">−</button><output>'+q+'</output><button data-d="1" data-id="'+x.id+'" aria-label="Agregar uno">+</button></div></div>'}).join('');
+    var ids=Object.keys(qty).filter(function(k){return qty[k]>0}),kg=0,lines=[];
+    ids.forEach(function(id){var x=S.filter(function(s){return s.id===id})[0],q=qty[id],units=x.pack?q*x.pack:q;kg+=units*x.grams/1000;lines.push({x:x,q:q})});
+    var msg='Hola, Mundilácteos. Quiero precio para:\n'+lines.map(function(l){return '• '+l.q+' '+(l.x.pack?'pacas':'bultos')+' de '+l.x.brand+' '+l.x.type.toLowerCase()+' '+l.x.label}).join('\n')+'\nCiudad de entrega: ';
+    document.getElementById('obody').innerHTML=lines.length?'<ul class="olist">'+lines.map(function(l){return '<li><span>'+l.x.brand+' '+l.x.type.toLowerCase()+' '+l.x.label+'</span><b>'+l.q+' '+(l.x.pack?'pacas':'bultos')+'</b></li>'}).join('')+'</ul><div class="tot"><span>Peso total</span><span>'+ML.fmt(kg,1)+' kg</span></div><div class="msg" id="msg">'+msg.replace(/</g,'&lt;')+'</div><a class="cta cta-o" href="https://wa.me/573197690990?text='+encodeURIComponent(msg)+'" target="_blank" rel="noopener">Enviar por WhatsApp</a><button class="copy" id="cp" type="button">Copiar mensaje</button><p class="hint">Si WhatsApp no abre, copie el mensaje y envíelo al 319 769 0990.</p>':'<p class="empty">Use + en cada presentación para armar su pedido.</p>';
+    var cp=document.getElementById('cp');if(cp)cp.onclick=function(){var b=this;try{navigator.clipboard.writeText(msg).then(function(){b.textContent='Mensaje copiado'},sel)}catch(e){sel()}function sel(){var rg=document.createRange();rg.selectNodeContents(document.getElementById('msg'));var s=getSelection();s.removeAllRanges();s.addRange(rg);b.textContent='Mensaje seleccionado'}};
+    C2.order(qty);C2.paint();
+    document.querySelectorAll('.for button').forEach(function(b){b.setAttribute('aria-selected',b.dataset.for===mode)});
+  }
+  document.addEventListener('click',function(e){var b=e.target.closest('[data-d]');if(b){var id=b.dataset.id;qty[id]=Math.max(0,(qty[id]||0)+ +b.dataset.d);if(!qty[id])delete qty[id];render();C2.paint(+b.dataset.d>0);return;}
+    var f=e.target.closest('[data-for]');if(f){mode=f.dataset.for;if(need[mode]&&mode!=='todas')C2.aud(mode);vt(render);return;}
+    var g=e.target.closest('[data-go]');if(g){mode=g.dataset.go;render();document.getElementById('nav').classList.remove('open');}});
+  document.getElementById('brands').addEventListener('change',function(){vt(render)});
+  function vt(fn){if(document.startViewTransition&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.startViewTransition(fn);else fn();}
+  var ob=document.getElementById('order');document.getElementById('mob').onclick=function(){ob.classList.toggle('open')};
+    var h=location.hash.slice(1),a=C2.aud();if(need[h])mode=h;else if(need[a])mode=a;
+  if(h==='pedido')ob.classList.add('open');
+  if(!Object.keys(qty).length){qty['cantaro-entera-900g']=5;qty['cantaro-entera-25kg']=8;}
+  render();
+})();
+</script>
+</body>
+</html>

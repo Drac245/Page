@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Rediseño Mundilácteos v2</title>
+<meta name="description" content="Propuesta de rediseño web para Mundilácteos: diagnóstico, competencia, paleta de marca y dos conceptos con prototipos navegables.">
+<link rel="icon" href="data:,">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Instrument+Sans:wght@400;500;600;700&family=Archivo:wdth,wght@62..125,500..900&family=Big+Shoulders+Display:wght@100..900&family=Big+Shoulders+Stencil+Display:wght@900&display=swap">
+<style>
+/* Paleta: solo colores de la marca Mundilácteos (logo y sitio actual) */
+:root{
+  --bg:#F5F9FC; --surface:#FFFFFF; --surface-2:#EEF5FA; --text:#0B2A40; --muted:#4A6273; --line:#DCE7EF; --link:#0377BF;
+  --azul:#0377BF; --azul-d:#07476F; --noche:#04263D; --verde:#1F7F02; --verde-m:#43A513; --lima:#67C100; --cielo:#0495EF; --celeste:#E9F8FF; --oro:#DFAB3D;
+  --bad:#B42318; --bad-bg:#FDECEA; --warn:#8A5A00; --warn-bg:#FFF3DC; --mid:#07476F; --mid-bg:#E3EFF7; --good:#1F7F02; --good-bg:#E6F4D8;
+  --bar-comp:#94A3AF; --bar-hoy:#0377BF; --bar-new:#43A513;
+  --shadow:0 24px 60px rgba(7,71,111,.12);
+  --d:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif; --b:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --gut:clamp(16px,4vw,40px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#06141F; --surface:#0C2130; --surface-2:#10293B; --text:#E6F1F8; --muted:#9FB6C6; --line:#1C3547; --link:#4DB4F5;
+  --celeste:#0F2B3F; --bad:#FF8A80; --bad-bg:#3A1C1C; --warn:#F2B95C; --warn-bg:#3A2C14; --mid:#9CC9E8; --mid-bg:#12304A; --good:#7ED957; --good-bg:#16301F;
+  --bar-comp:#6B7C89; --bar-hoy:#2C9BE3; --bar-new:#4FAE22; --shadow:0 24px 60px rgba(0,0,0,.45); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#06141F; --surface:#0C2130; --surface-2:#10293B; --text:#E6F1F8; --muted:#9FB6C6; --line:#1C3547; --link:#4DB4F5;
+  --celeste:#0F2B3F; --bad:#FF8A80; --bad-bg:#3A1C1C; --warn:#F2B95C; --warn-bg:#3A2C14; --mid:#9CC9E8; --mid-bg:#12304A; --good:#7ED957; --good-bg:#16301F;
+  --bar-comp:#6B7C89; --bar-hoy:#2C9BE3; --bar-new:#4FAE22; --shadow:0 24px 60px rgba(0,0,0,.45); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font:17px/1.6 var(--b);margin:0;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--link);text-underline-offset:3px}
+h1,h2,h3,h4{font-family:var(--d);line-height:1.05;margin:0;text-wrap:balance;letter-spacing:-.02em}
+h2{font-size:clamp(2rem,4.6vw,3.4rem);font-weight:800}
+h3{font-size:1.3rem;font-weight:700;letter-spacing:-.01em}
+h4{font-size:1.02rem;font-weight:700;letter-spacing:0}
+p{margin:0;text-wrap:pretty}
+:focus-visible{outline:3px solid var(--lima);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:var(--gut)}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+section{scroll-margin-top:84px}
+.sec{padding-block:clamp(72px,10vw,128px)}
+.lede{font-size:clamp(1.05rem,1.6vw,1.25rem);color:var(--muted);max-width:60ch;margin-top:16px}
+.head{display:grid;gap:4px;margin-bottom:clamp(32px,5vw,56px)}
+.note{font-size:.85rem;color:var(--muted)}
+
+/* Barra superior */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(4,38,61,.82);backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);border-bottom:1px solid rgba(255,255,255,.08)}
+.top-in{display:flex;align-items:center;gap:20px;min-height:64px}
+.lock{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font:700 1rem var(--d);letter-spacing:-.01em;white-space:nowrap}
+.lock svg{width:30px;height:30px}
+.lock small{font:500 .78rem var(--b);color:#9FC3DA;display:block;letter-spacing:0}
+.top nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1;justify-content:safe center}
+.top nav a{color:#CFE3EF;text-decoration:none;font-weight:600;font-size:.9rem;padding:8px 12px;border-radius:999px;white-space:nowrap;transition:background .15s,color .15s}
+.top nav a:hover{background:rgba(255,255,255,.1);color:#fff}
+.pill{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:999px;background:var(--lima);color:#0B2A40;font-weight:700;text-decoration:none;white-space:nowrap;border:0;cursor:pointer;font-family:var(--b);font-size:.95rem;transition:transform .15s,background .15s}
+.pill:hover{background:#7AD21A;transform:translateY(-1px)}
+.pill.ghost{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.4)}
+.pill.ghost:hover{background:rgba(255,255,255,.08)}
+.pill.blue{background:var(--azul);color:#fff}
+.pill.blue:hover{background:var(--azul-d)}
+.pill.line{background:transparent;color:var(--link);box-shadow:inset 0 0 0 1.5px currentColor}
+
+/* Hero */
+.hero{background:radial-gradient(55% 70% at 88% 18%,rgba(4,149,239,.38),transparent 70%),radial-gradient(45% 60% at 8% 95%,rgba(103,193,0,.30),transparent 70%),var(--noche);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:22px 22px;mask-image:linear-gradient(#000,transparent 85%);pointer-events:none}
+.hero-in{position:relative;display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(24px,4vw,56px);align-items:center;padding-block:clamp(48px,7vw,96px) 40px}
+.by{font-size:.9rem;color:#9FC3DA}
+.hero h1{font-size:clamp(2.6rem,6.4vw,5.2rem);font-weight:800;margin-top:14px;letter-spacing:-.035em}
+.hero .lede{color:#CFE3EF}
+.hero .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.stage{position:relative;aspect-ratio:1.18;max-width:640px;width:100%;justify-self:end}
+.laptop{position:absolute;left:0;top:6%;width:88%}
+.laptop .scr{border:10px solid #0B1A26;border-bottom-width:14px;border-radius:14px 14px 4px 4px;overflow:hidden;background:#fff;aspect-ratio:16/10;box-shadow:0 40px 80px rgba(0,0,0,.45)}
+.laptop .scr img{width:100%;height:100%;object-fit:cover;object-position:top}
+.laptop .base{height:12px;margin-inline:-6%;background:linear-gradient(#26394a,#0B1A26);border-radius:0 0 14px 14px}
+.phone{position:absolute;right:0;bottom:0;width:31%;border:7px solid #0B1A26;border-radius:28px;overflow:hidden;aspect-ratio:390/844;background:#fff;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.phone img{width:100%;height:100%;object-fit:cover;object-position:top}
+.tag{position:absolute;display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.96);color:#0B2A40;border-radius:14px;padding:10px 14px;box-shadow:0 14px 34px rgba(0,0,0,.3);font-size:.82rem;line-height:1.25}
+.tag b{font:800 1.35rem/1 var(--d);letter-spacing:-.02em;white-space:nowrap}
+.tag b s{color:#8A9BA8;font-weight:600;text-decoration-thickness:2px}
+.tag i{width:10px;height:10px;border-radius:50%;background:var(--lima);flex:none}
+.t1{left:-2%;bottom:14%}
+.t2{right:24%;top:-2%}
+@media (prefers-reduced-motion:no-preference){
+  .laptop{animation:float 7s ease-in-out infinite}
+  .phone{animation:float 7s ease-in-out -3.5s infinite}
+}
+@keyframes float{50%{transform:translateY(-10px)}}
+.kpis{position:relative;display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.14);margin-top:clamp(24px,4vw,48px)}
+.kpi{padding:22px 18px 30px 0}
+.kpi+.kpi{padding-left:18px;border-left:1px solid rgba(255,255,255,.14)}
+.kpi b{display:block;font:800 clamp(1.8rem,3.4vw,2.6rem)/1 var(--d);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.kpi b span{color:#7F9DB2;font-weight:600}
+.kpi p{color:#B7D0E0;font-size:.88rem;margin-top:6px;line-height:1.35}
+
+/* Tarjetas y listas */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:clamp(20px,3vw,28px)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px}
+.stat b{display:block;font:800 clamp(2.2rem,4vw,3rem)/1 var(--d);letter-spacing:-.03em;color:var(--bad);font-variant-numeric:tabular-nums}
+.stat p{color:var(--muted);font-size:.92rem;margin-top:8px;line-height:1.4}
+.sev{display:inline-block;font-size:.74rem;font-weight:700;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.sev.c{background:var(--bad-bg);color:var(--bad)}.sev.h{background:var(--warn-bg);color:var(--warn)}.sev.m{background:var(--mid-bg);color:var(--mid)}
+.finds{list-style:none;margin:14px 0 0;padding:0;display:grid}
+.finds li{display:grid;grid-template-columns:78px 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.finds p{color:var(--muted);font-size:.9rem;margin-top:2px}
+.finds .sev{align-self:start;justify-self:start}
+.finds b{font-weight:600}
+
+/* Antes y después */
+.ba{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:1200/750;box-shadow:var(--shadow);background:#fff;user-select:none;--x:50%}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top}
+.ba .before{clip-path:inset(0 calc(100% - var(--x)) 0 0)}
+.ba .line{position:absolute;top:0;bottom:0;left:var(--x);width:3px;margin-left:-1.5px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.15);pointer-events:none}
+.ba .knob{position:absolute;top:50%;left:var(--x);width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:#fff;box-shadow:0 6px 20px rgba(0,0,0,.3);display:grid;place-items:center;pointer-events:none;color:#07476F}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.ba .lab{position:absolute;top:14px;padding:6px 12px;border-radius:999px;font-weight:700;font-size:.82rem;pointer-events:none}
+.ba .l1{left:14px;background:rgba(11,42,64,.85);color:#fff}
+.ba .l2{right:14px;background:var(--lima);color:#0B2A40}
+.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:4px;gap:4px;margin-bottom:16px}
+.seg button{border:0;background:transparent;color:var(--muted);font:600 .9rem var(--b);padding:8px 16px;border-radius:999px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--surface);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+
+.frame{border:1px solid var(--line);border-radius:14px;overflow:auto;max-height:520px;background:#fff;overscroll-behavior:contain}
+.frame img{width:100%}
+.phone-f{border:8px solid #0B1A26;border-radius:30px;overflow:auto;max-height:560px;background:#fff;max-width:290px;overscroll-behavior:contain;scrollbar-width:none}
+.shots{display:grid;grid-template-columns:1fr 290px;gap:24px;align-items:start}
+figcaption{font-size:.85rem;color:var(--muted);margin-top:10px}
+figure{margin:0}
+
+/* Gráfico de barras */
+.chart{display:grid;gap:10px;margin-top:8px}
+.bar{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:center;font-size:.92rem}
+.bar .nm{text-align:right;color:var(--muted);font-weight:600}
+.bar .tr{position:relative;height:30px}
+.bar .fl{height:100%;border-radius:0 6px 6px 0;background:var(--bar-comp);display:flex;align-items:center;justify-content:flex-end;padding-right:10px;min-width:44px;position:relative}
+.bar .fl span{font-weight:700;font-variant-numeric:tabular-nums;color:#fff;font-size:.88rem}
+.bar.hoy .fl{background:var(--bar-hoy)} .bar.new .fl{background:var(--bar-new)}
+.bar.hoy .nm,.bar.new .nm{color:var(--text)}
+.bar .tip{position:absolute;left:0;bottom:calc(100% + 4px);z-index:2;background:var(--text);color:var(--bg);font-size:.8rem;padding:6px 10px;border-radius:8px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .12s}
+.bar:hover .tip,.bar:focus-within .tip{opacity:1}
+.bar .tr:focus{outline:none}
+.axis{display:grid;grid-template-columns:150px 1fr;gap:14px;font-size:.78rem;color:var(--muted)}
+.axis div{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:6px;font-variant-numeric:tabular-nums}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:.85rem;color:var(--muted);margin-top:14px}
+.legend span{display:inline-flex;align-items:center;gap:8px}
+.legend i{width:14px;height:14px;border-radius:4px;display:inline-block}
+
+/* Carrusel de competidores */
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:min(360px,82vw);gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;margin-top:36px;scrollbar-width:thin}
+.comp{scroll-snap-align:start;background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column}
+.comp .im{aspect-ratio:16/10;overflow:hidden;background:#fff;border-bottom:1px solid var(--line)}
+.comp .im img{width:100%;height:100%;object-fit:cover;object-position:top}
+.comp .bd{padding:20px;display:grid;gap:10px;flex:1;align-content:start}
+.comp .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.score{font:800 .95rem var(--d);padding:3px 10px;border-radius:999px;background:var(--bad-bg);color:var(--bad);white-space:nowrap}
+.comp ul{margin:0;padding-left:18px;color:var(--muted);font-size:.92rem;display:grid;gap:4px}
+.take{margin-top:auto;background:var(--celeste);border-radius:12px;padding:12px 14px;font-size:.9rem}
+.take b{color:var(--azul-d)}
+:root[data-theme="dark"] .take b{color:var(--lima)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .take b{color:var(--lima)}}
+
+/* Marca */
+.brand{display:grid;grid-template-columns:320px 1fr;gap:24px;align-items:start}
+.logo-card{background:#fff;border-radius:20px;border:1px solid var(--line);padding:24px;display:grid;gap:12px;justify-items:center;text-align:center}
+.logo-card img{width:190px}
+.logo-card p{color:#4A6273;font-size:.85rem}
+.sw{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.sw button{all:unset;cursor:pointer;border-radius:16px;overflow:hidden;background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;transition:transform .15s}
+.sw button:hover{transform:translateY(-2px)}
+.sw button:focus-visible{outline:3px solid var(--lima);outline-offset:3px}
+.sw i{display:block;height:84px}
+.sw span{padding:10px 12px;display:grid;gap:2px;font-size:.85rem}
+.sw span b{font-weight:700}
+.sw span code{font-size:.8rem;color:var(--muted)}
+.sw span small{color:var(--muted);font-size:.75rem;line-height:1.3}
+.mix{display:grid;gap:14px;margin-top:22px}
+.mix .lbl{display:flex;justify-content:space-between;font-weight:600;font-size:.92rem}
+.mix .lbl span{color:var(--muted);font-weight:500}
+.stack{display:flex;height:22px;border-radius:999px;overflow:hidden;gap:2px;background:var(--line)}
+.stack i{display:block;height:100%}
+
+/* Conceptos */
+.concept{border-radius:32px;padding:clamp(24px,5vw,56px);position:relative;overflow:hidden}
+.c1{background:linear-gradient(160deg,#E9F8FF,#D6EEFB);color:#0B2A40}
+.c2{background:radial-gradient(70% 90% at 100% 0,#43A513,transparent 60%),#1F7F02;color:#fff}
+.c1 .muted{color:#3F5A6C}.c2 .muted{color:#DDF1CF}
+.c-head{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:end}
+.c-head h2{font-size:clamp(2.6rem,7vw,5.4rem);letter-spacing:-.04em}
+.c-head p.kick{font-weight:700;font-size:.95rem;margin-bottom:10px}
+.c-head .muted{font-size:1.1rem;margin-top:14px;max-width:52ch}
+.c-acts{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
+.devices{display:grid;grid-template-columns:1fr 250px;gap:24px;align-items:end;margin-top:clamp(28px,5vw,48px)}
+.dev-l .scr{border:10px solid #0B1A26;border-bottom-width:14px;border-radius:14px 14px 4px 4px;overflow:auto;background:#fff;aspect-ratio:16/10;overscroll-behavior:contain;scrollbar-width:thin}
+.dev-l .base{height:12px;margin-inline:-4%;background:linear-gradient(#26394a,#0B1A26);border-radius:0 0 14px 14px}
+.dev-p{border:8px solid #0B1A26;border-radius:30px;overflow:auto;aspect-ratio:390/844;background:#fff;overscroll-behavior:contain;scrollbar-width:none}
+.scroll-hint{font-size:.85rem;margin-top:12px;text-align:center}
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:clamp(28px,5vw,48px)}
+.feat{border-radius:20px;padding:0;overflow:hidden;display:flex;flex-direction:column}
+.c1 .feat{background:#fff;box-shadow:0 10px 30px rgba(7,71,111,.10)}
+.c2 .feat{background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}
+.feat .fi{aspect-ratio:16/10;overflow:hidden}
+.feat .fi img{width:100%;height:100%;object-fit:cover;object-position:top}
+.feat .fb{padding:16px 18px 20px;display:grid;gap:6px}
+.feat .fb p{font-size:.9rem}
+.c1 .feat .fb p{color:#3F5A6C}.c2 .feat .fb p{color:#DDF1CF}
+.info{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.info>div{border-radius:20px;padding:22px}
+.c1 .info>div{background:rgba(255,255,255,.7)}
+.c2 .info>div{background:rgba(0,0,0,.14)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chips span{font-size:.82rem;font-weight:600;padding:5px 10px;border-radius:999px}
+.c1 .chips span{background:#fff;color:#07476F;box-shadow:inset 0 0 0 1px #CDE3F1}
+.c2 .chips span{background:rgba(255,255,255,.14);color:#fff}
+.dots{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px;font-size:.92rem}
+.dots li{padding-left:18px;position:relative}
+.dots li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:50%}
+.c1 .dots li::before{background:var(--azul)}
+.c2 .dots li::before{background:var(--lima)}
+.pal{display:flex;gap:6px;margin-top:12px}
+.pal i{width:34px;height:34px;border-radius:10px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}
+.c2 .pal i{box-shadow:inset 0 0 0 2px rgba(255,255,255,.55)}
+.type-s{font-size:2rem;line-height:1;margin-top:12px}
+.c2 .pill.line{color:#fff}
+.c1 .pill.line{color:#0377BF}
+
+/* Tendencias */
+.trends{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tr-c{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:22px;display:grid;gap:10px;align-content:start}
+.tr-c .sup{font-size:.78rem;font-weight:700;color:var(--good);background:var(--good-bg);border-radius:999px;padding:3px 10px;justify-self:start}
+.tr-c p{color:var(--muted);font-size:.92rem}
+.tr-c dl{margin:4px 0 0;display:grid;gap:6px;font-size:.88rem}
+.tr-c dl div{display:grid;grid-template-columns:34px 1fr;gap:8px}
+.tr-c dt{font-weight:800;font-family:var(--d)}
+.tr-c dt.k1{color:var(--link)}.tr-c dt.k2{color:var(--good)}
+.tr-c dd{margin:0}
+.nope{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.nope span{border:1px dashed var(--line);border-radius:999px;padding:8px 14px;font-size:.88rem;color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(180,35,24,.5)}
+
+/* Tabla */
+.tbl{overflow-x:auto;border-radius:20px;border:1px solid var(--line);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:.93rem}
+th,td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+thead th{font-family:var(--d);font-size:1rem;background:var(--surface-2)}
+tbody th{font-weight:600;color:var(--muted);width:180px}
+tr:last-child td,tr:last-child th{border-bottom:0}
+td.win{font-weight:700}
+.n{font-variant-numeric:tabular-nums}
+
+/* Validar y plan */
+.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.checks div{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px 18px 18px 50px;position:relative;font-size:.93rem}
+.checks div::before{content:"";position:absolute;left:18px;top:20px;width:18px;height:18px;border-radius:6px;border:2px solid var(--link)}
+.plan{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.plan::before{content:"";position:absolute;left:0;right:0;top:15px;height:3px;background:linear-gradient(90deg,var(--azul),var(--lima))}
+.plan li{list-style:none;padding:44px 20px 0 0;position:relative;counter-increment:p}
+.plan li::before{content:counter(p);position:absolute;top:0;left:0;width:34px;height:34px;border-radius:50%;background:var(--surface);border:3px solid var(--azul);display:grid;place-items:center;font:800 .95rem var(--d);color:var(--text)}
+.plan p{color:var(--muted);font-size:.92rem;margin-top:6px}
+ol.plan{counter-reset:p;padding:0;margin:0}
+
+.tech{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tech .card h3{margin-bottom:8px}
+.tech .card p{color:var(--muted);font-size:.93rem}
+
+.foot{background:var(--noche);color:#B7D0E0;padding-block:56px 40px;font-size:.9rem}
+.foot a{color:#CFE3EF}
+.foot .src{columns:2;column-gap:32px;margin-top:18px}
+.foot .src p{break-inside:avoid;margin-bottom:6px}
+.foot h3{color:#fff}
+
+/* Aparición ligada al scroll: solo desplazamiento, nunca invisible */
+@media (prefers-reduced-motion:no-preference){
+  @supports (animation-timeline:view()){
+    .rise{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 60%}
+  }
+}
+@keyframes rise{from{transform:translateY(28px)}to{transform:none}}
+
+
+/* Titular con máscara, palabras de fondo y probador tipográfico */
+.mask>span{display:block;overflow:hidden;padding-bottom:.05em;margin-bottom:-.05em}
+.mask>span>span{display:block}
+@media (prefers-reduced-motion:no-preference){.mask>span>span{animation:lineUp .9s cubic-bezier(.2,.7,.1,1) both;animation-delay:calc(var(--i) * 100ms)}}
+@keyframes lineUp{from{transform:translateY(108%)}}
+.concept>*{position:relative}
+.cword{position:absolute!important;right:-2%;top:-4%;font:900 clamp(7rem,20vw,17rem)/.8 "Big Shoulders Display",Impact,sans-serif;color:transparent;pointer-events:none;letter-spacing:-.01em}
+.c1 .cword{-webkit-text-stroke:2px rgba(3,119,191,.13);font-family:Archivo,sans-serif;font-variation-settings:"wdth" 125;font-size:clamp(5rem,14vw,12rem)}
+.c2 .cword{-webkit-text-stroke:2px rgba(255,255,255,.14)}
+.type-card{display:grid;gap:14px;align-content:start}
+.spec-a{font:900 clamp(3.4rem,8vw,6rem)/1 Archivo,sans-serif;font-variation-settings:"wdth" var(--w);color:var(--link);letter-spacing:-.02em;white-space:nowrap;overflow:hidden}
+.spec-b{font:var(--g) clamp(3.4rem,8vw,6rem)/.95 "Big Shoulders Display",Impact,sans-serif;color:var(--verde);white-space:nowrap}
+:root[data-theme="dark"] .spec-b{color:var(--good)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .spec-b{color:var(--good)}}
+.spec-s{font:900 1.8rem/1 "Big Shoulders Stencil Display",Impact,sans-serif;color:var(--azul-d);letter-spacing:.02em}
+:root[data-theme="dark"] .spec-s{color:var(--mid)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .spec-s{color:var(--mid)}}
+.rng{display:grid;grid-template-columns:auto 1fr 3.2em;gap:12px;align-items:center;font-weight:600;font-size:.9rem}
+.rng input{accent-color:var(--azul);width:100%}
+.rng output{font-variant-numeric:tabular-nums;text-align:right;color:var(--muted)}
+.mv{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:10px;font-size:.93rem;color:var(--muted)}
+.mv li{padding-left:18px;position:relative}
+.mv li::before{content:"";position:absolute;left:0;top:.6em;width:8px;height:8px;border-radius:50%;background:linear-gradient(var(--lima),var(--azul))}
+.mv b{color:var(--text);font-weight:600}
+@media (max-width:980px){
+  .hero-in,.c-head,.brand,.shots{grid-template-columns:1fr}
+  .stage{justify-self:center;margin-top:8px}
+  .c-acts{justify-content:flex-start}
+  .stats{grid-template-columns:1fr 1fr}
+  .grid3,.trends,.feats,.info,.tech,.checks{grid-template-columns:1fr 1fr}
+  .kpis{grid-template-columns:1fr 1fr}
+  .kpi:nth-child(3){padding-left:0;border-left:0}
+  .kpi:nth-child(n+3){border-top:1px solid rgba(255,255,255,.14)}
+  .top nav{justify-content:flex-start}
+}
+@media (max-width:700px){
+  .top .pill{display:none}
+  .lock small{display:none}
+  .grid2,.grid3,.trends,.feats,.info,.tech,.checks,.sw{grid-template-columns:1fr}
+  .sw{grid-template-columns:1fr 1fr}
+  .devices{grid-template-columns:1fr}
+  .dev-p{max-width:250px;margin-inline:auto}
+  .bar,.axis{grid-template-columns:96px 1fr}
+  .bar .nm{font-size:.8rem}
+  .plan{grid-template-columns:1fr 1fr;row-gap:24px}
+  .plan::before{display:none}
+  .phone-f{margin-inline:auto}
+  .foot .src{columns:1}
+  .t2{right:30%}
+}
+@media (max-width:420px){.stats,.kpis{grid-template-columns:1fr}.kpi{padding-left:0!important;border-left:0!important;border-top:1px solid rgba(255,255,255,.14)}.kpi:first-child{border-top:0}.plan{grid-template-columns:1fr}.tag{font-size:.74rem}.tag b{font-size:1.1rem}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="lock" href="#inicio" aria-label="Propuesta Mundilácteos, inicio">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#67C100"/><stop offset=".55" stop-color="#1F7F02"/><stop offset=".56" stop-color="#0495EF"/><stop offset="1" stop-color="#0377BF"/></linearGradient></defs><path fill="url(#lg)" d="M20 3c7 9 13 15.5 13 22.5A13 13 0 0 1 7 25.5C7 18.5 13 12 20 3z"/><path d="M9 24.5h22" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <span>Mundilácteos<small>Propuesta de rediseño web, v2</small></span>
+    </a>
+    <nav aria-label="Secciones">
+      <a href="#diagnostico">Diagnóstico</a><a href="#competencia">Competencia</a><a href="#marca">Marca</a><a href="#planta">Conceptos</a><a href="#diseno">Diseño</a><a href="#tendencias">Tendencias</a><a href="#comparativa">Cifras</a>
+    </nav>
+    <a class="pill" href="#planta">Ver conceptos</a>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="inicio" aria-labelledby="t-hero">
+  <div class="wrap">
+    <div class="hero-in">
+      <div>
+        <p class="by">Preparado por 3DIGIT-ALL FACTORY S.A.S. para Inversiones Mundilácteos S.A.S., septiembre de 2026. <a href="../" style="color:#CFE3EF">Ver también la propuesta v1 (conceptos 1 y 2)</a></p>
+        <h1 id="t-hero" class="mask" aria-label="Una web a la altura de la leche que producen."><span aria-hidden="true"><span style="--i:0">Una web a la altura</span></span><span aria-hidden="true"><span style="--i:1">de la leche</span></span><span aria-hidden="true"><span style="--i:2">que producen.</span></span></h1>
+        <p class="lede">Auditamos el sitio actual y a cinco competidores. Con eso diseñamos dos conceptos nuevos, con los colores de su marca y prototipos que se pueden navegar hoy.</p>
+        <div class="acts">
+          <a class="pill" href="concepto-3/index.html" target="_blank" rel="noopener">Abrir Concepto 3</a>
+          <a class="pill ghost" href="concepto-4/index.html" target="_blank" rel="noopener">Abrir Concepto 4</a>
+        </div>
+      </div>
+      <div class="stage" aria-hidden="true">
+        <div class="laptop"><div class="scr"><img src="shots/c1-fold.webp" alt="" width="1200" height="750" fetchpriority="high"></div><div class="base"></div></div>
+        <div class="phone"><img src="shots/c2-mob-fold.webp" alt="" width="390" height="844"></div>
+        <div class="tag t1"><i></i><span>Rendimiento en celular<br><b><s>62</s> → 88</b></span></div>
+        <div class="tag t2"><i></i><span>Productos visibles<br><b><s>3</s> → 26</b></span></div>
+      </div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><b>62 <span>→</span> 88</b><p>Puntaje de rendimiento móvil (Lighthouse). Hoy contra el Concepto 4.</p></div>
+      <div class="kpi"><b>6,8 s <span>→</span> 2,9 s</b><p>Tiempo hasta ver el contenido principal en celular. Hoy contra el Concepto 4.</p></div>
+      <div class="kpi"><b>850 <span>→</span> 170 KiB</b><p>Peso de la página de inicio. Hoy contra el Concepto 4.</p></div>
+      <div class="kpi"><b>93 <span>→</span> 100</b><p>Puntaje de accesibilidad. Hoy contra el Concepto 3.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="diagnostico" aria-labelledby="t-diag">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="t-diag">Así está hoy mundilacteos.com</h2>
+      <p class="lede">WordPress 6.8 con Elementor 3.7.8 y el tema Astra, en Hostinger con PHP 7.4.33. El contenido no se toca desde febrero de 2023.</p>
+    </div>
+    <div class="stats rise">
+      <div class="stat"><b>6,8 s</b><p>para ver el contenido principal en celular. La meta es menos de 2,5 s.</p></div>
+      <div class="stat"><b>3 de 26</b><p>familias visibles frente a las referencias que la empresa publica en su propio texto.</p></div>
+      <div class="stat"><b>17 de 27</b><p>imágenes de la home sin texto alternativo, incluido el logo.</p></div>
+      <div class="stat"><b>2022</b><p>último año con soporte de seguridad de PHP 7.4, la versión que usa el servidor.</p></div>
+    </div>
+
+    <div style="margin-top:clamp(40px,6vw,72px)">
+      <div class="seg" role="group" aria-label="Comparar con">
+        <button type="button" data-ba="shots/c1-fold.webp" data-lab="Concepto 3" aria-pressed="true">Hoy vs. Concepto 3</button>
+        <button type="button" data-ba="shots/c2-fold.webp" data-lab="Concepto 4" aria-pressed="false">Hoy vs. Concepto 4</button>
+      </div>
+      <div class="ba" id="ba">
+        <img id="ba-after" src="shots/c1-fold.webp" alt="Primera pantalla del concepto propuesto" width="1200" height="750" loading="lazy">
+        <img class="before" src="shots/actual-fold.webp" alt="Primera pantalla del sitio actual" width="1200" height="750" loading="lazy">
+        <span class="line"></span><span class="knob"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="m9 6-6 6 6 6M15 6l6 6-6 6"/></svg></span>
+        <span class="lab l1">Hoy</span><span class="lab l2" id="ba-lab">Concepto 3</span>
+        <label class="sr" for="ba-r">Deslice para comparar el sitio actual con el concepto</label>
+        <input type="range" id="ba-r" min="0" max="100" value="50">
+      </div>
+      <p class="note" style="margin-top:10px">Deslice para comparar la primera pantalla en escritorio (1440 px).</p>
+    </div>
+
+    <div class="grid3" style="margin-top:clamp(40px,6vw,72px)">
+      <div class="card rise">
+        <h3>Técnico y SEO</h3>
+        <ul class="finds">
+          <li><span class="sev c">Crítico</span><div><b>PHP 7.4.33 sin soporte desde noviembre de 2022</b><p>Elementor 3.7.8 también es de 2022.</p></div></li>
+          <li><span class="sev c">Crítico</span><div><b>Servidor tarda 1,8 s en responder</b><p>19 hojas de estilo y 19 scripts externos; 2,1 s de ahorro posibles.</p></div></li>
+          <li><span class="sev c">Crítico</span><div><b>Idioma declarado en inglés</b><p>lang="en" y og:locale en_US en un sitio en español.</p></div></li>
+          <li><span class="sev h">Alto</span><div><b>Sin meta descripción y tres H1 en la home</b><p>Uno de ellos dice "Home".</p></div></li>
+          <li><span class="sev h">Alto</span><div><b>"Sample Page" y "Hello world!" publicadas</b><p>Aparecen en el sitemap.</p></div></li>
+        </ul>
+      </div>
+      <div class="card rise">
+        <h3>Contenido</h3>
+        <ul class="finds">
+          <li><span class="sev c">Crítico</span><div><b>Catálogo incompleto</b><p>3 familias sin ficha, foto por gramaje ni forma de cotizar.</p></div></li>
+          <li><span class="sev h">Alto</span><div><b>Dos teléfonos distintos</b><p>311 429 3448 en la home y 319 769 0990 en el resto.</p></div></li>
+          <li><span class="sev h">Alto</span><div><b>Datos que se contradicen</b><p>"11 años" y "12 años"; la azucarada dice "The Cántaro presentaciones"; embalaje de 800 g y 100 g que no existen.</p></div></li>
+          <li><span class="sev m">Medio</span><div><b>Testimonios duplicados</b><p>Mismo texto, dos nombres, y el error "Mudilacteos".</p></div></li>
+        </ul>
+      </div>
+      <div class="card rise">
+        <h3>Diseño y accesibilidad</h3>
+        <ul class="finds">
+          <li><span class="sev h">Alto</span><div><b>Logo de baja resolución</b><p>Recorte de 350 × 286 px que se corta en celular.</p></div></li>
+          <li><span class="sev h">Alto</span><div><b>Contenido distinto por dispositivo</b><p>El H1 del celular no es el mismo del escritorio.</p></div></li>
+          <li><span class="sev m">Medio</span><div><b>7 enlaces vacíos</b><p>Facebook, Twitter y YouTube no llevan a ninguna parte.</p></div></li>
+          <li><span class="sev m">Medio</span><div><b>Llamadas a la acción repetidas</b><p>Cuatro textos distintos para el mismo formulario.</p></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="shots" style="margin-top:clamp(40px,6vw,72px)">
+      <figure><div class="frame"><img src="shots/actual-home-desk.webp" alt="Página de inicio actual completa en escritorio" width="1000" height="3992" loading="lazy"></div><figcaption>Home actual en escritorio. Desplace dentro del marco.</figcaption></figure>
+      <figure><div class="phone-f"><img src="shots/actual-home-mob.webp" alt="Página de inicio actual en celular" width="390" height="1700" loading="lazy"></div><figcaption>En celular: logo cortado y un H1 distinto.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="competencia" style="background:var(--surface-2)" aria-labelledby="t-comp">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="t-comp">La competencia también está lenta</h2>
+      <p class="lede">Los líderes nacionales (Colanta, Alpina, Alquería), el competidor directo en la costa (Coolechera) y el mejor sitio B2B de leche en polvo por bulto (Bluxus). Ninguno pasa de 61 en rendimiento móvil.</p>
+    </div>
+    <div class="card rise">
+      <h3>Rendimiento móvil, puntaje Lighthouse de 0 a 100</h3>
+      <div class="chart" id="chart" role="img" aria-label="Barras de rendimiento móvil: Alpina 27, Alquería 35, Coolechera 37, Bluxus 45, Colanta 61, Mundilácteos hoy 62, Concepto 3 84, Concepto 4 88"></div>
+      <div class="axis" aria-hidden="true"><span></span><div><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div></div>
+      <div class="legend"><span><i style="background:var(--bar-comp)"></i>Competidores</span><span><i style="background:var(--bar-hoy)"></i>Mundilácteos hoy</span><span><i style="background:var(--bar-new)"></i>Conceptos propuestos</span></div>
+      <p class="note" style="margin-top:12px">Una corrida por sitio el 25-sep-2026; los conceptos, mediana de tres corridas en servidor local. Los valores exactos están en la comparativa.</p>
+    </div>
+
+    <div class="rail" tabindex="0" aria-label="Competidores analizados">
+      <article class="comp"><div class="im"><img src="shots/comp-alqueria-productos.webp" alt="Catálogo de Alquería" loading="lazy" width="1000" height="902"></div><div class="bd"><div class="row"><h3>Alquería</h3><span class="score">35</span></div><ul><li>Catálogo con chips de categoría.</li><li>Página de certificaciones con sello y explicación.</li><li>Recetas y blog de uso.</li></ul><p class="take"><b>Tomamos:</b> certificados explicados y descargables; filtros por formato.</p></div></article>
+      <article class="comp"><div class="im"><img src="shots/comp-bluxus-producto.webp" alt="Ficha de bulto de 25 kg en Bluxus" loading="lazy" width="1000" height="1666"></div><div class="bd"><div class="row"><h3>Bluxus, Milk Día</h3><span class="score">45</span></div><ul><li>Niveles por volumen: 10 bultos, 200 bultos, más de 25 toneladas al mes.</li><li>Ficha técnica, registro sanitario y usos por industria.</li><li>SEO 100: una página por producto.</li></ul><p class="take"><b>Tomamos:</b> ficha por referencia con volumen y usos. Evitamos sus fotos genéricas.</p></div></article>
+      <article class="comp"><div class="im"><img src="shots/comp-colanta-leches.webp" alt="Categoría Leches de Colanta" loading="lazy" width="1000" height="1388"></div><div class="bd"><div class="row"><h3>Colanta</h3><span class="score">61</span></div><ul><li>Portafolio agrupado por tipo de leche.</li><li>Relato de origen: más de 12.000 asociados.</li><li>Secciones que cargan vacías.</li></ul><p class="take"><b>Tomamos:</b> agrupar por formato y contar el origen en Cartagena con datos.</p></div></article>
+      <article class="comp"><div class="im"><img src="shots/comp-coolechera.webp" alt="Home de Coolechera" loading="lazy" width="1000" height="625"></div><div class="bd"><div class="row"><h3>Coolechera</h3><span class="score">37</span></div><ul><li>Cooperativa de la costa desde 1933.</li><li>Canales de venta con mapa y un contacto por canal.</li><li>Fotografía de personas reales del campo.</li></ul><p class="take"><b>Tomamos:</b> contacto por tipo de cliente y cobertura con mapa.</p></div></article>
+      <article class="comp"><div class="im"><img src="shots/comp-alpina.webp" alt="Home de Alpina" loading="lazy" width="1000" height="625"></div><div class="bd"><div class="row"><h3>Alpina</h3><span class="score">27</span></div><ul><li>Universo de marcas con acceso directo.</li><li>Contenido de nutrición.</li><li>El más lento del grupo.</li></ul><p class="take"><b>Tomamos:</b> The Cántaro y La Becerrita con personalidad propia, sin el peso.</p></div></article>
+    </div>
+    <p class="note">Deslice la fila para ver los cinco competidores.</p>
+  </div>
+</section>
+
+<section class="sec" id="marca" aria-labelledby="t-marca">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="t-marca">Los colores son los de su marca</h2>
+      <p class="lede">Tomamos cada color del logo actual y de los colores globales del sitio. Los dos conceptos usan la misma paleta; lo que cambia es cuál domina. Toque un color para copiar su código.</p>
+    </div>
+    <div class="brand">
+      <div class="logo-card rise"><img src="shots/logo-actual.webp" alt="Logo actual de Mundilácteos" width="350" height="286"><p>Logo actual. El nuevo logo, cuando exista, conserva esta familia de verdes y azules.</p></div>
+      <div>
+        <div class="sw" id="sw">
+          <button type="button" data-hex="#1F7F02"><i style="background:#1F7F02"></i><span><b>Verde bosque</b><code>#1F7F02</code><small>Logo y sitio actual</small></span></button>
+          <button type="button" data-hex="#43A513"><i style="background:#43A513"></i><span><b>Verde marca</b><code>#43A513</code><small>Esfera del logo</small></span></button>
+          <button type="button" data-hex="#67C100"><i style="background:#67C100"></i><span><b>Verde lima</b><code>#67C100</code><small>Brillo del logo</small></span></button>
+          <button type="button" data-hex="#DFAB3D"><i style="background:#DFAB3D"></i><span><b>Dorado</b><code>#DFAB3D</code><small>Botón Cotizar actual</small></span></button>
+          <button type="button" data-hex="#07476F"><i style="background:#07476F"></i><span><b>Azul profundo</b><code>#07476F</code><small>Sitio actual</small></span></button>
+          <button type="button" data-hex="#0377BF"><i style="background:#0377BF"></i><span><b>Azul marca</b><code>#0377BF</code><small>Sitio actual</small></span></button>
+          <button type="button" data-hex="#0495EF"><i style="background:#0495EF"></i><span><b>Azul cielo</b><code>#0495EF</code><small>Logo y sitio actual</small></span></button>
+          <button type="button" data-hex="#E9F8FF"><i style="background:#E9F8FF"></i><span><b>Celeste leche</b><code>#E9F8FF</code><small>Fondos del sitio actual</small></span></button>
+        </div>
+        <p class="note" id="sw-msg" role="status" style="min-height:1.4em;margin-top:8px"></p>
+        <div class="mix">
+          <div><div class="lbl">Concepto 3, Planta Abierta <span>domina el azul</span></div>
+            <div class="stack" aria-label="Proporción aproximada: azul profundo 30 %, celeste 25 %, azul marca 20 %, blanco 15 %, verdes 10 %"><i style="flex:30;background:#07476F"></i><i style="flex:25;background:#E9F8FF"></i><i style="flex:20;background:#0377BF"></i><i style="flex:15;background:#FFFFFF"></i><i style="flex:7;background:#1F7F02"></i><i style="flex:3;background:#67C100"></i></div></div>
+          <div><div class="lbl">Concepto 4, Rinde <span>domina el verde</span></div>
+            <div class="stack" aria-label="Proporción aproximada: verde 30 %, blanco 25 %, azul profundo 20 %, celeste 12 %, lima 8 %, dorado 5 %"><i style="flex:30;background:#1F7F02"></i><i style="flex:25;background:#FFFFFF"></i><i style="flex:20;background:#07476F"></i><i style="flex:12;background:#E9F8FF"></i><i style="flex:8;background:#67C100"></i><i style="flex:5;background:#DFAB3D"></i></div></div>
+          <p class="note">Proporción aproximada de superficie en la página de inicio.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="planta" style="padding-top:0" aria-labelledby="t-c1">
+  <div class="wrap">
+    <div class="concept c1"><span class="cword" aria-hidden="true">PLANTA</span>
+      <div class="c-head">
+        <div>
+          <p class="kick">Concepto 3, inspirado en lo mejor del segmento</p>
+          <h2 id="t-c1">Planta Abierta</h2>
+          <p class="muted">Un sitio corporativo B2B que muestra todo lo que un comprador necesita verificar: 26 referencias con ficha, certificados descargables y cobertura de despacho.</p>
+          <div class="pal" aria-label="Paleta del concepto"><i style="background:#07476F"></i><i style="background:#0377BF"></i><i style="background:#E9F8FF"></i><i style="background:#1F7F02"></i><i style="background:#67C100"></i></div>
+        </div>
+        <div class="c-acts"><a class="pill blue" href="concepto-3/index.html" target="_blank" rel="noopener">Abrir Home</a><a class="pill line" href="concepto-3/catalogo.html" target="_blank" rel="noopener">Abrir Catálogo</a></div>
+      </div>
+      <div class="devices">
+        <div class="dev-l"><div class="scr" tabindex="0" aria-label="Home del Concepto 3 en escritorio, desplazable"><img src="shots/c1-home-desk.webp" alt="Home completa del Concepto 3 en escritorio" width="1100" height="4588" loading="lazy"></div><div class="base"></div></div>
+        <div class="dev-p" tabindex="0" aria-label="Home del Concepto 3 en celular, desplazable"><img src="shots/c1-home-mob.webp" alt="Home del Concepto 3 en celular" width="390" height="4800" loading="lazy"></div>
+      </div>
+      <p class="scroll-hint muted">Desplace dentro de las pantallas para recorrer la página.</p>
+      <div class="feats">
+        <div class="feat rise"><div class="fi"><img src="shots/x-finder.webp" alt="Selector de presentación" loading="lazy" width="1000" height="625"></div><div class="fb"><h4>Selector de presentación</h4><p>Tres respuestas y calcula cuánto comprar al mes: 47 pacas de 900 g para un supermercado.</p></div></div>
+        <div class="feat rise"><div class="fi"><img src="shots/x-cmd.webp" alt="Búsqueda instantánea" loading="lazy" width="1000" height="625"></div><div class="fb"><h4>Búsqueda con Ctrl K</h4><p>"bulto 25" encuentra las tres referencias al escribir, con teclado.</p></div></div>
+        <div class="feat rise"><div class="fi"><img src="shots/x-bento-dark.webp" alt="Calidad en bento, modo oscuro" loading="lazy" width="1000" height="625"></div><div class="fb"><h4>Calidad verificable, con modo oscuro</h4><p>ISO, Invima, vida útil y proceso en un bento. El modo oscuro sigue al sistema.</p></div></div>
+      </div>
+      <div class="info">
+        <div><h4>Mapa del sitio</h4><div class="chips"><span>Inicio</span><span>Catálogo (26)</span><span>Ficha por referencia</span><span>Marca propia</span><span>Calidad</span><span>Distribución</span><span>Nosotros</span><span>Recursos</span><span>Cotizar</span></div></div>
+        <div><h4>Catálogo</h4><ul class="dots"><li>Filtros por formato, marca, tipo y peso, con conteos.</li><li>Ficha con pestañas: presentación, ficha técnica, empaque.</li><li>Carrito de cotización guardado entre páginas.</li></ul></div>
+        <div><h4>Lo que lo distingue</h4><ul class="dots"><li>Frente a hoy: 26 referencias en vez de 3 familias.</li><li>Frente al Concepto 4: sobrio y corporativo, para áreas de compras.</li><li>Tipografía Archivo, de sello industrial.</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="rinde" style="padding-top:0" aria-labelledby="t-c2">
+  <div class="wrap">
+    <div class="concept c2"><span class="cword" aria-hidden="true">RINDE</span>
+      <div class="c-head">
+        <div>
+          <p class="kick">Concepto 4, independiente</p>
+          <h2 id="t-c2">Rinde</h2>
+          <p class="muted">Responde la pregunta de todo comprador: cuánta leche sale de cada presentación. Se navega por necesidad (casa, tienda, panadería) y el pedido se envía por WhatsApp.</p>
+          <div class="pal" aria-label="Paleta del concepto"><i style="background:#1F7F02"></i><i style="background:#67C100"></i><i style="background:#07476F"></i><i style="background:#E9F8FF"></i><i style="background:#DFAB3D"></i></div>
+        </div>
+        <div class="c-acts"><a class="pill" href="concepto-4/index.html" target="_blank" rel="noopener">Abrir Home</a><a class="pill line" href="concepto-4/catalogo.html" target="_blank" rel="noopener">Abrir Catálogo</a></div>
+      </div>
+      <div class="devices">
+        <div class="dev-l"><div class="scr" tabindex="0" aria-label="Home del Concepto 4 en escritorio, desplazable"><img src="shots/c2-home-desk.webp" alt="Home completa del Concepto 4 en escritorio" width="1100" height="4776" loading="lazy"></div><div class="base"></div></div>
+        <div class="dev-p" tabindex="0" aria-label="Home del Concepto 4 en celular, desplazable"><img src="shots/c2-home-mob.webp" alt="Home del Concepto 4 en celular" width="390" height="4800" loading="lazy"></div>
+      </div>
+      <p class="scroll-hint muted">Desplace dentro de las pantallas para recorrer la página.</p>
+      <div class="feats">
+        <div class="feat rise"><div class="fi"><img src="shots/x-c2-calc.webp" alt="Calculadora de rendimiento" loading="lazy" width="1000" height="750"></div><div class="fb"><h4>Calculadora de rendimiento</h4><p>El bulto de 25 kg como 961 vasos de 200 ml, cada uno un punto.</p></div></div>
+        <div class="feat rise"><div class="fi"><img src="shots/c2-cat-desk.webp" alt="Lista de presentaciones" loading="lazy" width="1100" height="1145"></div><div class="fb"><h4>Lista de presentaciones</h4><p>Ordenada por peso, con paca, rendimiento y pedido con + y −.</p></div></div>
+        <div class="feat rise"><div class="fi"><img src="shots/x-c2-pedido-mob.webp" alt="Pedido listo para WhatsApp en celular" loading="lazy" width="390" height="844" style="object-position:center 40%"></div><div class="fb"><h4>Pedido por WhatsApp</h4><p>Peso total calculado y mensaje listo para enviar o copiar.</p></div></div>
+      </div>
+      <div class="info">
+        <div><h4>Mapa del sitio</h4><div class="chips"><span>Inicio con calculadora</span><span>Para la casa</span><span>Para su negocio</span><span>Para la industria</span><span>Presentaciones</span><span>Marca propia</span><span>Recetas</span><span>Pedir precio</span></div></div>
+        <div><h4>Personalización</h4><ul class="dots"><li>"Soy tienda, panadería u hogar" cambia el texto y la regla.</li><li>El catálogo abre en la pestaña de ese perfil.</li><li>El pedido se guarda entre páginas.</li></ul></div>
+        <div><h4>Lo que lo distingue</h4><ul class="dots"><li>Frente a hoy: de "contáctenos" a un pedido con cantidades.</li><li>Frente al Concepto 3: cálido y regional, para tenderos y panaderías.</li><li>Tipografía condensada de letrero de tienda.</li></ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="diseno" aria-labelledby="t-dis">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="t-dis">Tipografía y movimiento, pensados para la leche</h2>
+      <p class="lede">Cada concepto tiene una tipografía con un eje variable que cuenta algo del producto, y un solo momento de movimiento protagonista. Pruebe las fuentes aquí.</p>
+    </div>
+    <div class="grid2">
+      <div class="card type-card rise">
+        <p class="note">Concepto 3 · Archivo, eje de ancho de 62 a 125</p>
+        <p class="spec-a" id="specA" style="--w:125">25 kg</p>
+        <label class="rng"><span>Ancho</span><input type="range" id="rA" min="62" max="125" value="125"><output id="oA">125</output></label>
+        <p class="note">El ancho de la letra representa el tamaño del empaque: el bulto de 25 kg se escribe expandido y la bolsa de 27 g condensada. Al cargar la página, las dos palabras se estiran y se comprimen una sola vez.</p>
+      </div>
+      <div class="card type-card rise">
+        <p class="note">Concepto 4 · Big Shoulders, eje de peso de 100 a 900</p>
+        <p class="spec-b" id="specB" style="--g:900">192 litros</p>
+        <label class="rng"><span>Peso</span><input type="range" id="rB" min="100" max="900" step="10" value="900"><output id="oB">900</output></label>
+        <p class="note">Letra condensada de letrero de tienda. El titular pasa de fino a grueso al cargar, los títulos ganan peso al entrar en pantalla y la versión stencil imita la impresión de los sacos.</p>
+        <p class="spec-s">27 g ✦ 900 g ✦ 25 kg</p>
+      </div>
+    </div>
+    <div class="grid2" style="margin-top:20px">
+      <figure class="rise"><div class="frame" style="max-height:none"><img src="shots/x-c1-hero.webp" alt="Hero del Concepto 3 con plano técnico y capas de producto" width="1000" height="625" loading="lazy"></div><figcaption>Concepto 3: fondo de plano técnico de planta, anillos de medición que giran lento, cotas del empaque y productos en tres capas que se mueven a distinta velocidad con el scroll.</figcaption></figure>
+      <figure class="rise"><div class="frame" style="max-height:none"><img src="shots/x-c2-stack.webp" alt="Tarjetas apiladas del Concepto 4" width="1000" height="625" loading="lazy"></div><figcaption>Concepto 4: las cuatro necesidades se apilan como tarjetas al hacer scroll, cada una con su color de marca y sus empaques en abanico.</figcaption></figure>
+    </div>
+    <div class="grid2" style="margin-top:20px">
+      <div class="card rise"><h3>Movimiento del Concepto 3</h3><ul class="mv"><li><b>Entrada del titular</b> por líneas, con cambio de ancho en "25 kg" y "27 g".</li><li><b>Parallax</b> de bulto y bolsas ligado al scroll, solo con CSS.</li><li><b>Marquesina</b> de clientes que se detiene al pasar el mouse.</li><li><b>Secciones como hojas</b> superpuestas con esquinas redondeadas.</li><li><b>Sello ISO</b> con texto circular que gira lento.</li><li><b>Mapa</b> con flujo sobre las rutas y pulso en Cartagena.</li><li><b>Luz que sigue al puntero</b> en tarjetas y empaque que vuela a la cotización.</li></ul></div>
+      <div class="card rise"><h3>Movimiento del Concepto 4</h3><ul class="mv"><li><b>Titular</b> que cambia de peso al cargar, sobre la palabra "RINDE" en contorno.</li><li><b>Odómetro</b>: los litros ruedan dígito por dígito al mover la regla.</li><li><b>1.000 puntos</b> que se llenan como vasos de leche.</li><li><b>Banda stencil</b> con las 12 presentaciones en movimiento.</li><li><b>Olas</b> de leche entre secciones y salpicadura que flota.</li><li><b>Tarjetas apiladas</b> que se reducen al salir de pantalla.</li><li><b>Etiqueta de respaldo</b> inclinada que se endereza al pasar el mouse.</li></ul></div>
+    </div>
+    <p class="note" style="margin-top:14px">Todo el movimiento respeta la opción "reducir movimiento" del sistema y el contenido se ve completo aunque el navegador no soporte los efectos.</p>
+  </div>
+</section>
+
+<section class="sec" id="tendencias" style="background:var(--surface-2)" aria-labelledby="t-trend">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="t-trend">Vanguardia sin modas</h2>
+      <p class="lede">Solo usamos tendencias que funcionan hoy en Chrome y Safari o son estándar de la web, que tienen respaldo en sitios B2B y que no rompen nada si un navegador no las soporta.</p>
+    </div>
+    <div class="trends">
+      <article class="tr-c rise"><h3>Autoservicio del comprador</h3><span class="sup">67 % prefiere no depender de un vendedor</span><p>Gartner y 6sense, citados por DesignRush: el comprador B2B arma su lista antes de llamar.</p><dl><div><dt class="k1">C3</dt><dd>Selector que calcula pacas o bultos al mes.</dd></div><div><dt class="k2">C4</dt><dd>Calculadora de rendimiento con 1.000 vasos.</dd></div></dl></article>
+      <article class="tr-c rise"><h3>Navegación por uso</h3><span class="sup">Tendencia n.º 1 en B2B industrial</span><p>Entrar por necesidad y no por catálogo, según DesignRush.</p><dl><div><dt class="k1">C3</dt><dd>"¿Para qué la compra?"</dd></div><div><dt class="k2">C4</dt><dd>Casa, tienda, panadería y marca propia.</dd></div></dl></article>
+      <article class="tr-c rise"><h3>Personalización por perfil</h3><span class="sup">Recomendada por Wandr para B2B</span><p>Basada en lo que el visitante dice de sí mismo, sin rastreo invasivo.</p><dl><div><dt class="k1">C3</dt><dd>Cotización que sigue al visitante.</dd></div><div><dt class="k2">C4</dt><dd>Perfil recordado que ajusta hero y catálogo.</dd></div></dl></article>
+      <article class="tr-c rise"><h3>Búsqueda instantánea</h3><span class="sup">HTML estándar, sin librerías</span><p>El patrón de las herramientas profesionales: Ctrl K o ⌘ K.</p><dl><div><dt class="k1">C3</dt><dd>Productos y páginas, con teclado.</dd></div><div><dt class="k2">C4</dt><dd>Lista filtrada en vivo.</dd></div></dl></article>
+      <article class="tr-c rise"><h3>Transiciones entre páginas</h3><span class="sup">Chrome 126+ y Safari 18.2+</span><p>View Transitions nativas. En Firefox se navega normal.</p><dl><div><dt class="k1">C3</dt><dd>Encabezado fijo y filtros animados.</dd></div><div><dt class="k2">C4</dt><dd>Pestañas y marcas animadas.</dd></div></dl></article>
+      <article class="tr-c rise"><h3>Animación con el scroll</h3><span class="sup">Chrome 115+ y Safari 26+</span><p>Solo CSS, incluida en Interop 2026. Respeta "reducir movimiento".</p><dl><div><dt class="k1">C3</dt><dd>Proceso que avanza, rutas que se dibujan.</dd></div><div><dt class="k2">C4</dt><dd>Títulos que ganan peso al entrar.</dd></div></dl></article>
+      <article class="tr-c rise"><h3>Bento y CSS moderno</h3><span class="sup">Container queries y :has() desde 2023</span><p>Popover API desde enero de 2025: menús sin librerías.</p><dl><div><dt class="k1">C3</dt><dd>Calidad en bento, mega menú, tarjetas adaptables.</dd></div><div><dt class="k2">C4</dt><dd>Visualización en canvas.</dd></div></dl></article>
+      <article class="tr-c rise"><h3>Navegación inferior en celular</h3><span class="sup">60 % del tráfico es móvil</span><p>Los accesos quedan en la zona del pulgar (Designmodo).</p><dl><div><dt class="k1">C3</dt><dd>Inicio, catálogo, buscar, cotizar, WhatsApp.</dd></div><div><dt class="k2">C4</dt><dd>Inicio, presentaciones, pedido, WhatsApp.</dd></div></dl></article>
+      <article class="tr-c rise"><h3>Datos para buscadores con IA</h3><span class="sup">Prioridad n.º 1 de Wandr para 2026</span><p>Los compradores investigan con asistentes de IA.</p><dl><div><dt class="k1">C3</dt><dd>Empresa y 26 referencias en schema.org.</dd></div><div><dt class="k2">C4</dt><dd>Igual.</dd></div></dl></article>
+    </div>
+    <h3 style="margin-top:40px">Lo que dejamos por fuera a propósito</h3>
+    <div class="nope"><span>3D y WebGL pesados</span><span>Scroll secuestrado</span><span>Chat de IA que se abre solo</span><span>Modo oscuro por defecto</span><span>Neobrutalismo y estética Y2K</span><span>Fotos generadas por IA</span><span>Colores ajenos a la marca</span></div>
+  </div>
+</section>
+
+<section class="sec" id="comparativa" aria-labelledby="t-cmp">
+  <div class="wrap">
+    <div class="head"><h2 id="t-cmp">Comparativa</h2></div>
+    <div class="tbl rise"><table>
+      <thead><tr><th scope="col"></th><th scope="col">Sitio actual</th><th scope="col">Concepto 3, Planta Abierta</th><th scope="col">Concepto 4, Rinde</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Cliente principal</th><td>Indefinido</td><td>Compras de supermercados, distribuidores e industria</td><td>Tenderos, panaderías y hogar, sin dejar de lado al mayorista</td></tr>
+        <tr><th scope="row">Referencias visibles</th><td>3 familias</td><td class="win">26, con ficha</td><td class="win">26, con rendimiento</td></tr>
+        <tr><th scope="row">Forma de pedir</th><td>Formulario genérico</td><td>Carrito de cotización y formulario por tipo de cliente</td><td>Pedido con cantidades por WhatsApp</td></tr>
+        <tr><th scope="row">Color dominante</th><td>Verde y azul sin sistema</td><td>Azul de marca</td><td>Verde de marca</td></tr>
+        <tr><th scope="row">Rendimiento móvil, home</th><td class="n">62</td><td class="n">84</td><td class="n win">88</td></tr>
+        <tr><th scope="row">Rendimiento móvil, catálogo</th><td class="n">72</td><td class="n">86</td><td class="n win">90</td></tr>
+        <tr><th scope="row">Accesibilidad, home</th><td class="n">93</td><td class="n win">100</td><td class="n">97</td></tr>
+        <tr><th scope="row">Peso de la home</th><td class="n">850 KiB</td><td class="n">336 KiB</td><td class="n win">170 KiB</td></tr>
+        <tr><th scope="row">Tiempo hasta el contenido principal</th><td class="n">6,8 s</td><td class="n">3,3 s</td><td class="n win">2,9 s</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note" style="margin-top:10px">Lighthouse móvil. Sitio actual: una corrida el 25-sep-2026. Conceptos: mediana de tres corridas en servidor local; en Hostinger sumará el tiempo de respuesta del servidor. Las animaciones de entrada y las fuentes cargadas desde Google cuestan unos puntos en el prototipo; en producción las fuentes van en el mismo hosting y el CSS crítico en línea. El contraste que falta en el Concepto 4 es el del logotipo, exento en WCAG.</p>
+  </div>
+</section>
+
+<section class="sec" id="tecnologia" style="background:var(--surface-2)" aria-labelledby="t-tec">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="t-tec">Sin WordPress y en su mismo hosting</h2>
+      <p class="lede">Hostinger sirve HTML y PHP sin WordPress. Ningún concepto queda limitado por un gestor de contenidos.</p>
+    </div>
+    <div class="tech">
+      <div class="card rise"><h3>Sitio estático con Astro</h3><p>HTML ya construido, sin base de datos: rápido y seguro. Cada una de las 26 referencias tiene su propia página indexable.</p></div>
+      <div class="card rise"><h3>Edición desde el navegador</h3><p>Decap CMS o Pages CMS permiten cambiar productos y blog sin WordPress. Alternativa: un panel PHP sencillo en el mismo hosting.</p></div>
+      <div class="card rise"><h3>Formularios y WhatsApp</h3><p>Script PHP que envía cotizaciones al correo de ventas, con anti-spam y autorización de datos (Ley 1581 de 2012).</p></div>
+    </div>
+    <p class="note" style="margin-top:16px">Migración: conservar /productos/, /nosotros/ y /contacto/ con redirecciones 301; retirar WordPress al publicar o, si sigue un tiempo, subir PHP a 8.2 o superior. Falta confirmar el plan de Hostinger y el acceso a hPanel.</p>
+  </div>
+</section>
+
+<section class="sec" id="validar" aria-labelledby="t-val">
+  <div class="wrap">
+    <div class="head">
+      <h2 id="t-val">Lo que Mundilácteos debe confirmar</h2>
+      <p class="lede">Los prototipos usan los datos publicados hoy. Estos puntos se contradicen o son supuestos nuestros.</p>
+    </div>
+    <div class="checks">
+      <div>Teléfono vigente: 311 429 3448 o 319 769 0990.</div>
+      <div>Años en el mercado: 11 o 12.</div>
+      <div>Gramajes por marca. Asignamos 27, 104, 200, 750 y 1.000 g a The Cántaro entera.</div>
+      <div>Pacas de 800 g y 100 g que aparecen en el embalaje pero no en las presentaciones.</div>
+      <div>Número y alcance del certificado ISO 9001:2015 y registros Invima por producto.</div>
+      <div>Ficha técnica y proporción de reconstitución. Usamos 130 g por litro.</div>
+      <div>Si ofrecen empaque con marca de terceros. Una ficha pública de The Cántaro lista otras marcas.</div>
+      <div>Tiempos de entrega por región y clientes que autorizan aparecer en el sitio.</div>
+      <div>Origen de la cifra "+869.000 clientes satisfechos".</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="plan" style="background:var(--surface-2)" aria-labelledby="t-plan">
+  <div class="wrap">
+    <div class="head"><h2 id="t-plan">Próximos pasos</h2></div>
+    <ol class="plan">
+      <li><h4>Elegir concepto</h4><p>Se pueden combinar: por ejemplo el catálogo del 3 con la calculadora del 4.</p></li>
+      <li><h4>Marca y contenido</h4><p>Logo actualizado, fotografía de producto y planta, datos validados.</p></li>
+      <li><h4>Diseño completo</h4><p>Todas las páginas en escritorio y celular, con textos finales.</p></li>
+      <li><h4>Desarrollo y lanzamiento</h4><p>Construcción, redirecciones, pruebas de velocidad y publicación.</p></li>
+    </ol>
+    <p class="note" style="margin-top:20px">El orden es fijo; la duración depende de la entrega de fotografías y datos.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <h3>Fuentes</h3>
+    <div class="src">
+      <p><a href="https://mundilacteos.com/" target="_blank" rel="noopener">mundilacteos.com</a> y su API pública de WordPress</p>
+      <p><a href="https://colanta.com/categorias-de-productos/leches/" target="_blank" rel="noopener">Colanta</a>, <a href="https://alpina.com/" target="_blank" rel="noopener">Alpina</a>, <a href="https://www.alqueria.com.co/productos" target="_blank" rel="noopener">Alquería</a>, <a href="https://coolechera.com/" target="_blank" rel="noopener">Coolechera</a>, <a href="https://bluxus.com/producto/leche-en-polvo-entera-25kg-bulto-mayorista/" target="_blank" rel="noopener">Bluxus</a></p>
+      <p><a href="https://pdfcoffee.com/download/ficha-tecnica-leche-the-cantaro-con-hierro-5-pdf-free.html" target="_blank" rel="noopener">Ficha técnica pública de The Cántaro</a></p>
+      <p><a href="https://www.designrush.com/agency/website-design-development/trends/manufacturing-web-design-trends" target="_blank" rel="noopener">DesignRush, tendencias B2B industriales</a></p>
+      <p><a href="https://wandr.studio/blog/b2b-web-design-trends-2026" target="_blank" rel="noopener">Wandr, tendencias B2B 2026</a></p>
+      <p><a href="https://designmodo.com/web-design-trends/" target="_blank" rel="noopener">Designmodo</a> y <a href="https://www.figma.com/resource-library/web-design-trends/" target="_blank" rel="noopener">Figma</a>, tendencias 2026</p>
+      <p><a href="https://web-platform-dx.github.io/web-features-explorer/features/scroll-driven-animations/" target="_blank" rel="noopener">Soporte de animaciones por scroll</a> y <a href="https://trade-assistance.com/blog/cross-document-view-transitions-mpa-2026/" target="_blank" rel="noopener">de View Transitions</a></p>
+      <p><a href="https://www.buildmvpfast.com/blog/web-platform-baseline-2026-new-features-browser-support" target="_blank" rel="noopener">Baseline 2026</a></p>
+    </div>
+    <p style="margin-top:28px">Propuesta preparada por 3DIGIT-ALL FACTORY S.A.S., Medellín. Prototipos de diseño; contenido por validar con Mundilácteos.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* Antes y después */
+  var ba=document.getElementById('ba'),r=document.getElementById('ba-r');
+  r.addEventListener('input',function(){ba.style.setProperty('--x',r.value+'%')});
+  document.querySelectorAll('[data-ba]').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('[data-ba]').forEach(function(o){o.setAttribute('aria-pressed',o===b)});
+    document.getElementById('ba-after').src=b.dataset.ba;document.getElementById('ba-lab').textContent=b.dataset.lab;})});
+  /* Gráfico de barras */
+  var D=[['Alpina',27,''],['Alquería',35,''],['Coolechera',37,''],['Bluxus',45,''],['Colanta',61,''],['Mundilácteos hoy',62,'hoy'],['Concepto 3',84,'new'],['Concepto 4',88,'new']];
+  document.getElementById('chart').innerHTML=D.map(function(d){return '<div class="bar '+d[2]+'"><span class="nm">'+d[0]+'</span><div class="tr" tabindex="0"><div class="fl" style="width:'+d[1]+'%"><span>'+d[1]+'</span></div><span class="tip">'+d[0]+': '+d[1]+' de 100</span></div></div>'}).join('');
+  /* Probador tipográfico */
+  var rA=document.getElementById('rA'),rB=document.getElementById('rB');
+  rA.addEventListener('input',function(){document.getElementById('specA').style.setProperty('--w',rA.value);document.getElementById('oA').textContent=rA.value;document.getElementById('specA').textContent=rA.value<90?'27 g':'25 kg'});
+  rB.addEventListener('input',function(){document.getElementById('specB').style.setProperty('--g',rB.value);document.getElementById('oB').textContent=rB.value});
+  /* Copiar colores */
+  var msg=document.getElementById('sw-msg');
+  document.getElementById('sw').addEventListener('click',function(e){var b=e.target.closest('[data-hex]');if(!b)return;var h=b.dataset.hex;
+    try{navigator.clipboard.writeText(h).then(function(){msg.textContent='Copiado: '+h},function(){msg.textContent='Código: '+h})}catch(err){msg.textContent='Código: '+h}});
+})();
+</script>
+
+</body>
+</html>
